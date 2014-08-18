@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/gainsboro"
+    android:orientation="vertical"
+    tools:context="unb.mdsgpp.qualcurso.EvaluationDetailFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp" >
+
+        <TextView
+            android:id="@+id/university"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/medium_green"
+            android:ems="10"
+            android:fontFamily="@string/title_section1"
+            android:gravity="center|fill"
+            android:padding="15dp"
+            android:text="@string/university"
+            android:textColor="@color/medium_dark_green"
+            android:textSize="@dimen/title_dimension"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/university_acronym"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/medium_green"
+            android:ems="10"
+            android:fontFamily="@string/title_section1"
+            android:gravity="left|fill"
+            android:textColor="@color/white"
+            android:textSize="@dimen/university_dimension"
+            android:textStyle="bold" />
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/general_information"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dark_gray"
+        android:ems="10"
+        android:gravity="center"
+        android:text="@string/general_information"
+        android:textColor="@color/white"
+        android:textSize="@dimen/subtitle_dimension"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/general_data"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/gainsboro"
+        android:ems="10"
+        android:fontFamily="@string/title_section1"
+        android:gravity="left|fill"
+        android:textColor="@color/black"
+        android:textSize="@dimen/subtitle_dimension"
+        android:textStyle="bold"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dark_gray"
+        android:ems="10"
+        android:gravity="center"
+        android:text="@string/indicator"
+        android:textColor="@color/white"
+        android:textSize="@dimen/subtitle_dimension"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/indicator_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>

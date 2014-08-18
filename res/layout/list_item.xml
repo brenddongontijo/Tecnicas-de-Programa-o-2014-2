@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="30dp"
+            android:layout_weight="1" 
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+        
+        <ImageView 
+            android:id="@+id/trophyIcon"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+     		android:layout_height="30dp"
+      		android:scaleType="centerInside"
+      		android:contentDescription="@string/trophyImage"/>
+
+        <TextView
+            android:id="@+id/university"
+            android:layout_width="0dp"
+            android:gravity="start"
+            android:layout_height="30dp"
+            android:layout_weight="4" 
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/data"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+</LinearLayout>

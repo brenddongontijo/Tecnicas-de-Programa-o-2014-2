@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Imagem de fundo da tela do listview -->
+    <drawable name="QCBackgroundPortrait">@drawable/background_qc_portrait </drawable>
+    <drawable name="QCBackgroundLandscape">@drawable/background_qc_landscape</drawable>
+    <drawable name="GoldTrofeu">@drawable/gold_trophy</drawable>
+    <drawable name="SilverTrofeu">@drawable/silver_trophy</drawable>
+    <drawable name="BronzeTrofeu">@drawable/bronze_trophy</drawable>
+</resources>

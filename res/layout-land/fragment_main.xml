@@ -1,0 +1,103 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="unb.mdsgpp.qualcurso.EvaluationDetailFragment" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/university"
+            android:layout_width="200dp"
+            android:layout_height="65dp"
+            android:layout_alignBottom="@+id/university_acronym"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/medium_green"
+            android:ems="10"
+            android:fontFamily="@string/title_section1"
+            android:gravity="center|fill"
+            android:padding="15dp"
+            android:text="@string/university"
+            android:textColor="@color/medium_dark_green"
+            android:textSize="@dimen/title_dimension"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/university_acronym"
+            android:layout_width="80dp"
+            android:layout_height="65dp"
+            android:layout_alignBottom="@+id/indicator"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/university"
+            android:background="@color/medium_green"
+            android:ems="10"
+            android:fontFamily="@string/title_section1"
+            android:gravity="left|fill"
+            android:textColor="@color/white"
+            android:textSize="@dimen/university_dimension"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/indicator"
+            android:layout_width="254dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/university_acronym"
+            android:background="@color/dark_gray"
+            android:ems="10"
+            android:gravity="center"
+            android:text="@string/indicator"
+            android:textColor="@color/white"
+            android:textSize="@dimen/subtitle_dimension"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/general_information"
+            android:layout_width="279dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/dark_gray"
+            android:ems="10"
+            android:gravity="center"
+            android:text="@string/general_information"
+            android:textColor="@color/white"
+            android:textSize="@dimen/subtitle_dimension"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/indicator_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/general_information" >
+        </ListView>
+
+        <TextView
+            android:id="@+id/general_data"
+            android:layout_width="279dp"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/general_information"
+            android:layout_toLeftOf="@+id/scrollView1"
+            android:background="@color/gainsboro"
+            android:ems="10"
+            android:padding="10dp"
+            android:fontFamily="@string/title_section1"
+            android:gravity="left|fill"
+            android:textColor="@color/black"
+            android:textSize="@dimen/subtitle_dimension"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+  
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+  <style name="light_green_widget" parent="@style/_light_green_widget"/>
+ Generated with http://android-holo-colors.com
+  <style name="_light_green_widget" parent="android:Theme.Holo.Light">
+
+    <item name="android:editTextBackground">@drawable/light_green_widget_edit_text_holo_light</item>
+
+    <item name="android:textColorHighlight">#9932cd99</item>
+    <item name="android:textSelectHandleLeft">@drawable/light_green_widget_text_select_handle_left</item>
+    <item name="android:textSelectHandleRight">@drawable/light_green_widget_text_select_handle_right</item>
+    <item name="android:textSelectHandle">@drawable/light_green_widget_text_select_handle_middle</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewlight_green_widget</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/light_green_widget_btn_check_holo_light</item>
+
+    <item name="android:listChoiceIndicatorSingle">@drawable/light_green_widget_btn_radio_holo_light</item>
+
+    <item name="android:buttonStyle">@style/Buttonlight_green_widget</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonlight_green_widget</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/Spinnerlight_green_widget</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarlight_green_widget</item>
+
+    <item name="android:buttonStyleToggle">@style/Togglelight_green_widget</item>
+
+    <item name="android:listChoiceBackgroundIndicator">@drawable/light_green_widget_list_selector_holo_light</item>
+
+    <item name="android:activatedBackgroundIndicator">@drawable/light_green_widget_activated_background_holo_light</item>
+
+    <item name="android:fastScrollThumbDrawable">@drawable/light_green_widget_fastscroll_thumb_holo</item>
+
+  </style>
+-->
+</resources>

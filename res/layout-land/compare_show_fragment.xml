@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/qc_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1"
+	    android:orientation="vertical" >
+
+        <TextView
+	    	android:id="@+id/compare_course_name"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="0dp"
+	    	android:layout_weight="1"
+			android:background="@color/medium_green"
+	    	android:gravity="center"
+	    	android:text="Nome do curso aqui"
+	    	android:textColor="@color/black"
+	    	android:textSize="@dimen/label_dimension"
+	    	android:textStyle="normal" />
+
+        <LinearLayout
+        	android:layout_width="match_parent"
+	    	android:layout_height="0dp"
+	    	android:layout_weight="1"
+	    	android:orientation="horizontal" >
+
+            <TextView
+	    		android:id="@+id/compare_first_institution_acronym"
+	    		android:layout_width="0dp"
+	    		android:layout_height="match_parent"
+	    		android:layout_weight="10"
+	    		android:background="@color/white"
+	    		android:gravity="center"
+	    		android:text=""
+	    		android:textColor="@color/black"
+	    		android:textSize="@dimen/label_dimension"
+	    		android:textStyle="normal" />
+
+            <FrameLayout
+                android:background="@color/dark_gray"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="0.1" >
+            </FrameLayout>
+
+            <TextView
+	    		android:id="@+id/compare_second_institution_acronym"
+	    		android:layout_width="0dp"
+	    		android:layout_height="match_parent"
+	    		android:layout_weight="10"
+	    		android:background="@color/white"
+	    		android:gravity="center"
+	    		android:text=""
+	    		android:textColor="@color/black"
+	    		android:textSize="@dimen/label_dimension"
+	    		android:textStyle="normal" />
+	    </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/compare_indicator_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+    </ListView>
+
+	<LinearLayout 
+        android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1"
+	    android:orientation="vertical" >
+
+        <TextView
+	    	android:layout_width="match_parent"
+	    	android:layout_height="0dp"
+	    	android:layout_weight="1"
+			android:background="@color/medium_green"
+	    	android:gravity="center"
+	    	android:text="@string/compare_show_better_institutions_results"
+	    	android:textColor="@color/black"
+	    	android:textSize="@dimen/label_dimension"
+	    	android:textStyle="normal" />
+
+        <LinearLayout
+        	android:layout_width="match_parent"
+	    	android:layout_height="0dp"
+	    	android:layout_weight="1"
+	    	android:orientation="horizontal" >
+
+            <TextView
+	    		android:id="@+id/compare_first_institution_better_results"
+	    		android:layout_width="0dp"
+	    		android:layout_height="match_parent"
+	    		android:layout_weight="10"
+	    		android:background="@color/white"
+	    		android:gravity="center"
+	    		android:text=""
+	    		android:textColor="@color/black"
+	    		android:textSize="@dimen/label_dimension"
+	    		android:textStyle="normal" />
+
+            <FrameLayout
+                android:background="@color/dark_gray"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="0.1">
+            </FrameLayout>
+
+            <TextView
+	    		android:id="@+id/compare_second_institution_better_results"
+	    		android:layout_width="0dp"
+	    		android:layout_height="match_parent"
+	    		android:layout_weight="10"
+	    		android:background="@color/white"
+	    		android:gravity="center"
+	    		android:text=""
+	    		android:textColor="@color/black"
+	    		android:textSize="@dimen/label_dimension"
+	    		android:textStyle="normal" />
+	    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

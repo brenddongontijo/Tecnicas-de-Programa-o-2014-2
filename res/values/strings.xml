@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Qual Curso?</string>
+    <string name="title_section1">Avaliações</string>
+    <string name="title_section2">Pesquisar</string>
+    <string name="title_section3">Ranking</string>
+    <string name="title_section4">Histórico de Pesquisa</string>
+    <string name="title_section5">Comparar Instituições</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="university">Universidade:</string>
+    <string name="general_information">INFORMAÇÕES GERAIS</string>
+    <string name="indicator">INDICADORES</string>
+    <string name="m_start_year">Ano de início do mestrado:</string>
+    <string name="d_start_year">Ano de início do doutorado:</string>
+    <string name="year_concept">Conceito no ano avaliado:</string>
+    <string name="permanent_teachers">Média anual de docentes permanentes:</string>
+    <string name="theses">Total de teses defendidas:</string>
+    <string name="dissertation">Total de dissertações defendidas:</string>
+    <string name="artistic_works">Total de trabalhos artísticos defendidos:</string>
+    <string name="chapters">Quantidade de capítulos de livros publicados:</string>
+    <string name="integral_texts">Quantidade de textos integrais publicados:</string>
+    <string name="collections">Quantidade de coletâneas publicadas:</string>
+    <string name="entries">Quantidade de verbetes e outros publicados:</string>
+    <string name="articles">Quantidade de artigos publicados:</string>
+    <string name="works">Quantidade de trabalhos publicados:</string>
+    <string name="empty_search_filter">Escolha um indicador</string>
+    <string name="exit">Sair</string>
+    <string name="about">Sobre</string>
+    <string name="between">Entre:</string>
+    <string name="max">Máx</string>
+    <string name="search">Buscar</string>
+    <string name="line">------------------------------------------------</string>
+    <string name="listBy">Buscar por:</string>
+
+    <string-array name="list">
+        <item>Opção</item>
+        <item>Curso</item>
+        <item>Instituição</item>
+    </string-array>
+    <string-array name="indicator">
+        <item>Indicador</item>
+        <item>Conceito no ano avaliado</item>
+        <item>Ano de inicio de mestrado</item>
+        <item>Ano de inicio do doutorado</item>
+        <item>Média anual de docentes permanentes</item>
+        <item>Total de teses defendidas</item>
+        <item>Total de dissertações defendidas</item>
+        <item>Total de trabalhos artísticos defendidos</item>
+        <item>Quantidade de capítulos de livros publicados</item>
+        <item>Quantidade de textos integrais publicados</item>
+        <item>Quantidade de coletâneas publicadas</item>
+        <item>Quantidade de verbetes e outros publicados</item>
+        <item>Quantidade de artigos publicados</item>
+        <item>Quantidade de trabalhos publicados</item>
+    </string-array>
+    <string-array name="year">
+        <item>Ano</item>
+        <item>2007</item>
+        <item>2010</item>
+    </string-array>
+
+    <string name="course">Curso</string>
+    <string name="institution">Instituição</string>
+    <string name="institutions">Instituições</string>
+    <string name="courses">Cursos</string>
+    <string name="evaluation_date">DATA DA AVALIAÇÃO</string>
+    <string name="modality">MODALIDADE</string>
+    <string name="history">Histórico</string>
+    <string name="search_by">Busca por: </string>
+    <string name="byYear">Ano: </string>
+    <string name="by_indicator">Indicador: </string>
+    <string name="and">e</string>
+	<string name="maximum">Máximo</string>
+	<string name="search_date">Busca realizada em:</string>
+	<string name="title_text_compare">Comparar Instituições</string>
+	<string name="choose_the_evaluation_year">Ano da avaliação:</string>
+	<string name="select_a_course">Selecione um curso</string>
+	<string name="select_a_year">Selecione um ano</string>
+	<string name="compare_show_better_institutions_results">Total de melhores resuldados:</string>
+	<string name="empty_histoty_search_result">Esta busca resulta em uma lista vazia</string>
+	<string name="trophyImage">trophyImage</string>
+    <string name="about_studens_text">Este é um projeto realizado pelos alunos da disciplina de Métodos de Desenvolvimento de Software (MDS) e gerenciado por alunos da disciplina de Gerenciamento de Projetos e Portfólios (GPP), ministrada pelo professor Hilmer Rodrigues Neri na Universidade de Brasília.</string>
+    <string name="about_app_text">O “Qual Curso?” é um aplicativo Android destinado a auxiliar estudantes a encontrar uma instituição de ensino superior com uma melhor qualificação acadêmica, por meio da reunião de dados e indicadores referentes a avaliações de universidades brasileiras.</string>
+	<string name="about_mds_studens_title">Alunos de MDS:</string>
+	<string name="about_gpp_studens_title">Alunos de GPP:</string>
+	<string name="about_mds_studens_text">André Bernardes\nBrenddon Gontijo\nElaine Cristina Meirelles\nFábio Teixeira\nJônnatas Lennon</string>
+	<string name="about_gpp_studens_text">Gabriela Navarro\nYeltsin Suares</string>
+	<string name="version_year">Versão 1.0\n©2014\n</string>
+
+</resources>
