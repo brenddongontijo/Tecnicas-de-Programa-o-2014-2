@@ -60,4 +60,24 @@ Exemplo:
 private int numberOfBooks = 0;
 private int numberOArticles = 0;
 
+•	Realizar o incremento de variáveis conforme o seguinte exemplo:
+Exemplo:
+private int numberOfBooks = 0;
+numberOfBooks = numberOfBooks + 1;
 
+4.0 Estruturas Básicas:
+
+•	if/else: sempre que for utilizado a função "if" deve-se, também, criar um "else" para especificar ambos os caminhos, a estrutura também deve seguir os seguintes padrões de indentação.
+Exemplo:
+if(numberOfBooks < maximumNumberOfBooks) {
+	// Function.
+}
+else {
+	// Function.
+}
+
+•	for: não utilizar o incremento nas variáveis como "i++", atribuir nome significativos para os contadores, e seguir o seguinte tipo de indentação.   
+Exemplo:
+for(counter = 0; counter < maximumNumberOfBooks; counter = counter + 1) {
+	// Function.
+}
