@@ -5,40 +5,59 @@ Folha de Estilo
 
 1.	Comentários:
 Os comentários devem estar em inglês.
+
 •	Comentário simples: os comentários simples devem ter espaçamento simples após o “//”, letra maiúscula na primeira palavra e ser finalizado com ponto final. 
 
 Exemplo: 
 // This method aims to calculate the mean between two numbers.
-•	Comentário composto: os comentários compostos serão iniciados uma linha acima do método, variável, etc com o “/*” e será necessário pular uma linha e dar espaço equivalente a um TAB para digitar o texto que será finalizado com o ponto final, logo em seguida será pulada outra linha para finalizar o comentário com “*/”.
 
+•	Comentário composto: os comentários compostos serão iniciados uma linha acima do método, variável, etc com o “/*” e será necessário pular uma linha e dar espaço equivalente a um TAB para digitar o texto que será finalizado com o ponto final, logo em seguida será pulada outra linha para finalizar o comentário com “*/”.
 Exemplo:
 /*
 	This method aims to calculate the mean between two numbers.
 */
+
 •	Todos os métodos precisam conter comentários.
+
 •	Caso haja alguma variável, atribuição ou qualquer item que possa ser confuso, deve ser realizado o comentário logo em cima do mesmo explicando.
- 
 Exemplo:
 // This attribute keeps the name of employees.
 String nameOfEmployess.
 
-Métodos
-Os métodos deverão sempre seguir os padrões de indentação. 
-Chaves para iniciação: 	a chave de iniciação “{“ de um método deverá estar na mesma linha que o mesmo se encontra e com um espaço simples, já a de conclusão “}” deverá ser colocada uma linha após a conclusão do método.
+2.0 Métodos:
 
+•	Os métodos deverão sempre seguir os padrões de indentação. 
 
+•	Chaves para iniciação: 	a chave de iniciação “{“ de um método deverá estar na mesma linha que o mesmo se encontra e com um espaço simples, já a de conclusão “}” deverá ser colocada uma linha após a conclusão do método.
 Exemplo:
 public boolean onCreateOptionsMenu(Menu menu) {
 getMenuInflater().inflate(R.menu.main, menu);
 return true;
 }
-Nome de métodos: os nomes dos métodos deverão estar em inglês e seguir os padrões do Java, ou seja, serem uma única palavra iniciados com letra minúscula e depois letra maiúscula conforme o necessário.
+
+•	Nome de métodos: os nomes dos métodos deverão estar em inglês e seguir os padrões do Java, ou seja, serem uma única palavra iniciados com letra minúscula e depois letra maiúscula conforme o necessário.
 Exemplo: 
 public boolean onCreateOptionsMenu(Menu menu) {
 }
 
-Variáveis
+3.0 Variáveis:
 
-Nome de variável: iniciado com letra minúscula, inglês, sem abreviações e de fácil entendimento.
+•	Nome de variável: iniciado com letra minúscula, inglês, sem abreviações e de fácil entendimento.
 Exemplo:
 private int bookName;
+
+•	Usar constantes para evitar complicações durante a leitura do código.
+Exemplo:
+private static final String CONSTANT = "constant";
+
+•	Sempre inicializar as variáveis, independente do seu tipo.
+Exemplo:
+private int number = 0;
+private String empty = "";
+
+•	Declarar cada variável em uma linha diferente.
+Exemplo:
+private int numberOfBooks = 0;
+private int numberOArticles = 0;
+
+
