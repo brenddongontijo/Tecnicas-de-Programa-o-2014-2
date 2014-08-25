@@ -23,7 +23,7 @@ Exemplo:
 •	Caso haja alguma variável, atribuição ou qualquer item que possa ser confuso, deve ser realizado o comentário logo em cima do mesmo explicando.
 Exemplo:
 // This attribute keeps the name of employees.
-String nameOfEmployess.
+private String nameOfEmployess = "".
 
 2.0 Métodos:
 
@@ -46,7 +46,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
 
 •	Nome de variável: iniciado com letra minúscula, inglês, sem abreviações e de fácil entendimento.
 Exemplo:
-private int bookName;
+private int bookName = 0;
 
 •	Usar constantes para evitar complicações durante a leitura do código.
 Exemplo:

@@ -72,20 +72,23 @@ public class Article extends Bean {
 		Article type = new Article();
 		ArrayList<Article> result = new ArrayList<Article>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectAllBeans(type,null)) {
+		for(Bean b : gDB.selectAllBeans(type,null)) {
 			result.add((Article) b);
 		}
 		return result;
 	}
-
+	
+	/*
+	 * The method count() uses the method countBean() parsing one object from  
+	 * Article to access Database and return the number of Articles into it.
+	 */
 	public static int count() throws  SQLException {
 		Article type = new Article();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
-	public static Article first() throws 
-			SQLException {
+	public static Article first() throws SQLException {
 		Article result = new Article();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = (Article) gDB.firstOrLastBean(result, false);
@@ -111,6 +114,10 @@ public class Article extends Bean {
 		return result;
 	}
 	
+	/*
+	 * The method delete() access the Database and deletes the current Article
+	 * returning "true' if the deletion was made correct or "false" otherwise.
+	 */
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -123,15 +130,12 @@ public class Article extends Bean {
 		if(field.equals("_id")) {
 			return Integer.toString(this.getId());
 		}
-		
 		else if(field.equals("published_journals")) {
 			return Integer.toString(this.getPublishedJournals());
 		}
-		
 		else if (field.equals("published_conference_proceedings")) {
 			return Integer.toString(this.getPublishedConferenceProceedings());
 		}
-		
 		else {
 			return "";
 		}
@@ -154,7 +158,6 @@ public class Article extends Bean {
 		else {
 
 		}
-		
 	}
 
 	@Override
