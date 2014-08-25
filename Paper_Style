@@ -14,8 +14,9 @@ Exemplo:
 •	Comentário composto: os comentários compostos serão iniciados uma linha acima do método, variável, etc com o “/*” e será necessário pular uma linha e dar espaço equivalente a um TAB para digitar o texto que será finalizado com o ponto final, logo em seguida será pulada outra linha para finalizar o comentário com “*/”.
 Exemplo:
 /*
-	This method aims to calculate the mean between two numbers.
-*/
+	 * The method save() receives a instance from Article and saves into Database
+	 * also setting his Id using the method last().
+	 */
 
 •	Todos os métodos devem conter comentários.
 

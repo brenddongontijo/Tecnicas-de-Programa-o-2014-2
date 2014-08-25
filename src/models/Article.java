@@ -45,7 +45,10 @@ public class Article extends Bean {
 		this.publishedConferenceProceedings = publishedConferenceProceedings;
 	}
 
-
+	/*
+	 * The method save() receives a instance from Article and saves into Database
+	 * also setting his Id using the method last().
+	 */
 	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -53,7 +56,11 @@ public class Article extends Bean {
 		this.setId(Article.last().getId());
 		return result;
 	}
-
+	
+	/*
+	 * The method get() creates a new object from Article using his Id and uses
+	 * a casting to transform one object Bean to Article.
+	 */
 	public static Article get(Integer id) throws  SQLException {
 		Article result = new Article(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -61,8 +68,7 @@ public class Article extends Bean {
 		return result;
 	}
 
-	public static ArrayList<Article> getAll()
-			throws  SQLException {
+	public static ArrayList<Article> getAll() throws  SQLException {
 		Article type = new Article();
 		ArrayList<Article> result = new ArrayList<Article>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
