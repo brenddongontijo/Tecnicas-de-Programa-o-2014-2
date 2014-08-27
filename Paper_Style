@@ -11,7 +11,7 @@ Folha de Estilo
 Exemplo: 
 // This method aims to calculate the mean between two numbers.
 
-•	Comentário composto: os comentários compostos serão iniciados uma linha acima do método, variável, etc com o “/*” e será necessário pular uma linha e dar espaço equivalente a um TAB para digitar o texto que será finalizado com o ponto final, logo em seguida será pulada outra linha para finalizar o comentário com “*/”.
+•	Comentário composto: os comentários compostos serão iniciados uma linha acima do método, variável, etc com o “/*” e será necessário pular uma linha para continuar digitando o texto, caso o mesmo fique muito grande na linha posterior.
 Exemplo:
 /*
 	 * The method save() receives a instance from Article and saves into Database
