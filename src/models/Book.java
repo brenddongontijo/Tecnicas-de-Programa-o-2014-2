@@ -95,22 +95,36 @@ public class Book extends Bean {
 		return result;
 	}
 
+	/*
+	 * The method count() uses the method countBean() parsing one object from  
+	 * Book to access Database and return the number of Books into it.
+	 */
 	public static int count() throws  SQLException {
 		Book type = new Book();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
-	public static Book first() throws 
-			SQLException {
+	/*
+	 * The method first() uses the method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Book and a boolean condition "false" to get 
+	 * the first "Bean" on Database and then turn it into an Book using the 
+	 * casting.
+	 */
+	public static Book first() throws SQLException {
 		Book result = new Book();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = (Book) gDB.firstOrLastBean(result, false);
 		return result;
 	}
 
-	public static Book last() throws 
-			SQLException {
+	/*
+	 * The method last() uses the method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Book and a boolean condition "true" to get 
+	 * the last "Bean" on Database and then turn it into an Book using the 
+	 * casting.
+	 */
+	public static Book last() throws SQLException {
 		Book result = new Book();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = (Book) gDB.firstOrLastBean(result, true);
@@ -128,6 +142,10 @@ public class Book extends Bean {
 		return result;
 	}
 	
+	/*
+	 * The method delete() access the Database and deletes the current Book
+	 * returning "true" if the deletion was made correct or "false" otherwise.
+	 */
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
