@@ -1,76 +1,125 @@
 Folha de Estilo
 
-	Esta Folha de Estilo tem como objetivo criar um padrão de programação que será utilizado como base para melhor organização e entendimento no projeto QualCurso que baseia-se numa aplicação android. Linguagens utilizadas: Java e Android.
-	Cada tópico a seguir estará explicando e exemplificando os padrões que deverão ser seguidos.
+	Esta Folha de Estilo tem como objetivo criar um padrão de programação que 
+será utilizado como base para melhor organização e entendimento no projeto 
+QualCurso que baseia-se numa aplicação android. Linguagens utilizadas: Java 
+e Android.
+	
+	Cada tópico a seguir estará explicando e exemplificando os padrões que 
+deverão ser seguidos.
 
 1.0 Comentários:
 
-•	Os comentários devem estar em inglês.
+•Os comentários devem estar em inglês.
+	Exemplo:
+// Hello world.
 
-•	Comentário simples: os comentários simples devem ter espaçamento simples após o “//”, letra maiúscula na primeira palavra e ser finalizado com ponto final. 
-Exemplo: 
+	•Comentário simples: os comentários simples devem ter um espaçamento simples 
+após o “//”, letra maiúscula na primeira palavra e ser finalizado com ponto 
+final. 
+	Exemplo: 
 // This method aims to calculate the mean between two numbers.
 
-•	Comentário composto: os comentários compostos serão iniciados uma linha acima do método, variável, etc com o “/*” e será necessário pular uma linha e dar espaço equivalente a um TAB para digitar o texto que será finalizado com o ponto final, logo em seguida será pulada outra linha para finalizar o comentário com “*/”.
-Exemplo:
+	•Comentário composto: os comentários compostos serão iniciados uma linha 
+acima do método, variável, etc com o “/*” e será necessário pular uma linha para
+continuar digitando o texto, caso o mesmo fique muito extenso na linha posterior.
+	Exemplo:
 /*
 	 * The method save() receives a instance from Article and saves into Database
 	 * also setting his Id using the method last().
 	 */
 
-•	Todos os métodos devem conter comentários.
+	•Todos os métodos devem conter um comentário logo acima.
+	Exemplo:
+/*
+	 * The method count() uses the method countBean() parsing one object from  
+	 * Article to access Database and return the number of Articles into it.
+	 */
+	public static int count() throws  SQLException {
+		Article type = new Article();
+		GenericBeanDAO gDB = new GenericBeanDAO();
+		return gDB.countBean(type);
+	}
 
-•	Caso haja alguma variável, atribuição ou qualquer item que possa ser confuso, deve ser realizado o comentário logo em cima do mesmo explicando.
-Exemplo:
+	•Caso haja alguma variável, atribuição ou qualquer item que possa ser 
+confuso, deve ser realizado o comentário logo em cima do mesmo explicando.
+	Exemplo:
 // This attribute keeps the name of employees.
 private String nameOfEmployess = "".
 
+	•As linhas devem ter em torno de 80 caracteres sendo que as linhas de 
+comentário destinadas a documentação não devem possuir mais de 70 caracteres.
+	
 2.0 Métodos:
 
-•	Os métodos deverão sempre seguir os padrões de indentação do Java. 
-
-•	Chaves para iniciação: a chave de iniciação “{“ de um método deverá estar na mesma linha que o mesmo se encontra e com um espaço simples, já a de conclusão “}” deverá ser colocada uma linha após a conclusão do método.
-Exemplo:
+	•Nenhum espaço entre o nome do método e o parênteses. O braço de abertura 
+“{“ é escrito na mesma linha da declaração. O braço de fechamento “}” tem uma 
+própria linha e é indentado na mesma coluna que o inicio do método 
+correspondente ao seu bloco. Exceto quando o bloco esta vazio, tendo que 
+aparecer logo em seguida ao braço de abertura “{ }”.
+	Exemplo:
 public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.main, menu);
 	return true;
 }
 
-•	Nome de métodos: os nomes dos métodos deverão estar em inglês e seguir os padrões do Java, ou seja, serem uma única palavra iniciados com letra minúscula e depois letra maiúscula conforme o necessário.
-Exemplo: 
+	•Nome de métodos: os nomes dos métodos deverão estar em inglês e seguir os 
+padrões do Java, ou seja, serem uma única palavra iniciados com letra minúscula 
+e depois letra maiúscula conforme o necessário.
+	Exemplo: 
 public boolean onCreateOptionsMenu(Menu menu) {
 	// Method.
 }
 
+	•Se necessário quebrar uma linha :
+- Quebre antes de um comando.
+- Quebre depois de um operador.
+- Alinhar a nova linha com o inicio da expressão, no mesmo nível, da linha 
+anterior.
+- Se as regras acima levar a um código confuso ou muito próximo da margem 
+direita deve-se indentar 8 espaços.
+
+As linhas quebradas para na declaração das condições do if deve utilizar a regra 
+do 8 espaços para indentação. 
+	Exemplo :
+	if ((condition1 && condition2)
+            || (condition3 && condition4)
+            || (condition5 && condition6)) {
+    dosomething;
+}	
+
 3.0 Variáveis:
 
-•	Nome de variável: iniciado com letra minúscula, inglês, sem abreviações e de fácil entendimento.
-Exemplo:
+	•Nome de variável: iniciado com letra minúscula, inglês, sem abreviações e 
+de fácil entendimento.
+	Exemplo:
 private int bookName = 0;
 
-•	Usar constantes para evitar complicações durante a leitura do código.
-Exemplo:
+	•Usar constantes para evitar complicações durante a leitura do código.
+	Exemplo:
 private static final String CONSTANT = "constant";
 
-•	Sempre inicializar as variáveis, independente do seu tipo.
-Exemplo:
+	•Sempre inicializar as variáveis, independente do seu tipo.
+	Exemplo:
 private int number = 0;
 private String empty = "";
 
-•	Declarar cada variável em uma linha diferente.
-Exemplo:
+	•Declarar cada variável em uma linha diferente.
+	Exemplo:
 private int numberOfBooks = 0;
 private int numberOArticles = 0;
 
-•	Realizar o incremento de variáveis conforme o seguinte exemplo:
-Exemplo:
+	•Realizar o incremento de variáveis conforme o seguinte exemplo:
+	Exemplo:
 private int numberOfBooks = 0;
 numberOfBooks = numberOfBooks + 1;
 
 4.0 Estruturas Básicas:
 
-•	if/else: sempre que for utilizado a função "if" deve-se, também, criar um "else" para especificar ambos os caminhos, a estrutura também deve seguir os seguintes padrões de indentação.
-Exemplo:
+	•if/else: sempre que for utilizado a função "if" deve-se, também, criar um 
+"else" para especificar ambos os caminhos, a estrutura também deve seguir os 
+seguintes padrões de indentação.
+	Exemplo:
 if(numberOfBooks < maximumNumberOfBooks) {
 	// Function.
 }
@@ -78,14 +127,16 @@ else {
 	// Function.
 }
 
-•	for: não utilizar o incremento nas variáveis como "i++", atribuir nome significativos para os contadores, e seguir o seguinte tipo de indentação.   
-Exemplo:
+	•for: não utilizar o incremento nas variáveis como "i++", atribuir nome 
+significativos para os contadores, e seguir o seguinte tipo de indentação.   
+	Exemplo:
 for(counter = 0; counter < maximumNumberOfBooks; counter = counter + 1) {
 	// Function.
 }
 
-•	switch/case: sempre deverá conter o caso "default", seguindo os padrões de indentação do java conforme o exemplo.
-Exemplo:
+	•switch/case: sempre deverá conter o caso "default", seguindo os padrões de 
+indentação do java conforme o exemplo.
+	Exemplo:
 switch(bookCategory) {
 	case 1:
 		// Method.
@@ -98,7 +149,57 @@ switch(bookCategory) {
 		break;
 }
 
+	•while: forma padrão conforme o exemplo1 e caso o bloco do while seja vazio 
+deve-se seguir o exemplo2.
+	Exemplo1:
+while (condição) {
+    declaração;
+}
+
+	Exemplo2:
+	while (condição);
+	
+	•do-while: deve seguir a forma do exemplo a seguir.
+	Exemplo:
+do {
+    declaração;
+} while (condição);	
+	
+	try-catch: caso não tenha o finally deve seguir o exemplo1 e caso contrário 
+o exemplo2.
+	Exemplo1:
+try {
+    declaração;
+} catch (Exceptionclass e) {
+    declaração;
+}
+
+	Exemplo2:
+try {
+    declaração;
+} catch (Exceptionclass e) {
+    declaração;
+} finally {
+    declaração;
+}
+	
+
+	
+Caso o bloco do while seja vazio tem a seguinte forma :
+
+while (condição);
+	
+
 5.0 XML: 
 
 6.0 Problems/Warnings: 
-•	Não deixar o projeto contendo warnings, procurar sempre resolvê-los.
+	•Não deixar o projeto contendo warnings, procurar sempre resolvê-los.
+
+7.0 Espaços em branco:
+	•Deve ser usado:
+- Entre uma palavra chave seguido de parênteses.
+- Em todos os operadores envolvendo operações com dois ou mais termos, o que não 
+se aplica as operações envolvendo um só termo. Exemplo: incremento, decremento.
+- Entre as declarações em um for.
+- Entre os operadores de coerção (casts) e o termo que esta sendo modelado.
+	

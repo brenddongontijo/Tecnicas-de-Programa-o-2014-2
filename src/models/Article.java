@@ -46,8 +46,8 @@ public class Article extends Bean {
 	}
 
 	/*
-	 * The method save() receives a instance from Article and saves into Database
-	 * also setting his Id using the method last().
+	 * The method save() receives an instance from Article and saves into 
+	 * Database also setting his Id using the method last().
 	 */
 	public boolean save() throws  SQLException {
 		boolean result = false;
@@ -67,7 +67,11 @@ public class Article extends Bean {
 		result = (Article) gDB.selectBean(result);
 		return result;
 	}
-
+	
+	/*
+	 * The method getAll() get all "Beans" on Database and put them withim a
+	 * arraylist of Articles before make a casting from Bean to Article.
+	 */
 	public static ArrayList<Article> getAll() throws  SQLException {
 		Article type = new Article();
 		ArrayList<Article> result = new ArrayList<Article>();
@@ -88,6 +92,12 @@ public class Article extends Bean {
 		return gDB.countBean(type);
 	}
 
+	/*
+	 * The method first() uses the method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Article and a boolean condition "false" to get 
+	 * the first "Bean" on Database and then turn it into an Article using the 
+	 * casting.
+	 */
 	public static Article first() throws SQLException {
 		Article result = new Article();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -95,6 +105,12 @@ public class Article extends Bean {
 		return result;
 	}
 
+	/*
+	 * The method last() uses the method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Article and a boolean condition "true" to get 
+	 * the last "Bean" on Database and then turn it into an Article using the 
+	 * casting.
+	 */
 	public static Article last() throws 
 			SQLException {
 		Article result = new Article();
@@ -103,6 +119,9 @@ public class Article extends Bean {
 		return result;
 	}
 
+	/*
+	 * 
+	 */
 	public static ArrayList<Article> getWhere(String field, String value, boolean like) 
 			throws  SQLException {
 		Article type = new Article();
@@ -116,7 +135,7 @@ public class Article extends Bean {
 	
 	/*
 	 * The method delete() access the Database and deletes the current Article
-	 * returning "true' if the deletion was made correct or "false" otherwise.
+	 * returning "true" if the deletion was made correct or "false" otherwise.
 	 */
 	public boolean delete() throws  SQLException {
 		boolean result = false;
@@ -146,17 +165,13 @@ public class Article extends Bean {
 		if (field.equals("_id")) {
 			this.setId(Integer.parseInt(data));
 		} 
-		
 		else if (field.equals("published_journals")) {
 			this.setPublishedJournals(Integer.parseInt(data));
 		}
-		
 		else if (field.equals("published_conference_proceedings")) {
 			this.setPublishedConferenceProceedings(Integer.parseInt(data));
 		}
-		
 		else {
-
 		}
 	}
 
