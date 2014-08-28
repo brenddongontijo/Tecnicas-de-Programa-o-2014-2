@@ -39,70 +39,104 @@ public class Course extends Bean implements Parcelable{
 		this.name = name;
 	}
 	
+	/*
+	 * The method save() receives an instance from Course and saves into 
+	 * Database also setting his Id using the method last() returning true if
+	 * the insertion was made correct of false otherwise.
+	 */
 	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = gDB.insertBean(this);
 		this.setId(Course.last().getId());
+		
 		return result;
 	}
 	
+	/*
+	 * The method addInstitution() relates one Course with one Institution
+	 * passing as a parameter to addBeanRelationship() the current instance 
+	 * of Course and one institution.
+	 */
 	public boolean addInstitution(Institution institution) throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = gDB.addBeanRelationship(this, institution);
+		
 		return result;
 	}
 
-
-	public static Course get(int id) throws 
-			SQLException {
+	public static Course get(int id) throws SQLException {
 		Course result = new Course(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = (Course) gDB.selectBean(result);
+		
 		return result;
 	}
 
-	public static ArrayList<Course> getAll()
-			throws  SQLException {
+	/*
+	 * The method getAll() get all "Beans" on Database and put them withim a
+	 * arraylist of Course before make a casting from Bean to Course.
+	 */
+	public static ArrayList<Course> getAll() throws SQLException {
 		Course type = new Course();
 		ArrayList<Course> result = new ArrayList<Course>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectAllBeans(type,"name")) {
+		
+		for(Bean b : gDB.selectAllBeans(type,"name")) {
 			result.add((Course) b);
 		}
+		
 		return result;
 	}
 
+	/*
+	 * The method count() uses the method countBean() parsing one object from  
+	 * Course to access Database and return the number of Courses 
+	 * into it.
+	 */
 	public static int count() throws  SQLException {
 		Course type = new Course();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		return gDB.countBean(type);
 	}
 
-	public static Course first() throws 
-			SQLException {
+	public static Course first() throws SQLException {
 		Course result = new Course();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = (Course) gDB.firstOrLastBean(result, false);
+		
 		return result;
 	}
 
-	public static Course last() throws 
-			SQLException {
+	/*
+	 * The method last() uses the method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Course and a boolean condition "true" to get 
+	 * the last "Bean" on Database and then turn it into an Course using the 
+	 * casting.
+	 */
+	public static Course last() throws SQLException {
 		Course result = new Course();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = (Course) gDB.firstOrLastBean(result, true);
+		
 		return result;
 	}
 
-	public ArrayList<Institution> getInstitutions() throws 
-			SQLException {
+	public ArrayList<Institution> getInstitutions() throws SQLException {
 		ArrayList<Institution> institutions = new ArrayList<Institution>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanRelationship(this, "institution", "acronym")) {
+		
+		for(Bean b : gDB.selectBeanRelationship(this, "institution", "acronym")) {
 			institutions.add((Institution) b);
 		}
+		
 		return institutions;
 	}
 	
@@ -110,9 +144,11 @@ public class Course extends Bean implements Parcelable{
 			SQLException {
 		ArrayList<Institution> institutions = new ArrayList<Institution>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		for (Bean b : gDB.selectBeanRelationship(this, "institution",year,"acronym")) {
 			institutions.add((Institution) b);
 		}
+		
 		return institutions;
 }
 
@@ -152,7 +188,8 @@ public class Course extends Bean implements Parcelable{
 		return result;
 	}
 
-	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(int id_course, Search search) throws  SQLException {
+	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(
+			int id_course, Search search) throws  SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		String sql = "SELECT i.* FROM institution AS i, evaluation AS e, articles AS a, books AS b "+
 					" WHERE e.id_course="+Integer.toString(id_course)+
@@ -162,9 +199,10 @@ public class Course extends Bean implements Parcelable{
 					" AND year="+Integer.toString(search.getYear())+
 					" AND "+search.getIndicator().getValue();
 		
-		if(search.getMaxValue() == -1){
+		if(search.getMaxValue() == -1) {
 			sql+=" >= "+search.getMinValue();
-		}else{
+		}
+		else {
 			sql+=" BETWEEN "+Integer.toString(search.getMinValue())+" AND "+Integer.toString(search.getMaxValue());
 		}
 		sql+=" GROUP BY i._id";
@@ -173,47 +211,57 @@ public class Course extends Bean implements Parcelable{
 		for (Bean b : gDB.runSql(new Institution(), sql)){
 			result.add((Institution)b);
 		}
+		
 		return result;
 	}
 
-	public boolean delete() throws  SQLException {
+	public boolean delete() throws SQLException {
 		boolean result = false;
+		
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		for(Institution i : this.getInstitutions()){
 			gDB.deleteBeanRelationship(this,i);
 		}
+		
 		result = gDB.deleteBean(this);
+		
 		return result;
 	}
 	
 	@Override
 	public String get(String field) {
-		if(field.equals("_id")){
+		if(field.equals("_id")) {
 			return Integer.toString(this.getId());
-		}else if(field.equals("name")){
+		}
+		else if(field.equals("name")) {
 			return this.getName();
-		}else {
-		return "";
+		}
+		else {
+			return "";
 		}
 	}
 
 	@Override
 	public void set(String field, String data) {
-		if(field.equals("_id")){
+		if(field.equals("_id")) {
 			this.setId(Integer.parseInt(data));
-		}else if(field.equals("name")){
+		}
+		else if(field.equals("name")) {
 			this.setName(data);
-		}else {
+		}
+		else {
 		
 		}
-		
 	}
 
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
+		
 		fields.add("_id");
 		fields.add("name");
+		
 		return fields;
 	}
 

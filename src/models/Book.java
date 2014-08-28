@@ -64,7 +64,8 @@ public class Book extends Bean {
 
 	/*
 	 * The method save() receives an instance from Book and saves into 
-	 * Database also setting his Id using the method last().
+	 * Database also setting his Id using the method last() returning true if
+	 * the insertion was made correct of false otherwise.
 	 */
 	public boolean save() throws  SQLException {
 		boolean result = false;
