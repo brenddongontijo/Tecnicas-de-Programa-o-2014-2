@@ -38,6 +38,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	private ArrayList<Course> allCourses = Course.getAll();
 	private ArrayList<Institution> allInstitutions = Institution.getAll();
 
+	// Called When a fragment is first attached to its activity.
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -49,6 +50,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 		}
 	}
 
+	// Used to create a view.
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -58,6 +60,10 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 		return mRoot;
 	}
 
+	/*	Called when all saved state has been restored 
+	 * into the view hierarchy of the fragment. (non-Javadoc)
+	 * see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
+	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -69,6 +75,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 		updateTab(TAB_INSTITUTIONS, R.id.tab_1);
 	}
 
+	// Configuration tabs according to their type.
 	private void setupTabs() {
 		mTabHost.setup(); // you must call this before adding your tabs!
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_INSTITUTIONS)
@@ -102,7 +109,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 		}
 	}
 
-	//
+	// Initialize the contents of the Activity options menu.
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.search_menu, menu);
@@ -111,13 +118,15 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 		setupSearchView(searchItem);
 		super.onCreateOptionsMenu(menu, inflater);
 	}
-
+	
+	// Search setting View the menu.
 	private void setupSearchView(MenuItem searchItem) {
 		searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM
 				| MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 		mSearchView.setOnQueryTextListener(this);
 	}
 
+	// Updates the tab.
 	private void updateTab(String tabId, int placeholder) {
 		FragmentManager fm = getFragmentManager();
 		if (fm.findFragmentByTag(tabId) == null) {
@@ -136,16 +145,16 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	@Override
 	public boolean onQueryTextChange(String arg0) {
 
-		// checks if the string has valid size
+		// Checks if the string has valid size.
 		if (arg0.length() >= 1) {
 
-			// If the tab is the first list the institutions
+			// If the tab is the first list the institutions.
 			if (mCurrentTab == 0) {
 				ArrayList<Bean> beans = getFilteredList(arg0, allInstitutions);
 				beanCallbacks.onBeanListItemSelected(InstitutionListFragment
 						.newInstance(0, 2010, castToInstitutions(beans)),
 						R.id.tab_1);
-				// If the tab is a second list courses
+				// If the tab is a second list courses.
 			} else if (mCurrentTab == 1) {
 				ArrayList<Bean> beans = getFilteredList(arg0, allCourses);
 				beanCallbacks
@@ -153,7 +162,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 								0, 2010, castToCourses(beans)), R.id.tab_2);
 			}
 		}
-		//if there is no change, checks the current tab and list according the same
+		// If there is no change, checks the current tab and list according the same.
 		else {
 			if (mCurrentTab == 0) {
 				beanCallbacks.onBeanListItemSelected(
@@ -186,8 +195,8 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	}
 
 	/*
-	 * filter takes a string and an arraylist from a list,and filters the same
-	 * arrylist returning a bean
+	 * Filter takes a string and an arraylist from a list,and filters the same
+	 * arrylist returning a bean.
 	 */
 	private ArrayList<Bean> getFilteredList(String filter,
 			ArrayList<? extends Bean> list) {
