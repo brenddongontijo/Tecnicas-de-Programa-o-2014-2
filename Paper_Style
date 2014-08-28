@@ -149,7 +149,57 @@ switch(bookCategory) {
 		break;
 }
 
+	•while: forma padrão conforme o exemplo1 e caso o bloco do while seja vazio 
+deve-se seguir o exemplo2.
+	Exemplo1:
+while (condição) {
+    declaração;
+}
+
+	Exemplo2:
+	while (condição);
+	
+	•do-while: deve seguir a forma do exemplo a seguir.
+	Exemplo:
+do {
+    declaração;
+} while (condição);	
+	
+	try-catch: caso não tenha o finally deve seguir o exemplo1 e caso contrário 
+o exemplo2.
+	Exemplo1:
+try {
+    declaração;
+} catch (Exceptionclass e) {
+    declaração;
+}
+
+	Exemplo2:
+try {
+    declaração;
+} catch (Exceptionclass e) {
+    declaração;
+} finally {
+    declaração;
+}
+	
+
+	
+Caso o bloco do while seja vazio tem a seguinte forma :
+
+while (condição);
+	
+
 5.0 XML: 
 
 6.0 Problems/Warnings: 
 	•Não deixar o projeto contendo warnings, procurar sempre resolvê-los.
+
+7.0 Espaços em branco:
+	•Deve ser usado:
+- Entre uma palavra chave seguido de parênteses.
+- Em todos os operadores envolvendo operações com dois ou mais termos, o que não 
+se aplica as operações envolvendo um só termo. Exemplo: incremento, decremento.
+- Entre as declarações em um for.
+- Entre os operadores de coerção (casts) e o termo que esta sendo modelado.
+	
