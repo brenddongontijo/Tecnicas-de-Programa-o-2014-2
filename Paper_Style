@@ -165,7 +165,7 @@ do {
     declaração;
 } while (condição);	
 	
-	try-catch: caso não tenha o finally deve seguir o exemplo1 e caso contrário 
+	•try-catch: caso não tenha o finally deve seguir o exemplo1 e caso contrário 
 o exemplo2.
 	Exemplo1:
 try {

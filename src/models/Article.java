@@ -8,12 +8,14 @@ public class Article extends Bean {
 	private int publishedJournals;
 	private int publishedConferenceProceedings;
 
+	// Empty constructor.
 	public Article() {
 		this.id = 0;
 		this.identifier = "articles";
 		this.relationship = "";
 	}
-
+	
+	// Declaration a non-default constructor
 	public Article(Integer id) {
 		this.id = id;
 		this.identifier = "articles";
@@ -67,7 +69,7 @@ public class Article extends Bean {
 		result = (Article) gDB.selectBean(result);
 		return result;
 	}
-	
+
 	/*
 	 * The method getAll() get all "Beans" on Database and put them withim a
 	 * arraylist of Articles before make a casting from Bean to Article.
@@ -119,9 +121,6 @@ public class Article extends Bean {
 		return result;
 	}
 
-	/*
-	 * 
-	 */
 	public static ArrayList<Article> getWhere(String field, String value, boolean like) 
 			throws  SQLException {
 		Article type = new Article();
