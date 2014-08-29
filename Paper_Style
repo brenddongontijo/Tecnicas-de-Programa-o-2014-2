@@ -76,7 +76,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
 - Quebre depois de um operador.
 - Alinhar a nova linha com o inicio da expressão, no mesmo nível, da linha 
 anterior.
-- Se as regras acima levar a um código confuso ou muito próximo da margem 
+- Se as regras acima levarem a um código confuso ou muito próximo da margem 
 direita deve-se indentar 8 espaços.
 
 As linhas quebradas para na declaração das condições do if deve utilizar a regra 
@@ -202,4 +202,13 @@ while (condição);
 se aplica as operações envolvendo um só termo. Exemplo: incremento, decremento.
 - Entre as declarações em um for.
 - Entre os operadores de coerção (casts) e o termo que esta sendo modelado.
+
+8.0 Classes:
+	•Os nomes das classes deverão ser escritos em ingês seguindo o padrão CamelCase, 
+	onde a primeira letra de cada palavra é escrita em maiúsculo.
 	
+	Exemplo:
+	
+		public class ExampleClassForThePaper {
+		
+	}
