@@ -2,17 +2,20 @@ package libraries;
 
 import android.database.SQLException;
 
-public class DataBaseStructures extends DataBase{
+public class DataBaseStructures extends DataBase {
 	
-    public DataBaseStructures()  throws SQLException{
+    public DataBaseStructures() throws SQLException{
         super();
     }
     
-
-    public void initDB() throws SQLException{
+    
+    // The method initDB created all Models tables on Database.
+    public void initDB() throws SQLException {
             this.openConnection();
+            
             this.database.execSQL("CREATE TABLE IF NOT EXISTS 'android_metadata' (locale TEXT)");
             this.database.execSQL("INSERT INTO android_metadata VALUES ('pt_BR')");
+            
             this.buildTableArticles();
             this.buildTableEvaluation();
             this.buildTableCourse();
@@ -23,9 +26,12 @@ public class DataBaseStructures extends DataBase{
 
             this.closeConnection();
     }
-
+    
+    
+    // The method dropDB delete all tables from Database. 
     public void dropDB() throws SQLException {
     	this.openConnection();
+    	
         this.database.execSQL("DROP TABLE IF EXISTS 'course'");
         this.database.execSQL("DROP TABLE IF EXISTS 'institution'");
         this.database.execSQL("DROP TABLE IF EXISTS 'courses_institutions'");
@@ -34,16 +40,26 @@ public class DataBaseStructures extends DataBase{
         this.database.execSQL("DROP TABLE IF EXISTS 'evaluation'");
         this.database.execSQL("DROP TABLE IF EXISTS 'android_metadata'");
         this.database.execSQL("DROP TABLE IF EXISTS 'search'");
+        
         this.closeConnection();
     }
 
+    /*
+     * The method buildTableCourse() the table Course parsing as foreign key 
+     * a Institution name. 
+     */
     private void buildTableCourse() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS 'course' (" +
                 "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
     			"'name' TEXT NOT NULL)";
+        
         this.database.execSQL(sql);
     }
 
+    /*
+     * The method buildTableInstitution() the table Institution parsing as 
+     * foreign key a Course name. 
+     */
     private void buildTableInstitution() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'institution' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT,"+
@@ -52,8 +68,8 @@ public class DataBaseStructures extends DataBase{
     }
 
     /*
-     * FIXME add foreign key support to database. E.g.:
-     * FOREIGN KEY(id_instituicao) REFERENCES institution(id)
+     * The method buildTableCoursesInstitutions() creates a relation N...N from 
+     * Institution and Course.
      */
     private void buildTableCoursesInstitutions() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'courses_institutions' (" +

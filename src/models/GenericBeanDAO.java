@@ -233,10 +233,12 @@ public class GenericBeanDAO extends DataBase{
 		String sql = "SELECT * FROM " + type.identifier + " ORDER BY "
 				+ type.fieldsList().get(0);
 
-		if (!last)
+		if(!last) {
 			sql += " LIMIT 1";
-		else
+		}
+		else {
 			sql += " DESC LIMIT 1";
+		}
 
 		this.openConnection();
 		Cursor cs = this.database.rawQuery(sql,null);
