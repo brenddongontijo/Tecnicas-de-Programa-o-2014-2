@@ -143,6 +143,7 @@ public class Article extends Bean {
 		return result;
 	}
 
+	//Mandatory method get data on fields
 	@Override
 	public String get(String field) {
 		if(field.equals("_id")) {
@@ -159,6 +160,7 @@ public class Article extends Bean {
 		}
 	}
 
+	//Mandatory method set data into fields
 	@Override
 	public void set(String field, String data) {
 		if (field.equals("_id")) {
@@ -174,6 +176,7 @@ public class Article extends Bean {
 		}
 	}
 
+	//Mandatory class method "bean" returns a list of fields.
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
