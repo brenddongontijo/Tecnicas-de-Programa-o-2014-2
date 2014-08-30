@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import unb.mdsgpp.qualcurso.QualCurso;
+
 import android.database.SQLException;
-import android.text.format.DateFormat;
+
 import helpers.Indicator;
 
 public class Search extends Bean{

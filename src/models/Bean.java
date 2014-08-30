@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /*
  * Generic  abstract class, is extremely important in this application
- *  since they are worked and other beans to avoid repetition code.
+ *  since they are worked in other beans to avoid repetition code.
  */
 public abstract class Bean {
 	protected String identifier;
