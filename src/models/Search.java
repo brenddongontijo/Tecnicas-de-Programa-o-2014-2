@@ -11,7 +11,7 @@ import android.database.SQLException;
 import android.text.format.DateFormat;
 import helpers.Indicator;
 
-public class Search extends Bean{
+public class Search extends Bean {
 	public static int COURSE = 0;
 	public static int INSTITUTION = 1;
 
@@ -23,17 +23,16 @@ public class Search extends Bean{
 	private int minValue;
 	private int maxValue;
 
-
 	public Search() {
 		this.id = 0;
-		this.identifier="search";
-		this.relationship="";
+		this.identifier = "search";
+		this.relationship = "";
 	}
 
 	public Search(int id) {
 		this.id = id;
-		this.identifier="search";
-		this.relationship="";
+		this.identifier = "search";
+		this.relationship = "";
 	}
 
 	public Date getDate() {
@@ -83,15 +82,23 @@ public class Search extends Bean{
 	public void setMaxValue(int maxValue) {
 		this.maxValue = maxValue;
 	}
-
+	
+	/*
+	 * The method save() saves one Search on Database returning true if the 
+	 * insertion was made correct or false otherwise.
+	 */
 	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
-		if(Search.count()>=10){
+		/*
+		 * QualCurso can't have more than 10 searchs.
+		 */
+		if(Search.count()>=10) {
+			// Deleting the first search.
 			Search.first().delete();
 		}
-
+		
 		result = gDB.insertBean(this);
 		this.setId(Search.last().getId());
 
@@ -105,6 +112,10 @@ public class Search extends Bean{
 		return result;
 	}
 
+	/*
+	 * The method getAll() get all "Beans" on Database and put them withim a
+	 * arraylist of Search before make a casting from Bean to Search.
+	 */
 	public static ArrayList<Search> getAll() throws  SQLException {
 		Search type = new Search();
 		ArrayList<Search> result = new ArrayList<Search>();
