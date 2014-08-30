@@ -14,11 +14,9 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
-import android.text.Spanned;
+
 
 public class MainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks, BeanListCallbacks, OnQueryTextListener {
