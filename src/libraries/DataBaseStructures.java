@@ -4,6 +4,7 @@ import android.database.SQLException;
 
 public class DataBaseStructures extends DataBase {
 	
+	// Call DataBase constructor.
     public DataBaseStructures() throws SQLException{
         super();
     }
@@ -27,7 +28,6 @@ public class DataBaseStructures extends DataBase {
             this.closeConnection();
     }
     
-    
     // The method dropDB delete all tables from Database. 
     public void dropDB() throws SQLException {
     	this.openConnection();
@@ -45,7 +45,7 @@ public class DataBaseStructures extends DataBase {
     }
 
     /*
-     * The method buildTableCourse() the table Course parsing as foreign key 
+     * The method buildTableCourse() the table "course" parsing as foreign key 
      * a Institution name. 
      */
     private void buildTableCourse() throws SQLException {
@@ -57,8 +57,8 @@ public class DataBaseStructures extends DataBase {
     }
 
     /*
-     * The method buildTableInstitution() the table Institution parsing as 
-     * foreign key a Course name. 
+     * The method buildTableInstitution() the table "institution" parsing as 
+     * foreign key a course name. 
      */
     private void buildTableInstitution() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'institution' (" +
@@ -79,9 +79,8 @@ public class DataBaseStructures extends DataBase {
     }
 
     /*
-     * The method buildTableArticles() creates the Article table on Database
-     * parsing as primary key "_id" and published_journals, 
-     * published_conference_proceedings as attribute.
+     * The method buildTableArticles() creates the "articles" table on Database
+     * parsing as primary key "_id".
      */
     private void buildTableArticles() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'articles' (" +
@@ -92,9 +91,8 @@ public class DataBaseStructures extends DataBase {
     }
     
     /*
-     * The method buildTableBooks() creates the Book table on Database
-     * parsing as primary key "_id" and integral_text, chapters, collections, 
-     * entries as attributes.
+     * The method buildTableBooks() creates the "books" table on Database
+     * parsing as primary key "_id".
      */    
     private void buildTableBooks() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'books' (" +
@@ -107,8 +105,8 @@ public class DataBaseStructures extends DataBase {
     }
 
     /*
-     * FIXME add foreign key support to database. E.g.:
-     * FOREIGN KEY(id_artigos) REFERENCES articles(id)
+     * The method buildTableBooks() creates the "evaluation" table on Database
+     * parsing as primary key "_id" and id_institution, id_course as foreign key.
      */
     private void buildTableEvaluation() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'evaluation' (" +
@@ -129,6 +127,10 @@ public class DataBaseStructures extends DataBase {
     	this.database.execSQL(sql);
     }
 
+    /*
+     * The method buildTableSearch creates the table "search" on Database to 
+     * know when someone make one search using SearchListFragment.
+     */
     private void buildTableSearch() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'search' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
