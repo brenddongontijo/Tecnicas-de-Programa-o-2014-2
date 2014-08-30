@@ -126,12 +126,18 @@ public class Search extends Bean {
 			return result;
 	}
 
+	/*
+	 * The method count() counts the number of Search on Database.  
+	 */
 	public static int count() throws  SQLException {
 		Search type = new Search();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
+	/*
+	 * The method first() returns the first Search on Database.
+	 */
 	public static Search first() throws SQLException {
 		Search result = new Search();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -139,6 +145,9 @@ public class Search extends Bean {
 		return result;
 	}
 
+	/*
+	 * The method last() returns the last Search on database.
+	 */
 	public static Search last() throws SQLException {
 		Search result = new Search();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -156,6 +165,9 @@ public class Search extends Bean {
 		return result;
 	}
 
+	/*
+	 * The method delete() delete the current Search on Database.
+	 */
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
