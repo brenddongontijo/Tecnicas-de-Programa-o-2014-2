@@ -167,6 +167,10 @@ public class SearchByIndicatorFragment extends Fragment {
 		};
 	}
 
+	/*
+	 * Request to hide the soft input window from the context of the window that
+	 * is currently accepting input.
+	 */
 	private void hideKeyboard(View view) {
 		InputMethodManager imm = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -174,6 +178,10 @@ public class SearchByIndicatorFragment extends Fragment {
 				InputMethodManager.RESULT_UNCHANGED_SHOWN);
 	}
 
+	/*
+	 * Method created to call a list of institutions according to the parameters
+	 * entered.
+	 */
 	private void callInstitutionList(int min, int max, int year,
 			Indicator filterField) {
 		Calendar c = Calendar.getInstance();
@@ -192,6 +200,10 @@ public class SearchByIndicatorFragment extends Fragment {
 				R.id.search_list);
 	}
 
+	/*
+	 * Method created to call a list of courses according to the parameters
+	 * entered.
+	 */
 	private void callCourseList(int min, int max, int year,
 			Indicator filterField) {
 		Calendar c = Calendar.getInstance();
@@ -210,6 +222,9 @@ public class SearchByIndicatorFragment extends Fragment {
 				R.id.search_list);
 	}
 
+	/*
+	 * Updates the list of survey information.
+	 */
 	private void updateSearchList(int min, int max, int year,
 			int listSelectionPosition, Indicator filterField) {
 		if (filterField.getValue() == Indicator.DEFAULT_INDICATOR) {
@@ -217,11 +232,19 @@ public class SearchByIndicatorFragment extends Fragment {
 			String emptySearchFilter = getResources().getString(
 					R.string.empty_search_filter);
 
+			/*
+			 * Send a message informing you that should make the choice of
+			 * indicator.
+			 */
 			Toast toast = Toast.makeText(c, emptySearchFilter,
 					Toast.LENGTH_SHORT);
 			toast.show();
 		} else {
 			switch (listSelectionPosition) {
+			/*
+			 * In the case where neither course nor institution are selected,
+			 * returns a list of institution.
+			 */
 			case 0:
 				listSelectionSpinner.setSelection(listSelectionSpinner
 						.getAdapter().getCount() - 1);
@@ -231,10 +254,13 @@ public class SearchByIndicatorFragment extends Fragment {
 				callInstitutionList(min, max, year, filterField);
 				break;
 
+			//Returns a list of course.
+
 			case 1:
 				callCourseList(min, max, year, filterField);
 				break;
 
+			////Returns a list of institution.
 			case 2:
 				callInstitutionList(min, max, year, filterField);
 				break;
