@@ -78,6 +78,11 @@ public class DataBaseStructures extends DataBase {
     	this.database.execSQL(sql);
     }
 
+    /*
+     * The method buildTableArticles() creates the Article table on Database
+     * parsing as primary key "_id" and published_journals, 
+     * published_conference_proceedings as attribute.
+     */
     private void buildTableArticles() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'articles' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -85,7 +90,12 @@ public class DataBaseStructures extends DataBase {
     		    "'published_conference_proceedings' INTEGER)";
     	this.database.execSQL(sql);
     }
-
+    
+    /*
+     * The method buildTableBooks() creates the Book table on Database
+     * parsing as primary key "_id" and integral_text, chapters, collections, 
+     * entries as attributes.
+     */    
     private void buildTableBooks() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'books' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
