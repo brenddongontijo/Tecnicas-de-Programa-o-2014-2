@@ -168,7 +168,7 @@ public class MainActivity extends ActionBarActivity implements
 		}
 		return super.onCreateOptionsMenu(menu);
 	}
-	private void setupSearchView(MenuItem searchItem){
+	private void setupSearchView(final MenuItem searchItem){
 		searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM|MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 		mSearchView.setOnQueryTextListener(this);
 	}

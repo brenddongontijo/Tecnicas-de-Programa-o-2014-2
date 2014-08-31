@@ -190,9 +190,8 @@ public class RankingFragment extends Fragment {
 		};
 	}
 
-	/*
-	 * ArrayList created to store all the fields present in the rankings.
-	 */
+	
+	  // ArrayList created to store all the fields present in the rankings.
 	public ArrayList<String> getListFields() {
 		ArrayList<String> fields = new ArrayList<String>();
 		fields.add(this.filterField);
@@ -203,9 +202,8 @@ public class RankingFragment extends Fragment {
 		return fields;
 	}
 
-	/*
-	 * Get this year by spinner.
-	 */
+	
+	 // Get this year by spinner.
 	public int getYear() {
 		int year = 0;
 
@@ -232,9 +230,8 @@ public class RankingFragment extends Fragment {
 		this.currentSelection = currentSelection;
 	}
 
-	/*
-	 * Sends a warning on the screen.
-	 */
+	
+	 // Sends a warning on the screen.
 	private void displayToastMessage(String textMenssage) {
 		Toast toast = Toast.makeText(
 				this.getActivity().getApplicationContext(), textMenssage,
@@ -242,9 +239,8 @@ public class RankingFragment extends Fragment {
 		toast.show();
 	}
 
-	/*
-	 * Used to update the list, seeking the actual value.
-	 */
+	
+	 // Used to update the list, seeking the actual value.
 	public void updateList() {
 		if (this.filterField != Indicator.DEFAULT_INDICATOR) {
 			final ArrayList<String> fields = getListFields();

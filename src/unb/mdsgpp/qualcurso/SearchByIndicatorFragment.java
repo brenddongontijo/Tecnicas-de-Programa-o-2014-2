@@ -29,7 +29,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-//Class "SearchByIndicatorFragment" used in the search for indicator.
+// Class "SearchByIndicatorFragment" used in the search for indicator.
 public class SearchByIndicatorFragment extends Fragment {
 
 	BeanListCallbacks beanCallbacks;
@@ -222,9 +222,8 @@ public class SearchByIndicatorFragment extends Fragment {
 				R.id.search_list);
 	}
 
-	/*
-	 * Updates the list of survey information.
-	 */
+	
+	// Updates the list of survey information.
 	private void updateSearchList(int min, int max, int year,
 			int listSelectionPosition, Indicator filterField) {
 		if (filterField.getValue() == Indicator.DEFAULT_INDICATOR) {
@@ -260,7 +259,7 @@ public class SearchByIndicatorFragment extends Fragment {
 				callCourseList(min, max, year, filterField);
 				break;
 
-			////Returns a list of institution.
+			// Returns a list of institution.
 			case 2:
 				callInstitutionList(min, max, year, filterField);
 				break;

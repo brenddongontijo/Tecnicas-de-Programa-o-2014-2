@@ -63,9 +63,8 @@ public class SearchListFragment extends ListFragment {
 		beanCallbacks = null;
 	}
 
-	/*
-	 * Called to have the fragment instantiate its user interface view.
-	 */
+	
+	 // Called to have the fragment instantiate its user interface view.
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -100,7 +99,7 @@ public class SearchListFragment extends ListFragment {
 		super.onSaveInstanceState(outState);
 	}
 
-	//This method will be called when an item in the list is selected.
+	// This method will be called when an item in the list is selected.
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		Parcelable bean = (Parcelable) l.getItemAtPosition(position);
@@ -123,7 +122,7 @@ public class SearchListFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 	}
 
-	//Retrieve a reference to this activity's ActionBar.
+	// Retrieve a reference to this activity's ActionBar.
 	private ActionBar getActionBar() {
 		return ((ActionBarActivity) getActivity()).getSupportActionBar();
 	}

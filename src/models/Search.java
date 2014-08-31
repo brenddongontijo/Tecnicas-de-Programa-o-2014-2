@@ -91,9 +91,8 @@ public class Search extends Bean {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
-		/*
-		 * QualCurso can't have more than 10 searchs.
-		 */
+		
+		 //QualCurso can't have more than 10 searches.
 		if(Search.count()>=10) {
 			// Deleting the first search.
 			Search.first().delete();
@@ -126,18 +125,16 @@ public class Search extends Bean {
 			return result;
 	}
 
-	/*
-	 * The method count() counts the number of Search on Database.  
-	 */
+	
+	 //The method count() counts the number of Search on Database.  
 	public static int count() throws  SQLException {
 		Search type = new Search();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
-	/*
-	 * The method first() returns the first Search on Database.
-	 */
+	
+	 //The method first() returns the first Search on Database.
 	public static Search first() throws SQLException {
 		Search result = new Search();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -145,9 +142,8 @@ public class Search extends Bean {
 		return result;
 	}
 
-	/*
-	 * The method last() returns the last Search on database.
-	 */
+	
+	 //The method last() returns the last Search on database. 
 	public static Search last() throws SQLException {
 		Search result = new Search();
 		GenericBeanDAO gDB = new GenericBeanDAO();
