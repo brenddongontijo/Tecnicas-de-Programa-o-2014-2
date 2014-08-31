@@ -141,6 +141,10 @@ public class RankingFragment extends Fragment {
 		};
 	}
 
+	/*
+	 * Always use a new field of filters is selected, calls the updateList ()
+	 * method to update the result list.
+	 */
 	public OnItemSelectedListener getFilterFieldSpinnerListener() {
 		return new OnItemSelectedListener() {
 			@Override
@@ -162,6 +166,10 @@ public class RankingFragment extends Fragment {
 
 	}
 
+	/*
+	 * Used whenever a new year is selected, calls the updateList () method to
+	 * update the result list.
+	 */
 	public OnItemSelectedListener getYearSpinnerListener() {
 		return new OnItemSelectedListener() {
 
@@ -182,6 +190,9 @@ public class RankingFragment extends Fragment {
 		};
 	}
 
+	/*
+	 * ArrayList created to store all the fields present in the rankings.
+	 */
 	public ArrayList<String> getListFields() {
 		ArrayList<String> fields = new ArrayList<String>();
 		fields.add(this.filterField);
@@ -192,8 +203,16 @@ public class RankingFragment extends Fragment {
 		return fields;
 	}
 
+	/*
+	 * Get this year by spinner.
+	 */
 	public int getYear() {
 		int year = 0;
+
+		/*
+		 * If the "0" position is marked ( == 0), is selected last year in the
+		 * Adapter, otherwise takes the selected position.
+		 */
 		if (yearSpinner.getSelectedItemPosition() != 0) {
 			year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
 		} else {
