@@ -85,12 +85,22 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 
+	/*
+	 * The method count() uses the method countBean() parsing one object from  
+	 * Institution to access Database and return the number of Institutions 
+	 * into it.
+	 */
 	public static int count() throws SQLException {
 		Institution type = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
+	/*
+	 * The method first() uses method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Institution and a boolean condition "false" to get 
+	 * the first "Bean" on Database and then turn it into a Institution using casting.
+	 */
 	public static Institution first() throws SQLException {
 		Institution result = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -98,6 +108,12 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 
+	/*
+	 * The method last() uses the method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Institution and a boolean condition "true" to get 
+	 * the last "Bean" on Database and then turn it into an Institution using the 
+	 * casting.
+	 */
 	public static Institution last() throws 
 			SQLException {
 		Institution result = new Institution();
