@@ -24,14 +24,14 @@ final.
 acima do método, variável, etc com o “/*” e será necessário pular uma linha para
 continuar digitando o texto, caso o mesmo fique muito extenso na linha posterior.
 	Exemplo:
-/*
+	/*
 	 * The method save() receives a instance from Article and saves into Database
 	 * also setting his Id using the method last().
 	 */
 
 	•Todos os métodos devem conter um comentário logo acima.
 	Exemplo:
-/*
+	/*
 	 * The method count() uses the method countBean() parsing one object from  
 	 * Article to access Database and return the number of Articles into it.
 	 */
@@ -191,6 +191,17 @@ while (condição);
 	
 
 5.0 XML: 
+	•usar os padrões da linguagem XML.
+	
+	•os comentários devem ser feitos dentro do padrão XML.
+	Exemplo:
+		<!-- Este é um comentário em XML --> 
+		
+	•Todos os elementos devem ser fechados ou marcados como vazio.
+	Exemplo:
+		- <name>Windscreen Wiper</name>
+		- vazio: <name></name> ou de forma abreviada <name />
+
 
 6.0 Problems/Warnings: 
 	•Não deixar o projeto contendo warnings, procurar sempre resolvê-los.
@@ -211,4 +222,4 @@ se aplica as operações envolvendo um só termo. Exemplo: incremento, decremento.
 	
 		public class ExampleClassForThePaper {
 		
-	}
+	    }

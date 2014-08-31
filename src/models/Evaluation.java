@@ -229,6 +229,10 @@ public class Evaluation extends Bean {
 		return result;
 	}
 	
+	/*
+	 * The method delete() access the Database and deletes the current Evaluation
+	 * returning "true" if the deletion was made correct or "false" otherwise.
+	 */
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();

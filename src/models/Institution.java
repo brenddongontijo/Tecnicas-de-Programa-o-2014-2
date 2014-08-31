@@ -142,8 +142,6 @@ public class Institution extends Bean implements Parcelable {
 		return courses;
 	}
 	
-	
-
 	public static ArrayList<Institution> getWhere(String field, String value,
 			boolean like) throws  SQLException {
 		Institution type = new Institution();
@@ -204,6 +202,10 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 	
+	/*
+	 * The method delete() access the Database and deletes the current Institution
+	 * returning "true" if the deletion was made correct or "false" otherwise.
+	 */
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
