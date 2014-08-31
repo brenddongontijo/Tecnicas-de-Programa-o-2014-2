@@ -219,7 +219,11 @@ public class Course extends Bean implements Parcelable{
 		
 		return result;
 	}
-
+	
+	/*
+	 * The method delete() access the Database and deletes the current Course
+	 * returning "true" if the deletion was made correct or "false" otherwise.
+	 */
 	public boolean delete() throws SQLException {
 		boolean result = false;
 		
