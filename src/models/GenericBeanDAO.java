@@ -217,22 +217,36 @@ public class GenericBeanDAO extends DataBase{
 		return result;
 	}
 
+	/*
+	 * The method countBean() count the number of Beans on Database based on
+	 * Bean identifier.
+	 */
 	public Integer countBean(Bean type) throws SQLException {
 		this.openConnection();
+		
 		Integer count = 0;
 		String sql = "SELECT * FROM " + type.identifier;
 		Cursor cs = this.database.rawQuery(sql, null);
-		if (cs.moveToFirst())
+		
+		if(cs.moveToFirst()) {
 			count = cs.getCount();
+		}
+		
 		this.closeConnection();
+		
 		return count;
 	}
 
+	/*
+	 * The method firstOrLastBean() returns the first or last Bean based on 
+	 * boolean "last".
+	 */
 	public Bean firstOrLastBean(Bean type, boolean last) throws SQLException {
 		Bean bean = null;
 		String sql = "SELECT * FROM " + type.identifier + " ORDER BY "
 				+ type.fieldsList().get(0);
-
+		
+		// Testing if last == false. 
 		if(!last) {
 			sql += " LIMIT 1";
 		}
@@ -243,10 +257,10 @@ public class GenericBeanDAO extends DataBase{
 		this.openConnection();
 		Cursor cs = this.database.rawQuery(sql,null);
 
-		if (cs.moveToFirst()) {
+		if(cs.moveToFirst()) {
 			bean = init(type.identifier);
 
-			for (String s : type.fieldsList()) {
+			for(String s : type.fieldsList()) {
 				bean.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
 		}
@@ -299,7 +313,7 @@ public class GenericBeanDAO extends DataBase{
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		Cursor cs;
 		
-		// Testing is user_like = false.
+		// Testing is user_like == false.
 		if (!use_like) {
 			// Making a search on database based on "value".
 			cs = this.database.query(type.identifier, null, 
