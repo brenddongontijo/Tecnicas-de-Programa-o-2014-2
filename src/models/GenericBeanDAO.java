@@ -297,27 +297,31 @@ public class GenericBeanDAO extends DataBase{
 		this.openConnection();
 		
 		ArrayList<Bean> beans = new ArrayList<Bean>();
-		String sql = "SELECT * FROM " + type.identifier + " WHERE ";
 		Cursor cs;
 		
+		// Testing is user_like = false.
 		if (!use_like) {
+			// Making a search on database based on "value".
 			cs = this.database.query(type.identifier, null, 
 					field+" = ?",
 					new String[]{value},
 					null, null, orderField);
 		}
-		else{
+		else {
 			cs = this.database.query(type.identifier, null, 
 					field+" LIKE ?",
 					new String[]{"%"+value+"%"},
 					null, null, orderField);
 		}
 
+		// Getting all bens and adding into ArrayList. 
 		while(cs.moveToNext()) {
 			Bean bean = init(type.identifier);
-			for (String s : type.fieldsList()) {
+			
+			for(String s : type.fieldsList()) {
 				bean.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
+			
 			beans.add(bean);
 		}
 		this.closeConnection();
@@ -326,15 +330,12 @@ public class GenericBeanDAO extends DataBase{
 	}
 	
 	/*
-	 * 
+	 * The method deleteBean() aims to delete a determinate Bean on Database.
 	 */
 	public boolean deleteBean(Bean bean) throws SQLException {
 		this.openConnection();
 		
-		/*
-		 * bean.fieldsList().get(0) is aways the primary key from the current 
-		 * bean.identifier.
-		 */
+		// bean.fieldsList().get(0) is the primary key from bean.identifier.
 		String sql = "DELETE FROM "+bean.identifier+ " WHERE "+bean.fieldsList().get(0)+" = ?";
 		this.pst = this.database.compileStatement(sql);
 		this.pst.bindString(1, bean.get(bean.fieldsList().get(0)));
@@ -345,33 +346,29 @@ public class GenericBeanDAO extends DataBase{
 		return (result == 1) ? true : false;
 	}
 
+	// The method init() Creates a Bean based on the current bean.Identifier.
 	public Bean init(String beanIdentifier) {
 		Bean object = null;
-		if (beanIdentifier.equals("institution")) {
+		
+		if(beanIdentifier.equals("institution")) {
 			object = new Institution();
 		} 
-		
-		else if (beanIdentifier.equals("course")) {
+		else if(beanIdentifier.equals("course")) {
 			object = new Course();
 		}
-		
-		else if (beanIdentifier.equals("books")) {
+		else if(beanIdentifier.equals("books")) {
 			object = new Book();
 		}
-		
-		else if (beanIdentifier.equals("articles")) {
+		else if(beanIdentifier.equals("articles")) {
 			object = new Article();
 		}
-		
-		else if (beanIdentifier.equals("evaluation")) {
+		else if(beanIdentifier.equals("evaluation")) {
 			object = new Evaluation();
 		}
-
-		else if (beanIdentifier.equals("search")) {
+		else if(beanIdentifier.equals("search")) {
 			object = new Search();
 		}
 
 		return object;
 	}
-
 }
