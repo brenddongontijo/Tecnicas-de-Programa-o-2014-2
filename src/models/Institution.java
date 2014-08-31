@@ -38,7 +38,11 @@ public class Institution extends Bean implements Parcelable {
 	public int getId() {
 		return id;
 	}
-
+	/*
+	 * The method save() receives an instance from Institution and saves into 
+	 * Database also setting its Id using the method last() returning true if
+	 * the insertion was made correct or false otherwise.
+	 */
 	public boolean save() throws SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -47,6 +51,11 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 	
+	/*
+	 * The method addCourse() relates one Institution with one Course
+	 * passing as a parameter to addBeanRelationship() the current instance 
+	 * of Institution and one Course.
+	 */
 	public boolean addCourse(Course course) throws SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -60,11 +69,16 @@ public class Institution extends Bean implements Parcelable {
 		result = (Institution) gDB.selectBean(result);
 		return result;
 	}
-
+	
+	/*
+	 * The method getAll() get all "Beans" on Database and put them within a
+	 * arraylist of Institution before make a casting from Bean to Institution.
+	 */
 	public static ArrayList<Institution> getAll() throws SQLException {
 		Institution type = new Institution();
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		for (Bean b : gDB.selectAllBeans(type,"acronym")) {
 			result.add((Institution) b);
 		}

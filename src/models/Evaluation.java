@@ -129,7 +129,7 @@ public class Evaluation extends Bean {
 	/*
 	 * The method save() receives an instance from Evaluation and saves into 
 	 * Database also setting its Id using the method last() returning true if
-	 * the insertion was made correct of false otherwise.
+	 * the insertion was made correct or false otherwise.
 	 */
 	public boolean save() throws  SQLException {
 		boolean result = false;
