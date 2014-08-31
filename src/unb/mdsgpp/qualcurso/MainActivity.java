@@ -21,13 +21,13 @@ import android.text.Html;
 public class MainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks, BeanListCallbacks, OnQueryTextListener {
 
-	/**
+	/*
 	 * Fragment managing the behaviors, interactions and presentation of the
 	 * navigation drawer.
 	 */
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 
-	/**
+	/*
 	 * Used to store the last screen title. For use in
 	 * {@link #restoreActionBar()}.
 	 */
@@ -149,19 +149,21 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (!mNavigationDrawerFragment.isDrawerOpen()) {
-			// Only show items in the action bar relevant to this screen
-			// if the drawer is not showing. Otherwise, let the drawer
-			// decide what to show in the action bar.
+			/* Only show items in the action bar relevant to this screen
+			 * if the drawer is not showing. Otherwise, let the drawer
+			 * decide what to show in the action bar.
+			 */
 			getMenuInflater().inflate(R.menu.main, menu);
 			restoreActionBar();
-			//if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof TabsFragment){
-			//	getMenuInflater().inflate(R.menu.search_menu, menu);
-			//}
-			//MenuItem searchItem = menu.findItem(R.id.action_search);
-			//if(searchItem != null){
-			//	mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-			//	setupSearchView(searchItem);
-			//}
+			/* if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof TabsFragment){
+			 *	getMenuInflater().inflate(R.menu.search_menu, menu);
+			 * }
+			 * MenuItem searchItem = menu.findItem(R.id.action_search);
+			 * if(searchItem != null){
+			 *	mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+			 *	setupSearchView(searchItem);
+			 * }
+			 */
 			return true;
 		}
 		return super.onCreateOptionsMenu(menu);
@@ -173,10 +175,10 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-
+		/* Handle action bar item clicks here. The action bar will
+		 * automatically handle clicks on the Home/Up button, so long
+		 * as you specify a parent activity in AndroidManifest.xml.
+		 */
 		switch(item.getItemId()) {
 			case R.id.action_about:
 				aboutApplication();
