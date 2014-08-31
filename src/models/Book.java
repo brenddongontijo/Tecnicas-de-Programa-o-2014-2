@@ -83,7 +83,7 @@ public class Book extends Bean {
 	}
 
 	/*
-	 * The method getAll() get all "Beans" on Database and put them withim a
+	 * The method getAll() get all "Beans" on Database and put them within a
 	 * arraylist of Book before make a casting from Bean to Book.
 	 */
 	public static ArrayList<Book> getAll() throws  SQLException {

@@ -78,7 +78,7 @@ public class Course extends Bean implements Parcelable{
 	}
 
 	/*
-	 * The method getAll() get all "Beans" on Database and put them withim a
+	 * The method getAll() get all "Beans" on Database and put them within a
 	 * arraylist of Course before make a casting from Bean to Course.
 	 */
 	public static ArrayList<Course> getAll() throws SQLException {
@@ -104,7 +104,12 @@ public class Course extends Bean implements Parcelable{
 		
 		return gDB.countBean(type);
 	}
-
+	
+	/*
+	 * The method first() uses method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Course and a boolean condition "false" to get 
+	 * the first "Bean" on Database and then turn it into a Course using casting.
+	 */
 	public static Course first() throws SQLException {
 		Course result = new Course();
 		GenericBeanDAO gDB = new GenericBeanDAO();
