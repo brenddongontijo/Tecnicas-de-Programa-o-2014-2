@@ -295,21 +295,25 @@ public class GenericBeanDAO extends DataBase{
 	public ArrayList<Bean> selectBeanWhere(Bean type, String field,
 			String value, boolean use_like, String orderField) throws SQLException {
 		this.openConnection();
+		
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		String sql = "SELECT * FROM " + type.identifier + " WHERE ";
 		Cursor cs;
-		if (!use_like)
-			cs =this.database.query(type.identifier, null, 
+		
+		if (!use_like) {
+			cs = this.database.query(type.identifier, null, 
 					field+" = ?",
 					new String[]{value},
 					null, null, orderField);
-		else
-			cs =this.database.query(type.identifier, null, 
+		}
+		else{
+			cs = this.database.query(type.identifier, null, 
 					field+" LIKE ?",
 					new String[]{"%"+value+"%"},
 					null, null, orderField);
+		}
 
-		while (cs.moveToNext()) {
+		while(cs.moveToNext()) {
 			Bean bean = init(type.identifier);
 			for (String s : type.fieldsList()) {
 				bean.set(s, cs.getString(cs.getColumnIndex(s)));
@@ -321,14 +325,23 @@ public class GenericBeanDAO extends DataBase{
 		return beans;
 	}
 	
+	/*
+	 * 
+	 */
 	public boolean deleteBean(Bean bean) throws SQLException {
 		this.openConnection();
+		
+		/*
+		 * bean.fieldsList().get(0) is aways the primary key from the current 
+		 * bean.identifier.
+		 */
 		String sql = "DELETE FROM "+bean.identifier+ " WHERE "+bean.fieldsList().get(0)+" = ?";
 		this.pst = this.database.compileStatement(sql);
 		this.pst.bindString(1, bean.get(bean.fieldsList().get(0)));
 		int result = this.pst.executeUpdateDelete();
 		this.pst.clearBindings();
 		this.closeConnection();
+		
 		return (result == 1) ? true : false;
 	}
 

@@ -9,7 +9,6 @@ public class DataBaseStructures extends DataBase {
         super();
     }
     
-    
     // The method initDB created all Models tables on Database.
     public void initDB() throws SQLException {
             this.openConnection();
@@ -28,7 +27,7 @@ public class DataBaseStructures extends DataBase {
             this.closeConnection();
     }
     
-    // The method dropDB delete all tables from Database. 
+    // The method dropDB() delete all tables from Database. 
     public void dropDB() throws SQLException {
     	this.openConnection();
     	
@@ -128,7 +127,7 @@ public class DataBaseStructures extends DataBase {
     }
 
     /*
-     * The method buildTableSearch creates the table "search" on Database to 
+     * The method buildTableSearch() creates the table "search" on Database to 
      * know when someone make one search using SearchListFragment.
      */
     private void buildTableSearch() throws SQLException {

@@ -70,15 +70,24 @@ public class Book extends Bean {
 	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = gDB.insertBean(this);
 		this.setId(Book.last().getId());
+		
 		return result;
 	}
 
+	/*
+	 * The method get() receives one "id" witch will be the search parameter 
+	 * to find a determinate Book on Database. 
+	 */
 	public static Book get(int id) throws  SQLException {
 		Book result = new Book(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
+		// Casting to transform a Bean into a Book. 
 		result = (Book) gDB.selectBean(result);
+		
 		return result;
 	}
 
@@ -90,9 +99,11 @@ public class Book extends Bean {
 		Book type = new Book();
 		ArrayList<Book> result = new ArrayList<Book>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		for(Bean b : gDB.selectAllBeans(type,null)) {
 			result.add((Book) b);
 		}
+		
 		return result;
 	}
 
@@ -100,9 +111,11 @@ public class Book extends Bean {
 	 * The method count() uses the method countBean() parsing one object from  
 	 * Book to access Database and return the number of Books into it.
 	 */
-	public static int count() throws  SQLException {
+	public static int count() throws SQLException {
 		Book type = new Book();
+		
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		return gDB.countBean(type);
 	}
 
@@ -115,7 +128,9 @@ public class Book extends Bean {
 	public static Book first() throws SQLException {
 		Book result = new Book();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = (Book) gDB.firstOrLastBean(result, false);
+		
 		return result;
 	}
 
@@ -128,18 +143,25 @@ public class Book extends Bean {
 	public static Book last() throws SQLException {
 		Book result = new Book();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = (Book) gDB.firstOrLastBean(result, true);
+		
 		return result;
 	}
 
-	public static ArrayList<Book> getWhere(String field, String value, boolean like) 
-			throws  SQLException {
+	/*
+	 * The method getWhere() 
+	 */
+	public static ArrayList<Book> getWhere(String field, String value, 
+			boolean like) throws SQLException {
 		Book type = new Book();
 		ArrayList<Book> result = new ArrayList<Book>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanWhere(type, field, value, like, null)) {
+		
+		for(Bean b : gDB.selectBeanWhere(type, field, value, like, null)) {
 			result.add((Book) b);
 		}
+		
 		return result;
 	}
 	
@@ -150,7 +172,9 @@ public class Book extends Bean {
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = gDB.deleteBean(this);
+		
 		return result;
 	}
 
@@ -159,23 +183,18 @@ public class Book extends Bean {
 		if(field.equals("_id")) {
 			return Integer.toString(this.getId());
 		}
-		
 		else if(field.equals("integral_text")) {
 			return Integer.toString(this.getIntegralText());
 		}
-		
 		else if (field.equals("chapters")) {
 			return Integer.toString(this.getChapters());
 		}
-		
 		else if(field.equals("collections")) {
 			return Integer.toString(this.getCollections());
 		}
-		
 		else if(field.equals("entries")) {
 			return Integer.toString(this.getEntries());
 		}
-		
 		else {
 			return "";
 		}
@@ -186,27 +205,20 @@ public class Book extends Bean {
 		if (field.equals("_id")) {
 			this.setId(Integer.parseInt(data));
 		} 
-		
 		else if (field.equals("integral_text")) {
 			this.setIntegralText(Integer.parseInt(data));
 		}
-		
 		else if (field.equals("chapters")) {
 			this.setChapters(Integer.parseInt(data));
 		}
-		
 		else if (field.equals("collections")) {
 			this.setCollections(Integer.parseInt(data));
 		}
-		
 		else if (field.equals("entries")) {
 			this.setEntries(Integer.parseInt(data));
 		}
-		
 		else {
-
 		}
-		
 	}
 
 	@Override
