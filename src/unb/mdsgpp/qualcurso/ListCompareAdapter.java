@@ -1,6 +1,5 @@
 package unb.mdsgpp.qualcurso;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,17 +16,24 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+/*
+ * Class designed to generate a list of comparisons.
+ */
+public class ListCompareAdapter extends ArrayAdapter<Institution> implements
+		OnCheckedChangeListener {
 
-public class ListCompareAdapter extends ArrayAdapter<Institution> implements OnCheckedChangeListener{
-	
 	public static int INSTITUTION = R.string.institution;
 	public static int POSITION = R.id.checkbox;
 	private Fragment callingFragment = null;
 	private CheckBoxListCallbacks checkBoxCallBacks;
 	private CheckBox cb = null;
 	private ArrayList<Boolean> checkedItems = new ArrayList<Boolean>();
-	
-	public ListCompareAdapter(Context context, int resource, List<Institution> item, Fragment callingFragment) {
+
+	/*
+	 * Instantiating the builder.
+	 */
+	public ListCompareAdapter(Context context, int resource,
+			List<Institution> item, Fragment callingFragment) {
 		super(context, resource, item);
 		this.callingFragment = callingFragment;
 		checkedItems = new ArrayList<Boolean>();
@@ -35,12 +41,16 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements OnC
 			checkedItems.add(false);
 		}
 	}
-	
+
+	/*
+	 * 
+	 * Method used to inflate the view.
+	 */
 	@Override
-	public View getView(int position, View contextView, ViewGroup parent){
+	public View getView(int position, View contextView, ViewGroup parent) {
 		View currentView = contextView;
-		checkBoxCallBacks = (CheckBoxListCallbacks)this.callingFragment;
-		if(currentView == null){
+		checkBoxCallBacks = (CheckBoxListCallbacks) this.callingFragment;
+		if (currentView == null) {
 			LayoutInflater li;
 			li = LayoutInflater.from(getContext());
 			currentView = li.inflate(R.layout.compare_choose_list_item, null);
@@ -48,8 +58,9 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements OnC
 
 		Institution i = getItem(position);
 
-		if(i != null){
-			cb = (CheckBox) currentView.findViewById(R.id.compare_institution_checkbox);
+		if (i != null) {
+			cb = (CheckBox) currentView
+					.findViewById(R.id.compare_institution_checkbox);
 			cb.setText(i.getAcronym());
 			cb.setTag(INSTITUTION, i);
 			cb.setTag(POSITION, position);
@@ -57,21 +68,24 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements OnC
 			cb.setOnCheckedChangeListener(this);
 			currentView.setTag(cb);
 		}
-		
+
 		return currentView;
 	}
 
+	/*
+	 * Used in changing buttons.
+	 */
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		// TODO Auto-generated method stub
-        int pos = (Integer)buttonView.getTag(ListCompareAdapter.POSITION);
-        if (pos != ListView.INVALID_POSITION) {
-        	if(isChecked){
-				checkBoxCallBacks.onCheckedItem((CheckBox)buttonView);
-			}else{
-				checkBoxCallBacks.onUnchekedItem((CheckBox)buttonView);
+		int pos = (Integer) buttonView.getTag(ListCompareAdapter.POSITION);
+		if (pos != ListView.INVALID_POSITION) {
+			if (isChecked) {
+				checkBoxCallBacks.onCheckedItem((CheckBox) buttonView);
+			} else {
+				checkBoxCallBacks.onUnchekedItem((CheckBox) buttonView);
 			}
-        	checkedItems.set(pos, isChecked);
-        }
+			checkedItems.set(pos, isChecked);
+		}
 	}
 }
