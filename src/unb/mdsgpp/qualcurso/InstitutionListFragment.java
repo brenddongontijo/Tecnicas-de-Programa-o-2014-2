@@ -1,12 +1,12 @@
 package unb.mdsgpp.qualcurso;
 
 
-import android.content.res.Configuration;
+
 import android.database.SQLException;
 
 import java.util.ArrayList;
 
-import models.Bean;
+
 import models.Course;
 import models.Institution;
 import android.app.Activity;
@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+
 
 public class InstitutionListFragment extends ListFragment{
 	

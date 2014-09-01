@@ -72,7 +72,7 @@ public class Article extends Bean {
 
 	/*
 	 * The method getAll() get all "Beans" on Database and put them withim a
-	 * arraylist of Articles before make a casting from Bean to Article.
+	 * ArrayList of Articles before make a casting from Bean to Article.
 	 */
 	public static ArrayList<Article> getAll() throws  SQLException {
 		Article type = new Article();
@@ -172,7 +172,7 @@ public class Article extends Bean {
 		else if (field.equals("published_conference_proceedings")) {
 			this.setPublishedConferenceProceedings(Integer.parseInt(data));
 		}
-		else {
+		else {		
 		}
 	}
 

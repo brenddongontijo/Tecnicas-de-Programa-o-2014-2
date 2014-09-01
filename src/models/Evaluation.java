@@ -126,6 +126,11 @@ public class Evaluation extends Bean {
 		return fields;
 	}
 	
+	/*
+	 * The method save() receives an instance from Evaluation and saves into 
+	 * Database also setting its Id using the method last() returning true if
+	 * the insertion was made correct or false otherwise.
+	 */
 	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -151,13 +156,23 @@ public class Evaluation extends Bean {
 		}
 		return result;
 	}
-
+	
+	/*
+	 * The method count() uses the method countBean() parsing one object from  
+	 * Evaluation to access Database and return the number of Evaluations 
+	 * into it.
+	 */
 	public static int count() throws  SQLException {
 		Evaluation type = new Evaluation();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
+	/*
+	 * The method first() uses method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Evaluation and a boolean condition "false" to get 
+	 * the first "Bean" on Database and then turn it into a Evaluation using casting.
+	 */
 	public static Evaluation first() throws 
 			SQLException {
 		Evaluation result = new Evaluation();
@@ -166,6 +181,12 @@ public class Evaluation extends Bean {
 		return result;
 	}
 
+	/*
+	 * The method last() uses the method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Evaluation and a boolean condition "true" to get 
+	 * the last "Bean" on Database and then turn it into an Evaluation using the 
+	 * casting.
+	 */
 	public static Evaluation last() throws 
 			SQLException {
 		Evaluation result = new Evaluation();
@@ -208,6 +229,10 @@ public class Evaluation extends Bean {
 		return result;
 	}
 	
+	/*
+	 * The method delete() access the Database and deletes the current Evaluation
+	 * returning "true" if the deletion was made correct or "false" otherwise.
+	 */
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();

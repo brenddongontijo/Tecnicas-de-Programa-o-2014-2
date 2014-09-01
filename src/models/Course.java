@@ -42,7 +42,7 @@ public class Course extends Bean implements Parcelable{
 	/*
 	 * The method save() receives an instance from Course and saves into 
 	 * Database also setting his Id using the method last() returning true if
-	 * the insertion was made correct of false otherwise.
+	 * the insertion was made correct or false otherwise.
 	 */
 	public boolean save() throws  SQLException {
 		boolean result = false;
@@ -67,7 +67,10 @@ public class Course extends Bean implements Parcelable{
 		
 		return result;
 	}
-
+	/*
+	 * The method get() receives one "id" witch will be the search parameter 
+	 * to find a determinate Course on Database. 
+	 */
 	public static Course get(int id) throws SQLException {
 		Course result = new Course(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -78,8 +81,8 @@ public class Course extends Bean implements Parcelable{
 	}
 
 	/*
-	 * The method getAll() get all "Beans" on Database and put them withim a
-	 * arraylist of Course before make a casting from Bean to Course.
+	 * The method getAll() get all "Beans" on Database and put them within a
+	 * ArrayList of Course before make a casting from Bean to Course.
 	 */
 	public static ArrayList<Course> getAll() throws SQLException {
 		Course type = new Course();
@@ -104,7 +107,12 @@ public class Course extends Bean implements Parcelable{
 		
 		return gDB.countBean(type);
 	}
-
+	
+	/*
+	 * The method first() uses method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Course and a boolean condition "false" to get 
+	 * the first "Bean" on Database and then turn it into a Course using casting.
+	 */
 	public static Course first() throws SQLException {
 		Course result = new Course();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -214,7 +222,11 @@ public class Course extends Bean implements Parcelable{
 		
 		return result;
 	}
-
+	
+	/*
+	 * The method delete() access the Database and deletes the current Course
+	 * returning "true" if the deletion was made correct or "false" otherwise.
+	 */
 	public boolean delete() throws SQLException {
 		boolean result = false;
 		
@@ -292,10 +304,16 @@ public class Course extends Bean implements Parcelable{
 		
 	}
 	
+	/*
+	 * Interface that must be implemented and provided as a public CREATOR field that generates 
+	 * instances for Parcelable class from a Parcel.
+	 */
 	public static final Parcelable.Creator<Course> CREATOR = new Parcelable.Creator<Course>() {
 
+		//Create a new instance of the Course, instantiating it from the given Parcel. 
 		@Override
 		public Course createFromParcel(Parcel source) {
+			//Returns a new instance of Course.
 			return new Course(source);
 		}
 

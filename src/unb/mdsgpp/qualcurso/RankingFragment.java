@@ -77,19 +77,24 @@ public class RankingFragment extends Fragment {
 		this.filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 		this.filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(
 				getActivity().getApplicationContext(),
-				R.layout.simple_spinner_item,R.id.spinner_item_text, Indicator.getIndicators()));
+				R.layout.simple_spinner_item, R.id.spinner_item_text, Indicator
+						.getIndicators()));
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.year);
-		this.filterFieldSpinner.setOnItemSelectedListener(getFilterFieldSpinnerListener());
+		this.filterFieldSpinner
+				.setOnItemSelectedListener(getFilterFieldSpinnerListener());
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
-		this.evaluationList = (ListView) rootView.findViewById(R.id.evaluationList);
+		this.evaluationList = (ListView) rootView
+				.findViewById(R.id.evaluationList);
 		ArrayList<Course> courses = Course.getAll();
 		autoCompleteField = (AutoCompleteTextView) rootView
 				.findViewById(R.id.autoCompleteTextView);
 		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity()
 				.getApplicationContext(), R.layout.custom_textview, courses));
-		autoCompleteField.setOnItemClickListener(getAutoCompleteListener(rootView));
+		autoCompleteField
+				.setOnItemClickListener(getAutoCompleteListener(rootView));
 		evaluationList.setOnItemClickListener(getEvaluationListListener());
-		if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
+		if (currentSelection != null
+				&& filterField != Indicator.DEFAULT_INDICATOR) {
 			updateList();
 		}
 		return rootView;
@@ -101,8 +106,8 @@ public class RankingFragment extends Fragment {
 		outState.putString(FILTER_FIELD, this.filterField);
 		super.onSaveInstanceState(outState);
 	}
-	
-	public OnItemClickListener getAutoCompleteListener(final View rootView){
+
+	public OnItemClickListener getAutoCompleteListener(final View rootView) {
 		return new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -115,7 +120,7 @@ public class RankingFragment extends Fragment {
 		};
 	}
 
-	public OnItemClickListener getEvaluationListListener(){
+	public OnItemClickListener getEvaluationListListener() {
 		return new OnItemClickListener() {
 
 			@Override
@@ -135,15 +140,20 @@ public class RankingFragment extends Fragment {
 			}
 		};
 	}
-	
-	public OnItemSelectedListener getFilterFieldSpinnerListener(){
+
+	/*
+	 * Always use a new field of filters is selected, calls the updateList ()
+	 * method to update the result list.
+	 */
+	public OnItemSelectedListener getFilterFieldSpinnerListener() {
 		return new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				setFilterField(((Indicator) arg0
-						.getItemAtPosition(arg2)).getValue());
-				if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
+				setFilterField(((Indicator) arg0.getItemAtPosition(arg2))
+						.getValue());
+				if (currentSelection != null
+						&& filterField != Indicator.DEFAULT_INDICATOR) {
 					updateList();
 				}
 			}
@@ -153,16 +163,21 @@ public class RankingFragment extends Fragment {
 				// TODO Auto-generated method stub
 			}
 		};
-		
+
 	}
-	
-	public OnItemSelectedListener getYearSpinnerListener(){
+
+	/*
+	 * Used whenever a new year is selected, calls the updateList () method to
+	 * update the result list.
+	 */
+	public OnItemSelectedListener getYearSpinnerListener() {
 		return new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if (currentSelection != null && filterField != Indicator.DEFAULT_INDICATOR) {
+				if (currentSelection != null
+						&& filterField != Indicator.DEFAULT_INDICATOR) {
 					updateList();
 				}
 			}
@@ -174,8 +189,10 @@ public class RankingFragment extends Fragment {
 			}
 		};
 	}
+
 	
-	public ArrayList<String> getListFields(){
+	  // ArrayList created to store all the fields present in the rankings.
+	public ArrayList<String> getListFields() {
 		ArrayList<String> fields = new ArrayList<String>();
 		fields.add(this.filterField);
 		fields.add("id_institution");
@@ -184,15 +201,20 @@ public class RankingFragment extends Fragment {
 		fields.add("year");
 		return fields;
 	}
+
 	
-	public int getYear(){
+	 // Get this year by spinner.
+	public int getYear() {
 		int year = 0;
+
+		/*
+		 * If the "0" position is marked ( == 0), is selected last year in the
+		 * Adapter, otherwise takes the selected position.
+		 */
 		if (yearSpinner.getSelectedItemPosition() != 0) {
-			year = Integer.parseInt(yearSpinner.getSelectedItem()
-					.toString());
+			year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
 		} else {
-			yearSpinner
-					.setSelection(yearSpinner.getAdapter().getCount() - 1);
+			yearSpinner.setSelection(yearSpinner.getAdapter().getCount() - 1);
 			year = Integer.parseInt(yearSpinner.getAdapter()
 					.getItem(yearSpinner.getAdapter().getCount() - 1)
 					.toString());
@@ -207,7 +229,9 @@ public class RankingFragment extends Fragment {
 	public void setCurrentSelection(Course currentSelection) {
 		this.currentSelection = currentSelection;
 	}
+
 	
+	 // Sends a warning on the screen.
 	private void displayToastMessage(String textMenssage) {
 		Toast toast = Toast.makeText(
 				this.getActivity().getApplicationContext(), textMenssage,
@@ -215,6 +239,8 @@ public class RankingFragment extends Fragment {
 		toast.show();
 	}
 
+	
+	 // Used to update the list, seeking the actual value.
 	public void updateList() {
 		if (this.filterField != Indicator.DEFAULT_INDICATOR) {
 			final ArrayList<String> fields = getListFields();
@@ -233,8 +259,13 @@ public class RankingFragment extends Fragment {
 		}
 	}
 
+	/*
+	 * Used to hide the keyboard smoothly when required.
+	 */
 	private void hideKeyboard(View view) {
-		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+		InputMethodManager imm = (InputMethodManager) getActivity()
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(view.getWindowToken(),
+				InputMethodManager.RESULT_UNCHANGED_SHOWN);
 	}
 }

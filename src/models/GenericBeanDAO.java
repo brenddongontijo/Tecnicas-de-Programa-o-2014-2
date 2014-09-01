@@ -217,22 +217,36 @@ public class GenericBeanDAO extends DataBase{
 		return result;
 	}
 
+	/*
+	 * The method countBean() count the number of Beans on Database based on
+	 * Bean identifier.
+	 */
 	public Integer countBean(Bean type) throws SQLException {
 		this.openConnection();
+		
 		Integer count = 0;
 		String sql = "SELECT * FROM " + type.identifier;
 		Cursor cs = this.database.rawQuery(sql, null);
-		if (cs.moveToFirst())
+		
+		if(cs.moveToFirst()) {
 			count = cs.getCount();
+		}
+		
 		this.closeConnection();
+		
 		return count;
 	}
 
+	/*
+	 * The method firstOrLastBean() returns the first or last Bean based on 
+	 * boolean "last".
+	 */
 	public Bean firstOrLastBean(Bean type, boolean last) throws SQLException {
 		Bean bean = null;
 		String sql = "SELECT * FROM " + type.identifier + " ORDER BY "
 				+ type.fieldsList().get(0);
-
+		
+		// Testing if last == false. 
 		if(!last) {
 			sql += " LIMIT 1";
 		}
@@ -243,10 +257,10 @@ public class GenericBeanDAO extends DataBase{
 		this.openConnection();
 		Cursor cs = this.database.rawQuery(sql,null);
 
-		if (cs.moveToFirst()) {
+		if(cs.moveToFirst()) {
 			bean = init(type.identifier);
 
-			for (String s : type.fieldsList()) {
+			for(String s : type.fieldsList()) {
 				bean.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
 		}
@@ -295,25 +309,33 @@ public class GenericBeanDAO extends DataBase{
 	public ArrayList<Bean> selectBeanWhere(Bean type, String field,
 			String value, boolean use_like, String orderField) throws SQLException {
 		this.openConnection();
+		
 		ArrayList<Bean> beans = new ArrayList<Bean>();
-		String sql = "SELECT * FROM " + type.identifier + " WHERE ";
 		Cursor cs;
-		if (!use_like)
-			cs =this.database.query(type.identifier, null, 
+		
+		// Testing is user_like == false.
+		if (!use_like) {
+			// Making a search on database based on "value".
+			cs = this.database.query(type.identifier, null, 
 					field+" = ?",
 					new String[]{value},
 					null, null, orderField);
-		else
-			cs =this.database.query(type.identifier, null, 
+		}
+		else {
+			cs = this.database.query(type.identifier, null, 
 					field+" LIKE ?",
 					new String[]{"%"+value+"%"},
 					null, null, orderField);
+		}
 
-		while (cs.moveToNext()) {
+		// Getting all bens and adding into ArrayList. 
+		while(cs.moveToNext()) {
 			Bean bean = init(type.identifier);
-			for (String s : type.fieldsList()) {
+			
+			for(String s : type.fieldsList()) {
 				bean.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
+			
 			beans.add(bean);
 		}
 		this.closeConnection();
@@ -321,44 +343,46 @@ public class GenericBeanDAO extends DataBase{
 		return beans;
 	}
 	
+	/*
+	 * The method deleteBean() aims to delete a determinate Bean on Database.
+	 */
 	public boolean deleteBean(Bean bean) throws SQLException {
 		this.openConnection();
+		
+		// bean.fieldsList().get(0) is the primary key from bean.identifier.
 		String sql = "DELETE FROM "+bean.identifier+ " WHERE "+bean.fieldsList().get(0)+" = ?";
 		this.pst = this.database.compileStatement(sql);
 		this.pst.bindString(1, bean.get(bean.fieldsList().get(0)));
 		int result = this.pst.executeUpdateDelete();
 		this.pst.clearBindings();
 		this.closeConnection();
+		
 		return (result == 1) ? true : false;
 	}
 
+	// The method init() Creates a Bean based on the current bean.Identifier.
 	public Bean init(String beanIdentifier) {
 		Bean object = null;
-		if (beanIdentifier.equals("institution")) {
+		
+		if(beanIdentifier.equals("institution")) {
 			object = new Institution();
 		} 
-		
-		else if (beanIdentifier.equals("course")) {
+		else if(beanIdentifier.equals("course")) {
 			object = new Course();
 		}
-		
-		else if (beanIdentifier.equals("books")) {
+		else if(beanIdentifier.equals("books")) {
 			object = new Book();
 		}
-		
-		else if (beanIdentifier.equals("articles")) {
+		else if(beanIdentifier.equals("articles")) {
 			object = new Article();
 		}
-		
-		else if (beanIdentifier.equals("evaluation")) {
+		else if(beanIdentifier.equals("evaluation")) {
 			object = new Evaluation();
 		}
-
-		else if (beanIdentifier.equals("search")) {
+		else if(beanIdentifier.equals("search")) {
 			object = new Search();
 		}
 
 		return object;
 	}
-
 }

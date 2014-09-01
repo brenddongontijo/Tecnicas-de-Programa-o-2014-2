@@ -42,50 +42,67 @@ public class Indicator {
 	}
 
 	/*
-	 * Method that takes the object "indicator" and returns on a Arraylist,
-	 * compound with their respective types depending on the position.
+	 * The method getIndicators creates one ArrayList of Indicator containing 
+	 * some indicators from the classes on package "models". 
 	 */
-	public static ArrayList<Indicator> getIndicators() {
-		String[] indicatorList = QualCurso.getInstance().getResources()
-				.getStringArray(R.array.indicator);
+	public static ArrayList<Indicator> getIndicators(){
+		String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
 		ArrayList<Indicator> result = new ArrayList<Indicator>();
 
 		result.add(new Indicator(indicatorList[0], DEFAULT_INDICATOR));
-		result.add(new Indicator(indicatorList[1], new Evaluation()
-				.fieldsList().get(7)));
-		result.add(new Indicator(indicatorList[2], new Evaluation()
-				.fieldsList().get(5)));
-		result.add(new Indicator(indicatorList[3], new Evaluation()
-				.fieldsList().get(6)));
-		result.add(new Indicator(indicatorList[4], new Evaluation()
-				.fieldsList().get(8)));
-		result.add(new Indicator(indicatorList[5], new Evaluation()
-				.fieldsList().get(9)));
-		result.add(new Indicator(indicatorList[6], new Evaluation()
-				.fieldsList().get(10)));
-		result.add(new Indicator(indicatorList[7], new Evaluation()
-				.fieldsList().get(13)));
-		result.add(new Indicator(indicatorList[8], new Book().fieldsList().get(
-				2)));
-		result.add(new Indicator(indicatorList[9], new Book().fieldsList().get(
-				1)));
-		result.add(new Indicator(indicatorList[10], new Book().fieldsList()
-				.get(3)));
-		result.add(new Indicator(indicatorList[11], new Book().fieldsList()
-				.get(4)));
-		result.add(new Indicator(indicatorList[12], new Article().fieldsList()
-				.get(1)));
-		result.add(new Indicator(indicatorList[13], new Article().fieldsList()
-				.get(2)));
+		// Evaluation().fieldsList().get(7) = triennial_evaluation.
+		result.add(new Indicator(indicatorList[1], new Evaluation().
+				fieldsList().get(7)));
+		// Evaluation().fieldsList().get(5) = master_degree_start_year.
+		result.add(new Indicator(indicatorList[2], new Evaluation().
+				fieldsList().get(5)));
+		// Evaluation().fieldsList().get(6) = doctorate_start_year.
+		result.add(new Indicator(indicatorList[3], new Evaluation().
+				fieldsList().get(6)));
+		// Evaluation().fieldsList().get(8) = permanent_teachers.
+		result.add(new Indicator(indicatorList[4], new Evaluation().
+				fieldsList().get(8)));
+		// Evaluation().fieldsList().get(9) = theses. 
+		result.add(new Indicator(indicatorList[5], new Evaluation().
+				fieldsList().get(9)));
+		// Evaluation().fieldsList().get(10) = dissertations.
+		result.add(new Indicator(indicatorList[6], new Evaluation().
+				fieldsList().get(10)));
+		// Evaluation().fieldsList().get(13) = artistic_production.
+		result.add(new Indicator(indicatorList[7], new Evaluation().
+				fieldsList().get(13)));
+		// Evaluation().fieldsList().get(2) = chapters.
+		result.add(new Indicator(indicatorList[8], new Book().
+				fieldsList().get(2)));
+		// Book().fieldsList().get(1) = integral_text.
+		result.add(new Indicator(indicatorList[9], new Book().
+				fieldsList().get(1)));
+		// Book().fieldsList().get(3) = collections.
+		result.add(new Indicator(indicatorList[10], new Book().
+				fieldsList().get(3)));
+		// Book().fieldsList().get(4) = entries.
+		result.add(new Indicator(indicatorList[11], new Book().
+				fieldsList().get(4)));
+		// Article().fieldsList().get(1) = published_journals.
+		result.add(new Indicator(indicatorList[12], new Article().
+				fieldsList().get(1)));
+		// Article().fieldsList().get(2) = published_conference_proceedings.
+		result.add(new Indicator(indicatorList[13], new Article().
+				fieldsList().get(2)));
 
 		return result;
 	}
 
-	//Get an Indicator for Value.
+	/*
+	 * The method getIndicatorByValue receives one "value" and try to find it
+	 * in one ArrayList of indicators.
+	 */
 	public static Indicator getIndicatorByValue(String value) {
 		Indicator indicator = null;
-		for (Indicator i : getIndicators()) {
-			if (i.getValue().equals(value)) {
+		
+		for(Indicator i : getIndicators()) {
+			// Trying to find the indicator.
+			if(i.getValue().equals(value)) {
 				indicator = i;
 				break;
 			}

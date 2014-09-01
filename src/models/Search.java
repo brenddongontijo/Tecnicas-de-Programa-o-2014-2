@@ -6,12 +6,12 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import unb.mdsgpp.qualcurso.QualCurso;
+
 import android.database.SQLException;
-import android.text.format.DateFormat;
+
 import helpers.Indicator;
 
-public class Search extends Bean{
+public class Search extends Bean {
 	public static int COURSE = 0;
 	public static int INSTITUTION = 1;
 
@@ -23,17 +23,18 @@ public class Search extends Bean{
 	private int minValue;
 	private int maxValue;
 
-
+	// Empty constructor.
 	public Search() {
 		this.id = 0;
-		this.identifier="search";
-		this.relationship="";
+		this.identifier = "search";
+		this.relationship = "";
 	}
 
+	// Declaration of a non-default constructor
 	public Search(int id) {
 		this.id = id;
-		this.identifier="search";
-		this.relationship="";
+		this.identifier = "search";
+		this.relationship = "";
 	}
 
 	public Date getDate() {
@@ -83,15 +84,22 @@ public class Search extends Bean{
 	public void setMaxValue(int maxValue) {
 		this.maxValue = maxValue;
 	}
-
+	
+	/*
+	 * The method save() saves one Search on Database returning true if the 
+	 * insertion was made correct or false otherwise.
+	 */
 	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
-		if(Search.count()>=10){
+		
+		 //QualCurso can't have more than 10 searches.
+		if(Search.count()>=10) {
+			// Deleting the first search.
 			Search.first().delete();
 		}
-
+		
 		result = gDB.insertBean(this);
 		this.setId(Search.last().getId());
 
@@ -105,6 +113,10 @@ public class Search extends Bean{
 		return result;
 	}
 
+	/*
+	 * The method getAll() get all "Beans" on Database and put them withim a
+	 * arraylist of Search before make a casting from Bean to Search.
+	 */
 	public static ArrayList<Search> getAll() throws  SQLException {
 		Search type = new Search();
 		ArrayList<Search> result = new ArrayList<Search>();
@@ -115,12 +127,16 @@ public class Search extends Bean{
 			return result;
 	}
 
+	
+	 //The method count() counts the number of Search on Database.  
 	public static int count() throws  SQLException {
 		Search type = new Search();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
+	
+	 //The method first() returns the first Search on Database.
 	public static Search first() throws SQLException {
 		Search result = new Search();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -128,6 +144,8 @@ public class Search extends Bean{
 		return result;
 	}
 
+	
+	 //The method last() returns the last Search on database. 
 	public static Search last() throws SQLException {
 		Search result = new Search();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -145,6 +163,9 @@ public class Search extends Bean{
 		return result;
 	}
 
+	/*
+	 * The method delete() delete the current Search on Database.
+	 */
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();

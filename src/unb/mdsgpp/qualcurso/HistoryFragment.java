@@ -44,27 +44,33 @@ public class HistoryFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, 	Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_history, container, false);
-		final ListView history = (ListView) rootView.findViewById(R.id.listHistory) ; 
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_history, container,
+				false);
+		final ListView history = (ListView) rootView
+				.findViewById(R.id.listHistory);
 
 		ArrayList<Search> searches = Search.getAll();
-		
-		Collections.reverse(searches);
-		
-		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter(this.getActivity().getApplicationContext(), R.id.listHistory, searches);
 
-		history.setAdapter((ListAdapter)histotyAdapter);
-		
+		Collections.reverse(searches);
+
+		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter(this
+				.getActivity().getApplicationContext(), R.id.listHistory,
+				searches);
+
+		history.setAdapter((ListAdapter) histotyAdapter);
+
 		history.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				Search search = (Search) parent.getItemAtPosition(position);
 
-				if(search.getOption() == Search.INSTITUTION){
+				if (search.getOption() == Search.INSTITUTION) {
 					displayInstitutionList(search);
-				}else if(search.getOption() == Search.COURSE){
+				} else if (search.getOption() == Search.COURSE) {
 					displayCourseList(search);
 				}
 			}
@@ -73,26 +79,42 @@ public class HistoryFragment extends Fragment {
 		return rootView;
 	}
 
+	/*
+	 * Search a list of institution receiving a search object.
+	 */
 	private void displayInstitutionList(Search search) {
-		ArrayList<Institution> institutions = Institution.getInstitutionsByEvaluationFilter(search);
+		ArrayList<Institution> institutions = Institution
+				.getInstitutionsByEvaluationFilter(search);
 
-		if( institutions.size() == 0 )
-			displayToastMessage(getResources().getString(R.string.empty_histoty_search_result));
+		if (institutions.size() == 0)
+			displayToastMessage(getResources().getString(
+					R.string.empty_histoty_search_result));
 		else
-			beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(institutions, search));
+			beanCallbacks.onBeanListItemSelected(SearchListFragment
+					.newInstance(institutions, search));
 	}
 
+	/*
+	 * Search a list of courses receiving a search object.
+	 */
 	private void displayCourseList(Search search) {
 		ArrayList<Course> courses = Course.getCoursesByEvaluationFilter(search);
 
-		if( courses.size() == 0 )
-			displayToastMessage(getResources().getString(R.string.empty_histoty_search_result));
+		if (courses.size() == 0)
+			displayToastMessage(getResources().getString(
+					R.string.empty_histoty_search_result));
 		else
-			beanCallbacks.onBeanListItemSelected(SearchListFragment.newInstance(courses, search));
+			beanCallbacks.onBeanListItemSelected(SearchListFragment
+					.newInstance(courses, search));
 	}
 
+	/*
+	 * Displays a message on the screen.
+	 */
 	private void displayToastMessage(String textMenssage) {
-		Toast toast = Toast.makeText(this.getActivity().getApplicationContext(), textMenssage, Toast.LENGTH_LONG);
+		Toast toast = Toast.makeText(
+				this.getActivity().getApplicationContext(), textMenssage,
+				Toast.LENGTH_LONG);
 		toast.show();
 	}
 }

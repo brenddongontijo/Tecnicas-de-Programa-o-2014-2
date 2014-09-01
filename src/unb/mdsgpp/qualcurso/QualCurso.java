@@ -1,7 +1,6 @@
 package unb.mdsgpp.qualcurso;
 
 import android.app.Application;
-import android.content.Context;
 
 public class QualCurso extends Application {
 	

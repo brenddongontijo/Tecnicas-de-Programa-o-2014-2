@@ -4,7 +4,7 @@ import android.database.SQLException;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
 public class Institution extends Bean implements Parcelable {
@@ -38,7 +38,11 @@ public class Institution extends Bean implements Parcelable {
 	public int getId() {
 		return id;
 	}
-
+	/*
+	 * The method save() receives an instance from Institution and saves into 
+	 * Database also setting its Id using the method last() returning true if
+	 * the insertion was made correct or false otherwise.
+	 */
 	public boolean save() throws SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -47,36 +51,60 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 	
+	/*
+	 * The method addCourse() relates one Institution with one Course
+	 * passing as a parameter to addBeanRelationship() the current instance 
+	 * of Institution and one Course.
+	 */
 	public boolean addCourse(Course course) throws SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.addBeanRelationship(this, course);
 		return result;
 	}
-
+	
+	/*
+	 * The method get() receives one "id" witch will be the search parameter 
+	 * to find a determinate Institution on Database. 
+	 */
 	public static Institution get(int id) throws SQLException {
 		Institution result = new Institution(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = (Institution) gDB.selectBean(result);
 		return result;
 	}
-
+	
+	/*
+	 * The method getAll() get all "Beans" on Database and put them within a
+	 * arraylist of Institution before make a casting from Bean to Institution.
+	 */
 	public static ArrayList<Institution> getAll() throws SQLException {
 		Institution type = new Institution();
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		for (Bean b : gDB.selectAllBeans(type,"acronym")) {
 			result.add((Institution) b);
 		}
 		return result;
 	}
 
+	/*
+	 * The method count() uses the method countBean() parsing one object from  
+	 * Institution to access Database and return the number of Institutions 
+	 * into it.
+	 */
 	public static int count() throws SQLException {
 		Institution type = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		return gDB.countBean(type);
 	}
 
+	/*
+	 * The method first() uses method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Institution and a boolean condition "false" to get 
+	 * the first "Bean" on Database and then turn it into a Institution using casting.
+	 */
 	public static Institution first() throws SQLException {
 		Institution result = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -84,6 +112,12 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 
+	/*
+	 * The method last() uses the method firstOrLastBean() from GenericBeanDAO 
+	 * parsing one object from Institution and a boolean condition "true" to get 
+	 * the last "Bean" on Database and then turn it into an Institution using the 
+	 * casting.
+	 */
 	public static Institution last() throws 
 			SQLException {
 		Institution result = new Institution();
@@ -112,8 +146,6 @@ public class Institution extends Bean implements Parcelable {
 		return courses;
 	}
 	
-	
-
 	public static ArrayList<Institution> getWhere(String field, String value,
 			boolean like) throws  SQLException {
 		Institution type = new Institution();
@@ -174,6 +206,10 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 	
+	/*
+	 * The method delete() access the Database and deletes the current Institution
+	 * returning "true" if the deletion was made correct or "false" otherwise.
+	 */
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
