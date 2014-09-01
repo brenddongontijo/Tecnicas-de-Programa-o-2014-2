@@ -10,12 +10,14 @@ public class Book extends Bean {
 	private int collections;
 	private int entries;
 
+	// Empty constructor.
 	public Book() {
 		this.id = 0;
 		this.identifier = "books";
 		this.relationship = "";
 	}
 
+	// Declaration of a non-default constructor
 	public Book(int id) {
 		this.id = id;
 		this.identifier = "books";
