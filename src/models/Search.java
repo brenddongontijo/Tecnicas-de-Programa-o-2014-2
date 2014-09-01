@@ -23,12 +23,14 @@ public class Search extends Bean {
 	private int minValue;
 	private int maxValue;
 
+	// Empty constructor.
 	public Search() {
 		this.id = 0;
 		this.identifier = "search";
 		this.relationship = "";
 	}
 
+	// Declaration of a non-default constructor
 	public Search(int id) {
 		this.id = id;
 		this.identifier = "search";

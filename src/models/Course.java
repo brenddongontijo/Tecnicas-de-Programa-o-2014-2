@@ -67,7 +67,10 @@ public class Course extends Bean implements Parcelable{
 		
 		return result;
 	}
-
+	/*
+	 * The method get() receives one "id" witch will be the search parameter 
+	 * to find a determinate Course on Database. 
+	 */
 	public static Course get(int id) throws SQLException {
 		Course result = new Course(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -79,7 +82,7 @@ public class Course extends Bean implements Parcelable{
 
 	/*
 	 * The method getAll() get all "Beans" on Database and put them within a
-	 * arraylist of Course before make a casting from Bean to Course.
+	 * ArrayList of Course before make a casting from Bean to Course.
 	 */
 	public static ArrayList<Course> getAll() throws SQLException {
 		Course type = new Course();
@@ -301,10 +304,16 @@ public class Course extends Bean implements Parcelable{
 		
 	}
 	
+	/*
+	 * Interface that must be implemented and provided as a public CREATOR field that generates 
+	 * instances for Parcelable class from a Parcel.
+	 */
 	public static final Parcelable.Creator<Course> CREATOR = new Parcelable.Creator<Course>() {
 
+		//Create a new instance of the Course, instantiating it from the given Parcel. 
 		@Override
 		public Course createFromParcel(Parcel source) {
+			//Returns a new instance of Course.
 			return new Course(source);
 		}
 

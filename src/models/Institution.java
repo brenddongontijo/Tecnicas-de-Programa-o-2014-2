@@ -62,7 +62,11 @@ public class Institution extends Bean implements Parcelable {
 		result = gDB.addBeanRelationship(this, course);
 		return result;
 	}
-
+	
+	/*
+	 * The method get() receives one "id" witch will be the search parameter 
+	 * to find a determinate Institution on Database. 
+	 */
 	public static Institution get(int id) throws SQLException {
 		Institution result = new Institution(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
