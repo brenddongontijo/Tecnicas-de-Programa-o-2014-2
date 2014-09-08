@@ -1,0 +1,44 @@
+Class:
+
+	public class GenericBeanDAO extends DataBase
+	
+Methods:
+
+	public GenericBeanDAO() 
+	
+	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table, String orderField)
+	
+	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table, int year, String orderField)
+			
+	public ArrayList<Bean> selectFromFields(Bean bean, ArrayList<String> fields, String orderField)
+			
+	public boolean insertBean(Bean bean) 
+	
+	public boolean addBeanRelationship(Bean parentBean, Bean childBean)
+			
+	public boolean deleteBeanRelationship(Bean parentBean, Bean childBean)
+			
+	public Bean selectBean(Bean bean) 
+	
+	public ArrayList<Bean> selectAllBeans(Bean type, String orderField) 
+
+	public ArrayList<String[]> runSql(String sql) 
+	
+	
+	public ArrayList<Bean> runSql(Bean type, String sql) 
+
+	public Integer countBean(Bean type) 
+	
+	public Bean firstOrLastBean(Bean type, boolean last) 
+	
+	public ArrayList<HashMap<String, String>> 
+	selectOrdered(ArrayList<String> returnFields, String orderedBy, String condition, String groupBy, boolean desc)
+	
+	public ArrayList<Bean> selectBeanWhere(Bean type, String field, String value, boolean use_like, String orderField) 
+			
+	public boolean deleteBean(Bean bean)
+	
+	public Bean init(String beanIdentifier) 
+	
+
+
