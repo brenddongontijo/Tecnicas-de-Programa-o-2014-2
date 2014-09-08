@@ -1,0 +1,78 @@
+Clas:
+
+	public class Search extends Bean 
+	
+Methods:
+
+	public Search() 
+
+	public Search(int id) 
+	
+	public Date getDate() 
+	
+	public void setDate(Date date)
+
+	public int getYear() 
+
+	public void setYear(int year) 
+
+	public int getOption() 
+
+	public void setOption(int option) 
+
+	public Indicator getIndicator()
+
+	public void setIndicator(Indicator indicator) 
+
+	public int getMinValue() 
+
+	public void setMinValue(int minValue) 
+
+	public int getMaxValue() 
+
+	public void setMaxValue(int maxValue) 
+
+	public boolean save() 
+	
+	public static Search get(int id) 
+
+	public static ArrayList<Search> getAll() 
+  
+	public static int count() 
+
+	public static Search first() 
+
+	public static Search last() 
+
+	public static ArrayList<Search> getWhere(String field, String value, boolean like) 
+
+	public boolean delete() 
+
+	public void setId(int id)
+
+	public String get(String field)
+
+	public void set(String field, String data)
+
+	public ArrayList<String> fieldsList() 
+
+	public int getId() 
+
+Variables:
+
+	//new name: searchId
+	private int id;
+	
+	private Date date;
+	
+	private int year;
+	
+	private int option;
+	
+	private Indicator indicator;
+	
+	//new name: minValueSearch
+	private int minValue;
+	
+	//new name: maxValueSearch
+	private int maxValue;
