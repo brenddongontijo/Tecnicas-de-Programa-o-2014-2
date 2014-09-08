@@ -1,0 +1,46 @@
+Class:
+
+	public class Book
+	
+Methods:
+
+	public Book()
+	
+	public Book(int id)
+	
+	public boolean save()
+	
+	public static Book get(int id)
+	 
+	public static ArrayList<Book> getAll()
+	
+	public static int count()	
+	
+	public static Book first()
+	
+	public static Book last()
+	
+	public static ArrayList<Book> getWhere(String field, String value, boolean like)
+
+	public boolean delete()
+	
+	public String get(String field)
+	
+	public void set(String field, String data)
+	
+	public ArrayList<String> fieldsList()
+	
+Variables:
+
+    //new name: bookId
+    private int id;
+    
+	private int integralText;
+	
+	//new name: bookChapters
+	private int chapters;
+	
+	//new name: bookCollections
+	private int collections;
+	
+	private int entries;
