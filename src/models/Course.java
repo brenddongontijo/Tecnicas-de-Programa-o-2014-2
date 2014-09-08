@@ -304,10 +304,7 @@ public class Course extends Bean implements Parcelable{
 		
 	}
 	
-	/*
-	 * Interface that must be implemented and provided as a public CREATOR field that generates 
-	 * instances for Parcelable class from a Parcel.
-	 */
+	
 	public static final Parcelable.Creator<Course> CREATOR = new Parcelable.Creator<Course>() {
 
 		//Create a new instance of the Course, instantiating it from the given Parcel. 

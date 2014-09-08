@@ -1,0 +1,65 @@
+Class:
+
+	public class Course extends Bean implements Parcelable
+	
+Methods:
+
+	public Course() 
+	
+	public Course(int id)
+	
+	public int getId() 
+	
+	public void setId(int id)
+	
+	public String getName() 
+
+	public void setName(String name) 
+	
+	public boolean save() 
+	
+	public boolean addInstitution(Institution institution) 
+	
+	public static Course get(int id) 
+	
+	public static ArrayList<Course> getAll() 
+	
+	public static int count() 
+	
+	public static Course first() 
+
+	public static Course last() 
+	
+	public ArrayList<Institution> getInstitutions() 
+	
+	public ArrayList<Institution> getInstitutions(int year)
+
+	public static ArrayList<Course> getWhere(String field, String value, boolean like)
+	
+	public static ArrayList<Course> getCoursesByEvaluationFilter(Search search) 
+
+	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(int id_course, Search search)
+	 
+	public boolean delete() 
+	
+	public String get(String field)
+	
+	public void set(String field, String data) 
+	
+	public ArrayList<String> fieldsList() 
+	
+	public String toString() 
+	
+	public int describeContents() 
+	
+	public void writeToParcel(Parcel dest, int flags)
+	
+	public static final Parcelable.Creator<Course> CREATOR = new Parcelable.Creator<Course>()
+	
+Variables:
+
+ 	//new name: courseId
+ 	private int id;
+ 	
+ 	//new name: courseName
+	private String name;
