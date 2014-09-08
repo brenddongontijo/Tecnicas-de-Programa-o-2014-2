@@ -8,6 +8,26 @@ Methods:
 	
 	public Book(int id)
 	
+	public int getId()
+
+	public void setId(int id) 
+
+	public int getIntegralText()
+
+	public void setIntegralText(int integralText) 
+
+	public int getChapters() 
+
+	public void setChapters(int chapters) 
+
+	public int getCollections() 
+
+	public void setCollections(int collections)
+
+	public int getEntries() 
+
+	public void setEntries(int entries) 
+	
 	public boolean save()
 	
 	public static Book get(int id)

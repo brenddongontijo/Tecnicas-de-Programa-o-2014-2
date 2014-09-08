@@ -1,10 +1,6 @@
 Class:
 
-/*
- * Generic  abstract class, is extremely important in this application 
- * since they are worked in other models to avoid DAO repetition code.
- */
-public abstract class Bean 
+	public abstract class Bean 
 
 Methods:
 
@@ -20,7 +16,6 @@ Methods:
 	
 Variables:
 
-// "identifier" will identifier the other models.
-// Models: Article, Book, Course, Evaluation, Institution and Search.
 	protected String identifier;
+	
 	protected String relationship;
