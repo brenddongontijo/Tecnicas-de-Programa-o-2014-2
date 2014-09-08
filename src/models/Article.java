@@ -71,7 +71,7 @@ public class Article extends Bean {
 	}
 
 	/*
-	 * The method getAll() get all "Beans" on Database and put them withim a
+	 * The method getAll() get all "Beans" on Database and put them within a
 	 * ArrayList of Articles before make a casting from Bean to Article.
 	 */
 	public static ArrayList<Article> getAll() throws  SQLException {
