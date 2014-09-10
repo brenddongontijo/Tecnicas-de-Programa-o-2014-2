@@ -25,18 +25,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-	/*
+	/**
 	 * Fragment used for managing interactions for and presentation of a navigation drawer.
 	 * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
 	 * design guidelines</a> for a complete explanation of the behaviors implemented here.
 	 */
 public class NavigationDrawerFragment extends Fragment {
 
-    
-      //Remember the position of the selected item.
+    /**
+     * Remember the position of the selected item.
+     */
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
-    /*
+    /**
      * Per the design guidelines, you should show the drawer on launch until the user manually
      * expands it. This shared preference tracks this.
      */
@@ -47,7 +48,9 @@ public class NavigationDrawerFragment extends Fragment {
     private NavigationDrawerCallbacks mCallbacks;
 
     
-     //Helper component that ties the action bar to the navigation drawer.
+     /**
+      * Helper component that ties the action bar to the navigation drawer.
+      */
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
@@ -124,7 +127,7 @@ public class NavigationDrawerFragment extends Fragment {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
 
-    /*
+    /**
      * Users of this fragment must call this method to set up the navigation drawer interactions.
      *
      * @param fragmentId   The android:id of this fragment in its activity's layout.
@@ -272,7 +275,7 @@ public class NavigationDrawerFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
+    /**
      * Per the navigation drawer design guidelines, updates the action bar to show the global app
      * 'context', rather than just what's in the current screen.
      */
@@ -293,10 +296,15 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
    
-     // Callbacks interface that all activities using this fragment must implement.
+     /**
+      * Callback interface that all activities using this fragment must implement.
+      */
     public static interface NavigationDrawerCallbacks {
         
-          //Called when an item in the navigation drawer is selected.        
+          /**
+           * Called when an item in the navigation drawer is selected.        
+           * @param position
+           */
         void onNavigationDrawerItemSelected(int position);
     }
 }
