@@ -2,6 +2,7 @@ package libraries;
 
 import android.database.SQLException;
 
+// This class make all SQL commands to create/delete the necessary tables on Database.
 public class DataBaseStructures extends DataBase {
 	
 	// Call DataBase constructor.
@@ -9,7 +10,7 @@ public class DataBaseStructures extends DataBase {
         super();
     }
     
-    // The method initDB created all Models tables on Database.
+    // The method initDB create all tables on DataBase.
     public void initDB() throws SQLException {
             this.openConnection();
             
@@ -43,10 +44,7 @@ public class DataBaseStructures extends DataBase {
         this.closeConnection();
     }
 
-    /*
-     * The method buildTableCourse() the table "course" parsing as foreign key 
-     * a Institution name. 
-     */
+    // This method creates the table "course"
     private void buildTableCourse() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS 'course' (" +
                 "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -55,44 +53,38 @@ public class DataBaseStructures extends DataBase {
         this.database.execSQL(sql);
     }
 
-    /*
-     * The method buildTableInstitution() the table "institution" parsing as 
-     * foreign key a course name. 
-     */
+    // This method creates the table "institution"
     private void buildTableInstitution() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'institution' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT,"+
     		    "'acronym' TEXT NOT NULL)";
+    	
     	this.database.execSQL(sql);
     }
 
     /*
-     * The method buildTableCoursesInstitutions() creates a relation N...N from 
-     * Institution and Course.
+     * This method creates the table "courses_institutions".
+     * Relation of course and institution: N...N
      */
     private void buildTableCoursesInstitutions() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'courses_institutions' (" +
     				"'id_institution' INTEGER NOT NULL," +
     				"'id_course' INTEGER NOT NULL)";
+    	
     	this.database.execSQL(sql);
     }
 
-    /*
-     * The method buildTableArticles() creates the "articles" table on Database
-     * parsing as primary key "_id".
-     */
+    // This method creates the table "articles"
     private void buildTableArticles() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'articles' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
     		    "'published_journals' INTEGER," +
     		    "'published_conference_proceedings' INTEGER)";
+    	
     	this.database.execSQL(sql);
     }
     
-    /*
-     * The method buildTableBooks() creates the "books" table on Database
-     * parsing as primary key "_id".
-     */    
+    // This method creates the table "books" 
     private void buildTableBooks() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'books' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -100,13 +92,11 @@ public class DataBaseStructures extends DataBase {
     		    "'chapters' INTEGER," +
     		    "'collections' INTEGER," +
     		    "'entries' INTEGER)";
+    	
     	this.database.execSQL(sql);
     }
 
-    /*
-     * The method buildTableBooks() creates the "evaluation" table on Database
-     * parsing as primary key "_id" and id_institution, id_course as foreign key.
-     */
+    // This method creates the table "evaluation"
     private void buildTableEvaluation() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'evaluation' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -123,13 +113,11 @@ public class DataBaseStructures extends DataBase {
     		    "'id_articles' INTEGER NOT NULL," +
     		    "'id_books' INTEGER," +
     		    "'artistic_production' INTEGER)";
+    	
     	this.database.execSQL(sql);
     }
 
-    /*
-     * The method buildTableSearch() creates the table "search" on Database to 
-     * know when someone make one search using SearchListFragment.
-     */
+    // This method creates the table "search"
     private void buildTableSearch() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'search' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -139,6 +127,7 @@ public class DataBaseStructures extends DataBase {
     			"'indicator' TEXT," +
     			"'min_value' INTEGER," +
     			"'max_value' INTEGER)";
+    	
     	this.database.execSQL(sql);
     }
 }
