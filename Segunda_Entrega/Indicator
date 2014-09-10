@@ -1,18 +1,11 @@
-	private String name;
-	private String value;
+private String name; -> Search indicator name -- New Name: searchIndicatorName 
 
-	public static final String DEFAULT_INDICATOR = "defaultIndicator";
+private String value; -> Search indicator value -- New Name: searchIndicatorValue
 
-	public Indicator(String name, String value) {
-		this.name = name;
-		this.value = value;
-	}
-	
-	String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
-	ArrayList<Indicator> result = new ArrayList<Indicator>();
-	
-	public static Indicator getIndicatorByValue(String value) {
-		Indicator indicator = null;
-		for(Indicator i : getIndicators()) {
-		}
-	}
+public static final String DEFAULT_INDICATOR = "defaultIndicator"; -> Default name for one indicator
+
+String [] indicatorList; -> Helps to keep the positions for indicators -- New Name: indicatorSearchPosition
+
+ArrayList<Indicator> result = new ArrayList<Indicator>(); -> ArrayList of Indicators -- New Name: indicatorArrayList
+
+Indicator i; -> Object from Indicator -- New Name: currentIndicator

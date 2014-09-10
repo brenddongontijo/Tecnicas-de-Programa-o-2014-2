@@ -8,13 +8,14 @@ import models.Evaluation;
 import unb.mdsgpp.qualcurso.QualCurso;
 import unb.mdsgpp.qualcurso.R;
 
-//Generic class help.
+// The class Indicator helps to make one search based on the evaluation indicators
 public class Indicator {
 	private String name;
 	private String value;
 
 	public static final String DEFAULT_INDICATOR = "defaultIndicator";
 
+	// Declaration of a non-default constructor.
 	public Indicator(String name, String value) {
 		this.name = name;
 		this.value = value;
@@ -41,10 +42,7 @@ public class Indicator {
 		return this.getName();
 	}
 
-	/*
-	 * The method getIndicators creates one ArrayList of Indicator containing 
-	 * some indicators from the classes on package "models". 
-	 */
+	// This method keep all indicators in one ArrayList.
 	public static ArrayList<Indicator> getIndicators(){
 		String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
 		ArrayList<Indicator> result = new ArrayList<Indicator>();
@@ -71,6 +69,7 @@ public class Indicator {
 		// Evaluation().fieldsList().get(13) = artistic_production.
 		result.add(new Indicator(indicatorList[7], new Evaluation().
 				fieldsList().get(13)));
+		
 		// Evaluation().fieldsList().get(2) = chapters.
 		result.add(new Indicator(indicatorList[8], new Book().
 				fieldsList().get(2)));
@@ -83,6 +82,7 @@ public class Indicator {
 		// Book().fieldsList().get(4) = entries.
 		result.add(new Indicator(indicatorList[11], new Book().
 				fieldsList().get(4)));
+		
 		// Article().fieldsList().get(1) = published_journals.
 		result.add(new Indicator(indicatorList[12], new Article().
 				fieldsList().get(1)));
@@ -93,10 +93,7 @@ public class Indicator {
 		return result;
 	}
 
-	/*
-	 * The method getIndicatorByValue receives one "value" and try to find it
-	 * in one ArrayList of indicators.
-	 */
+	// This method find a specific indicator in all indicators.	 
 	public static Indicator getIndicatorByValue(String value) {
 		Indicator indicator = null;
 		
