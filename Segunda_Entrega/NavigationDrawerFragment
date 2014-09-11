@@ -1,0 +1,72 @@
+Class:
+
+	public class NavigationDrawerFragment extends Fragment
+
+Methods:
+
+    public NavigationDrawerFragment()
+
+    public void onCreate(Bundle savedInstanceState)
+
+    public void onActivityCreated (Bundle savedInstanceState)
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState)
+
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	
+	public boolean isDrawerOpen()
+
+    public void setUp(int fragmentId, DrawerLayout drawerLayout)
+
+    public void onDrawerClosed(View drawerView)
+
+    public void onDrawerOpened(View drawerView)
+    
+    public void run()
+
+    private void selectItem(int position)
+
+    public void onAttach(Activity activity)
+
+    public void onDetach()
+
+    public void onSaveInstanceState(Bundle outState)
+
+    public void onConfigurationChanged(Configuration newConfig)
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+
+    public boolean onOptionsItemSelected(MenuItem item)
+
+    private void showGlobalContextActionBar()
+
+    public CharSequence getFormatedTitle(CharSequence s)
+
+    private ActionBar getActionBar()
+
+    public static interface NavigationDrawerCallbacks
+    
+    void onNavigationDrawerItemSelected(int position)
+
+Variables:
+
+	private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
+
+    private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
+
+    private NavigationDrawerCallbacks mCallbacks;
+
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    private DrawerLayout mDrawerLayout;
+
+    private ListView mDrawerListView;
+
+    private View mFragmentContainerView;
+
+    private int mCurrentSelectedPosition = 0;
+
+    private boolean mFromSavedInstanceState;
+
+    private boolean mUserLearnedDrawer;
