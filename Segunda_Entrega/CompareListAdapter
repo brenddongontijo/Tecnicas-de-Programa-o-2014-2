@@ -1,0 +1,11 @@
+Class:
+
+	public class CompareListAdapter
+	
+Methods:
+
+	public CompareListAdapter(Context context, int textViewResourceId)
+	
+	public CompareListAdapter(Context context, int resource,List<HashMap<String, String>> items)
+
+	public View getView(int position, View convertView, ViewGroup parent)

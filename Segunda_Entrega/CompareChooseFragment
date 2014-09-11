@@ -1,0 +1,37 @@
+Class:
+
+	public class CompareChooseFragment 
+	
+Methods:
+
+	public CompareChooseFragment()
+
+	public void onAttach(Activity activity) 
+
+	public void onDetach()
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+
+	public OnItemClickListener getAutoCompleteListener(final View rootView) 
+
+	public OnItemSelectedListener getYearSpinnerListener()
+			
+	public void setCurrentSelection(Course currentSelection)
+
+	public void updateList()
+
+	public void onCheckedItem(CheckBox checkBox)
+
+	public void onPause()
+
+	public void onUnchekedItem(CheckBox checkBox)
+
+	private void hideKeyboard(View view)
+	
+	private ActionBar getActionBar()
+	
+Variables:
+	
+	private int selectedYear;
+	
+	
