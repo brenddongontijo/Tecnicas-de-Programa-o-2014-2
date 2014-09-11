@@ -1,0 +1,12 @@
+Class:
+	public class DataBase extends SQLiteAssetHelper
+
+Methods:
+	public DataBase()
+	public DataBase()
+	protected void openConnection()
+	protected void closeConnection()
+
+Variables:
+	private static final int DATABASE_VERSION = 1;
+	protected SQLiteDatabase database;
