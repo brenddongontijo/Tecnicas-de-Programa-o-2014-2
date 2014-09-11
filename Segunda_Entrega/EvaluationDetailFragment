@@ -1,0 +1,17 @@
+Class:
+
+	public class EvaluationDetailFragment
+	
+Methods:
+
+	public EvaluationDetailFragment()
+
+	public static EvaluationDetailFragment newInstance(int id_institution, int id_course,int year)
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+
+	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluation
+
+	public void onAttach(Activity activity)
+
+    public void onDetach()

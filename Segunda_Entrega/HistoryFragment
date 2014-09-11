@@ -1,0 +1,19 @@
+Class:
+
+	public class HistoryFragment
+	
+Methods:
+
+	public HistoryFragment()
+	
+	public void onAttach(Activity activity)
+
+	public void onDetach()
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState
+
+	private void displayInstitutionList(Search search
+
+	private void displayCourseList(Search search)
+
+	private void displayToastMessage(String textMenssage)

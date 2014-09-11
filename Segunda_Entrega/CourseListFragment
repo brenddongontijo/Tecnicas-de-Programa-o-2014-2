@@ -1,0 +1,25 @@
+Class:
+
+	public class CourseListFragment
+	
+Methods:
+
+	public CourseListFragment()
+	
+	public static CourseListFragment newInstance(int id, int year)
+	
+	public static CourseListFragment newInstance(int id, int year, ArrayList<Course> list)
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+
+	public void onSaveInstanceState(Bundle outState)
+	
+	public void onListItemClick(ListView l, View v, int position, long id)
+
+	public void onAttach(Activity activity)
+
+    public void onDetach()
+
+	private static ArrayList<Course> getCoursesList(int idInstitution)
+	
+	private ActionBar getActionBar()
