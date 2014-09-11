@@ -1,0 +1,13 @@
+Class:
+	public class QualCurso extends Application {
+	
+Methods:
+	public QualCurso()
+	public void setDatabaseName(String databaseName)
+	public String getDatabaseName()	
+	public static QualCurso getInstance()
+	
+Variables:	
+	private static QualCurso instance;
+	private static String databaseName;
+	
