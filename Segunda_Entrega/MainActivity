@@ -1,0 +1,52 @@
+Class:
+
+	public class MainActivity extends ActionBarActivity implements
+			NavigationDrawerFragment.NavigationDrawerCallbacks, BeanListCallbacks, OnQueryTextListener
+
+Methods:
+
+	protected void onCreate(Bundle savedInstanceState)
+		
+	public CharSequence getFormatedTitle(CharSequence s)
+	
+	public void onConfigurationChanged(Configuration newConfig)
+	
+	protected void onSaveInstanceState(Bundle outState)
+
+	public void onNavigationDrawerItemSelected(int position)
+	
+	public void onSectionAttached(int number)
+	
+	public void restoreActionBar()
+
+	public boolean onCreateOptionsMenu(Menu menu)
+
+	private void setupSearchView(final MenuItem searchItem)
+
+	public boolean onOptionsItemSelected(MenuItem item)
+
+	private void closeApplication()
+
+	private void aboutApplication()
+
+	public void onBeanListItemSelected(Fragment fragment)
+
+	public void onBeanListItemSelected(Fragment fragment, int container)
+
+	public void onSearchBeanSelected(Search search, Parcelable bean)
+
+	public boolean onQueryTextChange(String arg0)
+
+	public boolean onQueryTextSubmit(String arg0)	
+
+Variables:
+
+	private NavigationDrawerFragment mNavigationDrawerFragment;
+
+	private CharSequence mTitle;
+
+	private int drawerPosition = 10;
+
+	public static String DRAWER_POSITION = "drawerPosition";
+
+	public static String CURRENT_TITLE = "currentTitle";
