@@ -1,0 +1,11 @@
+Class:
+
+	public class ListCompareAdapter
+	
+Methods:
+
+	public ListCompareAdapter(Context context, int resource,List<Institution> item, Fragment callingFragment)
+
+	public View getView(int position, View contextView, ViewGroup parent
+
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)

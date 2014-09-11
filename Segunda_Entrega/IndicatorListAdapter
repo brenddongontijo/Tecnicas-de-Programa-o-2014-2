@@ -1,0 +1,10 @@
+Class:
+
+	public class IndicatorListAdapter
+	
+Methods:
+
+	public IndicatorListAdapter(Context context, int resource, List<HashMap<String,String>> items)
+
+	public View getView(int position, View convertView, ViewGroup parent)
+	
