@@ -1,0 +1,25 @@
+Class:
+
+	public class SearchByIndicatorFragment
+	
+Methods:
+
+	public SearchByIndicatorFragment()
+	
+	public void onAttach(Activity activity)
+
+	public void onDetach()
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+
+	public OnClickListener getClickListener() {
+
+	private void hideKeyboard(View view)
+
+	private void callInstitutionList(int min, int max, int year,Indicator filterField)
+
+	private void callCourseList(int min, int max, int year,Indicator filterField)
+
+	private void updateSearchList(int min, int max, int year,int listSelectionPosition, Indicator filterField
+
+	private ActionBar getActionBar()

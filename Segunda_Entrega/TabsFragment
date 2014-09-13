@@ -1,0 +1,47 @@
+Class:
+	
+	public class TabsFragment
+	
+Method:
+
+	public void onAttach(Activity activity) 
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) 
+
+	public void onActivityCreated(Bundle savedInstanceState
+
+	private void setupTabs() 
+
+	public void onTabChanged(String tabId)
+
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+
+	private void setupSearchView(MenuItem searchItem) 
+
+	private void updateTab(String tabId, int placeholder)
+
+	public boolean onQueryTextChange(String arg0)
+
+	public ArrayList<Institution> castToInstitutions(ArrayList<Bean> beans
+
+	public ArrayList<Course> castToCourses(ArrayList<Bean> beans)
+
+	private ArrayList<Bean> getFilteredList(String filter,ArrayList<? extends Bean> list) 
+
+	public boolean onQueryTextSubmit(String arg0)
+	
+Variables:
+
+	private static final String TAG = "FragmentTabs";
+	
+	public static final String TAB_INSTITUTIONS = "tabInstitutions";
+	
+	public static final String TAB_COURSES = "tabCourses";
+	
+	private View mRoot;
+	
+	private TabHost mTabHost;
+	
+	private int mCurrentTab;
+	
+	private SearchView mSearchView;
