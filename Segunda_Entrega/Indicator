@@ -1,11 +1,12 @@
-private String name; -> Search indicator name -- New Name: searchIndicatorName 
+Variables:
+	private String name; -> Search indicator name -- New Name: searchIndicatorName 
 
-private String value; -> Search indicator value -- New Name: searchIndicatorValue
+	private String value; -> Search indicator value -- New Name: searchIndicatorValue
 
-public static final String DEFAULT_INDICATOR = "defaultIndicator"; -> Default name for one indicator
+	public static final String DEFAULT_INDICATOR = "defaultIndicator"; -> Default name for one indicator
 
-String [] indicatorList; -> Helps to keep the positions for indicators -- New Name: indicatorSearchPosition
+	String [] indicatorList; -> Helps to keep the positions for indicators -- New Name: indicatorSearchPosition
 
-ArrayList<Indicator> result = new ArrayList<Indicator>(); -> ArrayList of Indicators -- New Name: indicatorArrayList
+	ArrayList<Indicator> result = new ArrayList<Indicator>(); -> ArrayList of Indicators -- New Name: indicatorArrayList
 
-Indicator i; -> Object from Indicator -- New Name: currentIndicator
+	Indicator i; -> Object from Indicator -- New Name: currentIndicator

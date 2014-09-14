@@ -1,1 +1,7 @@
-String sql; -> Tell what SQL command the Database must make -- New Name: sqlCommand
+Methods: 
+	public void initDB() -> Initializes the Database -- New Name: initializeDatabase()
+	
+	public void dropDB() -> Delete all tables from Database -- New Name: deleteDatabase()
+
+Variables:
+	String sql; -> Tell what SQL command the Database must make -- New Name: sqlCommand
