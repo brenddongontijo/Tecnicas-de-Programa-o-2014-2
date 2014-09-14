@@ -4,51 +4,44 @@ Class:
 
 Methods:
 
-	public Article()
+	// New Name: saveArticle()
+	public boolean save()
 	
-	public Article(Integer id) 
+	// New Name: getArticleByValue
+	public static Article get(Integer id)
 	
-	public int getId() 
-
-	public void setId(int id) 
-
-	public int getPublishedJournals() 
-
-	public void setPublishedJournals(int publishedJournals) 
-
-	public int getPublishedConferenceProceedings() 
-
-	public void setPublishedConferenceProceedings(int publishedConferenceProceedings) 
+	// New Name: getAllArticles
+	public static ArrayList<Article> getAll()
 	
-	public boolean save() 
+	// New Name: numberOfArticles
+	public static int count()
 	
-	public static Article get(Integer id) 
+	// New Name: firstArticle
+	public static Article first()
 	
-	public static ArrayList<Article> getAll() 
-	
-	public static int count() 
-	
-	public static Article first() 
-	
-	public static Article last()  
+	// New Name: lastArticle
+	public static Article last() 
 	
 	public static ArrayList<Article> getWhere(String field, String value, boolean like)	
 
+	// New Name: deleteArticle
 	public boolean delete()
 	
+	// New Name: getArticleFields
 	public String get(String field)
 	
+	// New Name: setArticleFields
 	public void set(String field, String data)
 	
+	// New Name: articleFieldList
 	public ArrayList<String> fieldsList()
 	
 
 Variables: 
+	
+	// New Name: articleId
+	private int id; -> Database id from article.
 
-	//new name: articleId
-	private int id;
+	private int publishedJournals; -> number of published journals.
 
-	//new name: publishedArticles
-	private int publishedJournals;
-
-	private int publishedConferenceProceedings;
+	private int publishedConferenceProceedings; -> Number of published conference proceedings
