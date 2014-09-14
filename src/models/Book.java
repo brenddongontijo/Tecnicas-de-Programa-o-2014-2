@@ -3,6 +3,11 @@ package models;
 import android.database.SQLException;
 import java.util.ArrayList;
 
+/*
+ * Class Name: Article.
+ * 
+ * This class creates an Book with all their evaluation values.
+ */
 public class Book extends Bean {
 	private int id;
 	private int integralText;
@@ -24,51 +29,57 @@ public class Book extends Bean {
 		this.relationship = "";
 	}
 
+	// Access variable id. 
 	public int getId() {
 		return id;
 	}
 
+	// Modify variable id.
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	// Access variable integralText. 
 	public int getIntegralText() {
 		return integralText;
 	}
 
+	// Modify variable integralText.
 	public void setIntegralText(int integralText) {
 		this.integralText = integralText;
 	}
 
+	// Access variable chapters. 
 	public int getChapters() {
 		return chapters;
 	}
 
+	// Modify variable chapters.
 	public void setChapters(int chapters) {
 		this.chapters = chapters;
 	}
 
+	// Access variable collections. 
 	public int getCollections() {
 		return collections;
 	}
 
+	// Modify variable collections.
 	public void setCollections(int collections) {
 		this.collections = collections;
 	}
 
+	// Access variable entries. 
 	public int getEntries() {
 		return entries;
 	}
 
+	// Modify variable entries.
 	public void setEntries(int entries) {
 		this.entries = entries;
 	}
 
-	/*
-	 * The method save() receives an instance from Book and saves into 
-	 * Database also setting his Id using the method last() returning true if
-	 * the insertion was made correct or false otherwise.
-	 */
+	// This method saves one Book into Database.
 	public boolean save() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -79,10 +90,7 @@ public class Book extends Bean {
 		return result;
 	}
 
-	/*
-	 * The method get() receives one "id" witch will be the search parameter 
-	 * to find a determinate Book on Database. 
-	 */
+	// This method picks an Book on Database based on his id.
 	public static Book get(int id) throws  SQLException {
 		Book result = new Book(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -93,10 +101,7 @@ public class Book extends Bean {
 		return result;
 	}
 
-	/*
-	 * The method getAll() get all "Beans" on Database and put them within a
-	 * arraylist of Book before make a casting from Bean to Book.
-	 */
+	// This method get all Articles from database.
 	public static ArrayList<Book> getAll() throws  SQLException {
 		Book type = new Book();
 		ArrayList<Book> result = new ArrayList<Book>();
@@ -109,10 +114,7 @@ public class Book extends Bean {
 		return result;
 	}
 
-	/*
-	 * The method count() uses the method countBean() parsing one object from  
-	 * Book to access Database and return the number of Books into it.
-	 */
+	// This method counts the number of Books into Database.
 	public static int count() throws SQLException {
 		Book type = new Book();
 		
@@ -121,12 +123,7 @@ public class Book extends Bean {
 		return gDB.countBean(type);
 	}
 
-	/*
-	 * The method first() uses the method firstOrLastBean() from GenericBeanDAO 
-	 * parsing one object from Book and a boolean condition "false" to get 
-	 * the first "Bean" on Database and then turn it into an Book using the 
-	 * casting.
-	 */
+	// This method returns the first Book into Database.
 	public static Book first() throws SQLException {
 		Book result = new Book();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -136,12 +133,7 @@ public class Book extends Bean {
 		return result;
 	}
 
-	/*
-	 * The method last() uses the method firstOrLastBean() from GenericBeanDAO 
-	 * parsing one object from Book and a boolean condition "true" to get 
-	 * the last "Bean" on Database and then turn it into an Book using the 
-	 * casting.
-	 */
+	// This method returns the last Book into Database.
 	public static Book last() throws SQLException {
 		Book result = new Book();
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -151,9 +143,7 @@ public class Book extends Bean {
 		return result;
 	}
 
-	/*
-	 * The method getWhere() 
-	 */
+	// This method will try to find an Book based on a search.  
 	public static ArrayList<Book> getWhere(String field, String value, 
 			boolean like) throws SQLException {
 		Book type = new Book();
@@ -167,10 +157,7 @@ public class Book extends Bean {
 		return result;
 	}
 	
-	/*
-	 * The method delete() access the Database and deletes the current Book
-	 * returning "true" if the deletion was made correct or "false" otherwise.
-	 */
+	// This method deletes an Book from Database.
 	public boolean delete() throws  SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
@@ -180,6 +167,7 @@ public class Book extends Bean {
 		return result;
 	}
 
+	// Rewriting fields to String.
 	@Override
 	public String get(String field) {
 		if(field.equals("_id")) {
@@ -188,7 +176,7 @@ public class Book extends Bean {
 		else if(field.equals("integral_text")) {
 			return Integer.toString(this.getIntegralText());
 		}
-		else if (field.equals("chapters")) {
+		else if(field.equals("chapters")) {
 			return Integer.toString(this.getChapters());
 		}
 		else if(field.equals("collections")) {
@@ -197,40 +185,45 @@ public class Book extends Bean {
 		else if(field.equals("entries")) {
 			return Integer.toString(this.getEntries());
 		}
-		else {
+		else{
 			return "";
 		}
 	}
 
+	// Rewriting fields to Integer.
 	@Override
 	public void set(String field, String data) {
-		if (field.equals("_id")) {
+		if(field.equals("_id")) {
 			this.setId(Integer.parseInt(data));
 		} 
-		else if (field.equals("integral_text")) {
+		else if(field.equals("integral_text")) {
 			this.setIntegralText(Integer.parseInt(data));
 		}
-		else if (field.equals("chapters")) {
+		else if(field.equals("chapters")) {
 			this.setChapters(Integer.parseInt(data));
 		}
-		else if (field.equals("collections")) {
+		else if(field.equals("collections")) {
 			this.setCollections(Integer.parseInt(data));
 		}
-		else if (field.equals("entries")) {
+		else if(field.equals("entries")) {
 			this.setEntries(Integer.parseInt(data));
 		}
 		else {
 		}
 	}
 
+	// Creating an ArrayList of String with evaluation book values.
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
+		
 		fields.add("_id");
 		fields.add("integral_text");
 		fields.add("chapters");
 		fields.add("collections");
 		fields.add("entries");
+		
 		return fields;
 	}
+	
 }
