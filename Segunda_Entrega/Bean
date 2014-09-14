@@ -16,6 +16,8 @@ Methods:
 	
 Variables:
 
-	protected String identifier;
+	// New name: identifierModels.
+	protected String identifier; ->identifier the other models.
 	
-	protected String relationship;
+	// New name: relationshipBetweenModels.
+	protected String relationship; -> make a relationship between models.

@@ -58,7 +58,7 @@ Methods:
 Variables:
 
  	//new name: courseId
- 	private int id;
+ 	private int id; -> Database id to Course.
  	
  	//new name: courseName
-	private String name;
+	private String name; -> name of the Course.

@@ -91,32 +91,32 @@ Methods:
 Variables:
 
 	//new name: evaluationId
-	private int id;
+	private int id; -> Database id to Evaluation.
 	
-	private int idInstitution;
+	private int idInstitution; -> use the Database id of Institution.
 	
-	private int idCourse;
+	private int idCourse; -> use the Database id of Course.
 	
 	//new name: evaluationYear
-	private int year;
+	private int year; -> year that the evaluation of a course was made.
 	
 	//new name: evaluationModality
-	private String modality;
+	private String modality; -> modality of the evaluation.
 	
-	private int masterDegreeStartYear;
+	private int masterDegreeStartYear; -> year of creation of the master degree.
 	
-	private int doctorateStartYear;
+	private int doctorateStartYear; -> year of creation of the doctorate degree.
 	
-	private int triennialEvaluation;
+	private int triennialEvaluation; -> show the trienniel Evaluation of a course.
 	
-	private int permanentTeachers;
+	private int permanentTeachers; -> show the permanent Teachers.
 	
-	private int theses;
+	private int theses; -> number of theses.
 	
-	private int dissertations;
+	private int dissertations; -> number of dissertations.
 	
-	private int idArticles;
+	private int idArticles; -> use database id of Articles.
 	
-	private int idBooks;
+	private int idBooks; -> use database id of Books.
 	
 	private int artisticProduction;
