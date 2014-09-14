@@ -40,5 +40,10 @@ Methods:
 	
 	public Bean init(String beanIdentifier) 
 	
+Variables:
+
+	// New Name: preparedState
+	private SQLiteStatement pst; -> Represents a statement that can be executed against a database.
+	
 
 
