@@ -9,3 +9,9 @@ Methods:
 	public View getView(int position, View contextView, ViewGroup parent
 
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+	
+Variables:
+
+	public static int INSTITUTION = R.string.institution;
+	
+	public static int POSITION = R.id.checkbox;

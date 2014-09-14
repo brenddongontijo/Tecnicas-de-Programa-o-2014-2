@@ -22,6 +22,12 @@ Methods:
     
 Variables:
 
+	private static String ID_EVALUATION_A = "idEvaluationA"; -> use to keep the evaluation of 
+	a chosen course.
+	
+	private static String ID_EVALUATION_B = "idEvaluationB"; -> use to keep the evaluation of 
+	a chosen course.
+
 	private int totalBetterEvaluationInstitutionA;
 	
 	private int totalBetterEvaluationInstitutionB;

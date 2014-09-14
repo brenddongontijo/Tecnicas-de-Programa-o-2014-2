@@ -8,3 +8,10 @@ Methods:
 
 	public View getView(int position, View convertView, ViewGroup parent)
 	
+Variables:
+
+	public static String INDICATOR_VALUE = "indicatorValue"; -> use to show the value of the
+	indicator
+	
+	public static String VALUE = "value";
+	
