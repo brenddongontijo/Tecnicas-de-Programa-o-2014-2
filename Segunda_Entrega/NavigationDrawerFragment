@@ -4,6 +4,8 @@ Class:
 
 Methods:
 
+    void onNavigationDrawerItemSelected(int position)
+
     public NavigationDrawerFragment()
 
     public void onCreate(Bundle savedInstanceState)
@@ -25,8 +27,6 @@ Methods:
     
     public void run()
 
-    private void selectItem(int position)
-
     public void onAttach(Activity activity)
 
     public void onDetach()
@@ -39,15 +39,15 @@ Methods:
 
     public boolean onOptionsItemSelected(MenuItem item)
 
-    private void showGlobalContextActionBar()
-
     public CharSequence getFormatedTitle(CharSequence s)
-
-    private ActionBar getActionBar()
 
     public static interface NavigationDrawerCallbacks
     
-    void onNavigationDrawerItemSelected(int position)
+    private void selectItem(int position)
+    
+    private void showGlobalContextActionBar()
+    
+    private ActionBar getActionBar()
 
 Variables:
 
