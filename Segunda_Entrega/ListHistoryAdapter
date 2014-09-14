@@ -30,3 +30,9 @@ Variables:
 
 	int max = s.getMaxValue();
 	
+	// suggested name to variable "v": view.
+	View v = contextView;
+	
+	// suggested name to variable "s": searchedItem.
+	Search s = getItem(position);
+	
