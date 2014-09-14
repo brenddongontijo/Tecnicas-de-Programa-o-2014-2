@@ -23,3 +23,13 @@ Methods:
 	private static ArrayList<Institution> getInstitutionsList(int idCourse)
 
 	private ActionBar getActionBar()
+	
+	Variables:
+	
+		private static final String ID_COURSE = "idCourse"; -> use the id to show the course.
+		
+		private static final String IDS_INSTITUTIONS = "idsInstitutions"; -> use the id to show the 
+		institution that have that course.
+		
+		// private static final String YEAR = "yearEvaluation";
+		private static final String YEAR = "year"; -> show the year that the course was evaluated.

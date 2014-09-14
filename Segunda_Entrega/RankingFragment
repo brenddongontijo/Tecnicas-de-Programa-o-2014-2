@@ -34,8 +34,8 @@ Methods:
 	
 Variables:
 
-	//variable that receives the course
-	private static final String COURSE = "course";
+	
+	private static final String COURSE = "course"; -> received the course to use in the ranking.
 	
 	private static final String FILTER_FIELD = "filterField";
 	

@@ -60,19 +60,21 @@ Methods:
 
 Variables:
 
-	//new name: searchId
-	private int id;
+	// New name: searchId
+	private int id; -> id genarated by the database to a search.
 	
-	private Date date;
+	// New name: searchDate
+	private Date date; -> use to show the date of that the search was made.
 	
 	private int year;
 	
-	private int option;
+	// New name: searchOptions
+	private int option; -> use to show the options for a search.
 	
 	private Indicator indicator;
 	
 	//new name: minValueSearch
-	private int minValue;
+	private int minValue; -> use to establish the minimum number of searches.
 	
 	//new name: maxValueSearch
-	private int maxValue;
+	private int maxValue; -> use to establish the maximum number of searches.
