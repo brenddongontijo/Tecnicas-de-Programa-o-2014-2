@@ -1,0 +1,12 @@
+Class:
+	
+	public interface CheckBoxListCallbacks
+	
+Methods:
+
+	public void onCheckedItem(CheckBox checkbox);
+	public void onUnchekedItem(CheckBox checkbox);
+
+Variables:
+
+	// None.
