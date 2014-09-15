@@ -188,7 +188,7 @@ public class Course extends Bean implements Parcelable{
 		return result;
 	}
 
-	// This method will get all institutions relates to a specific evaluation filter.
+	// This method will get all institutions relates to a specific evaluation filter and to a course.
 	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(
 			int id_course, Search search) throws SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();

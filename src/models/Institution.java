@@ -7,157 +7,164 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
+/*
+ * Class Name: Institution.
+ * 
+ * This class creates an Course with their respective acronym.
+ */
 public class Institution extends Bean implements Parcelable {
 	private int id;
 	private String acronym;
 
+	// Empty constructor.
 	public Institution() {
 		this.id = 0;
 		this.identifier = "institution";
 		this.relationship = "courses_institutions";
 	}
 
+	// Declaration of a non-default constructor.
 	public Institution(int id) {
 		this.id = id;
 		this.identifier = "institution";
 		this.relationship = "courses_institutions";
 	}
 
+	// Access variable id. 
+	public int getId() {
+		return id;
+	}
+	
+	// Modify variable id.
+	public void setId(int id) {
+		this.id = id;
+	}
+		
+	// Access variable acronym. 
 	public String getAcronym() {
 		return acronym;
 	}
 
+	// Modify variable acronym.
 	public void setAcronym(String acronym) {
 		this.acronym = acronym;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getId() {
-		return id;
-	}
-	/*
-	 * The method save() receives an instance from Institution and saves into 
-	 * Database also setting its Id using the method last() returning true if
-	 * the insertion was made correct or false otherwise.
-	 */
+	
+	// This method saves one Institution into Database.
 	public boolean save() throws SQLException {
 		boolean result = false;
+		
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.insertBean(this);
+		
 		this.setId(Institution.last().getId());
+		
 		return result;
 	}
 	
-	/*
-	 * The method addCourse() relates one Institution with one Course
-	 * passing as a parameter to addBeanRelationship() the current instance 
-	 * of Institution and one Course.
-	 */
+	// This method relates a course with a institution.
 	public boolean addCourse(Course course) throws SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = gDB.addBeanRelationship(this, course);
+		
 		return result;
 	}
 	
-	/*
-	 * The method get() receives one "id" witch will be the search parameter 
-	 * to find a determinate Institution on Database. 
-	 */
+	// This method picks an Institution on Database based on his id.
 	public static Institution get(int id) throws SQLException {
 		Institution result = new Institution(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = (Institution) gDB.selectBean(result);
+		
 		return result;
 	}
 	
-	/*
-	 * The method getAll() get all "Beans" on Database and put them within a
-	 * arraylist of Institution before make a casting from Bean to Institution.
-	 */
+	// This method get all Institutions from database.
 	public static ArrayList<Institution> getAll() throws SQLException {
 		Institution type = new Institution();
-		ArrayList<Institution> result = new ArrayList<Institution>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
-		for (Bean b : gDB.selectAllBeans(type,"acronym")) {
+		ArrayList<Institution> result = new ArrayList<Institution>();
+		
+		for(Bean b : gDB.selectAllBeans(type,"acronym")) {
 			result.add((Institution) b);
 		}
+		
 		return result;
 	}
 
-	/*
-	 * The method count() uses the method countBean() parsing one object from  
-	 * Institution to access Database and return the number of Institutions 
-	 * into it.
-	 */
+	// This method counts the number of Institutions into Database.
 	public static int count() throws SQLException {
 		Institution type = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		return gDB.countBean(type);
 	}
 
-	/*
-	 * The method first() uses method firstOrLastBean() from GenericBeanDAO 
-	 * parsing one object from Institution and a boolean condition "false" to get 
-	 * the first "Bean" on Database and then turn it into a Institution using casting.
-	 */
+	// This method get the first Institution into Database.
 	public static Institution first() throws SQLException {
 		Institution result = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = (Institution) gDB.firstOrLastBean(result, false);
+		
 		return result;
 	}
 
-	/*
-	 * The method last() uses the method firstOrLastBean() from GenericBeanDAO 
-	 * parsing one object from Institution and a boolean condition "true" to get 
-	 * the last "Bean" on Database and then turn it into an Institution using the 
-	 * casting.
-	 */
-	public static Institution last() throws 
-			SQLException {
+	// This method get the last Institution into Database.
+	public static Institution last() throws SQLException {
 		Institution result = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		result = (Institution) gDB.firstOrLastBean(result, true);
+		
 		return result;
 	}
 
-	public ArrayList<Course> getCourses() throws 
-			SQLException {
+	// This method get courses related with an institution.
+	public ArrayList<Course> getCourses() throws SQLException {
 		ArrayList<Course> courses = new ArrayList<Course>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
 		for (Bean b : gDB.selectBeanRelationship(this, "course","name")) {
 			courses.add((Course) b);
 		}
+		
 		return courses;
 	}
 	
-	public ArrayList<Course> getCourses(int year) throws 
-			SQLException {
+	// This method get courses related with an institution based on year.
+	public ArrayList<Course> getCourses(int year) throws SQLException {
 		ArrayList<Course> courses = new ArrayList<Course>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanRelationship(this, "course", year,"name")) {
+		
+		for(Bean b : gDB.selectBeanRelationship(this, "course", year,"name")) {
 			courses.add((Course) b);
 		}
+		
 		return courses;
 	}
 	
+	// This method will try to find an Institution based on a search. 
 	public static ArrayList<Institution> getWhere(String field, String value,
-			boolean like) throws  SQLException {
+			boolean like) throws SQLException {
 		Institution type = new Institution();
-		ArrayList<Institution> result = new ArrayList<Institution>();
 		GenericBeanDAO gDB = new GenericBeanDAO();
+		
+		ArrayList<Institution> result = new ArrayList<Institution>();
+		
 		for (Bean b : gDB.selectBeanWhere(type, field, value, like,"acronym")) {
 			result.add((Institution) b);
 		}
+		
 		return result;
 	}
 
-	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(Search search) throws  SQLException {
+	// This method will get all institutions relates to a specific evaluation filter.
+	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(Search search) throws SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		String sql = "SELECT i.* FROM institution AS i, evaluation AS e, articles AS a, books AS b "+
 					" WHERE year="+Integer.toString(search.getYear())+
@@ -166,24 +173,28 @@ public class Institution extends Bean implements Parcelable {
 					" AND e.id_books = b._id"+
 					" AND "+search.getIndicator().getValue();
 
-		if(search.getMaxValue() == -1){
+		if(search.getMaxValue() == -1) {
 			sql+=" >= "+Integer.toString(search.getMinValue());
-		}else{
+		}
+		else {
 			sql+=" BETWEEN "+Integer.toString(search.getMinValue())+" AND "+Integer.toString(search.getMaxValue());
 		}
+		
 		sql+=" GROUP BY i._id";
-		GenericBeanDAO
-		gDB = new GenericBeanDAO();
+		
+		GenericBeanDAO gDB = new GenericBeanDAO();
 
-		for (Bean b : gDB.runSql(new Institution(), sql)){
+		for(Bean b : gDB.runSql(new Institution(), sql)){
 			result.add((Institution)b);
 		}
 
 		return result;
 	}
 
+	// This method will get all courses relates to a specific evaluation filter and to a institution.
 	public static ArrayList<Course> getCoursesByEvaluationFilter(int id_institution, Search search) throws  SQLException {
 		ArrayList<Course> result = new ArrayList<Course>();
+		
 		String sql = "SELECT c.* FROM course AS c, evaluation AS e, articles AS a, books AS b "+
 					" WHERE e.id_institution="+id_institution+
 					" AND e.id_course = c._id"+
@@ -192,57 +203,68 @@ public class Institution extends Bean implements Parcelable {
 					" AND year="+search.getYear()+
 					" AND "+search.getIndicator().getValue();
 		
-		if(search.getMaxValue() == -1){
+		if(search.getMaxValue() == -1) {
 			sql+=" >= "+search.getMinValue();
-		}else{
+		}
+		else {
 			sql+=" BETWEEN "+search.getMinValue()+" AND "+search.getMaxValue();
 		}
+		
 		sql+=" GROUP BY c._id";
+		
 		GenericBeanDAO gDB = new GenericBeanDAO();
 
-		for (Bean b : gDB.runSql(new Course(), sql)){
+		for(Bean b : gDB.runSql(new Course(), sql)){
 			result.add((Course)b);
 		}
+		
 		return result;
 	}
 	
-	/*
-	 * The method delete() access the Database and deletes the current Institution
-	 * returning "true" if the deletion was made correct or "false" otherwise.
-	 */
+	// This method deletes an Institution from Database.
 	public boolean delete() throws  SQLException {
 		boolean result = false;
+		
 		GenericBeanDAO gDB = new GenericBeanDAO();
-		for(Course c : this.getCourses()){
+		
+		for(Course c : this.getCourses()) {
 			gDB.deleteBeanRelationship(this,c);
 		}
+		
 		result = gDB.deleteBean(this);
+		
 		return result;
 	}
 
+	// Rewriting fields to String.
 	@Override
 	public String get(String field) {
 		if (field.equals("_id")) {
 			return Integer.toString(this.getId());
-		} else if (field.equals("acronym")) {
+		} 
+		else if (field.equals("acronym")) {
 			return this.getAcronym();
-		} else {
+		} 
+		else {
 			return "";
 		}
 	}
 
+	// Rewriting fields to Integer.
 	@Override
 	public void set(String field, String data) {
-		if (field.equals("_id")) {
+		if(field.equals("_id")) {
 			this.setId(Integer.parseInt(data));
-		} else if (field.equals("acronym")) {
+		} 
+		else if(field.equals("acronym")) {
 			this.setAcronym(data);
-		} else {
+		} 
+		else {
 
 		}
-
 	}
 
+	// Creating an ArrayList of String with institution acronym.
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
@@ -291,9 +313,5 @@ public class Institution extends Bean implements Parcelable {
 			return new Institution[size];
 		}
 	};
-	
-	
-	
-	
 
 }
