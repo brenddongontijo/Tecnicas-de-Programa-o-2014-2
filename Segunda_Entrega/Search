@@ -4,51 +4,28 @@ Clas:
 	
 Methods:
 
-	public Search() 
-
-	public Search(int id) 
-	
-	public Date getDate() 
-	
-	public void setDate(Date date)
-
-	public int getYear() 
-
-	public void setYear(int year) 
-
-	public int getOption() 
-
-	public void setOption(int option) 
-
-	public Indicator getIndicator()
-
-	public void setIndicator(Indicator indicator) 
-
-	public int getMinValue() 
-
-	public void setMinValue(int minValue) 
-
-	public int getMaxValue() 
-
-	public void setMaxValue(int maxValue) 
-
+	// New Name: saveSearch
 	public boolean save() 
 	
+	// New Name: getSearchById
 	public static Search get(int id) 
 
+	// New Name: getAllSearch
 	public static ArrayList<Search> getAll() 
   
+  	// New Name: numberOfSearch
 	public static int count() 
-
+	
+	// New Name: firstSearch
 	public static Search first() 
 
+	// New Name: lastSearch
 	public static Search last() 
 
 	public static ArrayList<Search> getWhere(String field, String value, boolean like) 
-
+	
+	// New Name: deleteSearch
 	public boolean delete() 
-
-	public void setId(int id)
 
 	public String get(String field)
 
@@ -66,15 +43,17 @@ Variables:
 	// New name: searchDate
 	private Date date; -> use to show the date of that the search was made.
 	
-	private int year;
+	// New name: evaluationYear
+	private int year; -> Year of the evaluation.
 	
-	// New name: searchOptions
-	private int option; -> use to show the options for a search.
+	// New name: searchOption
+	private int option; -> Option to choose between Course or Evaluation
 	
+	// New name: searchIndicator
 	private Indicator indicator;
 	
-	//new name: minValueSearch
-	private int minValue; -> use to establish the minimum number of searches.
+	//new name: minIndicatorValue
+	private int minValue; -> Minimum indicator value. Default = 0.
 	
-	//new name: maxValueSearch
-	private int maxValue; -> use to establish the maximum number of searches.
+	//new name: maxIndicatorValue
+	private int maxValue; -> Maximum indicator value.
