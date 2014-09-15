@@ -3,35 +3,30 @@ Class:
 	public class Course extends Bean implements Parcelable
 	
 Methods:
-
-	public Course() 
 	
-	public Course(int id)
-	
-	public int getId() 
-	
-	public void setId(int id)
-	
-	public String getName() 
-
-	public void setName(String name) 
-	
+	// New Name: saveCourse()
 	public boolean save() 
 	
 	public boolean addInstitution(Institution institution) 
 	
+	// New Name: getCourseByValue
 	public static Course get(int id) 
 	
+	// New Name: getAllCourses
 	public static ArrayList<Course> getAll() 
 	
+	// New Name: numberOfCourses
 	public static int count() 
 	
+	// New Name: firstCourse
 	public static Course first() 
 
+	// New Name: lastCourse
 	public static Course last() 
 	
 	public ArrayList<Institution> getInstitutions() 
 	
+	// New Name: getInstitutionsByYear
 	public ArrayList<Institution> getInstitutions(int year)
 
 	public static ArrayList<Course> getWhere(String field, String value, boolean like)
@@ -40,12 +35,16 @@ Methods:
 
 	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(int id_course, Search search)
 	 
+	// New Name: deleteCourse
 	public boolean delete() 
 	
+	// New Name: getCourseFields
 	public String get(String field)
 	
+	// New Name: setCourseFields
 	public void set(String field, String data) 
 	
+	// New Name: courseFieldList
 	public ArrayList<String> fieldsList() 
 	
 	public String toString() 
