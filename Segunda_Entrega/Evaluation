@@ -1,0 +1,122 @@
+Class:
+
+	public class Evaluation extends Bean
+	
+Methods:
+
+	public Evaluation()
+
+	public Evaluation(int id) 
+
+	public String get(String field) 
+	
+	public void set(String field, String data)
+
+	public ArrayList<String> fieldsList() 
+
+	public boolean save() 
+
+	public static Evaluation get(int id) 
+
+	public static ArrayList<Evaluation> getAll() 
+	
+	public static int count() 
+
+	public static Evaluation first()  
+
+	public static Evaluation last() 
+
+	public static ArrayList<Evaluation> getWhere(String field, String value, boolean like) 
+	
+	public static Evaluation getFromRelation(int idInstitution, int idCourse, int year)
+
+	public boolean delete() 
+	
+	public int getId()
+	
+	public void setId(int id) 
+	
+	public int getIdInstitution()
+
+	public void setIdInstitution(int idInstitution) 
+
+	public int getIdCourse() {
+
+	public void setIdCourse(int idCourse) 
+
+	public int getYear() 
+
+	public void setYear(int year) 
+
+	public String getModality()
+
+	public void setModality(String modality)
+
+	public int getMasterDegreeStartYear() 
+
+	public void setMasterDegreeStartYear(int masterDegreeStartYear) 
+
+	public int getDoctorateStartYear()
+
+	public void setDoctorateStartYear(int doctorateStartYear) 
+
+	public int getTriennialEvaluation() 
+
+	public void setTriennialEvaluation(int triennialEvaluation) 
+
+	public int getPermanentTeachers() 
+
+	public void setPermanentTeachers(int permanentTeachers) 
+
+	public int getTheses() 
+
+	public void setTheses(int theses) 
+
+	public int getDissertations() 
+
+	public void setDissertations(int dissertations) 
+
+	public int getIdArticles()
+
+	public void setIdArticles(int idArticles) 
+
+	public int getIdBooks() 
+
+	public void setIdBooks(int idBooks) 
+
+	public int getArtisticProduction() 
+
+	public void setArtisticProduction(int artisticProduction)
+	
+Variables:
+
+	//new name: evaluationId
+	private int id; -> Database id to Evaluation.
+	
+	private int idInstitution; -> use the Database id of Institution.
+	
+	private int idCourse; -> use the Database id of Course.
+	
+	//new name: evaluationYear
+	private int year; -> year that the evaluation of a course was made.
+	
+	//new name: evaluationModality
+	private String modality; -> modality of the evaluation.
+	
+	private int masterDegreeStartYear; -> year of creation of the master degree.
+	
+	private int doctorateStartYear; -> year of creation of the doctorate degree.
+	
+	private int triennialEvaluation; -> show the trienniel Evaluation of a course.
+	
+	private int permanentTeachers; -> show the permanent Teachers.
+	
+	private int theses; -> number of theses.
+	
+	private int dissertations; -> number of dissertations.
+	
+	private int idArticles; -> use database id of Articles.
+	
+	private int idBooks; -> use database id of Books.
+	
+	private int artisticProduction;

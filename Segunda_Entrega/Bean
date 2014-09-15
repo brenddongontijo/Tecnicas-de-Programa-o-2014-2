@@ -1,0 +1,23 @@
+Class:
+
+	public abstract class Bean 
+
+Methods:
+
+	public abstract String get(String field);
+
+	public abstract void set(String field, String data);
+
+	public abstract ArrayList<String> fieldsList();
+
+	public abstract int getId();
+
+	public abstract void setId(int id);
+	
+Variables:
+
+	// New name: identifierModels.
+	protected String identifier; ->identifier the other models.
+	
+	// New name: relationshipBetweenModels.
+	protected String relationship; -> make a relationship between models.

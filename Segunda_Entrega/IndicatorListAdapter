@@ -1,0 +1,17 @@
+Class:
+
+	public class IndicatorListAdapter
+	
+Methods:
+
+	public IndicatorListAdapter(Context context, int resource, List<HashMap<String,String>> items)
+
+	public View getView(int position, View convertView, ViewGroup parent)
+	
+Variables:
+
+	public static String INDICATOR_VALUE = "indicatorValue"; -> use to show the value of the
+	indicator
+	
+	public static String VALUE = "value";
+	

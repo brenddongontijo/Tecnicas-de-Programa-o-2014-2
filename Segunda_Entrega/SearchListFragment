@@ -1,0 +1,33 @@
+Class:
+
+	public class SearchListFragment
+	
+Methods:
+
+	public SearchListFragment()
+	
+	public static SearchListFragment newInstance(ArrayList<? extends Parcelable> list, Search search)
+			
+	public void onAttach(Activity activity)
+	
+	public void onDetach()
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+	
+	public void onSaveInstanceState(Bundle outState)
+	
+	public void onListItemClick(ListView l, View v, int position, long id)
+	
+	private ActionBar getActionBar()
+	
+Variables:
+
+	private static final String YEAR = "year";
+	
+	private static final String FIELD = "field";
+	
+	private static final String RANGE_A = "rangeA";
+	
+	private static final String RANGE_B = "rangeB";
+	
+	private static final String BEAN_LIST = "beanList"; 

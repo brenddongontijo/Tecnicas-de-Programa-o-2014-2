@@ -1,0 +1,47 @@
+Class:
+
+	public class Article extends Bean
+
+Methods:
+
+	// New Name: saveArticle()
+	public boolean save()
+	
+	// New Name: getArticleByValue
+	public static Article get(Integer id)
+	
+	// New Name: getAllArticles
+	public static ArrayList<Article> getAll()
+	
+	// New Name: numberOfArticles
+	public static int count()
+	
+	// New Name: firstArticle
+	public static Article first()
+	
+	// New Name: lastArticle
+	public static Article last() 
+	
+	public static ArrayList<Article> getWhere(String field, String value, boolean like)	
+
+	// New Name: deleteArticle
+	public boolean delete()
+	
+	// New Name: getArticleFields
+	public String get(String field)
+	
+	// New Name: setArticleFields
+	public void set(String field, String data)
+	
+	// New Name: articleFieldList
+	public ArrayList<String> fieldsList()
+	
+
+Variables: 
+	
+	// New Name: articleId
+	private int id; -> Database id from article.
+
+	private int publishedJournals; -> number of published journals.
+
+	private int publishedConferenceProceedings; -> Number of published conference proceedings

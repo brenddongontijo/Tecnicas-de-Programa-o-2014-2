@@ -1,0 +1,59 @@
+Clas:
+
+	public class Search extends Bean 
+	
+Methods:
+
+	// New Name: saveSearch
+	public boolean save() 
+	
+	// New Name: getSearchById
+	public static Search get(int id) 
+
+	// New Name: getAllSearch
+	public static ArrayList<Search> getAll() 
+  
+  	// New Name: numberOfSearch
+	public static int count() 
+	
+	// New Name: firstSearch
+	public static Search first() 
+
+	// New Name: lastSearch
+	public static Search last() 
+
+	public static ArrayList<Search> getWhere(String field, String value, boolean like) 
+	
+	// New Name: deleteSearch
+	public boolean delete() 
+
+	public String get(String field)
+
+	public void set(String field, String data)
+
+	public ArrayList<String> fieldsList() 
+
+	public int getId() 
+
+Variables:
+
+	// New name: searchId
+	private int id; -> id genarated by the database to a search.
+	
+	// New name: searchDate
+	private Date date; -> use to show the date of that the search was made.
+	
+	// New name: evaluationYear
+	private int year; -> Year of the evaluation.
+	
+	// New name: searchOption
+	private int option; -> Option to choose between Course or Evaluation
+	
+	// New name: searchIndicator
+	private Indicator indicator;
+	
+	//new name: minIndicatorValue
+	private int minValue; -> Minimum indicator value. Default = 0.
+	
+	//new name: maxIndicatorValue
+	private int maxValue; -> Maximum indicator value.

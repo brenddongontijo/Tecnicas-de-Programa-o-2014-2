@@ -1,0 +1,28 @@
+Class:
+
+	public class EvaluationDetailFragment
+	
+Methods:
+
+	public EvaluationDetailFragment()
+
+	public static EvaluationDetailFragment newInstance(int id_institution, int id_course,int year)
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+
+	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluation
+
+	public void onAttach(Activity activity)
+
+    public void onDetach()
+    
+   Variables:
+   
+   	private static final String ID_COURSE = "idCourse"; -> use to show the details of the 
+   	evaluation of the course.
+   	
+	private static final String ID_INSTITUTION = "idInstitution"; -> use to show the institution that
+	have a course.
+	
+	// private static final String YEAR = "yearEvaluation";
+	private static final String YEAR = "year"; -> year that the evaluation was made.

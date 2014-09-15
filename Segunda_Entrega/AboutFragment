@@ -1,0 +1,15 @@
+Class:
+
+	public class AboutFragment 
+	
+Methods:
+
+	public AboutFragment()
+
+	public static AboutFragment newInstance()
+
+	public void onAttach(Activity activity)
+	
+	public void onDetach() 
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, 	Bundle savedInstanceState)

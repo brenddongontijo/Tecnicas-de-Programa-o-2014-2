@@ -1,0 +1,34 @@
+Class:
+
+	public class CompareShowFragment
+	
+Methods:
+
+	public CompareShowFragment()
+
+	public static CompareShowFragment newInstance(int idEvaluationA, int idEvaluationB)
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, 	Bundle savedInstanceState) {
+		
+	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluationA, Evaluation evaluationB)
+	
+	private void incrementBetterValues(String evaluationValueA, String evaluationValueB)
+	
+	private void setBetterInstitutionsValues()
+
+	public void onAttach(Activity activity)
+
+    public void onDetach()
+    
+Variables:
+
+	private static String ID_EVALUATION_A = "idEvaluationA"; -> use to keep the evaluation of 
+	a chosen course.
+	
+	private static String ID_EVALUATION_B = "idEvaluationB"; -> use to keep the evaluation of 
+	a chosen course.
+
+	private int totalBetterEvaluationInstitutionA;
+	
+	private int totalBetterEvaluationInstitutionB;
+	

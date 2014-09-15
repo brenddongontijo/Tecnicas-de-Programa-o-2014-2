@@ -1,0 +1,41 @@
+Class:
+
+	public class RankingFragment
+	
+Methods:
+
+	public void onDetach()
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+	
+	public void onSaveInstanceState(Bundle outState)
+	
+	public OnItemClickListener getAutoCompleteListener(final View rootView)
+	
+	public OnItemClickListener getEvaluationListListener()
+	
+	public OnItemSelectedListener getFilterFieldSpinnerListener()
+	
+	public OnItemSelectedListener getYearSpinnerListener()
+	
+	public ArrayList<String> getListFields()
+	
+	public int getYear()
+	
+	public void setFilterField(String filterField)
+	
+	public void setCurrentSelection(Course currentSelection)
+	
+	private void displayToastMessage(String textMenssage)
+	
+	public void updateList()
+	
+	private void hideKeyboard(View view)
+	
+Variables:
+
+	
+	private static final String COURSE = "course"; -> received the course to use in the ranking.
+	
+	private static final String FILTER_FIELD = "filterField";
+	

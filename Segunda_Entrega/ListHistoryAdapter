@@ -1,0 +1,38 @@
+Class:
+
+	public class ListHistoryAdapter extends ArrayAdapter<Search>
+
+Methods:
+
+	public ListHistoryAdapter(Context context, int resource, List<Search> items)
+	
+	public View getView(int position, View contextView, ViewGroup parent)
+
+	public void setListRow(Search s)
+
+	public void setItem(TextView view, String data)
+
+	public void setItem(TextView view, int resId)
+	
+Variables:
+
+	TextView option = null;
+	
+	TextView year = null;
+	
+	TextView indicator = null;
+	
+	TextView firstValue = null;
+	
+	TextView secondValue = null;
+	
+	TextView searchDate = null;
+
+	int max = s.getMaxValue();
+	
+	// suggested name to variable "v": view.
+	View v = contextView;
+	
+	// suggested name to variable "s": searchedItem.
+	Search s = getItem(position);
+	

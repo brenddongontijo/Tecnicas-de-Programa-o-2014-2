@@ -1,0 +1,34 @@
+Class:
+
+	public class CourseListFragment
+	
+Methods:
+
+	public CourseListFragment()
+	
+	public static CourseListFragment newInstance(int id, int year)
+	
+	public static CourseListFragment newInstance(int id, int year, ArrayList<Course> list)
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+
+	public void onSaveInstanceState(Bundle outState)
+	
+	public void onListItemClick(ListView l, View v, int position, long id)
+
+	public void onAttach(Activity activity)
+
+    public void onDetach()
+
+	private static ArrayList<Course> getCoursesList(int idInstitution)
+	
+	private ActionBar getActionBar()
+	
+Variables: 
+
+	private static final String ID_INSTITUTION = "idInstitution"; -> use the id of the institution to
+	list them.
+	
+	private static final String IDS_COURSES = "idsCourses"; -> use the id of the course to list them.
+	
+	private static final String YEAR = "year"; -> year of evaluation.

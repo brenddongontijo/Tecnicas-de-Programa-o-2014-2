@@ -3,8 +3,10 @@ package models;
 import java.util.ArrayList;
 
 /*
- * Generic  abstract class, is extremely important in this application 
- * since they are worked in other models to avoid DAO repetition code.
+ * Class Name: Bean.
+ * 
+ * This class transforms an Article, Book, Course, Evaluation, Institution or Search
+ * into a Bean witch will be able to access GenericBeanDAO.
  */
 public abstract class Bean {
 	// "identifier" will identifier the other models.
@@ -22,3 +24,4 @@ public abstract class Bean {
 
 	public abstract void setId(int id);
 }
+
