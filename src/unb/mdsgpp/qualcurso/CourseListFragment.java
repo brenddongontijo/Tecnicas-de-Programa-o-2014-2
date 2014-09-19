@@ -115,7 +115,7 @@ public class CourseListFragment extends ListFragment{
 		if(idInstitution == 0){
 			return Course.getAll();
 		}else{
-			return Institution.getInstitutionByValue(idInstitution).getCourses();
+			return Institution.getInstitutionByValue(idInstitution).getCoursesByYear();
 		}
 	}
 	
