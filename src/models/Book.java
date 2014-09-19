@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class Book extends Bean {
 	private int id;
 	private int integralText;
-	private int chapters;
-	private int collections;
+	private int bookChapters;
+	private int bookCollections;
 	private int entries;
 
 	// Empty constructor.
@@ -23,8 +23,8 @@ public class Book extends Bean {
 	}
 
 	// Declaration of a non-default constructor
-	public Book(int id) {
-		this.id = id;
+	public Book(int bookId) {
+		this.id = bookId;
 		this.identifier = "books";
 		this.relationship = "";
 	}
@@ -49,24 +49,24 @@ public class Book extends Bean {
 		this.integralText = integralText;
 	}
 
-	// Access variable chapters. 
-	public int getChapters() {
-		return chapters;
+	// Access variable bookChapters. 
+	public int getBookChapters() {
+		return bookChapters;
 	}
 
-	// Modify variable chapters.
-	public void setChapters(int chapters) {
-		this.chapters = chapters;
+	// Modify variable bookChapters.
+	public void setBookChapters(int chapters) {
+		this.bookChapters = chapters;
 	}
 
-	// Access variable collections. 
-	public int getCollections() {
-		return collections;
+	// Access variable bookCollections. 
+	public int getBookCollections() {
+		return bookCollections;
 	}
 
-	// Modify variable collections.
-	public void setCollections(int collections) {
-		this.collections = collections;
+	// Modify variable bookCollections.
+	public void setBookCollections(int collections) {
+		this.bookCollections = collections;
 	}
 
 	// Access variable entries. 
@@ -80,91 +80,97 @@ public class Book extends Bean {
 	}
 
 	// This method saves one Book into Database.
-	public boolean save() throws  SQLException {
-		boolean result = false;
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public boolean saveBook() throws  SQLException {
+		boolean saveResult = false;
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = gDB.insertBean(this);
-		this.setId(Book.last().getId());
+		saveResult = genericBeanDAO.insertBean(this);
+		this.setId(Book.lastBook().getId());
 		
-		return result;
+		return saveResult;
 	}
 
 	// This method picks an Book on Database based on his id.
-	public static Book get(int id) throws  SQLException {
-		Book result = new Book(id);
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static Book getBookByValue(int id) throws SQLException {
+		Book bookWithId = new Book(id);
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
 		// Casting to transform a Bean into a Book. 
-		result = (Book) gDB.selectBean(result);
+		bookWithId = (Book) genericBeanDAO.selectBean(bookWithId);
 		
-		return result;
+		return bookWithId;
 	}
 
 	// This method get all Articles from database.
-	public static ArrayList<Book> getAll() throws  SQLException {
-		Book type = new Book();
-		ArrayList<Book> result = new ArrayList<Book>();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static ArrayList<Book> getAllBooks() throws SQLException {
+		Book book = new Book();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		for(Bean b : gDB.selectAllBeans(type,null)) {
-			result.add((Book) b);
+		ArrayList<Book> arrayOfBooks = new ArrayList<Book>();
+		
+		for(Bean bean : genericBeanDAO.selectAllBeans(book,null)) {
+			arrayOfBooks.add((Book) bean);
 		}
 		
-		return result;
+		return arrayOfBooks;
 	}
 
 	// This method counts the number of Books into Database.
-	public static int count() throws SQLException {
-		Book type = new Book();
+	public static int numberOfBooks() throws SQLException {
+		int numberOfBooks = 0;
 		
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		Book book = new Book();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		return gDB.countBean(type);
+		numberOfBooks = genericBeanDAO.countBean(book);
+		
+		return numberOfBooks;
 	}
 
 	// This method returns the first Book into Database.
-	public static Book first() throws SQLException {
-		Book result = new Book();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static Book firstBook() throws SQLException {
+		Book book = new Book();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Book) gDB.firstOrLastBean(result, false);
+		book = (Book) genericBeanDAO.firstOrLastBean(book, false);
 		
-		return result;
+		return book;
 	}
 
 	// This method returns the last Book into Database.
-	public static Book last() throws SQLException {
-		Book result = new Book();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static Book lastBook() throws SQLException {
+		Book book = new Book();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Book) gDB.firstOrLastBean(result, true);
+		book = (Book) genericBeanDAO.firstOrLastBean(book, true);
 		
-		return result;
+		return book;
 	}
 
 	// This method will try to find an Book based on a search.  
 	public static ArrayList<Book> getWhere(String field, String value, 
 			boolean like) throws SQLException {
-		Book type = new Book();
-		ArrayList<Book> result = new ArrayList<Book>();
-		GenericBeanDAO gDB = new GenericBeanDAO();
 		
-		for(Bean b : gDB.selectBeanWhere(type, field, value, like, null)) {
-			result.add((Book) b);
+		Book book = new Book();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		
+		ArrayList<Book> arrayOfBooks = new ArrayList<Book>();
+		
+		for(Bean bean : genericBeanDAO.selectBeanWhere(book, field, value, like, null)) {
+			arrayOfBooks.add((Book) bean);
 		}
 		
-		return result;
+		return arrayOfBooks;
 	}
 	
 	// This method deletes an Book from Database.
-	public boolean delete() throws  SQLException {
-		boolean result = false;
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public boolean deleteBook() throws SQLException {
+		boolean deleteResult = false;
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = gDB.deleteBean(this);
+		deleteResult = genericBeanDAO.deleteBean(this);
 		
-		return result;
+		return deleteResult;
 	}
 
 	// Rewriting fields to String.
@@ -177,10 +183,10 @@ public class Book extends Bean {
 			return Integer.toString(this.getIntegralText());
 		}
 		else if(field.equals("chapters")) {
-			return Integer.toString(this.getChapters());
+			return Integer.toString(this.getBookChapters());
 		}
 		else if(field.equals("collections")) {
-			return Integer.toString(this.getCollections());
+			return Integer.toString(this.getBookCollections());
 		}
 		else if(field.equals("entries")) {
 			return Integer.toString(this.getEntries());
@@ -200,10 +206,10 @@ public class Book extends Bean {
 			this.setIntegralText(Integer.parseInt(data));
 		}
 		else if(field.equals("chapters")) {
-			this.setChapters(Integer.parseInt(data));
+			this.setBookChapters(Integer.parseInt(data));
 		}
 		else if(field.equals("collections")) {
-			this.setCollections(Integer.parseInt(data));
+			this.setBookCollections(Integer.parseInt(data));
 		}
 		else if(field.equals("entries")) {
 			this.setEntries(Integer.parseInt(data));
