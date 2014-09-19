@@ -74,7 +74,7 @@ public class EvaluationDetailFragment extends Fragment{
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
 		ArrayList<Indicator> indicators = Indicator.getIndicators();
 		Book book = Book.get(evaluation.getIdBooks());
-		Article article = Article.get(evaluation.getIdArticles());
+		Article article = Article.getArticleByValue(evaluation.getIdArticles());
 		Bean bean = null;
 		for(Indicator i : indicators){
 			HashMap<String, String> hashMap = new HashMap<String, String>();

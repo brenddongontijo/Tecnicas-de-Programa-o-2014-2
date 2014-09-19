@@ -95,8 +95,8 @@ public class CompareShowFragment extends Fragment{
 		Book bookA = Book.get(evaluationA.getIdBooks());
 		Book bookB = Book.get(evaluationB.getIdBooks());
 
-		Article articleA = Article.get(evaluationA.getIdArticles());
-		Article articleB = Article.get(evaluationB.getIdArticles());
+		Article articleA = Article.getArticleByValue(evaluationA.getIdArticles());
+		Article articleB = Article.getArticleByValue(evaluationB.getIdArticles());
 
 		Bean beanA = null;
 		Bean beanB = null;

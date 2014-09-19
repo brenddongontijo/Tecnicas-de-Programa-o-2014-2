@@ -20,8 +20,8 @@ public class Article extends Bean {
 	}
 	
 	// Declaration a non-default constructor.
-	public Article(Integer id) {
-		this.id = id;
+	public Article(Integer idArticle) {
+		this.id = idArticle;
 		this.identifier = "articles";
 		this.relationship = "";
 	}
@@ -58,92 +58,92 @@ public class Article extends Bean {
 	}
 
 	// This method saves one Article into Database.
-	public boolean save() throws SQLException {
-		boolean result = false;
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public boolean saveArticle() throws SQLException {
+		boolean saveResult = false;
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = gDB.insertBean(this);
+		saveResult = genericBeanDAO.insertBean(this);
 		
-		this.setId(Article.last().getId());
+		this.setId(Article.lastArticle().getId());
 		
-		return result;
+		return saveResult;
 	}
 	
 	// This method return an Article based on his id.
-	public static Article get(Integer id) throws  SQLException {
-		Article result = new Article(id);
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static Article getArticleByValue(Integer id) throws SQLException {
+		Article articleWithId = new Article(id);
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Article) gDB.selectBean(result);
+		articleWithId = (Article) genericBeanDAO.selectBean(articleWithId);
 		
-		return result;
+		return articleWithId;
 	}
 
 	// This method get all Articles from database.
-	public static ArrayList<Article> getAll() throws SQLException {
-		Article type = new Article();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static ArrayList<Article> getAllArticles() throws SQLException {
+		Article article = new Article();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		ArrayList<Article> result = new ArrayList<Article>();
+		ArrayList<Article> arrayOfArticles = new ArrayList<Article>();
 		
-		for(Bean b : gDB.selectAllBeans(type,null)) {
-			result.add((Article) b);
+		for(Bean bean : genericBeanDAO.selectAllBeans(article,null)) {
+			arrayOfArticles.add((Article) bean);
 		}
 		
-		return result;
+		return arrayOfArticles;
 	}
 	
 	// This method counts the number of Articles into Database.
-	public static int count() throws SQLException {
-		Article type = new Article();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static int numberOfArticles() throws SQLException {
+		Article article = new Article();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		return gDB.countBean(type);
+		return genericBeanDAO.countBean(article);
 	}
 
 	// This method returns the first Article into Database.
-	public static Article first() throws SQLException {
-		Article result = new Article();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static Article firstArticle() throws SQLException {
+		Article article = new Article();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Article) gDB.firstOrLastBean(result, false);
+		article = (Article) genericBeanDAO.firstOrLastBean(article, false);
 		
-		return result;
+		return article;
 	}
 
 	// This method returns the last Article into Database.
-	public static Article last() throws SQLException {
-		Article result = new Article();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static Article lastArticle() throws SQLException {
+		Article article = new Article();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Article) gDB.firstOrLastBean(result, true);
+		article = (Article) genericBeanDAO.firstOrLastBean(article, true);
 		
-		return result;
+		return article;
 	}
 
 	// This method will try to find an Article based on a search.  
 	public static ArrayList<Article> getWhere(String field, String value, boolean like) 
 			throws SQLException {
-		Article type = new Article();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		Article article = new Article();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		ArrayList<Article> result = new ArrayList<Article>();
+		ArrayList<Article> arrayOfArticles = new ArrayList<Article>();
 		
-		for (Bean b : gDB.selectBeanWhere(type, field, value, like, null)) {
-			result.add((Article) b);
+		for (Bean b : genericBeanDAO.selectBeanWhere(article, field, value, like, null)) {
+			arrayOfArticles.add((Article) b);
 		}
 		
-		return result;
+		return arrayOfArticles;
 	}
 	
 	// This method deletes an Article from Database.
-	public boolean delete() throws SQLException {
-		boolean result = false;
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public boolean deleteArticle() throws SQLException {
+		boolean article = false;
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = gDB.deleteBean(this);
+		article = genericBeanDAO.deleteBean(this);
 		
-		return result;
+		return article;
 	}
 
 	// Rewriting fields to String.
