@@ -129,8 +129,8 @@ public class Article extends Bean {
 		
 		ArrayList<Article> arrayOfArticles = new ArrayList<Article>();
 		
-		for (Bean b : genericBeanDAO.selectBeanWhere(article, field, value, like, null)) {
-			arrayOfArticles.add((Article) b);
+		for (Bean bean : genericBeanDAO.selectBeanWhere(article, field, value, like, null)) {
+			arrayOfArticles.add((Article) bean);
 		}
 		
 		return arrayOfArticles;
@@ -138,12 +138,12 @@ public class Article extends Bean {
 	
 	// This method deletes an Article from Database.
 	public boolean deleteArticle() throws SQLException {
-		boolean article = false;
+		boolean deleteResult = false;
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		article = genericBeanDAO.deleteBean(this);
+		deleteResult = genericBeanDAO.deleteBean(this);
 		
-		return article;
+		return deleteResult;
 	}
 
 	// Rewriting fields to String.

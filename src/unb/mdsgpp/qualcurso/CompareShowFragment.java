@@ -92,8 +92,8 @@ public class CompareShowFragment extends Fragment{
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
 		ArrayList<Indicator> indicators = Indicator.getIndicators();
 
-		Book bookA = Book.get(evaluationA.getIdBooks());
-		Book bookB = Book.get(evaluationB.getIdBooks());
+		Book bookA = Book.getBookByValue(evaluationA.getIdBooks());
+		Book bookB = Book.getBookByValue(evaluationB.getIdBooks());
 
 		Article articleA = Article.getArticleByValue(evaluationA.getIdArticles());
 		Article articleB = Article.getArticleByValue(evaluationB.getIdArticles());
