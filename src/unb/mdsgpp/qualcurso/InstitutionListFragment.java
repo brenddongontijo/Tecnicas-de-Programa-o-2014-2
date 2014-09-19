@@ -117,7 +117,7 @@ public class InstitutionListFragment extends ListFragment{
 	
 	private static ArrayList<Institution> getInstitutionsList(int idCourse) throws SQLException{
 		if(idCourse == 0){
-			return Institution.getAll();
+			return Institution.getAllInstitutions();
 		}else{
 			return Course.get(idCourse).getInstitutions();
 		}
