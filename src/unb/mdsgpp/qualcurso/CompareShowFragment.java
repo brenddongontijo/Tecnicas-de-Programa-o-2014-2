@@ -64,8 +64,8 @@ public class CompareShowFragment extends Fragment{
 
 		Course course = Course.get(evaluationA.getIdCourse());
 
-		Institution institutionA = Institution.get(evaluationA.getIdInstitution());
-		Institution institutionB = Institution.get(evaluationB.getIdInstitution());
+		Institution institutionA = Institution.getInstitutionByValue(evaluationA.getIdInstitution());
+		Institution institutionB = Institution.getInstitutionByValue(evaluationB.getIdInstitution());
 
 		courseNameTextView.setText(course.getName());
 		firstAcronymTextView.setText(institutionA.getAcronym());

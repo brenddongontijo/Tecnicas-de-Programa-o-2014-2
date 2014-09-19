@@ -51,13 +51,13 @@ public class Institution extends Bean implements Parcelable {
 	}
 	
 	// This method saves one Institution into Database.
-	public boolean save() throws SQLException {
+	public boolean saveInstitution() throws SQLException {
 		boolean result = false;
 		
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		result = gDB.insertBean(this);
 		
-		this.setId(Institution.last().getId());
+		this.setId(Institution.lastInstitution().getId());
 		
 		return result;
 	}
@@ -73,7 +73,7 @@ public class Institution extends Bean implements Parcelable {
 	}
 	
 	// This method picks an Institution on Database based on his id.
-	public static Institution get(int id) throws SQLException {
+	public static Institution getInstitutionByValue(int id) throws SQLException {
 		Institution result = new Institution(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
@@ -83,7 +83,7 @@ public class Institution extends Bean implements Parcelable {
 	}
 	
 	// This method get all Institutions from database.
-	public static ArrayList<Institution> getAll() throws SQLException {
+	public static ArrayList<Institution> getAllInstitutions() throws SQLException {
 		Institution type = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
@@ -97,7 +97,7 @@ public class Institution extends Bean implements Parcelable {
 	}
 
 	// This method counts the number of Institutions into Database.
-	public static int count() throws SQLException {
+	public static int numberOfInstitutions() throws SQLException {
 		Institution type = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
@@ -105,7 +105,7 @@ public class Institution extends Bean implements Parcelable {
 	}
 
 	// This method get the first Institution into Database.
-	public static Institution first() throws SQLException {
+	public static Institution firstInstitution() throws SQLException {
 		Institution result = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
@@ -115,7 +115,7 @@ public class Institution extends Bean implements Parcelable {
 	}
 
 	// This method get the last Institution into Database.
-	public static Institution last() throws SQLException {
+	public static Institution lastInstitution() throws SQLException {
 		Institution result = new Institution();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
