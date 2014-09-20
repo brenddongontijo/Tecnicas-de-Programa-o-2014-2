@@ -108,9 +108,9 @@ public class SearchByIndicatorFragment extends Fragment {
 
 			@Override
 			public void onClick(View arg0) {
-				int number1;
-				int number2; 
-				int year; 
+				int lowerNumber;
+				int higherNumber; 
+				int yearResearched; 
 				int max; 
 				int listSelectionPosition;
 
@@ -133,8 +133,8 @@ public class SearchByIndicatorFragment extends Fragment {
 				String firstNumberValue = firstNumber.getText().toString();
 				String secondNumberValue = secondNumber.getText().toString();
 
-				number1 = Integer.parseInt(firstNumberValue);
-				number2 = maximum.isChecked() ? -1 : Integer
+				lowerNumber = Integer.parseInt(firstNumberValue);
+				higherNumber = maximum.isChecked() ? -1 : Integer
 						.parseInt(secondNumberValue);
 				
 				listSelectionPosition = listSelectionSpinner
@@ -142,7 +142,7 @@ public class SearchByIndicatorFragment extends Fragment {
 
 				// Gets the value of the year, contained in Spinner.
 				if(yearSpinner.getSelectedItemPosition() != 0) {
-					year = Integer.parseInt(yearSpinner.getSelectedItem()
+					yearResearched = Integer.parseInt(yearSpinner.getSelectedItem()
 							.toString());
 				}
 				/*
@@ -150,7 +150,7 @@ public class SearchByIndicatorFragment extends Fragment {
 				 * the Adapter.
 				 */
 				else {
-					year = Integer.parseInt(yearSpinner.getAdapter()
+					yearResearched = Integer.parseInt(yearSpinner.getAdapter()
 							.getItem(yearSpinner.getAdapter().getCount() - 1)
 							.toString());
 				}
@@ -160,7 +160,7 @@ public class SearchByIndicatorFragment extends Fragment {
 					max = -1;
 				} 
 				else {
-					max = number2;
+					max = higherNumber;
 				}
 
 				firstNumber.clearFocus();
@@ -168,7 +168,7 @@ public class SearchByIndicatorFragment extends Fragment {
 				
 				hideKeyboard(arg0);
 
-				updateSearchList(number1, max, year, listSelectionPosition,
+				updateSearchList(lowerNumber, max, yearResearched, listSelectionPosition,
 						((Indicator) filterFieldSpinner
 								.getItemAtPosition(filterFieldSpinner
 										.getSelectedItemPosition())));
