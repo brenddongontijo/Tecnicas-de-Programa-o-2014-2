@@ -26,7 +26,7 @@ Methods:
 	
 	public ArrayList<Institution> getInstitutions() 
 	
-	// New Name: getInstitutionsByYear
+	// New Name: getInstitutionsByYear	->alterado
 	public ArrayList<Institution> getInstitutions(int year)
 
 	public static ArrayList<Course> getWhere(String field, String value, boolean like)
@@ -35,17 +35,8 @@ Methods:
 
 	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(int id_course, Search search)
 	 
-	// New Name: deleteCourse
+	// New Name: deleteCourse	->alterado
 	public boolean delete() 
-	
-	// New Name: getCourseFields
-	public String get(String field)
-	
-	// New Name: setCourseFields
-	public void set(String field, String data) 
-	
-	// New Name: courseFieldList
-	public ArrayList<String> fieldsList() 
 	
 	public String toString() 
 	
@@ -56,8 +47,18 @@ Methods:
 	
 Variables:
 
- 	//new name: courseId
+ 	//new name: courseId	->alterado
  	private int id; -> Database id to Course.
  	
- 	//new name: courseName
+ 	//new name: courseName	->alterado
 	private String name; -> name of the Course.
+	
+	//new name: genericBeanDAO ->alterado
+	GenericBeanDAO gDB;
+	
+	//new name: bean ->alterado
+	Bean b;
+	
+	//new name: institution ->alterado
+	//Institution i;
+	
