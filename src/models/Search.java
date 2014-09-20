@@ -20,155 +20,155 @@ public class Search extends Bean {
 	public static int COURSE = 0;
 	public static int INSTITUTION = 1;
 
-	private int id;
-	private Date date;
-	private int year;
-	private int option;
-	private Indicator indicator;
-	private int minValue;
-	private int maxValue;
+	private int searchId;
+	private Date searchDate;
+	private int evaluationYear;
+	private int searchOption;
+	private Indicator searchIndicator;
+	private int minIndicatorValue;
+	private int maxIndicatorValue;
 
 	// Empty constructor.
 	public Search() {
-		this.id = 0;
+		this.searchId = 0;
 		this.identifier = "search";
 		this.relationship = "";
 	}
 
 	// Declaration of a non-default constructor
-	public Search(int id) {
-		this.id = id;
+	public Search(int searchId) {
+		this.searchId = searchId;
 		this.identifier = "search";
 		this.relationship = "";
 	}
 
-	// Access variable date. 
+	// Access variable searchDate. 
 	public Date getDate() {
-		return date;
+		return searchDate;
 	}
 
-	// Modify variable date.
-	public void setDate(Date date) {
-		this.date = date;
+	// Modify variable searchDate.
+	public void setDate(Date searchDate) {
+		this.searchDate = searchDate;
 	}
 
-	// Access variable year. 
+	// Access variable evaluationYear. 
 	public int getYear() {
-		return year;
+		return evaluationYear;
 	}
 
-	// Modify variable year.
-	public void setYear(int year) {
-		this.year = year;
+	// Modify variable evaluationYear.
+	public void setYear(int evaluationYear) {
+		this.evaluationYear = evaluationYear;
 	}
 
-	// Access variable option. 
+	// Access variable searchOption. 
 	public int getOption() {
-		return option;
+		return searchOption;
 	}
 
-	// Modify variable option.
-	public void setOption(int option) {
-		this.option = option;
+	// Modify variable searchOption.
+	public void setOption(int searchOption) {
+		this.searchOption = searchOption;
 	}
 
-	// Access variable indicator. 
+	// Access variable searchIndicator. 
 	public Indicator getIndicator() {
-		return indicator;
+		return searchIndicator;
 	}
 
-	// Modify variable indicator.
-	public void setIndicator(Indicator indicator) {
-		this.indicator = indicator;
+	// Modify variable searchIndicator.
+	public void setIndicator(Indicator searchIndicator) {
+		this.searchIndicator = searchIndicator;
 	}
 
-	// Access variable minValue. 
+	// Access variable minIndicatorValue. 
 	public int getMinValue() {
-		return minValue;
+		return minIndicatorValue;
 	}
 
-	// Modify variable minValue.
+	// Modify variable minIndicatorValue.
 	public void setMinValue(int minValue) {
-		this.minValue = minValue;
+		this.minIndicatorValue = minIndicatorValue;
 	}
 
-	// Access variable maxValue. 
+	// Access variable maxIndicatorValue. 
 	public int getMaxValue() {
-		return maxValue;
+		return maxIndicatorValue;
 	}
 
-	// Modify variable maxValue.
-	public void setMaxValue(int maxValue) {
-		this.maxValue = maxValue;
+	// Modify variable maxIndicatorValue.
+	public void setMaxValue(int maxIndicatorValue) {
+		this.maxIndicatorValue = maxIndicatorValue;
 	}
 	
 	// This method saves one Search into Database.
-	public boolean save() throws SQLException {
+	public boolean saveSearch() throws SQLException {
 		boolean result = false;
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
 
 		 //QualCurso can't have more than 10 searches.
-		if(Search.count() >= 10) {
+		if(Search.numberOfSearch() >= 10) {
 			// Deleting the first search.
-			Search.first().delete();
+			Search.firstSearch().deleteSearch();
 		}
 		
-		result = gDB.insertBean(this);
-		this.setId(Search.last().getId());
+		result = GenericBeanDAO.insertBean(this);
+		this.setId(Search.lastSearch().getId());
 
 		return result;
 	}
 
 	// This method get an Search on Database based on his id.
-	public static Search get(int id) throws SQLException {
-		Search result = new Search(id);
-		GenericBeanDAO gDB = new GenericBeanDAO();	
+	public static Search getSearchById(int searchId) throws SQLException {
+		Search result = new Search(searchId);
+		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();	
 		
-		result = (Search) gDB.selectBean(result);
+		result = (Search) GenericBeanDAO.selectBean(result);
 		
 		return result;
 	}
 
 	// This method get all Search from database.
-	public static ArrayList<Search> getAll() throws  SQLException {
+	public static ArrayList<Search> getAllSearch() throws  SQLException {
 		Search type = new Search();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
 		
 		ArrayList<Search> result = new ArrayList<Search>();
 		
-		for(Bean b : gDB.selectAllBeans(type,null)) {
-			result.add((Search) b);
+		for(Bean bean : GenericBeanDAO.selectAllBeans(type,null)) {
+			result.add((Search) bean);
 		}
 		
 		return result;
 	}
 	
-	 //The method count() counts the number of Search on Database.  
-	public static int count() throws  SQLException {
+	 //The method numberOfSearch() counts the number of Search on Database.  
+	public static int numberOfSearch() throws  SQLException {
 		Search type = new Search();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
 		
-		return gDB.countBean(type);
+		return GenericBeanDAO.countBean(type);
 	}
 
 	
-	 //The method first() returns the first Search on Database.
-	public static Search first() throws SQLException {
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	 //The method firstSearch() returns the first Search on Database.
+	public static Search firstSearch() throws SQLException {
+		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
 		
 		Search result = new Search();
-		result = (Search) gDB.firstOrLastBean(result, false);
+		result = (Search) GenericBeanDAO.firstOrLastBean(result, false);
 		
 		return result;
 	}
 
 	
-	 //The method last() returns the last Search on database. 
-	public static Search last() throws SQLException {
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	 //The method lastSearch() returns the last Search on database. 
+	public static Search lastSearch() throws SQLException {
+		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
 		
 		Search result = new Search();
-		result = (Search) gDB.firstOrLastBean(result, true);
+		result = (Search) GenericBeanDAO.firstOrLastBean(result, true);
 		
 		return result;
 	}
@@ -176,30 +176,30 @@ public class Search extends Bean {
 	// This method will try to find an Search based on a search. 
 	public static ArrayList<Search> getWhere(String field, String value, boolean like) throws SQLException {
 		Search type = new Search();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
 		
 		ArrayList<Search> result = new ArrayList<Search>();
 		
-		for(Bean b : gDB.selectBeanWhere(type, field, value, like,null)) {
-			result.add((Search) b);
+		for(Bean bean : GenericBeanDAO.selectBeanWhere(type, field, value, like,null)) {
+			result.add((Search) bean);
 		}
 		
 		return result;
 	}
 
 	// This method deletes an Search from Database.
-	public boolean delete() throws SQLException {
+	public boolean deleteSearch() throws SQLException {
 		boolean result = false;
 		
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		result = gDB.deleteBean(this);
+		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
+		result = GenericBeanDAO.deleteBean(this);
 		
 		return result;
 	}
 
 	@Override
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int searchId) {
+		this.searchId = searchId;
 	}
 
 	// Rewriting Search fields to String.
@@ -209,7 +209,7 @@ public class Search extends Bean {
 			return Integer.toString(this.getId());
 		}
 		else if(field.equals("date")) {
-			return new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",Locale.US).format(this.date);
+			return new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",Locale.US).format(this.searchDate);
 		}
 		else if(field.equals("year")) {
 			return Integer.toString(this.getYear());
@@ -284,7 +284,7 @@ public class Search extends Bean {
 
 	@Override
 	public int getId() {
-		return this.id;
+		return this.searchId;
 	}
 
 }
