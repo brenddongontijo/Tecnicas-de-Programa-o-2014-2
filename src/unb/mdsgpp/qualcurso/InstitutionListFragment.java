@@ -119,7 +119,7 @@ public class InstitutionListFragment extends ListFragment{
 		if(idCourse == 0){
 			return Institution.getAllInstitutions();
 		}else{
-			return Course.get(idCourse).getInstitutions();
+			return Course.getCourseByValue(idCourse).getInstitutions();
 		}
 	}
 	

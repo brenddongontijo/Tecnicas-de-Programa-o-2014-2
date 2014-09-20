@@ -113,7 +113,7 @@ public class CourseListFragment extends ListFragment{
 	
 	private static ArrayList<Course> getCoursesList(int idInstitution) throws SQLException{
 		if(idInstitution == 0){
-			return Course.getAll();
+			return Course.getAllCourses();
 		}else{
 			return Institution.getInstitutionByValue(idInstitution).getCoursesByYear();
 		}

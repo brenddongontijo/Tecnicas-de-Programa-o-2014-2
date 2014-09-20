@@ -4,25 +4,25 @@ Class:
 	
 Methods:
 	
-	// New Name: saveCourse()
+	// New Name: saveCourse()	->alterado
 	public boolean save() 
 	
 	public boolean addInstitution(Institution institution) 
 	
-	// New Name: getCourseByValue
+	// New Name: getCourseByValue	->alterado
 	public static Course get(int id) 
 	
-	// New Name: getAllCourses
+	// New Name: getAllCourses	->alterado
 	public static ArrayList<Course> getAll() 
 	
-	// New Name: numberOfCourses
+	// New Name: numberOfCourses	->alterado
 	public static int count() 
 	
-	// New Name: firstCourse
+	// New Name: firstCourse	->alterado
 	public static Course first() 
 
-	// New Name: lastCourse
-	public static Course last() 
+	// New Name: lastCourse		->alterado
+	public static Course last()	
 	
 	public ArrayList<Institution> getInstitutions() 
 	

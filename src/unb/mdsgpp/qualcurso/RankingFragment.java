@@ -85,7 +85,7 @@ public class RankingFragment extends Fragment {
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
 		this.evaluationList = (ListView) rootView
 				.findViewById(R.id.evaluationList);
-		ArrayList<Course> courses = Course.getAll();
+		ArrayList<Course> courses = Course.getAllCourses();
 		autoCompleteField = (AutoCompleteTextView) rootView
 				.findViewById(R.id.autoCompleteTextView);
 		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity()

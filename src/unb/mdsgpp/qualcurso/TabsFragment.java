@@ -35,7 +35,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	private TabHost mTabHost;
 	private int mCurrentTab;
 	private SearchView mSearchView;
-	private ArrayList<Course> allCourses = Course.getAll();
+	private ArrayList<Course> allCourses = Course.getAllCourses();
 	private ArrayList<Institution> allInstitutions = Institution.getAllInstitutions();
 
 	// Called When a fragment is first attached to its activity.
