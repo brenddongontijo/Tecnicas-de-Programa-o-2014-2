@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 /*
  * Class Name: Institution.
- * 
  * This class creates an Course with their respective acronym.
  */
 public class Institution extends Bean implements Parcelable {

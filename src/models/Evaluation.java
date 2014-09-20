@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 /*
  * Class Name: Evaluation.
- * 
  * This class receives all data based on university evaluation from
  * "Portal Brasileiro de Dados Abertos" xls spreadsheet.
  */

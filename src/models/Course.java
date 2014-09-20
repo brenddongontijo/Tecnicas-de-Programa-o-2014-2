@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 /*
  * Class Name: Course.
- * 
  * This class creates an Course with their respective name.
  */
 public class Course extends Bean implements Parcelable{

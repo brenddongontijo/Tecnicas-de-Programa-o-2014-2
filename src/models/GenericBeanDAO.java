@@ -12,7 +12,6 @@ import libraries.DataBase;
 
 /*
  * Class Name: GenericBeanDAO
- * 
  * This class aims to make a generic DAO and avoid replication code. 
  */
 public class GenericBeanDAO extends DataBase {
@@ -142,6 +141,7 @@ public class GenericBeanDAO extends DataBase {
 		int i = 1;
 		
 		ArrayList<String> notPrimaryFields = bean.fieldsList();
+		
 		// Removing id.
 		notPrimaryFields.remove(0);
 		
@@ -259,8 +259,7 @@ public class GenericBeanDAO extends DataBase {
 		
 		return beans;
 	}
-
-	// This method 
+ 
 	public ArrayList<String[]> runSql(String sql) throws SQLException {
 		this.openConnection();
 		
@@ -352,12 +351,15 @@ public class GenericBeanDAO extends DataBase {
 	
 	public ArrayList<HashMap<String, String>> selectOrdered(ArrayList<String> returnFields, String orderedBy, String condition, String groupBy, boolean desc){
 		String fields = "";
+		
 		for(String s : returnFields){
 			fields+=s+",";
 		}
+		
 		fields = fields.substring(0, fields.length()-1);
 		String sql = "SELECT "+ fields +" FROM course AS c,institution AS i , evaluation AS e, articles AS a, books AS b"
 				+ " WHERE id_institution = i._id AND id_course = c._id AND id_articles = a._id AND id_books = b._id ";
+		
 		if(condition != null){
 			sql+="AND "+condition+" ";
 		}
@@ -372,9 +374,11 @@ public class GenericBeanDAO extends DataBase {
 		} else {
 			sql+=" ASC";
 		}
+		
 		ArrayList<HashMap<String, String>> values = new ArrayList<HashMap<String, String>>();
 		this.openConnection();
 		Cursor cs = this.database.rawQuery(sql,null);
+		
 		while (cs.moveToNext()) {
 			HashMap<String, String> hash = new HashMap<String, String>();
 			for(String s : returnFields){
@@ -383,6 +387,7 @@ public class GenericBeanDAO extends DataBase {
 			hash.put("order_field", orderedBy);
 			values.add(hash);
 		}
+		
 		this.closeConnection();
 		return values;
 	}
@@ -396,6 +401,7 @@ public class GenericBeanDAO extends DataBase {
 		
 		// Testing is user_like == false.
 		if (!use_like) {
+			
 			// Making a search on database based on "value".
 			cs = this.database.query(type.identifier, null, 
 					field+" = ?",
@@ -409,7 +415,7 @@ public class GenericBeanDAO extends DataBase {
 					null, null, orderField);
 		}
 
-		// Getting all bens and adding into ArrayList. 
+		// Getting all beans and adding into ArrayList. 
 		while(cs.moveToNext()) {
 			Bean bean = init(type.identifier);
 			
@@ -424,9 +430,8 @@ public class GenericBeanDAO extends DataBase {
 		return beans;
 	}
 	
-	/*
-	 * The method deleteBean() aims to delete a determinate Bean on Database.
-	 */
+	
+	// The method deleteBean() aims to delete a determinate Bean on Database.
 	public boolean deleteBean(Bean bean) throws SQLException {
 		this.openConnection();
 		

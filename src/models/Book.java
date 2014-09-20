@@ -4,8 +4,7 @@ import android.database.SQLException;
 import java.util.ArrayList;
 
 /*
- * Class Name: Article.
- * 
+ * Class Name: Book
  * This class creates an Book with all their evaluation values.
  */
 public class Book extends Bean {

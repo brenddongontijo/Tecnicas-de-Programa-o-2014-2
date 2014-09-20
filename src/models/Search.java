@@ -13,7 +13,6 @@ import helpers.Indicator;
 
 /*
  * Class Name: Search.
- * 
  * This class is responsible for performing a search based on indicator.
  */
 public class Search extends Bean {
@@ -88,7 +87,7 @@ public class Search extends Bean {
 	}
 
 	// Modify variable minIndicatorValue.
-	public void setMinValue(int minValue) {
+	public void setMinValue(int minIndicatorValue) {
 		this.minIndicatorValue = minIndicatorValue;
 	}
 
@@ -109,6 +108,7 @@ public class Search extends Bean {
 
 		 //QualCurso can't have more than 10 searches.
 		if(Search.numberOfSearch() >= 10) {
+			
 			// Deleting the first search.
 			Search.firstSearch().deleteSearch();
 		}
