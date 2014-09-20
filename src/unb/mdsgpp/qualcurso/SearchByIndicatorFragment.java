@@ -43,7 +43,8 @@ public class SearchByIndicatorFragment extends Fragment {
 		super.onAttach(activity);
 		try {
 			beanCallbacks = (BeanListCallbacks) activity;
-		} catch (ClassCastException e) {
+		} 
+		catch(ClassCastException e) {
 			throw new ClassCastException(activity.toString()
 					+ " must implement BeanListCallbacks.");
 		}
@@ -89,9 +90,10 @@ public class SearchByIndicatorFragment extends Fragment {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				if (maximum.isChecked()) {
+				if(maximum.isChecked()) {
 					secondNumber.setEnabled(false);
-				} else {
+				}
+				else {
 					secondNumber.setEnabled(true);
 				}
 			}
@@ -106,20 +108,24 @@ public class SearchByIndicatorFragment extends Fragment {
 
 			@Override
 			public void onClick(View arg0) {
-				int number1, number2, year, max, listSelectionPosition;
+				int number1;
+				int number2; 
+				int year; 
+				int max; 
+				int listSelectionPosition;
 
 				/*
 				 * If nothing was marked in the field of the first number is
 				 * inserted the value 0.
 				 */
-				if (firstNumber.getText().length() == 0) {
+				if(firstNumber.getText().length() == 0) {
 					firstNumber.setText("0");
 				}
 				/*
 				 * If nothing was selected in the first field number, the
 				 * maximum checkbox is marked.
 				 */
-				if (secondNumber.getText().length() == 0) {
+				if(secondNumber.getText().length() == 0) {
 					maximum.setChecked(true);
 				}
 
@@ -130,11 +136,12 @@ public class SearchByIndicatorFragment extends Fragment {
 				number1 = Integer.parseInt(firstNumberValue);
 				number2 = maximum.isChecked() ? -1 : Integer
 						.parseInt(secondNumberValue);
+				
 				listSelectionPosition = listSelectionSpinner
 						.getSelectedItemPosition();
 
 				// Gets the value of the year, contained in Spinner.
-				if (yearSpinner.getSelectedItemPosition() != 0) {
+				if(yearSpinner.getSelectedItemPosition() != 0) {
 					year = Integer.parseInt(yearSpinner.getSelectedItem()
 							.toString());
 				}
@@ -149,14 +156,16 @@ public class SearchByIndicatorFragment extends Fragment {
 				}
 
 				// Checking if the checkBox is selected.
-				if (maximum.isChecked()) {
+				if(maximum.isChecked()) {
 					max = -1;
-				} else {
+				} 
+				else {
 					max = number2;
 				}
 
 				firstNumber.clearFocus();
 				secondNumber.clearFocus();
+				
 				hideKeyboard(arg0);
 
 				updateSearchList(number1, max, year, listSelectionPosition,

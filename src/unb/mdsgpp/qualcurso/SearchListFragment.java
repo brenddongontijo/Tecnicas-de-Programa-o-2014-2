@@ -35,14 +35,18 @@ public class SearchListFragment extends ListFragment {
 
 	public static SearchListFragment newInstance(
 			ArrayList<? extends Parcelable> list, Search search) {
+		
 		SearchListFragment fragment = new SearchListFragment();
+		
 		Bundle args = new Bundle();
 		args.putInt(YEAR, search.getYear());
 		args.putString(FIELD, search.getIndicator().getValue());
 		args.putInt(RANGE_A, search.getMinValue());
 		args.putInt(RANGE_B, search.getMaxValue());
 		args.putParcelableArrayList(BEAN_LIST, list);
+		
 		fragment.setArguments(args);
+		
 		return fragment;
 	}
 
@@ -51,7 +55,8 @@ public class SearchListFragment extends ListFragment {
 		super.onAttach(activity);
 		try {
 			beanCallbacks = (BeanListCallbacks) activity;
-		} catch (ClassCastException e) {
+		} 
+		catch(ClassCastException e) {
 			throw new ClassCastException(activity.toString()
 					+ " must implement BeanListCallbacks.");
 		}
@@ -68,23 +73,28 @@ public class SearchListFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
 		ArrayList<Parcelable> list;
-		if (getArguments().getParcelableArrayList(BEAN_LIST) != null) {
+		if(getArguments().getParcelableArrayList(BEAN_LIST) != null) {
 			list = getArguments().getParcelableArrayList(BEAN_LIST);
-		} else {
+		} 
+		else {
 			list = savedInstanceState.getParcelableArrayList(BEAN_LIST);
 		}
 
 		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list,
 				container, false);
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
+		
 		try {
 
 			rootView.setAdapter(new ArrayAdapter<Parcelable>(getActionBar()
 					.getThemedContext(), R.layout.custom_textview, list));
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return rootView;
 	}
 
@@ -96,6 +106,7 @@ public class SearchListFragment extends ListFragment {
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putParcelableArrayList(BEAN_LIST, getArguments()
 				.getParcelableArrayList(BEAN_LIST));
+		
 		super.onSaveInstanceState(outState);
 	}
 
@@ -103,22 +114,29 @@ public class SearchListFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		Parcelable bean = (Parcelable) l.getItemAtPosition(position);
+		
 		Indicator i = Indicator.getIndicatorByValue(getArguments().getString(
 				FIELD));
+		
 		int year = getArguments().getInt(YEAR);
 		int rangeA = getArguments().getInt(RANGE_A);
 		int rangeB = getArguments().getInt(RANGE_B);
+		
 		Search search = new Search();
 		search.setIndicator(i);
 		search.setYear(year);
-		if (bean instanceof Institution) {
+		
+		if(bean instanceof Institution) {
 			search.setOption(Search.INSTITUTION);
-		} else if (bean instanceof Course) {
+		}
+		else if (bean instanceof Course) {
 			search.setOption(Search.COURSE);
 		}
 		search.setMinValue(rangeA);
 		search.setMaxValue(rangeB);
+		
 		beanCallbacks.onSearchBeanSelected(search, bean);
+		
 		super.onListItemClick(l, v, position, id);
 	}
 
