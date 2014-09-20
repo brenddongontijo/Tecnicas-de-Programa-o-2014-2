@@ -137,7 +137,7 @@ public class CompareChooseFragment extends Fragment implements
 		}
 		if (this.selectedCourse != null) {
 			ArrayList<Institution> courseInstitutions = this.selectedCourse
-					.getInstitutions(selectedYear);
+					.getInstitutionsByYear(selectedYear);
 			compareAdapterList = new ListCompareAdapter(getActionBar()
 					.getThemedContext(), R.layout.compare_choose_list_item,
 					courseInstitutions, this);
