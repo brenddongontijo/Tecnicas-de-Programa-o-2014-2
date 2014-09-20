@@ -70,8 +70,8 @@ public class Article extends Bean {
 	}
 	
 	// This method return an Article based on his id.
-	public static Article getArticleByValue(Integer id) throws SQLException {
-		Article articleWithId = new Article(id);
+	public static Article getArticleByValue(Integer articleId) throws SQLException {
+		Article articleWithId = new Article(articleId);
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
 		articleWithId = (Article) genericBeanDAO.selectBean(articleWithId);

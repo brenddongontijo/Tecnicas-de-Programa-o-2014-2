@@ -91,8 +91,8 @@ public class Book extends Bean {
 	}
 
 	// This method picks an Book on Database based on his id.
-	public static Book getBookByValue(int id) throws SQLException {
-		Book bookWithId = new Book(id);
+	public static Book getBookByValue(int bookId) throws SQLException {
+		Book bookWithId = new Book(bookId);
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
 		// Casting to transform a Bean into a Book. 
@@ -101,7 +101,7 @@ public class Book extends Bean {
 		return bookWithId;
 	}
 
-	// This method get all Articles from database.
+	// This method get all Books from database.
 	public static ArrayList<Book> getAllBooks() throws SQLException {
 		Book book = new Book();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
