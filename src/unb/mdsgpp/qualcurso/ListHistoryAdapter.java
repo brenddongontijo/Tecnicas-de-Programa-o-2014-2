@@ -74,7 +74,7 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 		 * sets the values ​​of year, indicator , value one and two and date​​.
 		 */
 		setItem(year, Integer.toString(s.getYear()));
-		setItem(indicator, s.getIndicator().getName());
+		setItem(indicator, s.getIndicator().getSearchIndicatorName());
 		setItem(firstValue, Integer.toString(s.getMinValue()));
 		int max = s.getMaxValue();
 		if (max == -1) {

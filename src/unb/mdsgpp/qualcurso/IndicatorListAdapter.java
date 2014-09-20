@@ -43,7 +43,7 @@ public class IndicatorListAdapter extends ArrayAdapter<HashMap<String,String>> {
             	indicator.setText(h.get(VALUE));
         	}
         	if (indicatorText != null) {
-        		indicatorText.setText(Indicator.getIndicatorByValue(h.get(INDICATOR_VALUE)).getName());
+        		indicatorText.setText(Indicator.getIndicatorByValue(h.get(INDICATOR_VALUE)).getSearchIndicatorName());
         	}
     	}
 
