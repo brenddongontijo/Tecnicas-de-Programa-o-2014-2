@@ -28,6 +28,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 
 	// statement of objects
 	BeanListCallbacks beanCallbacks;
+	
 	private static final String TAG = "FragmentTabs";
 	public static final String TAB_INSTITUTIONS = "tabInstitutions";
 	public static final String TAB_COURSES = "tabCourses";
@@ -35,6 +36,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	private TabHost mTabHost;
 	private int mCurrentTab;
 	private SearchView mSearchView;
+	
 	private ArrayList<Course> allCourses = Course.getAllCourses();
 	private ArrayList<Institution> allInstitutions = Institution.getAllInstitutions();
 
@@ -66,7 +68,8 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 		return mRoot;
 	}
 
-	/*	Called when all saved state has been restored 
+	/*	
+	 * Called when all saved state has been restored 
 	 * into the view hierarchy of the fragment. (non-Javadoc)
 	 * see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
 	 */
@@ -184,6 +187,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 								0, 2010, castToCourses(beans)), R.id.tab_2);
 			}
 		}
+		
 		// If there is no change, checks the current tab and list according the same.
 		else {
 			if(mCurrentTab == 0) {
@@ -225,8 +229,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	 * Filter takes a string and an arraylist from a list,and filters the same
 	 * arrylist returning a bean.
 	 */
-	private ArrayList<Bean> getFilteredList(String filter,
-			ArrayList<? extends Bean> list) {
+	private ArrayList<Bean> getFilteredList(String filter, ArrayList<? extends Bean> list) {
 		
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		

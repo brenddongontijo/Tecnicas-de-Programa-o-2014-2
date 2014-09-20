@@ -63,6 +63,7 @@ public class RankingFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.ranking_fragment, container,
 				false);
+		
 		if (savedInstanceState != null) {
 			if (savedInstanceState.getParcelable(COURSE) != null) {
 				setCurrentSelection((Course) savedInstanceState
@@ -74,6 +75,7 @@ public class RankingFragment extends Fragment {
 
 			}
 		}
+		
 		this.filterFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 		this.filterFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(
 				getActivity().getApplicationContext(),
@@ -85,6 +87,7 @@ public class RankingFragment extends Fragment {
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
 		this.evaluationList = (ListView) rootView
 				.findViewById(R.id.evaluationList);
+		
 		ArrayList<Course> courses = Course.getAllCourses();
 		autoCompleteField = (AutoCompleteTextView) rootView
 				.findViewById(R.id.autoCompleteTextView);
@@ -93,6 +96,7 @@ public class RankingFragment extends Fragment {
 		autoCompleteField
 				.setOnItemClickListener(getAutoCompleteListener(rootView));
 		evaluationList.setOnItemClickListener(getEvaluationListListener());
+		
 		if (currentSelection != null
 				&& filterField != Indicator.DEFAULT_INDICATOR) {
 			updateList();
@@ -191,7 +195,7 @@ public class RankingFragment extends Fragment {
 	}
 
 	
-	  // ArrayList created to store all the fields present in the rankings.
+	// ArrayList created to store all the fields present in the rankings.
 	public ArrayList<String> getListFields() {
 		ArrayList<String> fields = new ArrayList<String>();
 		fields.add(this.filterField);
@@ -203,7 +207,7 @@ public class RankingFragment extends Fragment {
 	}
 
 	
-	 // Get this year by spinner.
+	// Get this year by spinner.
 	public int getYear() {
 		int year = 0;
 
@@ -231,7 +235,7 @@ public class RankingFragment extends Fragment {
 	}
 
 	
-	 // Sends a warning on the screen.
+	// Sends a warning on the screen.
 	private void displayToastMessage(String textMenssage) {
 		Toast toast = Toast.makeText(
 				this.getActivity().getApplicationContext(), textMenssage,
@@ -240,7 +244,7 @@ public class RankingFragment extends Fragment {
 	}
 
 	
-	 // Used to update the list, seeking the actual value.
+	// Used to update the list, seeking the actual value.
 	public void updateList() {
 		if (this.filterField != Indicator.DEFAULT_INDICATOR) {
 			final ArrayList<String> fields = getListFields();
@@ -259,9 +263,7 @@ public class RankingFragment extends Fragment {
 		}
 	}
 
-	/*
-	 * Used to hide the keyboard smoothly when required.
-	 */
+	// Used to hide the keyboard smoothly when required.
 	private void hideKeyboard(View view) {
 		InputMethodManager imm = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);

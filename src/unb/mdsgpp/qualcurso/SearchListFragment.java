@@ -75,6 +75,7 @@ public class SearchListFragment extends ListFragment {
 			Bundle savedInstanceState) {
 		
 		ArrayList<Parcelable> list;
+		
 		if(getArguments().getParcelableArrayList(BEAN_LIST) != null) {
 			list = getArguments().getParcelableArrayList(BEAN_LIST);
 		} 

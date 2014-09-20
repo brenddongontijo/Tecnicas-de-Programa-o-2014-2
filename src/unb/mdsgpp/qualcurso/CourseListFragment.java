@@ -57,14 +57,17 @@ public class CourseListFragment extends ListFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		ArrayList<Course> list;
+		
 		if(getArguments().getParcelableArrayList(IDS_COURSES) != null){
 			list = getArguments().getParcelableArrayList(IDS_COURSES);
 		}else{
 			list = savedInstanceState.getParcelableArrayList(IDS_COURSES);
 		}
+		
 		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list, container,
 				false);
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
+		
 		try {
 			if(list != null){
 			rootView.setAdapter(new ArrayAdapter<Course>(
@@ -88,9 +91,13 @@ public class CourseListFragment extends ListFragment{
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		if(getArguments().getInt(ID_INSTITUTION) == 0){
 			
-			beanCallbacks.onBeanListItemSelected(InstitutionListFragment.newInstance((((Course)l.getAdapter().getItem(position)).getId()), getArguments().getInt(YEAR)));
+			beanCallbacks.onBeanListItemSelected(InstitutionListFragment.
+					newInstance((((Course)l.getAdapter().getItem(position)).getId()), 
+							getArguments().getInt(YEAR)));
 		}else{
-			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance(getArguments().getInt(ID_INSTITUTION), ((Course)l.getAdapter().getItem(position)).getId(),getArguments().getInt(YEAR)));
+			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.
+					newInstance(getArguments().getInt(ID_INSTITUTION), 
+							((Course)l.getAdapter().getItem(position)).getId(),getArguments().getInt(YEAR)));
 		}
 		super.onListItemClick(l, v, position, id);
 	}
@@ -98,6 +105,7 @@ public class CourseListFragment extends ListFragment{
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		
 		try {
             beanCallbacks = (BeanListCallbacks) activity;
         } catch (ClassCastException e) {

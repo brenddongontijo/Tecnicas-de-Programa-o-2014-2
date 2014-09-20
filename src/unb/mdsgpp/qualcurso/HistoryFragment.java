@@ -29,6 +29,7 @@ public class HistoryFragment extends Fragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		
 		try {
 			beanCallbacks = (BeanListCallbacks) activity;
 		} catch (ClassCastException e) {
@@ -55,9 +56,8 @@ public class HistoryFragment extends Fragment {
 
 		Collections.reverse(searches);
 
-		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter(this
-				.getActivity().getApplicationContext(), R.id.listHistory,
-				searches);
+		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter
+				(this.getActivity().getApplicationContext(), R.id.listHistory,searches);
 
 		history.setAdapter((ListAdapter) histotyAdapter);
 
@@ -79,9 +79,7 @@ public class HistoryFragment extends Fragment {
 		return rootView;
 	}
 
-	/*
-	 * Search a list of institution receiving a search object.
-	 */
+	 //Search a list of institution receiving a search object.
 	private void displayInstitutionList(Search search) {
 		ArrayList<Institution> institutions = Institution
 				.getInstitutionsByEvaluationFilter(search);
@@ -94,9 +92,7 @@ public class HistoryFragment extends Fragment {
 					.newInstance(institutions, search));
 	}
 
-	/*
-	 * Search a list of courses receiving a search object.
-	 */
+	// Search a list of courses receiving a search object.
 	private void displayCourseList(Search search) {
 		ArrayList<Course> courses = Course.getCoursesByEvaluationFilter(search);
 
@@ -108,9 +104,7 @@ public class HistoryFragment extends Fragment {
 					.newInstance(courses, search));
 	}
 
-	/*
-	 * Displays a message on the screen.
-	 */
+	// Displays a message on the screen.
 	private void displayToastMessage(String textMenssage) {
 		Toast toast = Toast.makeText(
 				this.getActivity().getApplicationContext(), textMenssage,

@@ -64,15 +64,12 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
 		case 1:
 			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.gold_trophy);
 			break;
-
 		case 2:
 			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.silver_trophy);
 			break;
-
 		case 3:
 			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.bronze_trophy);
 			break;
-			
 		default:
 			break;
 		}
