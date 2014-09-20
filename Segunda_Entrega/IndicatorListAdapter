@@ -15,3 +15,5 @@ Variables:
 	
 	public static String VALUE = "value";
 	
+	private int itemLayout = 0;
+	

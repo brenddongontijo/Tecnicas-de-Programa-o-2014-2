@@ -61,21 +61,27 @@ public class Indicator {
 		// Adding triennial_evaluation.
 		arrayOfIndicators.add(new Indicator(indicatorList[1], new Evaluation().
 				fieldsList().get(7)));
+		
 		// Adding master_degree_start_year.
 		arrayOfIndicators.add(new Indicator(indicatorList[2], new Evaluation().
 				fieldsList().get(5)));
+		
 		// Adding doctorate_start_year.
 		arrayOfIndicators.add(new Indicator(indicatorList[3], new Evaluation().
 				fieldsList().get(6)));
+		
 		// Adding permanent_teachers.
 		arrayOfIndicators.add(new Indicator(indicatorList[4], new Evaluation().
 				fieldsList().get(8)));
+		
 		// Adding theses. 
 		arrayOfIndicators.add(new Indicator(indicatorList[5], new Evaluation().
 				fieldsList().get(9)));
+		
 		// Adding dissertations.
 		arrayOfIndicators.add(new Indicator(indicatorList[6], new Evaluation().
 				fieldsList().get(10)));
+		
 		// Adding artistic_production.
 		arrayOfIndicators.add(new Indicator(indicatorList[7], new Evaluation().
 				fieldsList().get(13)));
@@ -83,12 +89,15 @@ public class Indicator {
 		// Adding chapters.
 		arrayOfIndicators.add(new Indicator(indicatorList[8], new Book().
 				fieldsList().get(2)));
+		
 		// Adding integral_text.
 		arrayOfIndicators.add(new Indicator(indicatorList[9], new Book().
 				fieldsList().get(1)));
+		
 		// Adding collections.
 		arrayOfIndicators.add(new Indicator(indicatorList[10], new Book().
 				fieldsList().get(3)));
+		
 		// Adding entries.
 		arrayOfIndicators.add(new Indicator(indicatorList[11], new Book().
 				fieldsList().get(4)));
@@ -96,6 +105,7 @@ public class Indicator {
 		// Adding published_journals.
 		arrayOfIndicators.add(new Indicator(indicatorList[12], new Article().
 				fieldsList().get(1)));
+		
 		// Adding published_conference_proceedings.
 		arrayOfIndicators.add(new Indicator(indicatorList[13], new Article().
 				fieldsList().get(2)));
