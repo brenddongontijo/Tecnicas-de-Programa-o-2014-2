@@ -3,7 +3,8 @@ Class:
 	public class ListCompareAdapter
 	
 Methods:
-
+	
+	
 	public ListCompareAdapter(Context context, int resource,List<Institution> item, Fragment callingFragment)
 
 	public View getView(int position, View contextView, ViewGroup parent
@@ -11,7 +12,19 @@ Methods:
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 	
 Variables:
-
+	
+	//new name checkBox 
+	private CheckBox cb;
+	
+	//new name institution
+	Institution i;
+	
+	//new name position
+	int pos;
+	
+	//new name screenLayout;
+	LayoutInflater li;
+	
 	public static int INSTITUTION = R.string.institution;
 	
 	public static int POSITION = R.id.checkbox;
