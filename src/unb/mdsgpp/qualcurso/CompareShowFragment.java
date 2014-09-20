@@ -56,8 +56,10 @@ public class CompareShowFragment extends Fragment{
 		View rootView = inflater.inflate(R.layout.compare_show_fragment, container, false);
 
 		TextView courseNameTextView = (TextView) rootView.findViewById(R.id.compare_course_name);
-		TextView firstAcronymTextView = (TextView) rootView.findViewById(R.id.compare_first_institution_acronym);
-		TextView secondAcronymTextView = (TextView) rootView.findViewById(R.id.compare_second_institution_acronym);
+		TextView firstAcronymTextView = (TextView) rootView.
+				findViewById(R.id.compare_first_institution_acronym);
+		TextView secondAcronymTextView = (TextView) rootView.
+				findViewById(R.id.compare_second_institution_acronym);
 
 		Evaluation evaluationA = Evaluation.getEvaluationById(getArguments().getInt(ID_EVALUATION_A));
 		Evaluation evaluationB = Evaluation.getEvaluationById(getArguments().getInt(ID_EVALUATION_B));
@@ -71,8 +73,10 @@ public class CompareShowFragment extends Fragment{
 		firstAcronymTextView.setText(institutionA.getAcronym());
 		secondAcronymTextView.setText(institutionB.getAcronym());
 
-		this.compareFirstInstitutionBetterResults = (TextView) rootView.findViewById(R.id.compare_first_institution_better_results);
-		this.compareSecondInstitutionBetterResults = (TextView) rootView.findViewById(R.id.compare_second_institution_better_results);
+		this.compareFirstInstitutionBetterResults = (TextView) rootView.
+				findViewById(R.id.compare_first_institution_better_results);
+		this.compareSecondInstitutionBetterResults = (TextView) rootView.
+				findViewById(R.id.compare_second_institution_better_results);
 
 		this.totalBetterEvaluationInstitutionA = 0;
 		this.totalBetterEvaluationInstitutionB = 0;
@@ -146,8 +150,10 @@ public class CompareShowFragment extends Fragment{
 	}
 
 	private void setBetterInstitutionsValues() {
-		this.compareFirstInstitutionBetterResults.setText(Integer.toString(this.totalBetterEvaluationInstitutionA));
-		this.compareSecondInstitutionBetterResults.setText(Integer.toString(this.totalBetterEvaluationInstitutionB));
+		this.compareFirstInstitutionBetterResults.
+		setText(Integer.toString(this.totalBetterEvaluationInstitutionA));
+		this.compareSecondInstitutionBetterResults.
+		setText(Integer.toString(this.totalBetterEvaluationInstitutionB));
 	}
 
 	@Override

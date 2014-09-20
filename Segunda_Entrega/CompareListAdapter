@@ -9,3 +9,14 @@ Methods:
 	public CompareListAdapter(Context context, int resource,List<HashMap<String, String>> items)
 
 	public View getView(int position, View convertView, ViewGroup parent)
+	
+Variables: 
+
+	public static String INDICATOR_VALUE = "indicatorValue";  -> value for one indicator.
+	
+	public static String FIRST_VALUE = "firstValue"; -> value for the first indicator chosen.
+	
+	public static String SECOND_VALUE = "secondValue"; -> value for the second indicator chosen.
+	
+	public static String IGNORE_INDICATOR = "ignoreIndicator";
+	

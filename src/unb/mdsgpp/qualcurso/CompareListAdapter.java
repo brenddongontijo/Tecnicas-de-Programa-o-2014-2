@@ -52,12 +52,14 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 				indicatorNameTextView.setText(Indicator.getIndicatorByValue(
 						h.get(this.INDICATOR_VALUE)).getSearchIndicatorName());
 			}
-			if (firstIndicatorTextView != null
-					|| secondIndicatorTextView != null) {
+			
+			if (firstIndicatorTextView != null || secondIndicatorTextView != null) {
+				
 				int first = Integer.parseInt(h.get(this.FIRST_VALUE));
 				int second = Integer.parseInt(h.get(this.SECOND_VALUE));
 				firstIndicatorTextView.setText(Integer.toString(first));
 				secondIndicatorTextView.setText(Integer.toString(second));
+				
 				if (h.get(IGNORE_INDICATOR).equals("false")) {
 					if (first > second) {
 						firstIndicatorTextView.setBackgroundColor(QualCurso
