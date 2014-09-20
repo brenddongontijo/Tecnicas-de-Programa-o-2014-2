@@ -4,13 +4,19 @@ import android.database.SQLException;
 
 import java.util.ArrayList;
 
+/*
+ * Class Name: Evaluation.
+ * 
+ * This class receives all data based on university evaluation from
+ * "Portal Brasileiro de Dados Abertos" xls spreadsheet.
+ */
 public class Evaluation extends Bean {
 
 	private int id;
 	private int idInstitution;
 	private int idCourse;
-	private int year;
-	private String modality;
+	private int evaluationYear;
+	private String evaluationModality;
 	private int masterDegreeStartYear;
 	private int doctorateStartYear;
 	private int triennialEvaluation;
@@ -28,87 +34,114 @@ public class Evaluation extends Bean {
 
 	}
 
-	public Evaluation(int id) {
-		this.id = id;
+	public Evaluation(int evaluationID) {
+		this.id = evaluationID;
 		this.identifier = "evaluation";
 		this.relationship = "";
 	}
 
 	@Override
 	public String get(String field) {
-		if (field.equals("_id")) {
+		if(field.equals("_id")) {
 			return Integer.toString(this.getId());
-		} else if (field.equals("id_institution")) {
+		} 
+		else if(field.equals("id_institution")) {
 			return Integer.toString(this.getIdInstitution());
-		} else if (field.equals("id_course")) {
+		}
+		else if(field.equals("id_course")) {
 			return Integer.toString(this.getIdCourse());
-		} else if (field.equals("year")) {
-			return Integer.toString(this.getYear());
-		} else if (field.equals("modality")) {
-			return getModality();
-		} else if (field.equals("master_degree_start_year")) {
+		}
+		else if(field.equals("year")) {
+			return Integer.toString(this.getEvaluationYear());
+		}
+		else if(field.equals("modality")) {
+			return getEvaluationModality();
+		}
+		else if(field.equals("master_degree_start_year")) {
 			return Integer.toString(this.getMasterDegreeStartYear());
-		} else if (field.equals("doctorate_start_year")) {
+		}
+		else if(field.equals("doctorate_start_year")) {
 			return Integer.toString(this.getDoctorateStartYear());
-		} else if (field.equals("triennial_evaluation")) {
+		}
+		else if(field.equals("triennial_evaluation")) {
 			return Integer.toString(this.getTriennialEvaluation());
-		} else if (field.equals("permanent_teachers")) {
+		}
+		else if(field.equals("permanent_teachers")) {
 			return Integer.toString(this.getPermanentTeachers());
-		} else if (field.equals("theses")) {
+		}
+		else if(field.equals("theses")) {
 			return Integer.toString(this.getTheses());
-		} else if (field.equals("dissertations")) {
+		}
+		else if(field.equals("dissertations")) {
 			return Integer.toString(this.getDissertations());
-		} else if (field.equals("id_articles")) {
+		}
+		else if(field.equals("id_articles")) {
 			return Integer.toString(this.getIdArticles());
-		} else if (field.equals("id_books")) {
+		}
+		else if(field.equals("id_books")) {
 			return Integer.toString(this.getIdBooks());
-		} else if (field.equals("artistic_production")) {
+		}
+		else if(field.equals("artistic_production")) {
 			return Integer.toString(this.getArtisticProduction());
-		} else
+		}
+		else {
 			return "";
-
+		}
 	}
 
 	@Override
 	public void set(String field, String data){
-		if (field.equals("_id")) {
+		if(field.equals("_id")) {
 			this.setId(Integer.parseInt(data));
-		} else if (field.equals("id_institution")) {
+		} 
+		else if(field.equals("id_institution")) {
 			this.setIdInstitution(Integer.parseInt(data));
-		} else if (field.equals("id_course")) {
+		} 
+		else if(field.equals("id_course")) {
 			this.setIdCourse(Integer.parseInt(data));
-		} else if (field.equals("year")) {
-			this.setYear(Integer.parseInt(data));
-		} else if (field.equals("modality")) {
-			this.setModality(data);
-		} else if (field.equals("master_degree_start_year")) {
+		} 
+		else if(field.equals("year")) {
+			this.setEvaluationYear(Integer.parseInt(data));
+		} 
+		else if(field.equals("modality")) {
+			this.setEvaluationModality(data);
+		} 
+		else if(field.equals("master_degree_start_year")) {
 			this.setMasterDegreeStartYear(Integer.parseInt(data));
-		} else if (field.equals("doctorate_start_year")) {
+		} 
+		else if(field.equals("doctorate_start_year")) {
 			this.setDoctorateStartYear(Integer.parseInt(data));
-		} else if (field.equals("triennial_evaluation")) {
+		} 
+		else if(field.equals("triennial_evaluation")) {
 			this.setTriennialEvaluation(Integer.parseInt(data));
-		} else if (field.equals("permanent_teachers")) {
+		} 
+		else if(field.equals("permanent_teachers")) {
 			this.setPermanentTeachers(Integer.parseInt(data));
-		} else if (field.equals("theses")) {
+		} 
+		else if(field.equals("theses")) {
 			this.setTheses(Integer.parseInt(data));
-		} else if (field.equals("dissertations")) {
+		} 
+		else if(field.equals("dissertations")) {
 			this.setDissertations(Integer.parseInt(data));
-		} else if (field.equals("id_articles")) {
+		} 
+		else if(field.equals("id_articles")) {
 			this.setIdArticles(Integer.parseInt(data));
-		} else if (field.equals("id_books")) {
+		} 
+		else if(field.equals("id_books")) {
 			this.setIdBooks(Integer.parseInt(data));
-		} else if (field.equals("artistic_production")) {
+		} 
+		else if(field.equals("artistic_production")) {
 			this.setArtisticProduction(Integer.parseInt(data));
-		} else{
+		} 
+		else{
 			
 		}
-		
-
 	}
 
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
+		
 		fields.add("_id");
 		fields.add("id_institution");
 		fields.add("id_course");
@@ -123,49 +156,58 @@ public class Evaluation extends Bean {
 		fields.add("id_articles");
 		fields.add("id_books");
 		fields.add("artistic_production");
+		
 		return fields;
 	}
 	
-	/*
-	 * The method save() receives an instance from Evaluation and saves into 
-	 * Database also setting its Id using the method last() returning true if
-	 * the insertion was made correct or false otherwise.
-	 */
-	public boolean save() throws  SQLException {
-		boolean result = false;
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		result = gDB.insertBean(this);
+	// This method saves one Evaluation into Database.
+	public boolean saveEvaluation() throws SQLException {
+		boolean saveResult = false;
+		
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		
+		saveResult = genericBeanDAO.insertBean(this);
 		this.setId(Evaluation.last().getId());
-		return result;
+		
+		return saveResult;
 	}
 
-	public static Evaluation get(int id) throws  SQLException {
-		Evaluation result = new Evaluation(id);
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		result = (Evaluation) gDB.selectBean(result);
-		return result;
+	// This method picks an Evaluation on Database based on his id.
+	public static Evaluation getEvaluationById(int evaluationId) throws SQLException {
+		Evaluation evaluation = new Evaluation(evaluationId);
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		
+		evaluation = (Evaluation) genericBeanDAO.selectBean(evaluation);
+		
+		return evaluation;
 	}
 
-	public static ArrayList<Evaluation> getAll()
-			throws  SQLException {
-		Evaluation type = new Evaluation();
-		ArrayList<Evaluation> result = new ArrayList<Evaluation>();
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectAllBeans(type,null)) {
-			result.add((Evaluation) b);
+	// This method get all Evaluations from database.
+	public static ArrayList<Evaluation> getAllEvaluations()
+			throws SQLException {
+		
+		Evaluation evaluation = new Evaluation();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		
+		ArrayList<Evaluation> arrayOfEvaluations = new ArrayList<Evaluation>();
+		
+		for (Bean bean : genericBeanDAO.selectAllBeans(evaluation,null)) {
+			arrayOfEvaluations.add((Evaluation) bean);
 		}
-		return result;
+		
+		return arrayOfEvaluations;
 	}
 	
-	/*
-	 * The method count() uses the method countBean() parsing one object from  
-	 * Evaluation to access Database and return the number of Evaluations 
-	 * into it.
-	 */
-	public static int count() throws  SQLException {
-		Evaluation type = new Evaluation();
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		return gDB.countBean(type);
+	// This method counts the number of Evaluations into Database.
+	public static int numberOfEvaluations() throws SQLException {
+		int numberOfEvaluations = 0;
+		
+		Evaluation evaluation = new Evaluation();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		
+		numberOfEvaluations = genericBeanDAO.countBean(evaluation);
+		
+		return numberOfEvaluations;
 	}
 
 	/*
@@ -176,8 +218,8 @@ public class Evaluation extends Bean {
 	public static Evaluation first() throws 
 			SQLException {
 		Evaluation result = new Evaluation();
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		result = (Evaluation) gDB.firstOrLastBean(result, false);
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		result = (Evaluation) genericBeanDAO.firstOrLastBean(result, false);
 		return result;
 	}
 
@@ -190,8 +232,8 @@ public class Evaluation extends Bean {
 	public static Evaluation last() throws 
 			SQLException {
 		Evaluation result = new Evaluation();
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		result = (Evaluation) gDB.firstOrLastBean(result, true);
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		result = (Evaluation) genericBeanDAO.firstOrLastBean(result, true);
 		return result;
 	}
 
@@ -199,8 +241,8 @@ public class Evaluation extends Bean {
 			throws  SQLException {
 		Evaluation type = new Evaluation();
 		ArrayList<Evaluation> result = new ArrayList<Evaluation>();
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanWhere(type, field, value, like,null)) {
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		for (Bean b : genericBeanDAO.selectBeanWhere(type, field, value, like,null)) {
 			result.add((Evaluation) b);
 		}
 		return result;
@@ -210,7 +252,7 @@ public class Evaluation extends Bean {
 		Evaluation result = new Evaluation();
 		result.setIdInstitution(idInstitution);
 		result.setIdCourse(idCourse);
-		result.setYear(year);
+		result.setEvaluationYear(year);
 		ArrayList<String> simplefields = new ArrayList<String>();
 		ArrayList<String> fields = new ArrayList<String>();
 		fields.add("id_institution");
@@ -218,12 +260,12 @@ public class Evaluation extends Bean {
 		fields.add("year");
 		simplefields.add("id_institution");
 		simplefields.add("id_course");
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		ArrayList<Bean> restricted = gDB.selectFromFields(result,fields,null);
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		ArrayList<Bean> restricted = genericBeanDAO.selectFromFields(result,fields,null);
 		if(restricted.size() != 0){
 			result = (Evaluation)restricted.get(0);
 		}else{
-			ArrayList<Bean> beans = gDB.selectFromFields(result, simplefields,null);
+			ArrayList<Bean> beans = genericBeanDAO.selectFromFields(result, simplefields,null);
 			result = (Evaluation)beans.get(beans.size()-1);
 		}
 		return result;
@@ -235,8 +277,8 @@ public class Evaluation extends Bean {
 	 */
 	public boolean delete() throws  SQLException {
 		boolean result = false;
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		result = gDB.deleteBean(this);
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		result = genericBeanDAO.deleteBean(this);
 		return result;
 	}
 
@@ -264,20 +306,20 @@ public class Evaluation extends Bean {
 		this.idCourse = idCourse;
 	}
 
-	public int getYear() {
-		return year;
+	public int getEvaluationYear() {
+		return evaluationYear;
 	}
 
-	public void setYear(int year) {
-		this.year = year;
+	public void setEvaluationYear(int year) {
+		this.evaluationYear = year;
 	}
 
-	public String getModality() {
-		return modality;
+	public String getEvaluationModality() {
+		return evaluationModality;
 	}
 
-	public void setModality(String modality) {
-		this.modality = modality;
+	public void setEvaluationModality(String modality) {
+		this.evaluationModality = modality;
 	}
 
 	public int getMasterDegreeStartYear() {
