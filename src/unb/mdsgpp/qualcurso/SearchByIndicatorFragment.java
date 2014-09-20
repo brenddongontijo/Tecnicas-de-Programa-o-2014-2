@@ -192,7 +192,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		search.setIndicator(filterField);
 		search.setMinValue(min);
 		search.setMaxValue(max);
-		search.save();
+		search.saveSearch();
 		ArrayList<Institution> beanList = Institution
 				.getInstitutionsByEvaluationFilter(search);
 		beanCallbacks.onBeanListItemSelected(
@@ -214,7 +214,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		search.setIndicator(filterField);
 		search.setMinValue(min);
 		search.setMaxValue(max);
-		search.save();
+		search.saveSearch();
 		ArrayList<Course> beanList = Course
 				.getCoursesByEvaluationFilter(search);
 		beanCallbacks.onBeanListItemSelected(

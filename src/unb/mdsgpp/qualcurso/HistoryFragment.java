@@ -51,7 +51,7 @@ public class HistoryFragment extends Fragment {
 		final ListView history = (ListView) rootView
 				.findViewById(R.id.listHistory);
 
-		ArrayList<Search> searches = Search.getAll();
+		ArrayList<Search> searches = Search.getAllSearch();
 
 		Collections.reverse(searches);
 

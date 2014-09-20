@@ -4,13 +4,13 @@ Clas:
 	
 Methods:
 
-	// New Name: saveSearch
+	// New Name: saveSearch	->alterado
 	public boolean save() 
 	
-	// New Name: getSearchById
+	// New Name: getSearchById	->alterado
 	public static Search get(int id) 
 
-	// New Name: getAllSearch
+	// New Name: getAllSearch	->alterado
 	public static ArrayList<Search> getAll() 
   
   	// New Name: numberOfSearch
@@ -27,20 +27,12 @@ Methods:
 	// New Name: deleteSearch
 	public boolean delete() 
 
-	public String get(String field)
-
-	public void set(String field, String data)
-
-	public ArrayList<String> fieldsList() 
-
-	public int getId() 
-
 Variables:
 
 	// New name: searchId
 	private int id; -> id genarated by the database to a search.
 	
-	// New name: searchDate
+	// New name: searchDate	
 	private Date date; -> use to show the date of that the search was made.
 	
 	// New name: evaluationYear
@@ -57,3 +49,9 @@ Variables:
 	
 	//new name: maxIndicatorValue
 	private int maxValue; -> Maximum indicator value.
+	
+	//new name: genericBeanDAO
+	GenericBeanDAO gDB;
+	
+	//new name: bean
+	Bean b;
