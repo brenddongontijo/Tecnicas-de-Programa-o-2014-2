@@ -59,8 +59,8 @@ public class CompareShowFragment extends Fragment{
 		TextView firstAcronymTextView = (TextView) rootView.findViewById(R.id.compare_first_institution_acronym);
 		TextView secondAcronymTextView = (TextView) rootView.findViewById(R.id.compare_second_institution_acronym);
 
-		Evaluation evaluationA = Evaluation.get(getArguments().getInt(ID_EVALUATION_A));
-		Evaluation evaluationB = Evaluation.get(getArguments().getInt(ID_EVALUATION_B));
+		Evaluation evaluationA = Evaluation.getEvaluationById(getArguments().getInt(ID_EVALUATION_A));
+		Evaluation evaluationB = Evaluation.getEvaluationById(getArguments().getInt(ID_EVALUATION_B));
 
 		Course course = Course.getCourseByValue(evaluationA.getIdCourse());
 

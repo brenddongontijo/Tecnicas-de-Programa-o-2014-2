@@ -167,7 +167,7 @@ public class Evaluation extends Bean {
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
 		saveResult = genericBeanDAO.insertBean(this);
-		this.setId(Evaluation.last().getId());
+		this.setId(Evaluation.lastEvaluation().getId());
 		
 		return saveResult;
 	}
@@ -183,8 +183,7 @@ public class Evaluation extends Bean {
 	}
 
 	// This method get all Evaluations from database.
-	public static ArrayList<Evaluation> getAllEvaluations()
-			throws SQLException {
+	public static ArrayList<Evaluation> getAllEvaluations() throws SQLException {
 		
 		Evaluation evaluation = new Evaluation();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -210,186 +209,221 @@ public class Evaluation extends Bean {
 		return numberOfEvaluations;
 	}
 
-	/*
-	 * The method first() uses method firstOrLastBean() from GenericBeanDAO 
-	 * parsing one object from Evaluation and a boolean condition "false" to get 
-	 * the first "Bean" on Database and then turn it into a Evaluation using casting.
-	 */
-	public static Evaluation first() throws 
-			SQLException {
-		Evaluation result = new Evaluation();
+	// This method returns the first Evaluation into Database.
+	public static Evaluation firstEvaluation() throws SQLException {
+		Evaluation evaluation = new Evaluation();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
-		result = (Evaluation) genericBeanDAO.firstOrLastBean(result, false);
-		return result;
+		
+		evaluation = (Evaluation) genericBeanDAO.firstOrLastBean(evaluation, false);
+		
+		return evaluation;
 	}
 
-	/*
-	 * The method last() uses the method firstOrLastBean() from GenericBeanDAO 
-	 * parsing one object from Evaluation and a boolean condition "true" to get 
-	 * the last "Bean" on Database and then turn it into an Evaluation using the 
-	 * casting.
-	 */
-	public static Evaluation last() throws 
-			SQLException {
-		Evaluation result = new Evaluation();
+	// This method returns the last Evaluation into Database.
+	public static Evaluation lastEvaluation() throws SQLException {
+		Evaluation evaluation = new Evaluation();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
-		result = (Evaluation) genericBeanDAO.firstOrLastBean(result, true);
-		return result;
+		
+		evaluation = (Evaluation) genericBeanDAO.firstOrLastBean(evaluation, true);
+		
+		return evaluation;
 	}
 
+	// This method will try to find an Evaluation based on a search.  
 	public static ArrayList<Evaluation> getWhere(String field, String value, boolean like) 
-			throws  SQLException {
-		Evaluation type = new Evaluation();
-		ArrayList<Evaluation> result = new ArrayList<Evaluation>();
+			throws SQLException {
+		
+		Evaluation evaluation = new Evaluation();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
-		for (Bean b : genericBeanDAO.selectBeanWhere(type, field, value, like,null)) {
-			result.add((Evaluation) b);
+		
+		ArrayList<Evaluation> arrayOfEvaluations = new ArrayList<Evaluation>();
+		
+		for(Bean bean : genericBeanDAO.selectBeanWhere(evaluation, field, value, like, null)) {
+			arrayOfEvaluations.add((Evaluation) bean);
 		}
-		return result;
+		
+		return arrayOfEvaluations;
 	}
 	
-	public static Evaluation getFromRelation(int idInstitution, int idCourse, int year){
-		Evaluation result = new Evaluation();
-		result.setIdInstitution(idInstitution);
-		result.setIdCourse(idCourse);
-		result.setEvaluationYear(year);
-		ArrayList<String> simplefields = new ArrayList<String>();
-		ArrayList<String> fields = new ArrayList<String>();
-		fields.add("id_institution");
-		fields.add("id_course");
-		fields.add("year");
-		simplefields.add("id_institution");
-		simplefields.add("id_course");
+	// This method returns a Evaluation between a Institution and Course.
+	public static Evaluation getFromRelation(int idInstitution, int idCourse, int evaluationYear){
+		Evaluation evaluation = new Evaluation();
+		evaluation.setIdInstitution(idInstitution);
+		evaluation.setIdCourse(idCourse);
+		evaluation.setEvaluationYear(evaluationYear);
+		
+		ArrayList<String> fieldsOfInstitutionCourse = new ArrayList<String>();
+		fieldsOfInstitutionCourse.add("id_institution");
+		fieldsOfInstitutionCourse.add("id_course");
+		fieldsOfInstitutionCourse.add("year");
+		
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
-		ArrayList<Bean> restricted = genericBeanDAO.selectFromFields(result,fields,null);
-		if(restricted.size() != 0){
-			result = (Evaluation)restricted.get(0);
-		}else{
-			ArrayList<Bean> beans = genericBeanDAO.selectFromFields(result, simplefields,null);
-			result = (Evaluation)beans.get(beans.size()-1);
+		
+		ArrayList<Bean> restricted = genericBeanDAO.selectFromFields(evaluation, fieldsOfInstitutionCourse, null);
+		
+		if(restricted.size() != 0) {
+			evaluation = (Evaluation)restricted.get(0);
 		}
-		return result;
+		else {
+			ArrayList<String> simplefields = new ArrayList<String>();
+			simplefields.add("id_institution");
+			simplefields.add("id_course");
+			
+			ArrayList<Bean> beans = genericBeanDAO.selectFromFields(evaluation, simplefields, null);
+			
+			evaluation = (Evaluation)beans.get(beans.size()-1);
+		}
+		
+		return evaluation;
 	}
 	
-	/*
-	 * The method delete() access the Database and deletes the current Evaluation
-	 * returning "true" if the deletion was made correct or "false" otherwise.
-	 */
-	public boolean delete() throws  SQLException {
-		boolean result = false;
+	// This method deletes an Evaluation from Database.
+	public boolean deleteEvaluation() throws  SQLException {
+		boolean deleteResult = false;
+		
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
-		result = genericBeanDAO.deleteBean(this);
-		return result;
+		
+		deleteResult = genericBeanDAO.deleteBean(this);
+		
+		return deleteResult;
 	}
 
+	// Access variable id. 
 	public int getId() {
 		return id;
 	}
 
+	// Modify variable id.
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	// Access variable idInstitution. 
 	public int getIdInstitution() {
 		return idInstitution;
 	}
 
+	// Modify variable idInstitution.
 	public void setIdInstitution(int idInstitution) {
 		this.idInstitution = idInstitution;
 	}
 
+	// Access variable idCourse. 
 	public int getIdCourse() {
 		return idCourse;
 	}
 
+	// Modify variable idCourse.
 	public void setIdCourse(int idCourse) {
 		this.idCourse = idCourse;
 	}
 
+	// Access variable evaluationYear. 
 	public int getEvaluationYear() {
 		return evaluationYear;
 	}
 
+	// Modify variable evaluationYear.
 	public void setEvaluationYear(int year) {
 		this.evaluationYear = year;
 	}
 
+	// Access variable evaluationModality. 
 	public String getEvaluationModality() {
 		return evaluationModality;
 	}
 
+	// Modify variable evaluationModality.
 	public void setEvaluationModality(String modality) {
 		this.evaluationModality = modality;
 	}
 
+	// Access variable masterDegreeStartYear. 
 	public int getMasterDegreeStartYear() {
 		return masterDegreeStartYear;
 	}
 
+	// Modify variable masterDegreeStartYear.
 	public void setMasterDegreeStartYear(int masterDegreeStartYear) {
 		this.masterDegreeStartYear = masterDegreeStartYear;
 	}
 
+	// Access variable doctorateStartYear. 
 	public int getDoctorateStartYear() {
 		return doctorateStartYear;
 	}
 
+	// Modify variable doctorateStartYear.
 	public void setDoctorateStartYear(int doctorateStartYear) {
 		this.doctorateStartYear = doctorateStartYear;
 	}
 
+	// Access variable triennialEvaluation. 
 	public int getTriennialEvaluation() {
 		return triennialEvaluation;
 	}
 
+	// Modify variable triennialEvaluation.
 	public void setTriennialEvaluation(int triennialEvaluation) {
 		this.triennialEvaluation = triennialEvaluation;
 	}
 
+	// Access variable permanentTeachers. 
 	public int getPermanentTeachers() {
 		return permanentTeachers;
 	}
 
+	// Modify variable permanentTeachers.
 	public void setPermanentTeachers(int permanentTeachers) {
 		this.permanentTeachers = permanentTeachers;
 	}
 
+	// Access variable theses. 
 	public int getTheses() {
 		return theses;
 	}
 
+	// Modify variable theses.
 	public void setTheses(int theses) {
 		this.theses = theses;
 	}
 
+	// Access variable dissertations. 
 	public int getDissertations() {
 		return dissertations;
 	}
 
+	// Modify variable dissertations.
 	public void setDissertations(int dissertations) {
 		this.dissertations = dissertations;
 	}
 
+	// Access variable dissertations. 
 	public int getIdArticles() {
 		return idArticles;
 	}
 
+	// Modify variable dissertations.
 	public void setIdArticles(int idArticles) {
 		this.idArticles = idArticles;
 	}
 
+	// Access variable idBooks. 
 	public int getIdBooks() {
 		return idBooks;
 	}
 
+	// Modify variable idBooks.
 	public void setIdBooks(int idBooks) {
 		this.idBooks = idBooks;
 	}
 
+	// Access variable artisticProduction. 
 	public int getArtisticProduction() {
 		return artisticProduction;
 	}
 
+	// Modify variable artisticProduction.
 	public void setArtisticProduction(int artisticProduction) {
 		this.artisticProduction = artisticProduction;
 	}
