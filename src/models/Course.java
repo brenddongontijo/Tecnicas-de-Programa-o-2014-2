@@ -50,12 +50,12 @@ public class Course extends Bean implements Parcelable{
 	}
 	
 	// This method saves one Course into Database.
-	public boolean save() throws SQLException {
+	public boolean saveCourse() throws SQLException {
 		boolean result = false;
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
 		result = gDB.insertBean(this);
-		this.setId(Course.last().getId());
+		this.setId(Course.lastCourse().getId());
 		
 		return result;
 	}
@@ -71,7 +71,7 @@ public class Course extends Bean implements Parcelable{
 	}
 	
 	// This method picks an Book on Database based on his id.
-	public static Course get(int id) throws SQLException {
+	public static Course getCourseByValue(int id) throws SQLException {
 		Course result = new Course(id);
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
@@ -81,7 +81,7 @@ public class Course extends Bean implements Parcelable{
 	}
 
 	// This method get all Articles from database.
-	public static ArrayList<Course> getAll() throws SQLException {
+	public static ArrayList<Course> getAllCourses() throws SQLException {
 		Course type = new Course();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
@@ -95,7 +95,7 @@ public class Course extends Bean implements Parcelable{
 	}
 
 	// This method counts the number of Courses into Database.
-	public static int count() throws  SQLException {
+	public static int numberOfCourses() throws  SQLException {
 		Course type = new Course();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
@@ -103,7 +103,7 @@ public class Course extends Bean implements Parcelable{
 	}
 	
 	// This method returns the first Course into Database.
-	public static Course first() throws SQLException {
+	public static Course firstCourse() throws SQLException {
 		Course result = new Course();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		
@@ -113,7 +113,7 @@ public class Course extends Bean implements Parcelable{
 	}
 
 	// This method returns the last Course into Database.
-	public static Course last() throws SQLException {
+	public static Course lastCourse() throws SQLException {
 		Course result = new Course();
 		GenericBeanDAO gDB = new GenericBeanDAO();
 		

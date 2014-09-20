@@ -62,7 +62,7 @@ public class CompareShowFragment extends Fragment{
 		Evaluation evaluationA = Evaluation.get(getArguments().getInt(ID_EVALUATION_A));
 		Evaluation evaluationB = Evaluation.get(getArguments().getInt(ID_EVALUATION_B));
 
-		Course course = Course.get(evaluationA.getIdCourse());
+		Course course = Course.getCourseByValue(evaluationA.getIdCourse());
 
 		Institution institutionA = Institution.getInstitutionByValue(evaluationA.getIdInstitution());
 		Institution institutionB = Institution.getInstitutionByValue(evaluationB.getIdInstitution());

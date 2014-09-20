@@ -13,49 +13,49 @@ import java.util.ArrayList;
  * This class creates an Course with their respective acronym.
  */
 public class Institution extends Bean implements Parcelable {
-	private int id;
-	private String acronym;
+	private int institutionId;
+	private String institutionAcronym;
 
 	// Empty constructor.
 	public Institution() {
-		this.id = 0;
+		this.institutionId = 0;
 		this.identifier = "institution";
 		this.relationship = "courses_institutions";
 	}
 
 	// Declaration of a non-default constructor.
-	public Institution(int id) {
-		this.id = id;
+	public Institution(int institutionId) {
+		this.institutionId = institutionId;
 		this.identifier = "institution";
 		this.relationship = "courses_institutions";
 	}
 
 	// Access variable id. 
 	public int getId() {
-		return id;
+		return institutionId;
 	}
 	
 	// Modify variable id.
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int institutionId) {
+		this.institutionId = institutionId;
 	}
 		
 	// Access variable acronym. 
 	public String getAcronym() {
-		return acronym;
+		return institutionAcronym;
 	}
 
 	// Modify variable acronym.
-	public void setAcronym(String acronym) {
-		this.acronym = acronym;
+	public void setAcronym(String institutionAcronym) {
+		this.institutionAcronym = institutionAcronym;
 	}
 	
 	// This method saves one Institution into Database.
 	public boolean saveInstitution() throws SQLException {
 		boolean result = false;
 		
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		result = gDB.insertBean(this);
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		result = genericBeanDAO.insertBean(this);
 		
 		this.setId(Institution.lastInstitution().getId());
 		
@@ -65,19 +65,19 @@ public class Institution extends Bean implements Parcelable {
 	// This method relates a course with a institution.
 	public boolean addCourse(Course course) throws SQLException {
 		boolean result = false;
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = gDB.addBeanRelationship(this, course);
+		result = genericBeanDAO.addBeanRelationship(this, course);
 		
 		return result;
 	}
 	
 	// This method picks an Institution on Database based on his id.
-	public static Institution getInstitutionByValue(int id) throws SQLException {
-		Institution result = new Institution(id);
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static Institution getInstitutionByValue(int institutionId) throws SQLException {
+		Institution result = new Institution(institutionId);
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Institution) gDB.selectBean(result);
+		result = (Institution) genericBeanDAO.selectBean(result);
 		
 		return result;
 	}
@@ -85,12 +85,12 @@ public class Institution extends Bean implements Parcelable {
 	// This method get all Institutions from database.
 	public static ArrayList<Institution> getAllInstitutions() throws SQLException {
 		Institution type = new Institution();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		
-		for(Bean b : gDB.selectAllBeans(type,"acronym")) {
-			result.add((Institution) b);
+		for(Bean bean : genericBeanDAO.selectAllBeans(type,"acronym")) {
+			result.add((Institution) bean);
 		}
 		
 		return result;
@@ -99,17 +99,17 @@ public class Institution extends Bean implements Parcelable {
 	// This method counts the number of Institutions into Database.
 	public static int numberOfInstitutions() throws SQLException {
 		Institution type = new Institution();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		return gDB.countBean(type);
+		return genericBeanDAO.countBean(type);
 	}
 
 	// This method get the first Institution into Database.
 	public static Institution firstInstitution() throws SQLException {
 		Institution result = new Institution();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Institution) gDB.firstOrLastBean(result, false);
+		result = (Institution) genericBeanDAO.firstOrLastBean(result, false);
 		
 		return result;
 	}
@@ -117,32 +117,32 @@ public class Institution extends Bean implements Parcelable {
 	// This method get the last Institution into Database.
 	public static Institution lastInstitution() throws SQLException {
 		Institution result = new Institution();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Institution) gDB.firstOrLastBean(result, true);
+		result = (Institution) genericBeanDAO.firstOrLastBean(result, true);
 		
 		return result;
 	}
 
 	// This method get courses related with an institution.
-	public ArrayList<Course> getCourses() throws SQLException {
+	public ArrayList<Course> getCoursesByYear() throws SQLException {
 		ArrayList<Course> courses = new ArrayList<Course>();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		for (Bean b : gDB.selectBeanRelationship(this, "course","name")) {
-			courses.add((Course) b);
+		for (Bean bean : genericBeanDAO.selectBeanRelationship(this, "course","name")) {
+			courses.add((Course) bean);
 		}
 		
 		return courses;
 	}
 	
 	// This method get courses related with an institution based on year.
-	public ArrayList<Course> getCourses(int year) throws SQLException {
+	public ArrayList<Course> getCoursesByYear(int year) throws SQLException {
 		ArrayList<Course> courses = new ArrayList<Course>();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		for(Bean b : gDB.selectBeanRelationship(this, "course", year,"name")) {
-			courses.add((Course) b);
+		for(Bean bean : genericBeanDAO.selectBeanRelationship(this, "course", year,"name")) {
+			courses.add((Course) bean);
 		}
 		
 		return courses;
@@ -152,12 +152,12 @@ public class Institution extends Bean implements Parcelable {
 	public static ArrayList<Institution> getWhere(String field, String value,
 			boolean like) throws SQLException {
 		Institution type = new Institution();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		
-		for (Bean b : gDB.selectBeanWhere(type, field, value, like,"acronym")) {
-			result.add((Institution) b);
+		for (Bean bean : genericBeanDAO.selectBeanWhere(type, field, value, like,"acronym")) {
+			result.add((Institution) bean);
 		}
 		
 		return result;
@@ -182,10 +182,10 @@ public class Institution extends Bean implements Parcelable {
 		
 		sql+=" GROUP BY i._id";
 		
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 
-		for(Bean b : gDB.runSql(new Institution(), sql)){
-			result.add((Institution)b);
+		for(Bean bean : genericBeanDAO.runSql(new Institution(), sql)){
+			result.add((Institution)bean);
 		}
 
 		return result;
@@ -212,26 +212,26 @@ public class Institution extends Bean implements Parcelable {
 		
 		sql+=" GROUP BY c._id";
 		
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 
-		for(Bean b : gDB.runSql(new Course(), sql)){
-			result.add((Course)b);
+		for(Bean bean : genericBeanDAO.runSql(new Course(), sql)){
+			result.add((Course)bean);
 		}
 		
 		return result;
 	}
 	
 	// This method deletes an Institution from Database.
-	public boolean delete() throws  SQLException {
+	public boolean deleteInstitution() throws  SQLException {
 		boolean result = false;
 		
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		for(Course c : this.getCourses()) {
-			gDB.deleteBeanRelationship(this,c);
+		for(Course c : this.getCoursesByYear()) {
+			genericBeanDAO.deleteBeanRelationship(this,c);
 		}
 		
-		result = gDB.deleteBean(this);
+		result = genericBeanDAO.deleteBean(this);
 		
 		return result;
 	}
@@ -279,8 +279,8 @@ public class Institution extends Bean implements Parcelable {
 	}
 	
 	private Institution(Parcel in){
-		this.id = in.readInt();
-		this.acronym = in.readString();
+		this.institutionId = in.readInt();
+		this.institutionAcronym = in.readString();
 		this.identifier = in.readString();
 		this.relationship = in.readString();
 	}
@@ -293,8 +293,8 @@ public class Institution extends Bean implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.id);
-		dest.writeString(this.acronym);
+		dest.writeInt(this.institutionId);
+		dest.writeString(this.institutionAcronym);
 		dest.writeString(this.identifier);
 		dest.writeString(this.relationship);
 		

@@ -83,7 +83,7 @@ public class CompareChooseFragment extends Fragment implements
 
 		this.autoCompleteField.setAdapter(new ArrayAdapter<Course>(
 				getActionBar().getThemedContext(), R.layout.custom_textview,
-				Course.getAll()));
+				Course.getAllCourses()));
 		// Set objects events
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
 		this.autoCompleteField
