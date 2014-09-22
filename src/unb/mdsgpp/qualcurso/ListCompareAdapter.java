@@ -34,7 +34,7 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		super(context, resource, item);
 		this.callingFragment = callingFragment;
 		checkedItems = new ArrayList<Boolean>();
-		for (int i = 0; i < this.getCount(); i++) {
+		for (int i = 0; i < this.getCount(); i = i +1) {
 			checkedItems.add(false);
 		}
 	}
@@ -61,7 +61,6 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 			checkBox.setOnCheckedChangeListener(this);
 			currentView.setTag(checkBox);
 		}
-
 		return currentView;
 	}
 
@@ -74,7 +73,8 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		if (position != ListView.INVALID_POSITION) {
 			if (isChecked) {
 				checkBoxCallBacks.onCheckedItem((CheckBox) buttonView);
-			} else {
+			}
+			else {
 				checkBoxCallBacks.onUnchekedItem((CheckBox) buttonView);
 			}
 			checkedItems.set(position, isChecked);
