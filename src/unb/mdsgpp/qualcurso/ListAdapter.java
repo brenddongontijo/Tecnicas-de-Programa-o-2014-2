@@ -53,7 +53,6 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
             	value.setText(h.get(h.get("order_field")));
         	}
     	}
-
     	return v;
 	}
 	
@@ -73,7 +72,6 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
 		default:
 			break;
 		}
-
 		return trophy;
 	}
 }
