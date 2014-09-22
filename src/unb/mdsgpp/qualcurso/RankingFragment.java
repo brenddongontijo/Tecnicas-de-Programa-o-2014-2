@@ -68,11 +68,9 @@ public class RankingFragment extends Fragment {
 			if (savedInstanceState.getParcelable(COURSE) != null) {
 				setCurrentSelection((Course) savedInstanceState
 						.getParcelable(COURSE));
-
 			}
 			if (savedInstanceState.getString(FILTER_FIELD) != null) {
 				setFilterField(savedInstanceState.getString(FILTER_FIELD));
-
 			}
 		}
 		
@@ -167,7 +165,6 @@ public class RankingFragment extends Fragment {
 				// TODO Auto-generated method stub
 			}
 		};
-
 	}
 
 	/*
@@ -193,7 +190,6 @@ public class RankingFragment extends Fragment {
 			}
 		};
 	}
-
 	
 	// ArrayList created to store all the fields present in the rankings.
 	public ArrayList<String> getListFields() {
@@ -206,7 +202,6 @@ public class RankingFragment extends Fragment {
 		return fields;
 	}
 
-	
 	// Get this year by spinner.
 	public int getYear() {
 		int year = 0;
@@ -217,7 +212,8 @@ public class RankingFragment extends Fragment {
 		 */
 		if (yearSpinner.getSelectedItemPosition() != 0) {
 			year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
-		} else {
+		}
+		else {
 			yearSpinner.setSelection(yearSpinner.getAdapter().getCount() - 1);
 			year = Integer.parseInt(yearSpinner.getAdapter()
 					.getItem(yearSpinner.getAdapter().getCount() - 1)
@@ -234,7 +230,6 @@ public class RankingFragment extends Fragment {
 		this.currentSelection = currentSelection;
 	}
 
-	
 	// Sends a warning on the screen.
 	private void displayToastMessage(String textMenssage) {
 		Toast toast = Toast.makeText(
@@ -242,7 +237,6 @@ public class RankingFragment extends Fragment {
 				Toast.LENGTH_SHORT);
 		toast.show();
 	}
-
 	
 	// Used to update the list, seeking the actual value.
 	public void updateList() {
@@ -256,7 +250,8 @@ public class RankingFragment extends Fragment {
 							+ this.currentSelection.getId() + " AND year ="
 							+ year, "id_institution", true));
 			evaluationList.setAdapter(adapter);
-		} else {
+		}
+		else {
 			String emptySearchFilter = getResources().getString(
 					R.string.empty_search_filter);
 			displayToastMessage(emptySearchFilter);
