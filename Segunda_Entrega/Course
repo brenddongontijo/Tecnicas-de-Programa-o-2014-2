@@ -4,29 +4,29 @@ Class:
 	
 Methods:
 	
-	// New Name: saveCourse()	->alterado
+	// New Name: saveCourse()
 	public boolean save() 
 	
 	public boolean addInstitution(Institution institution) 
 	
-	// New Name: getCourseByValue	->alterado
+	// New Name: getCourseByValue
 	public static Course get(int id) 
 	
-	// New Name: getAllCourses	->alterado
+	// New Name: getAllCourses
 	public static ArrayList<Course> getAll() 
 	
-	// New Name: numberOfCourses	->alterado
+	// New Name: numberOfCourses
 	public static int count() 
 	
-	// New Name: firstCourse	->alterado
+	// New Name: firstCourse
 	public static Course first() 
 
-	// New Name: lastCourse		->alterado
+	// New Name: lastCourse
 	public static Course last()	
 	
 	public ArrayList<Institution> getInstitutions() 
 	
-	// New Name: getInstitutionsByYear	->alterado
+	// New Name: getInstitutionsByYear
 	public ArrayList<Institution> getInstitutions(int year)
 
 	public static ArrayList<Course> getWhere(String field, String value, boolean like)
@@ -35,7 +35,7 @@ Methods:
 
 	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(int id_course, Search search)
 	 
-	// New Name: deleteCourse	->alterado
+	// New Name: deleteCourse
 	public boolean delete() 
 	
 	public String toString() 
@@ -47,18 +47,44 @@ Methods:
 	
 Variables:
 
- 	//new name: courseId	->alterado
+ 	//new name: courseId
  	private int id; -> Database id to Course.
  	
- 	//new name: courseName	->alterado
+ 	//new name: courseName
 	private String name; -> name of the Course.
 	
-	//new name: genericBeanDAO ->alterado
+	//new name: genericBeanDAO
 	GenericBeanDAO gDB;
 	
-	//new name: bean ->alterado
+	//new name: bean
 	Bean b;
 	
-	//new name: institution ->alterado
-	//Institution i;
+	//new name: institution
+	Institution i;
+	
+	//new name: saved
+	in method saveCourse 
+	boolean result.
+	
+	//new name: InstitutionAdded
+	in method addInstitution 
+	boolean result.
+	
+	//new name: courseById
+	Course result.
+	
+	//new name: arrayCourse.
+	in method getAllCourses
+	Course type.
+	
+	//new name: totalCourse.
+	in method numberOfCourses
+	Course type.
+	
+	//new name: institutionsArray.
+	in method getInstitutions
+	ArrayList<Institution> institutions
+	
+	//new name listCourse.
+	rrayList<Course> Course
 	
