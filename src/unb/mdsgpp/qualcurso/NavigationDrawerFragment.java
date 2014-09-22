@@ -40,7 +40,6 @@ public class NavigationDrawerFragment extends Fragment {
      * expands it. This shared preference tracks this.
      */
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
-
     
      //A pointer to the current callbacks instance (the Activity). 
     private NavigationDrawerCallbacks mCallbacks;
@@ -74,7 +73,8 @@ public class NavigationDrawerFragment extends Fragment {
         	if(mCurrentSelectedPosition != savedInstanceState.getInt(STATE_SELECTED_POSITION)){
         		mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
         		changed = true;
-        	}else{
+        	}
+        	else {
         		changed = false;
         	}
             mFromSavedInstanceState = true;
@@ -159,7 +159,6 @@ public class NavigationDrawerFragment extends Fragment {
                 if (!isAdded()) {
                     return;
                 }
-
                 getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
 
@@ -217,7 +216,8 @@ public class NavigationDrawerFragment extends Fragment {
         if (mCallbacks != null) {
         	if(position != mCurrentSelectedPosition){
             	mCallbacks.onNavigationDrawerItemSelected(position);
-    		}else if(mCurrentSelectedPosition == 0){
+    		}
+        	else if(mCurrentSelectedPosition == 0){
     			mCallbacks.onNavigationDrawerItemSelected(position);
     		}
         }
