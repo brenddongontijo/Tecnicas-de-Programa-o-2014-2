@@ -28,7 +28,7 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 	 * (non-Javadoc)
 	 * 
 	 * @see android.widget.ArrayAdapter#getView(int, android.view.View,
-	 * android.view.ViewGroup) Method rewritten, used to get a View
+	 * android.view.ViewGroup) Method rewritten, used to get a View.
 	 */
 	@Override
 	public View getView(int position, View contextView, ViewGroup parent) {
@@ -64,7 +64,8 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 		 */
 		if (s.getOption() == Search.COURSE) {
 			setItem(option, R.string.course);
-		} else if (s.getOption() == Search.INSTITUTION) {
+		}
+		else if (s.getOption() == Search.INSTITUTION) {
 			setItem(option, R.string.institution);
 		}
 		
@@ -73,11 +74,14 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 		setItem(indicator, s.getIndicator().getSearchIndicatorName());
 		setItem(firstValue, Integer.toString(s.getMinValue()));
 		int max = s.getMaxValue();
+		
 		if (max == -1) {
 			setItem(secondValue, R.string.maximum);
-		} else {
+		}
+		else {
 			setItem(secondValue, Integer.toString(max));
 		}
+		
 		setItem(searchDate,
 				SimpleDateFormat.getDateTimeInstance().format(s.getDate()));
 	}
@@ -93,5 +97,4 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 			view.setText(resId);
 		}
 	}
-
 }
