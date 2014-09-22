@@ -22,34 +22,37 @@ import android.widget.ListView;
 
 public class SearchListFragment extends ListFragment {
 
-	private static final String YEAR = "year";
-	private static final String FIELD = "field";
-	private static final String RANGE_A = "rangeA";
-	private static final String RANGE_B = "rangeB";
-	private static final String BEAN_LIST = "beanList";
+	private static final String evaluationYear = "year";
+	private static final String indicatorField = "field";
+	private static final String minimumValue = "rangeA";
+	private static final String maximumValue = "rangeB";
+	private static final String listOfBeans = "beanList";
 
 	BeanListCallbacks beanCallbacks;
 
+	// Empty constructor.
 	public SearchListFragment() {
+		
 	}
 
 	public static SearchListFragment newInstance(
 			ArrayList<? extends Parcelable> list, Search search) {
 		
-		SearchListFragment fragment = new SearchListFragment();
+		SearchListFragment searchListFragment = new SearchListFragment();
 		
-		Bundle args = new Bundle();
-		args.putInt(YEAR, search.getYear());
-		args.putString(FIELD, search.getIndicator().getValue());
-		args.putInt(RANGE_A, search.getMinValue());
-		args.putInt(RANGE_B, search.getMaxValue());
-		args.putParcelableArrayList(BEAN_LIST, list);
+		Bundle fieldsToBeFilled = new Bundle();
+		fieldsToBeFilled.putInt(evaluationYear, search.getYear());
+		fieldsToBeFilled.putString(indicatorField, search.getIndicator().getValue());
+		fieldsToBeFilled.putInt(minimumValue, search.getMinValue());
+		fieldsToBeFilled.putInt(maximumValue, search.getMaxValue());
+		fieldsToBeFilled.putParcelableArrayList(listOfBeans, list);
 		
-		fragment.setArguments(args);
+		searchListFragment.setArguments(fieldsToBeFilled);
 		
-		return fragment;
+		return searchListFragment;
 	}
 
+	// Called once the fragment is associated with its activity.
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -62,6 +65,7 @@ public class SearchListFragment extends ListFragment {
 		}
 	}
 
+	// Called immediately prior to the fragment no longer being associated with its activity.
 	@Override
 	public void onDetach() {
 		super.onDetach();
@@ -74,13 +78,13 @@ public class SearchListFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		ArrayList<Parcelable> list;
+		ArrayList<Parcelable> beanList;
 		
-		if(getArguments().getParcelableArrayList(BEAN_LIST) != null) {
-			list = getArguments().getParcelableArrayList(BEAN_LIST);
+		if(getArguments().getParcelableArrayList(listOfBeans) != null) {
+			beanList = getArguments().getParcelableArrayList(listOfBeans);
 		} 
 		else {
-			list = savedInstanceState.getParcelableArrayList(BEAN_LIST);
+			beanList = savedInstanceState.getParcelableArrayList(listOfBeans);
 		}
 
 		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list,
@@ -88,9 +92,8 @@ public class SearchListFragment extends ListFragment {
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
 		
 		try {
-
 			rootView.setAdapter(new ArrayAdapter<Parcelable>(getActionBar()
-					.getThemedContext(), R.layout.custom_textview, list));
+					.getThemedContext(), R.layout.custom_textview, beanList));
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -105,40 +108,42 @@ public class SearchListFragment extends ListFragment {
 	 */
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		outState.putParcelableArrayList(BEAN_LIST, getArguments()
-				.getParcelableArrayList(BEAN_LIST));
+		outState.putParcelableArrayList(listOfBeans, getArguments()
+				.getParcelableArrayList(listOfBeans));
 		
 		super.onSaveInstanceState(outState);
 	}
 
 	// This method will be called when an item in the list is selected.
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		Parcelable bean = (Parcelable) l.getItemAtPosition(position);
+	public void onListItemClick(ListView listView, View currentView, int selectedBeanPosition, long id) {
+		Parcelable bean = (Parcelable) listView.getItemAtPosition(selectedBeanPosition);
 		
-		Indicator i = Indicator.getIndicatorByValue(getArguments().getString(
-				FIELD));
+		Indicator selectedIndicator = Indicator.getIndicatorByValue(getArguments().getString(
+				indicatorField));
 		
-		int year = getArguments().getInt(YEAR);
-		int rangeA = getArguments().getInt(RANGE_A);
-		int rangeB = getArguments().getInt(RANGE_B);
+		int selectedYear = getArguments().getInt(evaluationYear);
+		
+		int minValue = getArguments().getInt(minimumValue);
+		int maxValue = getArguments().getInt(maximumValue);
 		
 		Search search = new Search();
-		search.setIndicator(i);
-		search.setYear(year);
+		search.setIndicator(selectedIndicator);
+		search.setYear(selectedYear);
 		
 		if(bean instanceof Institution) {
 			search.setOption(Search.INSTITUTION);
 		}
-		else if (bean instanceof Course) {
+		else if(bean instanceof Course) {
 			search.setOption(Search.COURSE);
 		}
-		search.setMinValue(rangeA);
-		search.setMaxValue(rangeB);
+		
+		search.setMinValue(minValue);
+		search.setMaxValue(maxValue);
 		
 		beanCallbacks.onSearchBeanSelected(search, bean);
 		
-		super.onListItemClick(l, v, position, id);
+		super.onListItemClick(listView, currentView, selectedBeanPosition, id);
 	}
 
 	// Retrieve a reference to this activity's ActionBar.
