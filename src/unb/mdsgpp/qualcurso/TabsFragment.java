@@ -29,9 +29,9 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	// statement of objects
 	BeanListCallbacks beanCallbacks;
 	
-	private static final String TAG = "FragmentTabs";
 	public static final String TAB_INSTITUTIONS = "tabInstitutions";
 	public static final String TAB_COURSES = "tabCourses";
+	private static final String TAG = "FragmentTabs";
 	private View mRoot;
 	private TabHost mTabHost;
 	private int mCurrentTab;
@@ -89,7 +89,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 
 	// Configuration tabs according to their type.
 	private void setupTabs() {
-		mTabHost.setup(); // you must call this before adding your tabs!
+		mTabHost.setup(); // You must call this before adding your tabs!
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_INSTITUTIONS)
 				.setIndicator(getString(R.string.institutions))
 				.setContent(R.id.tab_1));
@@ -99,7 +99,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 		
 		TabWidget widget = mTabHost.getTabWidget();
 		
-		for(int i = 0; i < widget.getChildCount(); i++) {
+		for(int i = 0; i < widget.getChildCount(); i = i + 1) {
 			View v = widget.getChildAt(i);
 			
 			TextView tv = (TextView) v.findViewById(android.R.id.title);
@@ -119,6 +119,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 			
 			return;
 		}
+		
 		if(TAB_COURSES.equals(tabId)) {
 			updateTab(tabId, R.id.tab_2);
 			mCurrentTab = 1;
