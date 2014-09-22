@@ -86,5 +86,5 @@ Variables:
 	ArrayList<Institution> institutions
 	
 	//new name listCourse.
-	rrayList<Course> Course
+	arrayList<Course> Course
 	

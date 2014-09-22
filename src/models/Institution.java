@@ -51,14 +51,14 @@ public class Institution extends Bean implements Parcelable {
 	
 	// This method saves one Institution into Database.
 	public boolean saveInstitution() throws SQLException {
-		boolean result = false;
+		boolean saved = false;
 		
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
-		result = genericBeanDAO.insertBean(this);
+		saved = genericBeanDAO.insertBean(this);
 		
 		this.setId(Institution.lastInstitution().getId());
 		
-		return result;
+		return saved;
 	}
 	
 	// This method relates a course with a institution.
@@ -83,44 +83,44 @@ public class Institution extends Bean implements Parcelable {
 	
 	// This method get all Institutions from database.
 	public static ArrayList<Institution> getAllInstitutions() throws SQLException {
-		Institution type = new Institution();
+		Institution institutionType = new Institution();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		ArrayList<Institution> result = new ArrayList<Institution>();
+		ArrayList<Institution> arrayInstitution = new ArrayList<Institution>();
 		
-		for(Bean bean : genericBeanDAO.selectAllBeans(type,"acronym")) {
-			result.add((Institution) bean);
+		for(Bean bean : genericBeanDAO.selectAllBeans(institutionType,"acronym")) {
+			arrayInstitution.add((Institution) bean);
 		}
 		
-		return result;
+		return arrayInstitution;
 	}
 
 	// This method counts the number of Institutions into Database.
 	public static int numberOfInstitutions() throws SQLException {
-		Institution type = new Institution();
+		Institution institutionType = new Institution();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		return genericBeanDAO.countBean(type);
+		return genericBeanDAO.countBean(institutionType);
 	}
 
 	// This method get the first Institution into Database.
 	public static Institution firstInstitution() throws SQLException {
-		Institution result = new Institution();
+		Institution firstOfInstituions = new Institution();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Institution) genericBeanDAO.firstOrLastBean(result, false);
+		firstOfInstituions = (Institution) genericBeanDAO.firstOrLastBean(firstOfInstituions, false);
 		
-		return result;
+		return firstOfInstituions;
 	}
 
 	// This method get the last Institution into Database.
 	public static Institution lastInstitution() throws SQLException {
-		Institution result = new Institution();
+		Institution lastOfInstituion = new Institution();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Institution) genericBeanDAO.firstOrLastBean(result, true);
+		lastOfInstituion = (Institution) genericBeanDAO.firstOrLastBean(lastOfInstituion, true);
 		
-		return result;
+		return lastOfInstituion;
 	}
 
 	// This method get courses related with an institution.
@@ -150,12 +150,12 @@ public class Institution extends Bean implements Parcelable {
 	// This method will try to find an Institution based on a search. 
 	public static ArrayList<Institution> getWhere(String field, String value,
 			boolean like) throws SQLException {
-		Institution type = new Institution();
+		Institution institutionType = new Institution();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		
-		for (Bean bean : genericBeanDAO.selectBeanWhere(type, field, value, like,"acronym")) {
+		for (Bean bean : genericBeanDAO.selectBeanWhere(institutionType, field, value, like,"acronym")) {
 			result.add((Institution) bean);
 		}
 		

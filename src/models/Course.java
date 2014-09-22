@@ -163,7 +163,7 @@ public class Course extends Bean implements Parcelable{
 
 	// This method will get all courses relates to a specific evaluation filter.
 	public static ArrayList<Course> getCoursesByEvaluationFilter(Search search) throws SQLException {
-		ArrayList<Course> result = new ArrayList<Course>();
+		ArrayList<Course> arrayCourse = new ArrayList<Course>();
 		
 		String sql = "SELECT c.* FROM course AS c, evaluation AS e, articles AS a, books AS b "+
 					" WHERE year="+Integer.toString(search.getYear())+
@@ -184,10 +184,10 @@ public class Course extends Bean implements Parcelable{
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 
 		for(Bean bean : genericBeanDAO.runSql(new Course(), sql)) {
-			result.add((Course)bean);
+			arrayCourse.add((Course)bean);
 		}
 
-		return result;
+		return arrayCourse;
 	}
 
 	// This method will get all institutions relates to a specific evaluation filter and to a course.
