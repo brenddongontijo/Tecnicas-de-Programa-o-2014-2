@@ -86,6 +86,7 @@ public class EvaluationDetailFragment extends Fragment{
 		
 		for(Indicator i : indicators){
 			HashMap < String, String > hashMap = new HashMap < String, String>();
+			
 			if(evaluation.fieldsList().contains(i.getValue())){
 				bean = evaluation;
 			}
@@ -121,6 +122,4 @@ public class EvaluationDetailFragment extends Fragment{
         super.onDetach();
         beanCallbacks = null;
     }
-
-
 }
