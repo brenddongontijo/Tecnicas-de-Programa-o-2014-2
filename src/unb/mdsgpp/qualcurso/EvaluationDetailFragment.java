@@ -85,14 +85,17 @@ public class EvaluationDetailFragment extends Fragment{
 		Bean bean = null;
 		
 		for(Indicator i : indicators){
-			HashMap<String, String> hashMap = new HashMap<String, String>();
+			HashMap < String, String > hashMap = new HashMap < String, String>();
 			if(evaluation.fieldsList().contains(i.getValue())){
 				bean = evaluation;
-			}else if(book.fieldsList().contains(i.getValue())){
+			}
+			else if(book.fieldsList().contains(i.getValue())){
 				bean = book;
-			}else if(article.fieldsList().contains(i.getValue())) {
+			}
+			else if(article.fieldsList().contains(i.getValue())) {
 				bean = article;
 			}
+			
 			if(bean!=null){
 				hashMap.put(IndicatorListAdapter.INDICATOR_VALUE, i.getValue());
 				hashMap.put(IndicatorListAdapter.VALUE, bean.get(i.getValue()));
