@@ -1,7 +1,5 @@
 package unb.mdsgpp.qualcurso;
 
-
-
 import android.database.SQLException;
 
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-
 public class InstitutionListFragment extends ListFragment{
 	
 	private static final String ID_COURSE = "idCourse";
@@ -38,8 +35,6 @@ public class InstitutionListFragment extends ListFragment{
 		this.setArguments(args);
 	}
 	
-
-
 	public static InstitutionListFragment newInstance(int id, int year){
 		InstitutionListFragment fragment = new InstitutionListFragment();
 		Bundle args = new Bundle();
@@ -50,6 +45,7 @@ public class InstitutionListFragment extends ListFragment{
 		
 		return fragment;
 	}
+	
 	public static InstitutionListFragment newInstance(int id, int year, ArrayList<Institution> institutions){
 		InstitutionListFragment fragment = new InstitutionListFragment();
 		Bundle args = new Bundle();
@@ -61,7 +57,6 @@ public class InstitutionListFragment extends ListFragment{
 		return fragment;
 	}
 	
-	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -69,19 +64,22 @@ public class InstitutionListFragment extends ListFragment{
 				getParcelableArrayList(IDS_INSTITUTIONS));
 	}
 	
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		ArrayList<Institution> list; 
+	
 		if(getArguments().getParcelableArrayList(IDS_INSTITUTIONS) != null){
 			list = getArguments().getParcelableArrayList(IDS_INSTITUTIONS);
-		}else{
+		}
+		else {
 			list = savedInstanceState.getParcelableArrayList(IDS_INSTITUTIONS);
 		}
+		
 		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list, container,
 				false);
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
+		
 		try {
 			if(list != null){
 				rootView.setAdapter(new ArrayAdapter<Institution>(
@@ -116,7 +114,8 @@ public class InstitutionListFragment extends ListFragment{
 		if(getArguments().getInt(ID_COURSE)==0){
 			beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance
 					(((Institution)l.getItemAtPosition(position)).getId(),getArguments().getInt(YEAR)));
-		}else {
+		}
+		else {
 			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance
 					(((Institution)l.getItemAtPosition(position)).getId() ,getArguments().
 							getInt(ID_COURSE),getArguments().getInt(YEAR)));
@@ -127,7 +126,8 @@ public class InstitutionListFragment extends ListFragment{
 	private static ArrayList<Institution> getInstitutionsList(int idCourse) throws SQLException{
 		if(idCourse == 0){
 			return Institution.getAllInstitutions();
-		}else{
+		}
+		else {
 			return Course.getCourseByValue(idCourse).getInstitutions();
 		}
 	}
