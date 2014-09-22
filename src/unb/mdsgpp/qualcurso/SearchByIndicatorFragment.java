@@ -247,7 +247,8 @@ public class SearchByIndicatorFragment extends Fragment {
 			Toast toast = Toast.makeText(c, emptySearchFilter,
 					Toast.LENGTH_SHORT);
 			toast.show();
-		} else {
+		}
+		else {
 			switch (listSelectionPosition) {
 			/*
 			 * In the case where neither course nor institution are selected,
@@ -263,7 +264,6 @@ public class SearchByIndicatorFragment extends Fragment {
 				break;
 
 			//Returns a list of course.
-
 			case 1:
 				callCourseList(min, max, year, filterField);
 				break;
@@ -277,7 +277,6 @@ public class SearchByIndicatorFragment extends Fragment {
 				break;
 			}
 		}
-
 	}
 
 	private ActionBar getActionBar() {
