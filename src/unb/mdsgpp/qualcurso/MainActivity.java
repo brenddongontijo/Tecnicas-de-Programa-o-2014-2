@@ -32,9 +32,10 @@ public class MainActivity extends ActionBarActivity implements
 	 * {@link #restoreActionBar()}.
 	 */
 	private CharSequence mTitle;
-	private int drawerPosition = 10;
+	
 	public static String DRAWER_POSITION = "drawerPosition";
 	public static String CURRENT_TITLE = "currentTitle";
+	private int drawerPosition = 10;
 	private SearchView mSearchView;
 	
 	@Override
@@ -45,7 +46,8 @@ public class MainActivity extends ActionBarActivity implements
 		if(savedInstanceState != null){
 			drawerPosition = savedInstanceState.getInt(DRAWER_POSITION);
 			mTitle = savedInstanceState.getCharSequence(CURRENT_TITLE);
-		}else{
+		}
+		else {
 			
 			mTitle = getFormatedTitle(getTitle());
 		}
@@ -54,8 +56,7 @@ public class MainActivity extends ActionBarActivity implements
 
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
-				(DrawerLayout) findViewById(R.id.drawer_layout));
-		
+				(DrawerLayout) findViewById(R.id.drawer_layout));		
 	}
 	
 	public CharSequence getFormatedTitle(CharSequence s){
@@ -112,7 +113,6 @@ public class MainActivity extends ActionBarActivity implements
 				fragment = new CompareChooseFragment();
 				drawerPosition = 4;
 				break;
-
 			default:
 				fragment = null;
 				break;
@@ -126,7 +126,8 @@ public class MainActivity extends ActionBarActivity implements
 				fragmentManager
 				.beginTransaction()
 				.replace(R.id.container,fragment).commit();
-			}else{
+			}
+			else {
 				fragmentManager
 				.beginTransaction()
 				.replace(R.id.container,fragment).addToBackStack(null).commit();
@@ -134,13 +135,12 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
+	// Maybe this code should not be here.
 	public void onSectionAttached(int number) {
 		switch (number) {
-		//Nothing
+		// Nothing.
 		}
-	}
-	
-	
+	}	
 
 	public void restoreActionBar() {
 		ActionBar actionBar = getSupportActionBar();
@@ -163,6 +163,7 @@ public class MainActivity extends ActionBarActivity implements
 		}
 		return super.onCreateOptionsMenu(menu);
 	}
+	
 	private void setupSearchView(final MenuItem searchItem){
 		searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM
 				|MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
@@ -184,7 +185,6 @@ public class MainActivity extends ActionBarActivity implements
 				closeApplication();
 				return true;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
