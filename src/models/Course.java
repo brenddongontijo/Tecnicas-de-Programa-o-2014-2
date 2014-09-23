@@ -8,140 +8,139 @@ import java.util.ArrayList;
 
 /*
  * Class Name: Course.
- * 
  * This class creates an Course with their respective name.
  */
 public class Course extends Bean implements Parcelable{
-	private int id;
-	private String name;
+	private int courseId;
+	private String courseName;
 
 	// Empty constructor.
 	public Course() {
-		this.id = 0;
+		this.courseId = 0;
 		this.identifier= "course";
 		this.relationship = "courses_institutions";
 	}
 	
 	// Declaration of a non-default constructor.
-	public Course(int id){
-		this.id = id;
+	public Course(int courseId){
+		this.courseId = courseId;
 		this.identifier= "course";
 		this.relationship = "courses_institutions";
 	}
 	
-	// Access variable id. 
+	// Access variable courseId. 
 	public int getId() {
-		return id;
+		return courseId;
 	}
 	
-	// Modify variable id.
-	public void setId(int id) {
-		this.id = id;
+	// Modify variable courseId.
+	public void setId(int courseId) {
+		this.courseId = courseId;
 	}
 	
-	// Access variable name. 
+	// Access the course name.
 	public String getName() {
-		return name;
+		return courseName;
 	}
 
-	// Modify variable name.
-	public void setName(String name) {
-		this.name = name;
+	// Modify variable courseName.
+	public void setName(String courseName) {
+		this.courseName = courseName;
 	}
 	
 	// This method saves one Course into Database.
-	public boolean save() throws SQLException {
-		boolean result = false;
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public boolean saveCourse() throws SQLException {
+		boolean saved = false;
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = gDB.insertBean(this);
-		this.setId(Course.last().getId());
+		saved = genericBeanDAO.insertBean(this);
+		this.setId(Course.lastCourse().getId());
 		
-		return result;
+		return saved;
 	}
 	
 	// This method relates a institution with a course.
 	public boolean addInstitution(Institution institution) throws  SQLException {
-		boolean result = false;
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		boolean InstitutionAdded = false;
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = gDB.addBeanRelationship(this, institution);
+		InstitutionAdded = genericBeanDAO.addBeanRelationship(this, institution);
 		
-		return result;
+		return InstitutionAdded;
 	}
 	
 	// This method picks an Book on Database based on his id.
-	public static Course get(int id) throws SQLException {
-		Course result = new Course(id);
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static Course getCourseByValue(int courseId) throws SQLException {
+		Course courseById = new Course(courseId);
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Course) gDB.selectBean(result);
+		courseById = (Course) genericBeanDAO.selectBean(courseById);
 		
-		return result;
+		return courseById;
 	}
 
 	// This method get all Articles from database.
-	public static ArrayList<Course> getAll() throws SQLException {
-		Course type = new Course();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static ArrayList<Course> getAllCourses() throws SQLException {
+		Course arrayCourse = new Course();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
 		ArrayList<Course> result = new ArrayList<Course>();
 		
-		for(Bean b : gDB.selectAllBeans(type,"name")) {
-			result.add((Course) b);
+		for(Bean bean : genericBeanDAO.selectAllBeans(arrayCourse,"name")) {
+			result.add((Course) bean);
 		}
 		
 		return result;
 	}
 
 	// This method counts the number of Courses into Database.
-	public static int count() throws  SQLException {
-		Course type = new Course();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+	public static int numberOfCourses() throws  SQLException {
+		Course totalCourse = new Course();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		return gDB.countBean(type);
+		return genericBeanDAO.countBean(totalCourse);
 	}
 	
 	// This method returns the first Course into Database.
-	public static Course first() throws SQLException {
+	public static Course firstCourse() throws SQLException {
 		Course result = new Course();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Course) gDB.firstOrLastBean(result, false);
+		result = (Course) genericBeanDAO.firstOrLastBean(result, false);
 		
 		return result;
 	}
 
 	// This method returns the last Course into Database.
-	public static Course last() throws SQLException {
+	public static Course lastCourse() throws SQLException {
 		Course result = new Course();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		result = (Course) gDB.firstOrLastBean(result, true);
+		result = (Course) genericBeanDAO.firstOrLastBean(result, true);
 		
 		return result;
 	}
 
 	// This method get institutions related with an course.
 	public ArrayList<Institution> getInstitutions() throws SQLException {
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		ArrayList<Institution> institutions = new ArrayList<Institution>();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+		ArrayList<Institution> institutionsArray = new ArrayList<Institution>();
 		
-		for(Bean b : gDB.selectBeanRelationship(this, "institution", "acronym")) {
-			institutions.add((Institution) b);
+		for(Bean bean : genericBeanDAO.selectBeanRelationship(this, "institution", "acronym")) {
+			institutionsArray.add((Institution) bean);
 		}
 		
-		return institutions;
+		return institutionsArray;
 	}
 	
 	// This method get institutions related with an course based on year.
-	public ArrayList<Institution> getInstitutions(int year) throws 
+	public ArrayList<Institution> getInstitutionsByYear(int yearInstitutions) throws 
 			SQLException {
 		ArrayList<Institution> institutions = new ArrayList<Institution>();
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		for (Bean b : gDB.selectBeanRelationship(this, "institution",year,"acronym")) {
-			institutions.add((Institution) b);
+		for (Bean bean : genericBeanDAO.selectBeanRelationship(this, "institution",yearInstitutions,"acronym")) {
+			institutions.add((Institution) bean);
 		}
 		
 		return institutions;
@@ -150,18 +149,21 @@ public class Course extends Bean implements Parcelable{
 	// This method will try to find an Course based on a search. 
 	public static ArrayList<Course> getWhere(String field, String value,
 			boolean like) throws  SQLException {
-		Course type = new Course();
-		ArrayList<Course> result = new ArrayList<Course>();
-		GenericBeanDAO gDB = new GenericBeanDAO();
-		for (Bean b : gDB.selectBeanWhere(type, field, value, like,"name")) {
-			result.add((Course) b);
+
+		Course typeCourse = new Course();
+		ArrayList<Course> listCourse = new ArrayList<Course>();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
+
+		for (Bean bean : genericBeanDAO.selectBeanWhere(typeCourse, field, value, like,"name")) {
+			listCourse.add((Course) bean);
 		}
-		return result;
+
+		return listCourse;
 	}
-	
+
 	// This method will get all courses relates to a specific evaluation filter.
 	public static ArrayList<Course> getCoursesByEvaluationFilter(Search search) throws SQLException {
-		ArrayList<Course> result = new ArrayList<Course>();
+		ArrayList<Course> arrayCourse = new ArrayList<Course>();
 		
 		String sql = "SELECT c.* FROM course AS c, evaluation AS e, articles AS a, books AS b "+
 					" WHERE year="+Integer.toString(search.getYear())+
@@ -179,13 +181,13 @@ public class Course extends Bean implements Parcelable{
 		
 		sql+=" GROUP BY c._id";
 		
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 
-		for(Bean b : gDB.runSql(new Course(), sql)) {
-			result.add((Course)b);
+		for(Bean bean : genericBeanDAO.runSql(new Course(), sql)) {
+			arrayCourse.add((Course)bean);
 		}
 
-		return result;
+		return arrayCourse;
 	}
 
 	// This method will get all institutions relates to a specific evaluation filter and to a course.
@@ -210,26 +212,26 @@ public class Course extends Bean implements Parcelable{
 		
 		sql+=" GROUP BY i._id";
 		
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 
-		for(Bean b : gDB.runSql(new Institution(), sql)){
-			result.add((Institution)b);
+		for(Bean bean : genericBeanDAO.runSql(new Institution(), sql)){
+			result.add((Institution)bean);
 		}
 		
 		return result;
 	}
 	
 	// This method deletes an Course from Database.
-	public boolean delete() throws SQLException {
+	public boolean deleteCourse() throws SQLException {
 		boolean result = false;
 		
-		GenericBeanDAO gDB = new GenericBeanDAO();
+		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
-		for(Institution i : this.getInstitutions()){
-			gDB.deleteBeanRelationship(this,i);
+		for(Institution institution : this.getInstitutions()){
+			genericBeanDAO.deleteBeanRelationship(this,institution);
 		}
 		
-		result = gDB.deleteBean(this);
+		result = genericBeanDAO.deleteBean(this);
 		
 		return result;
 	}
@@ -279,8 +281,8 @@ public class Course extends Bean implements Parcelable{
 	}
 	
 	private Course(Parcel in){
-		this.id = in.readInt();
-		this.name = in.readString();
+		this.courseId = in.readInt();
+		this.courseName = in.readString();
 		this.identifier = in.readString();
 		this.relationship = in.readString();
 	}
@@ -293,8 +295,8 @@ public class Course extends Bean implements Parcelable{
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.id);
-		dest.writeString(this.name);
+		dest.writeInt(this.courseId);
+		dest.writeString(this.courseName);
 		dest.writeString(this.identifier);
 		dest.writeString(this.relationship);
 		

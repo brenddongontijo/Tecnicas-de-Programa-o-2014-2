@@ -22,41 +22,50 @@ import android.widget.ListView;
 
 public class SearchListFragment extends ListFragment {
 
-	private static final String YEAR = "year";
-	private static final String FIELD = "field";
-	private static final String RANGE_A = "rangeA";
-	private static final String RANGE_B = "rangeB";
-	private static final String BEAN_LIST = "beanList";
+	private static final String evaluationYear = "year";
+	private static final String indicatorField = "field";
+	private static final String minimumValue = "rangeA";
+	private static final String maximumValue = "rangeB";
+	private static final String listOfBeans = "beanList";
 
 	BeanListCallbacks beanCallbacks;
 
+	// Empty constructor.
 	public SearchListFragment() {
+		
 	}
 
 	public static SearchListFragment newInstance(
 			ArrayList<? extends Parcelable> list, Search search) {
-		SearchListFragment fragment = new SearchListFragment();
-		Bundle args = new Bundle();
-		args.putInt(YEAR, search.getYear());
-		args.putString(FIELD, search.getIndicator().getValue());
-		args.putInt(RANGE_A, search.getMinValue());
-		args.putInt(RANGE_B, search.getMaxValue());
-		args.putParcelableArrayList(BEAN_LIST, list);
-		fragment.setArguments(args);
-		return fragment;
+		
+		SearchListFragment searchListFragment = new SearchListFragment();
+		
+		Bundle fieldsToBeFilled = new Bundle();
+		fieldsToBeFilled.putInt(evaluationYear, search.getYear());
+		fieldsToBeFilled.putString(indicatorField, search.getIndicator().getValue());
+		fieldsToBeFilled.putInt(minimumValue, search.getMinValue());
+		fieldsToBeFilled.putInt(maximumValue, search.getMaxValue());
+		fieldsToBeFilled.putParcelableArrayList(listOfBeans, list);
+		
+		searchListFragment.setArguments(fieldsToBeFilled);
+		
+		return searchListFragment;
 	}
 
+	// Called once the fragment is associated with its activity.
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
 			beanCallbacks = (BeanListCallbacks) activity;
-		} catch (ClassCastException e) {
+		} 
+		catch(ClassCastException e) {
 			throw new ClassCastException(activity.toString()
 					+ " must implement BeanListCallbacks.");
 		}
 	}
 
+	// Called immediately prior to the fragment no longer being associated with its activity.
 	@Override
 	public void onDetach() {
 		super.onDetach();
@@ -68,23 +77,28 @@ public class SearchListFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		ArrayList<Parcelable> list;
-		if (getArguments().getParcelableArrayList(BEAN_LIST) != null) {
-			list = getArguments().getParcelableArrayList(BEAN_LIST);
-		} else {
-			list = savedInstanceState.getParcelableArrayList(BEAN_LIST);
+		
+		ArrayList<Parcelable> beanList;
+		
+		if(getArguments().getParcelableArrayList(listOfBeans) != null) {
+			beanList = getArguments().getParcelableArrayList(listOfBeans);
+		} 
+		else {
+			beanList = savedInstanceState.getParcelableArrayList(listOfBeans);
 		}
 
 		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list,
 				container, false);
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
+		
 		try {
-
 			rootView.setAdapter(new ArrayAdapter<Parcelable>(getActionBar()
-					.getThemedContext(), R.layout.custom_textview, list));
-		} catch (SQLException e) {
+					.getThemedContext(), R.layout.custom_textview, beanList));
+		} 
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return rootView;
 	}
 
@@ -94,32 +108,42 @@ public class SearchListFragment extends ListFragment {
 	 */
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		outState.putParcelableArrayList(BEAN_LIST, getArguments()
-				.getParcelableArrayList(BEAN_LIST));
+		outState.putParcelableArrayList(listOfBeans, getArguments()
+				.getParcelableArrayList(listOfBeans));
+		
 		super.onSaveInstanceState(outState);
 	}
 
 	// This method will be called when an item in the list is selected.
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		Parcelable bean = (Parcelable) l.getItemAtPosition(position);
-		Indicator i = Indicator.getIndicatorByValue(getArguments().getString(
-				FIELD));
-		int year = getArguments().getInt(YEAR);
-		int rangeA = getArguments().getInt(RANGE_A);
-		int rangeB = getArguments().getInt(RANGE_B);
+	public void onListItemClick(ListView listView, View currentView, int selectedBeanPosition, long id) {
+		Parcelable bean = (Parcelable) listView.getItemAtPosition(selectedBeanPosition);
+		
+		Indicator selectedIndicator = Indicator.getIndicatorByValue(getArguments().getString(
+				indicatorField));
+		
+		int selectedYear = getArguments().getInt(evaluationYear);
+		
+		int minValue = getArguments().getInt(minimumValue);
+		int maxValue = getArguments().getInt(maximumValue);
+		
 		Search search = new Search();
-		search.setIndicator(i);
-		search.setYear(year);
-		if (bean instanceof Institution) {
+		search.setIndicator(selectedIndicator);
+		search.setYear(selectedYear);
+		
+		if(bean instanceof Institution) {
 			search.setOption(Search.INSTITUTION);
-		} else if (bean instanceof Course) {
+		}
+		else if(bean instanceof Course) {
 			search.setOption(Search.COURSE);
 		}
-		search.setMinValue(rangeA);
-		search.setMaxValue(rangeB);
+		
+		search.setMinValue(minValue);
+		search.setMaxValue(maxValue);
+		
 		beanCallbacks.onSearchBeanSelected(search, bean);
-		super.onListItemClick(l, v, position, id);
+		
+		super.onListItemClick(listView, currentView, selectedBeanPosition, id);
 	}
 
 	// Retrieve a reference to this activity's ActionBar.

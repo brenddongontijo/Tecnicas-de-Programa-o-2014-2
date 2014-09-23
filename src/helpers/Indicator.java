@@ -13,103 +13,114 @@ import unb.mdsgpp.qualcurso.R;
  * The class Indicator helps to make one search based on the evaluation indicators.
  */
 public class Indicator {
-	private String name;
-	private String value;
+	private String searchIndicatorName;
+	private String searchIndicatorValue;
 
 	public static final String DEFAULT_INDICATOR = "defaultIndicator";
 
 	// Declaration of a non-default constructor.
-	public Indicator(String name, String value) {
-		this.name = name;
-		this.value = value;
+	public Indicator(String indicatorName, String indicatorValue) {
+		this.searchIndicatorName = indicatorName;
+		this.searchIndicatorValue = indicatorValue;
 	}
 	
 	// Access variable name. 
-	public String getName() {
-		return name;
+	public String getSearchIndicatorName() {
+		return searchIndicatorName;
 	}
 
 	// Modify variable name.
-	public void setName(String name) {
-		this.name = name;
+	public void setSearchIndicatorName(String name) {
+		this.searchIndicatorName = name;
 	}
 
-	// Access variable value.
+	// Access variable searchIndicatorValue.
 	public String getValue() {
-		return value;
+		return searchIndicatorValue;
 	}
 
-	// Modify variable value.
-	public void setValue(String value) {
-		this.value = value;
+	// Modify variable searchIndicatorValue.
+	public void setValue(String indicatorValue) {
+		this.searchIndicatorValue = indicatorValue;
 	}
 
 	// Rewriting variable name.
 	@Override
 	public String toString() {
-		return this.getName();
+		return this.getSearchIndicatorName();
 	}
 
 	// This method keep all indicators in one ArrayList.
 	public static ArrayList<Indicator> getIndicators(){
 		String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
-		ArrayList<Indicator> result = new ArrayList<Indicator>();
+		
+		ArrayList<Indicator> arrayOfIndicators = new ArrayList<Indicator>();
 
-		result.add(new Indicator(indicatorList[0], DEFAULT_INDICATOR));
+		arrayOfIndicators.add(new Indicator(indicatorList[0], DEFAULT_INDICATOR));
 		
 		// Adding triennial_evaluation.
-		result.add(new Indicator(indicatorList[1], new Evaluation().
+		arrayOfIndicators.add(new Indicator(indicatorList[1], new Evaluation().
 				fieldsList().get(7)));
+		
 		// Adding master_degree_start_year.
-		result.add(new Indicator(indicatorList[2], new Evaluation().
+		arrayOfIndicators.add(new Indicator(indicatorList[2], new Evaluation().
 				fieldsList().get(5)));
+		
 		// Adding doctorate_start_year.
-		result.add(new Indicator(indicatorList[3], new Evaluation().
+		arrayOfIndicators.add(new Indicator(indicatorList[3], new Evaluation().
 				fieldsList().get(6)));
+		
 		// Adding permanent_teachers.
-		result.add(new Indicator(indicatorList[4], new Evaluation().
+		arrayOfIndicators.add(new Indicator(indicatorList[4], new Evaluation().
 				fieldsList().get(8)));
+		
 		// Adding theses. 
-		result.add(new Indicator(indicatorList[5], new Evaluation().
+		arrayOfIndicators.add(new Indicator(indicatorList[5], new Evaluation().
 				fieldsList().get(9)));
+		
 		// Adding dissertations.
-		result.add(new Indicator(indicatorList[6], new Evaluation().
+		arrayOfIndicators.add(new Indicator(indicatorList[6], new Evaluation().
 				fieldsList().get(10)));
+		
 		// Adding artistic_production.
-		result.add(new Indicator(indicatorList[7], new Evaluation().
+		arrayOfIndicators.add(new Indicator(indicatorList[7], new Evaluation().
 				fieldsList().get(13)));
 		
 		// Adding chapters.
-		result.add(new Indicator(indicatorList[8], new Book().
+		arrayOfIndicators.add(new Indicator(indicatorList[8], new Book().
 				fieldsList().get(2)));
+		
 		// Adding integral_text.
-		result.add(new Indicator(indicatorList[9], new Book().
+		arrayOfIndicators.add(new Indicator(indicatorList[9], new Book().
 				fieldsList().get(1)));
+		
 		// Adding collections.
-		result.add(new Indicator(indicatorList[10], new Book().
+		arrayOfIndicators.add(new Indicator(indicatorList[10], new Book().
 				fieldsList().get(3)));
+		
 		// Adding entries.
-		result.add(new Indicator(indicatorList[11], new Book().
+		arrayOfIndicators.add(new Indicator(indicatorList[11], new Book().
 				fieldsList().get(4)));
 		
 		// Adding published_journals.
-		result.add(new Indicator(indicatorList[12], new Article().
+		arrayOfIndicators.add(new Indicator(indicatorList[12], new Article().
 				fieldsList().get(1)));
+		
 		// Adding published_conference_proceedings.
-		result.add(new Indicator(indicatorList[13], new Article().
+		arrayOfIndicators.add(new Indicator(indicatorList[13], new Article().
 				fieldsList().get(2)));
 
-		return result;
+		return arrayOfIndicators;
 	}
 
 	// This method find a specific indicator in all indicators.	 
 	public static Indicator getIndicatorByValue(String value) {
 		Indicator indicator = null;
 		
-		for(Indicator i : getIndicators()) {
+		for(Indicator finderIndicator : getIndicators()) {
 			// Trying to find the indicator.
-			if(i.getValue().equals(value)) {
-				indicator = i;
+			if(finderIndicator.getValue().equals(value)) {
+				indicator = finderIndicator;
 				break;
 			}
 		}

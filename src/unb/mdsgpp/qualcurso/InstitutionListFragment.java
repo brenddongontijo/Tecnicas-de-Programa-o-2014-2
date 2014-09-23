@@ -1,7 +1,5 @@
 package unb.mdsgpp.qualcurso;
 
-
-
 import android.database.SQLException;
 
 import java.util.ArrayList;
@@ -20,13 +18,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-
 public class InstitutionListFragment extends ListFragment{
 	
 	private static final String ID_COURSE = "idCourse";
 	private static final String IDS_INSTITUTIONS = "idsInstitutions";
 	private static final String YEAR = "year";
+	
 	BeanListCallbacks beanCallbacks;
+	
 	public InstitutionListFragment() {
 		super();
 		Bundle args = new Bundle();
@@ -36,8 +35,6 @@ public class InstitutionListFragment extends ListFragment{
 		this.setArguments(args);
 	}
 	
-
-
 	public static InstitutionListFragment newInstance(int id, int year){
 		InstitutionListFragment fragment = new InstitutionListFragment();
 		Bundle args = new Bundle();
@@ -45,8 +42,10 @@ public class InstitutionListFragment extends ListFragment{
 		args.putInt(YEAR, year);
 		args.putParcelableArrayList(IDS_INSTITUTIONS, getInstitutionsList(id));
 		fragment.setArguments(args);
+		
 		return fragment;
 	}
+	
 	public static InstitutionListFragment newInstance(int id, int year, ArrayList<Institution> institutions){
 		InstitutionListFragment fragment = new InstitutionListFragment();
 		Bundle args = new Bundle();
@@ -54,29 +53,33 @@ public class InstitutionListFragment extends ListFragment{
 		args.putInt(YEAR, year);
 		args.putParcelableArrayList(IDS_INSTITUTIONS, institutions);
 		fragment.setArguments(args);
+		
 		return fragment;
 	}
-	
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putParcelableArrayList(IDS_INSTITUTIONS, getArguments().getParcelableArrayList(IDS_INSTITUTIONS));
+		outState.putParcelableArrayList(IDS_INSTITUTIONS, getArguments().
+				getParcelableArrayList(IDS_INSTITUTIONS));
 	}
-	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		ArrayList<Institution> list; 
+	
 		if(getArguments().getParcelableArrayList(IDS_INSTITUTIONS) != null){
 			list = getArguments().getParcelableArrayList(IDS_INSTITUTIONS);
-		}else{
+		}
+		else {
 			list = savedInstanceState.getParcelableArrayList(IDS_INSTITUTIONS);
 		}
+		
 		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list, container,
 				false);
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
+		
 		try {
 			if(list != null){
 				rootView.setAdapter(new ArrayAdapter<Institution>(
@@ -92,6 +95,7 @@ public class InstitutionListFragment extends ListFragment{
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		
 		try {
             beanCallbacks = (BeanListCallbacks) activity;
         } catch (ClassCastException e) {
@@ -108,18 +112,23 @@ public class InstitutionListFragment extends ListFragment{
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		if(getArguments().getInt(ID_COURSE)==0){
-			beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance(((Institution)l.getItemAtPosition(position)).getId(),getArguments().getInt(YEAR)));
-		}else {
-			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance(((Institution)l.getItemAtPosition(position)).getId() ,getArguments().getInt(ID_COURSE),getArguments().getInt(YEAR)));
+			beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance
+					(((Institution)l.getItemAtPosition(position)).getId(),getArguments().getInt(YEAR)));
+		}
+		else {
+			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance
+					(((Institution)l.getItemAtPosition(position)).getId() ,getArguments().
+							getInt(ID_COURSE),getArguments().getInt(YEAR)));
 		}
 			super.onListItemClick(l, v, position, id);
 	}
 	
 	private static ArrayList<Institution> getInstitutionsList(int idCourse) throws SQLException{
 		if(idCourse == 0){
-			return Institution.getAll();
-		}else{
-			return Course.get(idCourse).getInstitutions();
+			return Institution.getAllInstitutions();
+		}
+		else {
+			return Course.getCourseByValue(idCourse).getInstitutions();
 		}
 	}
 	

@@ -43,7 +43,8 @@ public class SearchByIndicatorFragment extends Fragment {
 		super.onAttach(activity);
 		try {
 			beanCallbacks = (BeanListCallbacks) activity;
-		} catch (ClassCastException e) {
+		} 
+		catch(ClassCastException e) {
 			throw new ClassCastException(activity.toString()
 					+ " must implement BeanListCallbacks.");
 		}
@@ -89,9 +90,10 @@ public class SearchByIndicatorFragment extends Fragment {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				if (maximum.isChecked()) {
+				if(maximum.isChecked()) {
 					secondNumber.setEnabled(false);
-				} else {
+				}
+				else {
 					secondNumber.setEnabled(true);
 				}
 			}
@@ -106,20 +108,24 @@ public class SearchByIndicatorFragment extends Fragment {
 
 			@Override
 			public void onClick(View arg0) {
-				int number1, number2, year, max, listSelectionPosition;
+				int lowerNumber;
+				int higherNumber; 
+				int yearResearched; 
+				int max; 
+				int listSelectionPosition;
 
 				/*
 				 * If nothing was marked in the field of the first number is
 				 * inserted the value 0.
 				 */
-				if (firstNumber.getText().length() == 0) {
+				if(firstNumber.getText().length() == 0) {
 					firstNumber.setText("0");
 				}
 				/*
 				 * If nothing was selected in the first field number, the
 				 * maximum checkbox is marked.
 				 */
-				if (secondNumber.getText().length() == 0) {
+				if(secondNumber.getText().length() == 0) {
 					maximum.setChecked(true);
 				}
 
@@ -127,15 +133,16 @@ public class SearchByIndicatorFragment extends Fragment {
 				String firstNumberValue = firstNumber.getText().toString();
 				String secondNumberValue = secondNumber.getText().toString();
 
-				number1 = Integer.parseInt(firstNumberValue);
-				number2 = maximum.isChecked() ? -1 : Integer
+				lowerNumber = Integer.parseInt(firstNumberValue);
+				higherNumber = maximum.isChecked() ? -1 : Integer
 						.parseInt(secondNumberValue);
+				
 				listSelectionPosition = listSelectionSpinner
 						.getSelectedItemPosition();
 
 				// Gets the value of the year, contained in Spinner.
-				if (yearSpinner.getSelectedItemPosition() != 0) {
-					year = Integer.parseInt(yearSpinner.getSelectedItem()
+				if(yearSpinner.getSelectedItemPosition() != 0) {
+					yearResearched = Integer.parseInt(yearSpinner.getSelectedItem()
 							.toString());
 				}
 				/*
@@ -143,23 +150,25 @@ public class SearchByIndicatorFragment extends Fragment {
 				 * the Adapter.
 				 */
 				else {
-					year = Integer.parseInt(yearSpinner.getAdapter()
+					yearResearched = Integer.parseInt(yearSpinner.getAdapter()
 							.getItem(yearSpinner.getAdapter().getCount() - 1)
 							.toString());
 				}
 
 				// Checking if the checkBox is selected.
-				if (maximum.isChecked()) {
+				if(maximum.isChecked()) {
 					max = -1;
-				} else {
-					max = number2;
+				} 
+				else {
+					max = higherNumber;
 				}
 
 				firstNumber.clearFocus();
 				secondNumber.clearFocus();
+				
 				hideKeyboard(arg0);
 
-				updateSearchList(number1, max, year, listSelectionPosition,
+				updateSearchList(lowerNumber, max, yearResearched, listSelectionPosition,
 						((Indicator) filterFieldSpinner
 								.getItemAtPosition(filterFieldSpinner
 										.getSelectedItemPosition())));
@@ -192,7 +201,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		search.setIndicator(filterField);
 		search.setMinValue(min);
 		search.setMaxValue(max);
-		search.save();
+		search.saveSearch();
 		ArrayList<Institution> beanList = Institution
 				.getInstitutionsByEvaluationFilter(search);
 		beanCallbacks.onBeanListItemSelected(
@@ -214,7 +223,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		search.setIndicator(filterField);
 		search.setMinValue(min);
 		search.setMaxValue(max);
-		search.save();
+		search.saveSearch();
 		ArrayList<Course> beanList = Course
 				.getCoursesByEvaluationFilter(search);
 		beanCallbacks.onBeanListItemSelected(
@@ -238,7 +247,8 @@ public class SearchByIndicatorFragment extends Fragment {
 			Toast toast = Toast.makeText(c, emptySearchFilter,
 					Toast.LENGTH_SHORT);
 			toast.show();
-		} else {
+		}
+		else {
 			switch (listSelectionPosition) {
 			/*
 			 * In the case where neither course nor institution are selected,
@@ -254,7 +264,6 @@ public class SearchByIndicatorFragment extends Fragment {
 				break;
 
 			//Returns a list of course.
-
 			case 1:
 				callCourseList(min, max, year, filterField);
 				break;
@@ -268,7 +277,6 @@ public class SearchByIndicatorFragment extends Fragment {
 				break;
 			}
 		}
-
 	}
 
 	private ActionBar getActionBar() {

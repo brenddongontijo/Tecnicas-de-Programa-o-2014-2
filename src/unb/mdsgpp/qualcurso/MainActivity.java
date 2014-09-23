@@ -32,21 +32,22 @@ public class MainActivity extends ActionBarActivity implements
 	 * {@link #restoreActionBar()}.
 	 */
 	private CharSequence mTitle;
-	private int drawerPosition = 10;
+	
 	public static String DRAWER_POSITION = "drawerPosition";
-
 	public static String CURRENT_TITLE = "currentTitle";
-
+	private int drawerPosition = 10;
 	private SearchView mSearchView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 		if(savedInstanceState != null){
 			drawerPosition = savedInstanceState.getInt(DRAWER_POSITION);
 			mTitle = savedInstanceState.getCharSequence(CURRENT_TITLE);
-		}else{
+		}
+		else {
 			
 			mTitle = getFormatedTitle(getTitle());
 		}
@@ -55,13 +56,13 @@ public class MainActivity extends ActionBarActivity implements
 
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
-				(DrawerLayout) findViewById(R.id.drawer_layout));
-		
+				(DrawerLayout) findViewById(R.id.drawer_layout));		
 	}
 	
 	public CharSequence getFormatedTitle(CharSequence s){
 		int actionBarTitleColor = getResources().getColor(R.color.actionbar_title_color);
-		return Html.fromHtml("<font color='#"+Integer.toHexString(actionBarTitleColor).substring(2)+"'><b>"+s+"</b></font>");
+		return Html.fromHtml("<font color='#"+Integer.
+				toHexString(actionBarTitleColor).substring(2)+"'><b>"+s+"</b></font>");
 	}
 	
 	@Override
@@ -78,12 +79,14 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
+		
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		//fragmentManager.beginTransaction().remove(fragmentManager.findFragmentById(R.id.container)).addToBackStack(null).commit();
+		
 		ActionBar actionBar = getSupportActionBar();	
 		Fragment fragment = null;
 		String formatedTitle = "";
+		
 		switch (position) {
 			case 0:
 				formatedTitle = getString(R.string.title_section1);
@@ -110,11 +113,11 @@ public class MainActivity extends ActionBarActivity implements
 				fragment = new CompareChooseFragment();
 				drawerPosition = 4;
 				break;
-
 			default:
 				fragment = null;
 				break;
-			}		
+			}	
+		
 		if(fragment != null){
 			actionBar.setTitle(getFormatedTitle(formatedTitle));
 			mTitle = getFormatedTitle(formatedTitle);
@@ -123,7 +126,8 @@ public class MainActivity extends ActionBarActivity implements
 				fragmentManager
 				.beginTransaction()
 				.replace(R.id.container,fragment).commit();
-			}else{
+			}
+			else {
 				fragmentManager
 				.beginTransaction()
 				.replace(R.id.container,fragment).addToBackStack(null).commit();
@@ -131,13 +135,12 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
+	// Maybe this code should not be here.
 	public void onSectionAttached(int number) {
 		switch (number) {
-		//Nothing
+		// Nothing.
 		}
-	}
-	
-	
+	}	
 
 	public void restoreActionBar() {
 		ActionBar actionBar = getSupportActionBar();
@@ -149,35 +152,30 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (!mNavigationDrawerFragment.isDrawerOpen()) {
-			/* Only show items in the action bar relevant to this screen
-			 * if the drawer is not showing. Otherwise, let the drawer
-			 * decide what to show in the action bar.
+			
+			/* Only show items in the action bar relevant to this screen if the drawer is not showing. 
+			 * Otherwise, let the drawer decide what to show in the action bar.
 			 */
 			getMenuInflater().inflate(R.menu.main, menu);
 			restoreActionBar();
-			/* if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof TabsFragment){
-			 *	getMenuInflater().inflate(R.menu.search_menu, menu);
-			 * }
-			 * MenuItem searchItem = menu.findItem(R.id.action_search);
-			 * if(searchItem != null){
-			 *	mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-			 *	setupSearchView(searchItem);
-			 * }
-			 */
+			
 			return true;
 		}
 		return super.onCreateOptionsMenu(menu);
 	}
+	
 	private void setupSearchView(final MenuItem searchItem){
-		searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM|MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+		searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM
+				|MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 		mSearchView.setOnQueryTextListener(this);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		/* Handle action bar item clicks here. The action bar will
-		 * automatically handle clicks on the Home/Up button, so long
-		 * as you specify a parent activity in AndroidManifest.xml.
+		
+		/* 
+		 * Handle action bar item clicks here. The action bar will automatically handle clicks 
+		 * on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
 		 */
 		switch(item.getItemId()) {
 			case R.id.action_about:
@@ -187,7 +185,6 @@ public class MainActivity extends ActionBarActivity implements
 				closeApplication();
 				return true;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 

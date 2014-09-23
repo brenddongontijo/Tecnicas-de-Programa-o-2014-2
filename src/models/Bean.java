@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 /*
  * Class Name: Bean.
- * 
  * This class transforms an Article, Book, Course, Evaluation, Institution or Search
  * into a Bean witch will be able to access GenericBeanDAO.
  */
 public abstract class Bean {
-	// "identifier" will identifier the other models.
-	// Models: Article, Book, Course, Evaluation, Institution and Search.
+	
+	/* 
+	 * "identifier" will identifier the other models. 
+	 * Models: Article, Book, Course, Evaluation, Institution and Search.
+	 */
 	protected String identifier;
 	protected String relationship;
 

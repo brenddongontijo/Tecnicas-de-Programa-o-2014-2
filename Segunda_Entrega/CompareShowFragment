@@ -28,7 +28,13 @@ Variables:
 	private static String ID_EVALUATION_B = "idEvaluationB"; -> use to keep the evaluation of 
 	a chosen course.
 
-	private int totalBetterEvaluationInstitutionA;
+	private int totalBetterEvaluationInstitutionA; -> keep the best value for the first institution.
 	
-	private int totalBetterEvaluationInstitutionB;
+	private int totalBetterEvaluationInstitutionB; -> keep the best value for the second institution.
+	
+	private TextView compareFirstInstitutionBetterResults; -> compare the first chosen institution 
+	with others with better results.
+	
+	private TextView compareSecondInstitutionBetterResults; -> compare the second chosen institution 
+	with others with better results.
 	

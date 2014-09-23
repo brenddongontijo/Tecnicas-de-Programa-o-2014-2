@@ -32,6 +32,18 @@ Methods:
 	
 Variables:
 	
-	private int selectedYear;
+	private static final String COURSE = "course"; -> name a course.
+
+	private Spinner yearSpinner = null;
+	
+	private AutoCompleteTextView autoCompleteField = null;
+	
+	private ListView institutionList = null;
+	
+	private ListCompareAdapter compareAdapterList = null;
+	
+	private int selectedYear; -> used when the year of the evaluation has been chosen.
+	
+	private Course selectedCourse; -> used when the course has been chosen.
 	
 	

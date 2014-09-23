@@ -25,6 +25,7 @@ public class EvaluationDetailFragment extends Fragment{
 	private static final String ID_COURSE = "idCourse";
 	private static final String ID_INSTITUTION = "idInstitution";
 	private static final String YEAR = "year";
+	
 	BeanListCallbacks beanCallbacks;
 	
 	public EvaluationDetailFragment() {
@@ -43,6 +44,7 @@ public class EvaluationDetailFragment extends Fragment{
 		args.putInt(ID_INSTITUTION, id_institution);
 		args.putInt(YEAR, year);
 		fragment.setArguments(args);
+		
 		return fragment;
 	}
 	
@@ -51,21 +53,25 @@ public class EvaluationDetailFragment extends Fragment{
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_main, container,
 				false);
+		
 		TextView textView1 = (TextView) rootView
 				.findViewById(R.id.university_acronym);
-		textView1.setText(Institution.get(getArguments().getInt(ID_INSTITUTION)).getAcronym());
+		textView1.setText(Institution.getInstitutionByValue(getArguments().
+				getInt(ID_INSTITUTION)).getAcronym());
 		Evaluation evaluation = Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
 				getArguments().getInt(ID_COURSE),
 				getArguments().getInt(YEAR));
 		
 		TextView textView2 = (TextView) rootView
 				.findViewById(R.id.general_data);
-		textView2.setText(getString(R.string.evaluation_date)+": " + evaluation.getYear() +
-				"\n"+getString(R.string.course)+": " + Course.get(getArguments().getInt(ID_COURSE)).getName() +
-				"\n"+getString(R.string.modality)+": " + evaluation.getModality());
+		textView2.setText(getString(R.string.evaluation_date)+": " + evaluation.getEvaluationYear() +
+				"\n"+getString(R.string.course)+": " + Course.getCourseByValue(getArguments().
+						getInt(ID_COURSE)).getName() +
+				"\n"+getString(R.string.modality)+": " + evaluation.getEvaluationModality());
 		
 		ListView indicatorList = (ListView) rootView.findViewById(R.id.indicator_list);
-		indicatorList.setAdapter(new IndicatorListAdapter(getActivity().getApplicationContext(), R.layout.evaluation_list_item, getListItems(evaluation)));
+		indicatorList.setAdapter(new IndicatorListAdapter(getActivity().getApplicationContext(),
+				R.layout.evaluation_list_item, getListItems(evaluation)));
 		
 		return rootView;
 	}
@@ -73,18 +79,24 @@ public class EvaluationDetailFragment extends Fragment{
 	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluation){
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
 		ArrayList<Indicator> indicators = Indicator.getIndicators();
-		Book book = Book.get(evaluation.getIdBooks());
-		Article article = Article.get(evaluation.getIdArticles());
+		
+		Book book = Book.getBookByValue(evaluation.getIdBooks());
+		Article article = Article.getArticleByValue(evaluation.getIdArticles());
 		Bean bean = null;
+		
 		for(Indicator i : indicators){
-			HashMap<String, String> hashMap = new HashMap<String, String>();
+			HashMap < String, String > hashMap = new HashMap < String, String>();
+			
 			if(evaluation.fieldsList().contains(i.getValue())){
 				bean = evaluation;
-			}else if(book.fieldsList().contains(i.getValue())){
+			}
+			else if(book.fieldsList().contains(i.getValue())){
 				bean = book;
-			}else if(article.fieldsList().contains(i.getValue())) {
+			}
+			else if(article.fieldsList().contains(i.getValue())) {
 				bean = article;
 			}
+			
 			if(bean!=null){
 				hashMap.put(IndicatorListAdapter.INDICATOR_VALUE, i.getValue());
 				hashMap.put(IndicatorListAdapter.VALUE, bean.get(i.getValue()));
@@ -97,6 +109,7 @@ public class EvaluationDetailFragment extends Fragment{
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		
 		try {
             beanCallbacks = (BeanListCallbacks) activity;
         } catch (ClassCastException e) {
@@ -109,6 +122,4 @@ public class EvaluationDetailFragment extends Fragment{
         super.onDetach();
         beanCallbacks = null;
     }
-
-
 }

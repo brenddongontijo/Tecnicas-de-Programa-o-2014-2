@@ -29,6 +29,7 @@ public class HistoryFragment extends Fragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		
 		try {
 			beanCallbacks = (BeanListCallbacks) activity;
 		} catch (ClassCastException e) {
@@ -51,13 +52,12 @@ public class HistoryFragment extends Fragment {
 		final ListView history = (ListView) rootView
 				.findViewById(R.id.listHistory);
 
-		ArrayList<Search> searches = Search.getAll();
+		ArrayList<Search> searches = Search.getAllSearch();
 
 		Collections.reverse(searches);
 
-		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter(this
-				.getActivity().getApplicationContext(), R.id.listHistory,
-				searches);
+		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter
+				(this.getActivity().getApplicationContext(), R.id.listHistory,searches);
 
 		history.setAdapter((ListAdapter) histotyAdapter);
 
@@ -70,7 +70,8 @@ public class HistoryFragment extends Fragment {
 
 				if (search.getOption() == Search.INSTITUTION) {
 					displayInstitutionList(search);
-				} else if (search.getOption() == Search.COURSE) {
+				}
+				else if (search.getOption() == Search.COURSE) {
 					displayCourseList(search);
 				}
 			}
@@ -79,38 +80,36 @@ public class HistoryFragment extends Fragment {
 		return rootView;
 	}
 
-	/*
-	 * Search a list of institution receiving a search object.
-	 */
+	// Search a list of institution receiving a search object.
 	private void displayInstitutionList(Search search) {
 		ArrayList<Institution> institutions = Institution
 				.getInstitutionsByEvaluationFilter(search);
 
-		if (institutions.size() == 0)
+		if (institutions.size() == 0) {
 			displayToastMessage(getResources().getString(
 					R.string.empty_histoty_search_result));
-		else
+		}
+		else {
 			beanCallbacks.onBeanListItemSelected(SearchListFragment
 					.newInstance(institutions, search));
+		}
 	}
 
-	/*
-	 * Search a list of courses receiving a search object.
-	 */
+	// Search a list of courses receiving a search object.
 	private void displayCourseList(Search search) {
 		ArrayList<Course> courses = Course.getCoursesByEvaluationFilter(search);
 
-		if (courses.size() == 0)
+		if (courses.size() == 0) {
 			displayToastMessage(getResources().getString(
 					R.string.empty_histoty_search_result));
-		else
+		}
+		else {
 			beanCallbacks.onBeanListItemSelected(SearchListFragment
 					.newInstance(courses, search));
+		}
 	}
 
-	/*
-	 * Displays a message on the screen.
-	 */
+	// Displays a message on the screen.
 	private void displayToastMessage(String textMenssage) {
 		Toast toast = Toast.makeText(
 				this.getActivity().getApplicationContext(), textMenssage,

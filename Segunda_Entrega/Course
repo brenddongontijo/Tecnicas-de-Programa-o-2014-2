@@ -22,7 +22,7 @@ Methods:
 	public static Course first() 
 
 	// New Name: lastCourse
-	public static Course last() 
+	public static Course last()	
 	
 	public ArrayList<Institution> getInstitutions() 
 	
@@ -38,15 +38,6 @@ Methods:
 	// New Name: deleteCourse
 	public boolean delete() 
 	
-	// New Name: getCourseFields
-	public String get(String field)
-	
-	// New Name: setCourseFields
-	public void set(String field, String data) 
-	
-	// New Name: courseFieldList
-	public ArrayList<String> fieldsList() 
-	
 	public String toString() 
 	
 	public int describeContents() 
@@ -61,3 +52,39 @@ Variables:
  	
  	//new name: courseName
 	private String name; -> name of the Course.
+	
+	//new name: genericBeanDAO
+	GenericBeanDAO gDB;
+	
+	//new name: bean
+	Bean b;
+	
+	//new name: institution
+	Institution i;
+	
+	//new name: saved
+	in method saveCourse 
+	boolean result.
+	
+	//new name: InstitutionAdded
+	in method addInstitution 
+	boolean result.
+	
+	//new name: courseById
+	Course result.
+	
+	//new name: arrayCourse.
+	in method getAllCourses
+	Course type.
+	
+	//new name: totalCourse.
+	in method numberOfCourses
+	Course type.
+	
+	//new name: institutionsArray.
+	in method getInstitutions
+	ArrayList<Institution> institutions
+	
+	//new name listCourse.
+	arrayList<Course> Course
+	

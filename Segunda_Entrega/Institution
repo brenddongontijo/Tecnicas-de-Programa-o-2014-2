@@ -13,7 +13,7 @@ Methods:
 	public static Institution get(int id) 
 
 	// New Name: getAllInstitutions
-	public static ArrayList<Institution> getAll() 
+	public static ArrayList<Institution> getAll()  
 
 	// New Name: numberOfInstitutions
 	public static int count() 
@@ -38,15 +38,6 @@ Methods:
 	// New Name: deleteInstitution
 	public boolean delete() 
 	
-	// New Name: getInstitutionFields
-	public String get(String field) 
-	
-	// New Name: setInstitutionFields
-	public void set(String field, String data) 
-	
-	// New Name: institutionFieldList
-	public ArrayList<String> fieldsList()
-	
 	private Institution(Parcel in)
 	
 	public int describeContents()
@@ -61,7 +52,23 @@ Variables:
 	//new name: institutionAcronym
 	private String acronym; -> receives the acronym of an Institution.
 	
+	//new name: genericBeanDAO
+	GenericBeanDAO gBD
+	
+	//new name : bean
+	Bean b
 
+	//new name: institutionType.
+	Institution type.
 	
+	//new name: saved.
+	boolean result.
 	
+	//new name: firstOfIntituion.
+	in method firstIntituion
+	Institution result.
+	
+	//new name: lastOfInstituion.
+	in method lastIntituion
+	Institution result  
 	
