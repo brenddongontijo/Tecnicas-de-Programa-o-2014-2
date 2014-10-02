@@ -2,12 +2,10 @@ package unb.mdsgpp.qualcurso;
 
 import helpers.Indicator;
 
-import java.awt.font.NumericShaper;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import models.Bean;
 import models.Course;
 import models.Institution;
 import models.Search;
@@ -87,6 +85,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		searchButton.setOnClickListener(getClickListener());
 
 		maximum.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			// Event to disable second number when MAX is checked
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
@@ -99,12 +98,6 @@ public class SearchByIndicatorFragment extends Fragment {
 		});
 
 		return rootView;
-	}
-
-	// Event to disable second number when MAX is checked
-	private CheckBox MaxIsChecked(CheckBox maximun) {
-
-		return maximun;
 	}
 
 	// Method to perform the action after the click.
@@ -201,7 +194,7 @@ public class SearchByIndicatorFragment extends Fragment {
 			Indicator filterField, final int numberPosition) {
 
 		Calendar c = Calendar.getInstance();
-		
+
 		Search search = new Search();
 		search.setDate(new Date(c.getTime().getTime()));
 		search.setYear(year);
@@ -237,19 +230,13 @@ public class SearchByIndicatorFragment extends Fragment {
 			String emptySearchFilter = getResources().getString(
 					R.string.empty_search_filter);
 
-			/*
-			 * Send a message informing you that should make the choice of
-			 * indicator.
-			 */
+			// Message that should make the choice of the indicator.
 			Toast toast = Toast.makeText(c, emptySearchFilter,
 					Toast.LENGTH_SHORT);
 			toast.show();
 		} else {
 
-			/*
-			 * if not selected a field in the option "Search by", is inserted as
-			 * the default institution .
-			 */
+			// if not selected a field , is inserted a institution default.
 			if (listSelectionPosition == 0) {
 				listSelectionSpinner.setSelection(listSelectionSpinner
 						.getAdapter().getCount() - 1);
