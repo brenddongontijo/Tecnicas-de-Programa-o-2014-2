@@ -2,10 +2,12 @@ package unb.mdsgpp.qualcurso;
 
 import helpers.Indicator;
 
+import java.awt.font.NumericShaper;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import models.Bean;
 import models.Course;
 import models.Institution;
 import models.Search;
@@ -192,35 +194,14 @@ public class SearchByIndicatorFragment extends Fragment {
 	}
 
 	/*
-	 * Method created to call a list of institutions according to the parameters
-	 * entered.
+	 * Method to define the data in the search fields. Uses the data
+	 * NumberPosition of search field .
 	 */
-	private void callInstitutionList(final int min, final int max,
-			final int year, Indicator filterField) {
+	private void SetDataFields(final int min, final int max, final int year,
+			Indicator filterField, final int numberPosition) {
 
 		Calendar c = Calendar.getInstance();
-		Search search = new Search();
-		search.setDate(new Date(c.getTime().getTime()));
-		search.setYear(year);
-		search.setOption(1);
-		search.setIndicator(filterField);
-		search.setMinValue(min);
-		search.setMaxValue(max);
-		search.saveSearch();
-		ArrayList<Institution> beanList = Institution
-				.getInstitutionsByEvaluationFilter(search);
-		beanCallbacks.onBeanListItemSelected(
-				SearchListFragment.newInstance(beanList, search),
-				R.id.search_list);
-	}
-
-	/*
-	 * Method created to call a list of courses according to the parameters
-	 * entered.
-	 */
-	private void callCourseList(final int min, final int max, final int year,
-			Indicator filterField) {
-		Calendar c = Calendar.getInstance();
+		
 		Search search = new Search();
 		search.setDate(new Date(c.getTime().getTime()));
 		search.setYear(year);
@@ -229,17 +210,29 @@ public class SearchByIndicatorFragment extends Fragment {
 		search.setMinValue(min);
 		search.setMaxValue(max);
 		search.saveSearch();
-		ArrayList<Course> beanList = Course
-				.getCoursesByEvaluationFilter(search);
-		beanCallbacks.onBeanListItemSelected(
-				SearchListFragment.newInstance(beanList, search),
-				R.id.search_list);
+
+		if (numberPosition == 1) {
+			ArrayList<Course> beanList = Course
+					.getCoursesByEvaluationFilter(search);
+			beanCallbacks.onBeanListItemSelected(
+					SearchListFragment.newInstance(beanList, search),
+					R.id.search_list);
+
+		} else if ((numberPosition == 2) || (numberPosition == 0)) {
+			ArrayList<Institution> beanList = Institution
+					.getInstitutionsByEvaluationFilter(search);
+			beanCallbacks.onBeanListItemSelected(
+					SearchListFragment.newInstance(beanList, search),
+					R.id.search_list);
+		}
 	}
 
 	// Updates the list of survey information.
-	private void updateSearchList(int min, int max, int year,
-			int listSelectionPosition, Indicator filterField) {
+	private void updateSearchList(final int min, final int max, final int year,
+			final int listSelectionPosition, Indicator filterField) {
+
 		if (filterField.getValue() == Indicator.DEFAULT_INDICATOR) {
+
 			Context c = QualCurso.getInstance();
 			String emptySearchFilter = getResources().getString(
 					R.string.empty_search_filter);
@@ -252,32 +245,21 @@ public class SearchByIndicatorFragment extends Fragment {
 					Toast.LENGTH_SHORT);
 			toast.show();
 		} else {
-			switch (listSelectionPosition) {
+
 			/*
-			 * In the case where neither course nor institution are selected,
-			 * returns a list of institution.
+			 * if not selected a field in the option "Search by", is inserted as
+			 * the default institution .
 			 */
-			case 0:
+			if (listSelectionPosition == 0) {
 				listSelectionSpinner.setSelection(listSelectionSpinner
 						.getAdapter().getCount() - 1);
 				yearSpinner
 						.setSelection(yearSpinner.getAdapter().getCount() - 1);
-
-				callInstitutionList(min, max, year, filterField);
-				break;
-
-			// Returns a list of course.
-			case 1:
-				callCourseList(min, max, year, filterField);
-				break;
-
-			// Returns a list of institution.
-			case 2:
-				callInstitutionList(min, max, year, filterField);
-				break;
-
-			default:
-				break;
+				SetDataFields(min, max, year, filterField,
+						listSelectionPosition);
+			} else {
+				SetDataFields(min, max, year, filterField,
+						listSelectionPosition);
 			}
 		}
 	}
