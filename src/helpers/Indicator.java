@@ -120,6 +120,7 @@ public class Indicator {
 		Indicator indicator = null;
 		
 		for(Indicator finderIndicator : getIndicators()) {
+			
 			// Trying to find the indicator.
 			if(finderIndicator.getValue().equals(value)) {
 				indicator = finderIndicator;

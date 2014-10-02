@@ -40,6 +40,18 @@ public class Search extends Bean {
 		this.relationship = "";
 	}
 
+	// Access variable searchId.
+	@Override
+	public int getId() {
+		return this.searchId;
+	}
+	
+	// Modify variable searchId.
+	@Override
+	public void setId(int searchId) {
+		this.searchId = searchId;
+	}
+	
 	// Access variable searchDate. 
 	public Date getDate() {
 		return searchDate;
@@ -196,11 +208,6 @@ public class Search extends Bean {
 		return result;
 	}
 
-	@Override
-	public void setId(int searchId) {
-		this.searchId = searchId;
-	}
-
 	// Rewriting Search fields to String.
 	@Override
 	public String get(String field) {
@@ -279,11 +286,6 @@ public class Search extends Bean {
 		fields.add("max_value");
 		
 		return fields;
-	}
-
-	@Override
-	public int getId() {
-		return this.searchId;
 	}
 
 }

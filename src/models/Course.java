@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * This class creates an Course with their respective name.
  */
 public class Course extends Bean implements Parcelable{
+	
 	private int courseId;
 	private String courseName;
 
