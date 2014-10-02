@@ -28,7 +28,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 
 	// statement of objects
 	BeanListCallbacks beanCallbacks;
-	
+
 	public static final String TAB_INSTITUTIONS = "tabInstitutions";
 	public static final String TAB_COURSES = "tabCourses";
 	private static final String TAG = "FragmentTabs";
@@ -36,19 +36,19 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	private TabHost mTabHost;
 	private int mCurrentTab;
 	private SearchView mSearchView;
-	
+
 	private ArrayList<Course> allCourses = Course.getAllCourses();
-	private ArrayList<Institution> allInstitutions = Institution.getAllInstitutions();
+	private ArrayList<Institution> allInstitutions = Institution
+			.getAllInstitutions();
 
 	// Called When a fragment is first attached to its activity.
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		
+
 		try {
 			beanCallbacks = (BeanListCallbacks) activity;
-		} 
-		catch(ClassCastException e) {
+		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
 					+ " must implement BeanListCallbacks.");
 		}
@@ -58,31 +58,31 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+
 		mRoot = inflater.inflate(R.layout.tabs_fragment, null);
-		
+
 		mTabHost = (TabHost) mRoot.findViewById(android.R.id.tabhost);
-		
+
 		setupTabs();
-		
+
 		return mRoot;
 	}
 
-	/*	
-	 * Called when all saved state has been restored 
-	 * into the view hierarchy of the fragment. (non-Javadoc)
-	 * see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
+	/*
+	 * Called when all saved state has been restored into the view hierarchy of
+	 * the fragment. (non-Javadoc) see
+	 * android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
 	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
+
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
-		
+
 		mTabHost.setOnTabChangedListener(this);
 		mTabHost.setCurrentTab(mCurrentTab);
-		
+
 		// Manually start loading stuff in the first tab.
 		updateTab(TAB_INSTITUTIONS, R.id.tab_1);
 	}
@@ -96,34 +96,41 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_COURSES)
 				.setIndicator(getString(R.string.courses))
 				.setContent(R.id.tab_2));
-		
+
 		TabWidget widget = mTabHost.getTabWidget();
-		
-		for(int i = 0; i < widget.getChildCount(); i = i + 1) {
-			View v = widget.getChildAt(i);
-			
-			TextView tv = (TextView) v.findViewById(android.R.id.title);
-			
-			if(tv == null) {
+
+		for (int i = 0; i < widget.getChildCount(); i = i + 1) {
+			View currentView = widget.getChildAt(i);
+
+			TextView titleTextView = (TextView) currentView
+					.findViewById(android.R.id.title);
+
+			if (titleTextView == null) {
 				continue;
 			}
-			v.setBackgroundResource(R.drawable.tab_indicator_ab_light_green_acb);
+			currentView
+					.setBackgroundResource(R.drawable.tab_indicator_ab_light_green_acb);
 		}
 	}
 
+	/*
+	 * Checks if the guide has changed , by the id of the tab , which maybe be
+	 * an tab of institution or course.
+	 */
 	@Override
 	public void onTabChanged(String tabId) {
-		if(TAB_INSTITUTIONS.equals(tabId)) {
+
+		if (TAB_INSTITUTIONS.equals(tabId)) {
 			updateTab(tabId, R.id.tab_1);
 			mCurrentTab = 0;
-			
+
 			return;
 		}
-		
-		if(TAB_COURSES.equals(tabId)) {
+
+		if (TAB_COURSES.equals(tabId)) {
 			updateTab(tabId, R.id.tab_2);
 			mCurrentTab = 1;
-			
+
 			return;
 		}
 	}
@@ -131,35 +138,43 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	// Initialize the contents of the Activity options menu.
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
 		inflater.inflate(R.menu.search_menu, menu);
-		
+
 		MenuItem searchItem = menu.findItem(R.id.action_search);
-		
+
 		mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 		setupSearchView(searchItem);
-		
+
 		super.onCreateOptionsMenu(menu, inflater);
 	}
-	
+
 	// Search setting View the menu.
 	private void setupSearchView(MenuItem searchItem) {
+
 		searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM
 				| MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-		
+
 		mSearchView.setOnQueryTextListener(this);
 	}
 
 	// Updates the tab.
 	private void updateTab(String tabId, int placeholder) {
-		FragmentManager fm = getFragmentManager();
-		
-		if(fm.findFragmentByTag(tabId) == null) {
-			if(tabId.equalsIgnoreCase(TAB_INSTITUTIONS)) {
+
+		FragmentManager currentFragment = getFragmentManager();
+
+		if (currentFragment.findFragmentByTag(tabId) == null) {
+
+			/*
+			 * Updates the fragment according to idTab string , which may be
+			 * TAB_INSTITUTIONS or TAB_COURSES.
+			 */
+			if (tabId.equalsIgnoreCase(TAB_INSTITUTIONS)) {
 				beanCallbacks.onBeanListItemSelected(
 						InstitutionListFragment.newInstance(0, 2010),
 						placeholder);
-			} 
-			else if(tabId.equalsIgnoreCase(TAB_COURSES)) {
+
+			} else if (tabId.equalsIgnoreCase(TAB_COURSES)) {
 				beanCallbacks.onBeanListItemSelected(
 						CourseListFragment.newInstance(0, 2010), placeholder);
 			}
@@ -171,32 +186,32 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	public boolean onQueryTextChange(String arg0) {
 
 		// Checks if the string has valid size.
-		if(arg0.length() >= 1) {
+		if (arg0.length() >= 1) {
 
 			// If the tab is the first list the institutions.
-			if(mCurrentTab == 0) {
+			if (mCurrentTab == 0) {
 				ArrayList<Bean> beans = getFilteredList(arg0, allInstitutions);
 				beanCallbacks.onBeanListItemSelected(InstitutionListFragment
 						.newInstance(0, 2010, castToInstitutions(beans)),
 						R.id.tab_1);
+
 				// If the tab is a second list courses.
-			}
-			else if(mCurrentTab == 1) {
+			} else if (mCurrentTab == 1) {
 				ArrayList<Bean> beans = getFilteredList(arg0, allCourses);
 				beanCallbacks
 						.onBeanListItemSelected(CourseListFragment.newInstance(
 								0, 2010, castToCourses(beans)), R.id.tab_2);
 			}
 		}
-		
-		// If there is no change, checks the current tab and list according the same.
+
+		// If there is no change, checks the current tab and list according the
+		// same.
 		else {
-			if(mCurrentTab == 0) {
+			if (mCurrentTab == 0) {
 				beanCallbacks.onBeanListItemSelected(
 						InstitutionListFragment.newInstance(0, 2010),
 						R.id.tab_1);
-			} 
-			else if(mCurrentTab == 1) {
+			} else if (mCurrentTab == 1) {
 				beanCallbacks.onBeanListItemSelected(
 						CourseListFragment.newInstance(0, 2010), R.id.tab_2);
 			}
@@ -206,23 +221,24 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 
 	// Receives an arraylist of beans and turns into a arraylist of institution.
 	public ArrayList<Institution> castToInstitutions(ArrayList<Bean> beans) {
-		ArrayList<Institution> institutions = new ArrayList<Institution>();
 		
-		for(Bean b : beans) {
+		ArrayList<Institution> institutions = new ArrayList<Institution>();
+
+		for (Bean b : beans) {
 			institutions.add((Institution) b);
 		}
-		
+
 		return institutions;
 	}
 
 	// Receives an arraylist of beans and turns into a arraylist of course.
 	public ArrayList<Course> castToCourses(ArrayList<Bean> beans) {
 		ArrayList<Course> courses = new ArrayList<Course>();
-		
-		for(Bean b : beans) {
+
+		for (Bean b : beans) {
 			courses.add((Course) b);
 		}
-		
+
 		return courses;
 	}
 
@@ -230,16 +246,17 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	 * Filter takes a string and an arraylist from a list,and filters the same
 	 * arrylist returning a bean.
 	 */
-	private ArrayList<Bean> getFilteredList(String filter, ArrayList<? extends Bean> list) {
-		
+	private ArrayList<Bean> getFilteredList(String filter,
+			ArrayList<? extends Bean> list) {
+
 		ArrayList<Bean> beans = new ArrayList<Bean>();
-		
-		for(Bean b : list) {
-			if(b.toString().toLowerCase().startsWith(filter.toLowerCase())) {
+
+		for (Bean b : list) {
+			if (b.toString().toLowerCase().startsWith(filter.toLowerCase())) {
 				beans.add(b);
 			}
 		}
-		
+
 		return beans;
 	}
 

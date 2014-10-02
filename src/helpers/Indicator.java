@@ -52,6 +52,8 @@ public class Indicator {
 
 	// This method keep all indicators in one ArrayList.
 	public static ArrayList<Indicator> getIndicators(){
+		
+		// Through an instance of QualCurso ,we obtain an  array of string institutions.
 		String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
 		
 		ArrayList<Indicator> arrayOfIndicators = new ArrayList<Indicator>();

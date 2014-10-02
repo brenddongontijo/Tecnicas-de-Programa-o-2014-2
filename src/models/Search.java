@@ -1,15 +1,14 @@
 package models;
 
+import helpers.Indicator;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
-
 import android.database.SQLException;
-
-import helpers.Indicator;
 
 /*
  * Class Name: Search.
