@@ -144,9 +144,9 @@ public class CompareShowFragment extends Fragment{
 		int valueB = Integer.parseInt(evaluationValueB);
 
 		if( valueA > valueB )
-			this.totalBetterEvaluationInstitutionA += 1;
+			this.totalBetterEvaluationInstitutionA = this.totalBetterEvaluationInstitutionA + 1;
 		else if( valueB > valueA )
-			this.totalBetterEvaluationInstitutionB += 1;
+			this.totalBetterEvaluationInstitutionB = this.totalBetterEvaluationInstitutionB + 1;
 	}
 
 	private void setBetterInstitutionsValues() {
