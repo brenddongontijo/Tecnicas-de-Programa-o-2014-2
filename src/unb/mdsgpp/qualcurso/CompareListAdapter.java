@@ -50,13 +50,13 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 
 			if (indicatorNameTextView != null) {
 				indicatorNameTextView.setText(Indicator.getIndicatorByValue(
-						h.get(this.INDICATOR_VALUE)).getSearchIndicatorName());
+						h.get(CompareListAdapter.INDICATOR_VALUE)).getSearchIndicatorName());
 			}
 			
 			if (firstIndicatorTextView != null || secondIndicatorTextView != null) {
 				
-				int first = Integer.parseInt(h.get(this.FIRST_VALUE));
-				int second = Integer.parseInt(h.get(this.SECOND_VALUE));
+				int first = Integer.parseInt(h.get(CompareListAdapter.FIRST_VALUE));
+				int second = Integer.parseInt(h.get(CompareListAdapter.SECOND_VALUE));
 				firstIndicatorTextView.setText(Integer.toString(first));
 				secondIndicatorTextView.setText(Integer.toString(second));
 				

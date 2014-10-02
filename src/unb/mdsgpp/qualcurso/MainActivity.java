@@ -135,13 +135,6 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
-	// Maybe this code should not be here.
-	public void onSectionAttached(int number) {
-		switch (number) {
-		// Nothing.
-		}
-	}	
-
 	public void restoreActionBar() {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);

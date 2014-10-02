@@ -31,7 +31,6 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 
 	public static final String TAB_INSTITUTIONS = "tabInstitutions";
 	public static final String TAB_COURSES = "tabCourses";
-	private static final String TAG = "FragmentTabs";
 	private View mRoot;
 	private TabHost mTabHost;
 	private int mCurrentTab;
