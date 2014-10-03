@@ -13,7 +13,11 @@ import unb.mdsgpp.qualcurso.R;
  * The class Indicator helps to make one search based on the evaluation indicators.
  */
 public class Indicator {
+	
+	// Search indicator name.
 	private String searchIndicatorName;
+	
+	// Search indicator value.
 	private String searchIndicatorValue;
 
 	public static final String DEFAULT_INDICATOR = "defaultIndicator";

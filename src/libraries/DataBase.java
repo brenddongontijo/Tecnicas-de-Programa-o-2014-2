@@ -11,7 +11,10 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
  */
 public class DataBase extends SQLiteAssetHelper {
 
+	// Database version.
 	private static final int DATABASE_VERSION = 1;
+	
+	//  SQLiteDatabase has methods to create, delete, execute SQL commands.
 	protected SQLiteDatabase database;
 	
 	// Extending superclass constructor SQLiteAssetHelper.

@@ -8,8 +8,14 @@ import java.util.ArrayList;
  * This class creates an Article with all their evaluation values.
  */
 public class Article extends Bean {
+	
+	// Database id from article.
 	private int id;
+	
+	// Number of published journals.
 	private int publishedJournals;
+	
+	// Number of published conference proceedings.
 	private int publishedConferenceProceedings;
 
 	// Empty constructor.

@@ -47,7 +47,10 @@ public class DataBaseStructures extends DataBase {
         this.closeConnection();
     }
 
-    // This method creates the table "course".
+    /* This method creates the table "course".
+     * 
+     * String sql: tell what SQL command the Database must make.
+     */
     private void buildTableCourse() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS 'course' (" +
                 "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -56,7 +59,10 @@ public class DataBaseStructures extends DataBase {
         this.database.execSQL(sql);
     }
 
-    // This method creates the table "institution".
+    /* This method creates the table "institution".
+     * 
+     * String sql: tell what SQL command the Database must make.
+     */
     private void buildTableInstitution() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'institution' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT,"+
@@ -67,9 +73,12 @@ public class DataBaseStructures extends DataBase {
 
     /*
      * This method creates the table "courses_institutions".
-     * Relation of course and institution: N...N
+     * Relation of course and institution: N...N.
+     * 
+     * String sql: tell what SQL command the Database must make.
      */
     private void buildTableCoursesInstitutions() throws SQLException {
+    	
     	String sql = "CREATE TABLE IF NOT EXISTS 'courses_institutions' (" +
     				"'id_institution' INTEGER NOT NULL," +
     				"'id_course' INTEGER NOT NULL)";
@@ -77,7 +86,10 @@ public class DataBaseStructures extends DataBase {
     	this.database.execSQL(sql);
     }
 
-    // This method creates the table "articles".
+    /* This method creates the table "articles".
+     * 
+     * String sql: tell what SQL command the Database must make.
+     */
     private void buildTableArticles() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'articles' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -87,7 +99,10 @@ public class DataBaseStructures extends DataBase {
     	this.database.execSQL(sql);
     }
     
-    // This method creates the table "books".
+    /* This method creates the table "books".
+     * 
+     * String sql: tell what SQL command the Database must make.
+     */
     private void buildTableBooks() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'books' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -99,7 +114,10 @@ public class DataBaseStructures extends DataBase {
     	this.database.execSQL(sql);
     }
 
-    // This method creates the table "evaluation".
+    /* This method creates the table "evaluation".
+     * 
+     * String sql: tell what SQL command the Database must make.
+     */
     private void buildTableEvaluation() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'evaluation' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -120,7 +138,10 @@ public class DataBaseStructures extends DataBase {
     	this.database.execSQL(sql);
     }
 
-    // This method creates the table "search".
+    /* This method creates the table "search".
+     * 
+     * String sql: tell what SQL command the Database must make.
+     */
     private void buildTableSearch() throws SQLException {
     	String sql = "CREATE TABLE IF NOT EXISTS 'search' (" +
     		    "'_id' INTEGER PRIMARY KEY AUTOINCREMENT," +
