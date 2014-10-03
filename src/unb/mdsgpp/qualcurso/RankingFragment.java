@@ -137,14 +137,14 @@ public class RankingFragment extends Fragment {
 					final int position, final long id) {
 
 				beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment
-						.newInstance(Integer
-								.parseInt(((HashMap<String, String>) parent
+						.newInstance(
+								Integer.parseInt(((HashMap<String, String>) parent
 										.getItemAtPosition(position))
-										.get("id_institution")), Integer
-								.parseInt(((HashMap<String, String>) parent
+										.get("id_institution")), 
+								Integer.parseInt(((HashMap<String, String>) parent
 										.getItemAtPosition(position))
-										.get("id_course")), Integer
-								.parseInt(((HashMap<String, String>) parent
+										.get("id_course")), 
+								Integer.parseInt(((HashMap<String, String>) parent
 										.getItemAtPosition(position))
 										.get("year"))));
 			}
@@ -162,7 +162,8 @@ public class RankingFragment extends Fragment {
 					int arg2, long arg3) {
 				setFilterField(((Indicator) arg0.getItemAtPosition(arg2))
 						.getValue());
-				if ((currentSelectionCourse != null)
+				
+				if((currentSelectionCourse != null)
 						&& (indicatorField != Indicator.DEFAULT_INDICATOR)) {
 					updateList();
 				}
@@ -185,7 +186,8 @@ public class RankingFragment extends Fragment {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				if (currentSelectionCourse != null
+				
+				if(currentSelectionCourse != null
 						&& indicatorField != Indicator.DEFAULT_INDICATOR) {
 					updateList();
 				}
@@ -200,32 +202,36 @@ public class RankingFragment extends Fragment {
 	}
 
 	// ArrayList created to store all the fields present in the rankings.
-	public ArrayList<String> getListFields() {
-		ArrayList<String> fields = new ArrayList<String>();
-		fields.add(this.indicatorField);
-		fields.add("id_institution");
-		fields.add("id_course");
-		fields.add("acronym");
-		fields.add("year");
-		return fields;
+	public ArrayList<String> getRankingFields() {
+		ArrayList<String> rankingFields = new ArrayList<String>();
+		rankingFields.add(this.indicatorField);
+		rankingFields.add("id_institution");
+		rankingFields.add("id_course");
+		rankingFields.add("acronym");
+		rankingFields.add("year");
+		
+		return rankingFields;
 	}
 
 	// Get this year by spinner.
-	public int getYear() {
+	public int getSelectedEvaluationYear() {
 		int year = 0;
 
 		/*
 		 * If the "0" position is marked ( == 0), is selected last year in the
 		 * Adapter, otherwise takes the selected position.
 		 */
-		if (yearSpinner.getSelectedItemPosition() == 0) {
+		if(yearSpinner.getSelectedItemPosition() == 0) {
 			yearSpinner.setSelection(yearSpinner.getAdapter().getCount() - 1);
+			
 			year = Integer.parseInt(yearSpinner.getAdapter()
 					.getItem(yearSpinner.getAdapter().getCount() - 1)
 					.toString());
-		} else {
+		} 
+		else {
 			year = Integer.parseInt(yearSpinner.getSelectedItem().toString());
 		}
+		
 		return year;
 	}
 
@@ -238,32 +244,38 @@ public class RankingFragment extends Fragment {
 	}
 
 	// Sends a warning on the screen.
-	private void displayToastMessage(String textMenssage) {
-		Toast toast = Toast.makeText(
+	private void displayToastMessage(final String textMenssage) {
+		Toast toastMessage = Toast.makeText(
 				this.getActivity().getApplicationContext(), textMenssage,
 				Toast.LENGTH_SHORT);
-		toast.show();
+		toastMessage.show();
 	}
 
 	// Used to update the list, seeking the actual value.
 	public void updateList() {
-		if (this.indicatorField != Indicator.DEFAULT_INDICATOR) {
+		if(this.indicatorField != Indicator.DEFAULT_INDICATOR) {
 
-			final ArrayList<String> fields = getListFields();
-			int year = getYear();
+			final ArrayList<String> rankingFields = getRankingFields();
+			int evaluationYear = getSelectedEvaluationYear();
 
 			GenericBeanDAO genericBeanDao = new GenericBeanDAO();
-
-			ListAdapter adapter = new ListAdapter(getActivity()
+			
+			/*String sqlCommand = "id_course =" + this.currentSelectionCourse.getId()
+					+ " AND year =" + evaluationYear, "id_institution", + ;
+			*/
+			ListAdapter orderedCourseList = new ListAdapter(getActivity()
 					.getApplicationContext(), R.layout.list_item,
-					genericBeanDao.selectOrdered(fields, fields.get(0),
+					genericBeanDao.selectOrdered(rankingFields, rankingFields.get(0),
 							"id_course =" + this.currentSelectionCourse.getId()
-									+ " AND year =" + year, "id_institution",
+									+ " AND year =" + evaluationYear, "id_institution",
 							true));
-			evaluationList.setAdapter(adapter);
-		} else {
+			
+			evaluationList.setAdapter(orderedCourseList);
+		} 
+		else {
 			String emptySearchFilter = getResources().getString(
 					R.string.empty_search_filter);
+			
 			displayToastMessage(emptySearchFilter);
 		}
 	}
