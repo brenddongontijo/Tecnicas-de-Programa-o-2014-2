@@ -30,71 +30,81 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
+		View view = convertView;
 
-		if (v == null) {
+		if (view == null) {
 			LayoutInflater vi;
 			vi = LayoutInflater.from(getContext());
-			v = vi.inflate(R.layout.compare_show_list_item, null);
+			view = vi.inflate(R.layout.compare_show_list_item, null);
 		}
 
-		HashMap<String, String> h = getItem(position);
+		HashMap<String, String> hashMap = getItem(position);
 
-		if (h != null) {
-			TextView indicatorNameTextView = (TextView) v
+		if (hashMap != null) {
+			
+			TextView indicatorNameTextView = (TextView) view
 					.findViewById(R.id.compare_indicator_name);
-			TextView firstIndicatorTextView = (TextView) v
+			TextView firstIndicatorTextView = (TextView) view
 					.findViewById(R.id.compare_first_institution_indicator);
-			TextView secondIndicatorTextView = (TextView) v
+			TextView secondIndicatorTextView = (TextView) view
 					.findViewById(R.id.compare_second_institution_indicator);
 
 			if (indicatorNameTextView != null) {
 				indicatorNameTextView.setText(Indicator.getIndicatorByValue(
-						h.get(CompareListAdapter.INDICATOR_VALUE)).getSearchIndicatorName());
+						hashMap.get(CompareListAdapter.INDICATOR_VALUE)).getSearchIndicatorName());
 			}
 			
 			if (firstIndicatorTextView != null || secondIndicatorTextView != null) {
 				
-				int first = Integer.parseInt(h.get(CompareListAdapter.FIRST_VALUE));
-				int second = Integer.parseInt(h.get(CompareListAdapter.SECOND_VALUE));
+				int first = Integer.parseInt(hashMap.get(CompareListAdapter.FIRST_VALUE));
+				int second = Integer.parseInt(hashMap.get(CompareListAdapter.SECOND_VALUE));
+				
 				firstIndicatorTextView.setText(Integer.toString(first));
 				secondIndicatorTextView.setText(Integer.toString(second));
 				
-				if (h.get(IGNORE_INDICATOR).equals("false")) {
+				if (hashMap.get(IGNORE_INDICATOR).equals("false")) {
 					if (first > second) {
+						
 						firstIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()
 								.getColor(R.color.light_green));
 						secondIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()
 								.getColor(R.color.smooth_red));
+						
 					} else if (second > first) {
+						
 						secondIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()
 								.getColor(R.color.light_green));
 						firstIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()
 								.getColor(R.color.smooth_red));
+						
 					} else {
+						
 						secondIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()
 								.getColor(R.color.white));
 						firstIndicatorTextView.setBackgroundColor(QualCurso
 								.getInstance().getResources()
 								.getColor(R.color.white));
-					}
+						
+					 }
 				} else {
+					
 					secondIndicatorTextView.setBackgroundColor(QualCurso
 							.getInstance().getResources()
 							.getColor(R.color.white));
 					firstIndicatorTextView.setBackgroundColor(QualCurso
 							.getInstance().getResources()
 							.getColor(R.color.white));
-				}
+					
+				 }
 			}
 		}
 
-		return v;
+		return view;
 	}
 
 }
