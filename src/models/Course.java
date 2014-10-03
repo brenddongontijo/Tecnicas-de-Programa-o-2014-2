@@ -12,7 +12,10 @@ import java.util.ArrayList;
  */
 public class Course extends Bean implements Parcelable{
 	
+	// Database id to Course.
 	private int courseId;
+	
+	// Name of the Course.
 	private String courseName;
 
 	// Empty constructor.

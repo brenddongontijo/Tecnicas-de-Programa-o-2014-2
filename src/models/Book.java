@@ -9,10 +9,19 @@ import java.util.ArrayList;
  */
 public class Book extends Bean {
 	
+	// Book id in the Database.
 	private int id;
+	
+	// Number of integral texts of a book.
 	private int integralText;
+	
+	// Number of chapters of a book.
 	private int bookChapters;
+	
+	// Number of collections of a book.
 	private int bookCollections;
+	
+	// Number of entries of a book.
 	private int entries;
 
 	// Empty constructor.

@@ -11,19 +11,45 @@ import java.util.ArrayList;
  */
 public class Evaluation extends Bean {
 
+	// Database id to Evaluation.
 	private int id;
+	
+	// Use the Database id of Institution.
 	private int idInstitution;
+	
+	// Use the Database id of Course.
 	private int idCourse;
+	
+	// Year that the evaluation of a course was made.
 	private int evaluationYear;
+	
+	// Modality of the evaluation.
 	private String evaluationModality;
+	
+	// Year of creation of the master degree.
 	private int masterDegreeStartYear;
+	
+	// Year of creation of the doctorate degree.
 	private int doctorateStartYear;
+	
+	// Show the triennial Evaluation of a course.
 	private int triennialEvaluation;
+	
+	// Show the permanent Teachers.
 	private int permanentTeachers;
+	
+	// Number of theses.
 	private int theses;
+	
+	// Number of dissertations.
 	private int dissertations;
+	
+	// Use database id of Articles.
 	private int idArticles;
+	
+	// Use database id of Books.
 	private int idBooks;
+	
 	private int artisticProduction;
 
 	// Empty constructor.

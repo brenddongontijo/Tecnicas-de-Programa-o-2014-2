@@ -107,7 +107,7 @@ Variables:
 	
 	private int doctorateStartYear; -> year of creation of the doctorate degree.
 	
-	private int triennialEvaluation; -> show the trienniel Evaluation of a course.
+	private int triennialEvaluation; -> show the triennial Evaluation of a course.
 	
 	private int permanentTeachers; -> show the permanent Teachers.
 	

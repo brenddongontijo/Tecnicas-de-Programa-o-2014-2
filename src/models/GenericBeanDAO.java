@@ -16,6 +16,7 @@ import libraries.DataBase;
  */
 public class GenericBeanDAO extends DataBase {
 
+	// Represents a statement that can be executed against a database.
 	private SQLiteStatement pst;
 	
 	public GenericBeanDAO() throws SQLException {
