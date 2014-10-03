@@ -68,12 +68,9 @@ public class CompareChooseFragment extends Fragment implements
 		View rootView = inflater.inflate(R.layout.compare_choose_fragment,
 				container, false);
 
-		if (savedInstanceState != null) {
-			if (savedInstanceState.getParcelable(COURSE) != null) {
+		if (savedInstanceState != null && savedInstanceState.getParcelable(COURSE) != null) {
 				setCurrentSelection((Course) savedInstanceState
 						.getParcelable(COURSE));
-
-			}
 		}
 
 		// Bound variables with layout objects
@@ -95,6 +92,7 @@ public class CompareChooseFragment extends Fragment implements
 	}
 
 	public OnItemClickListener getAutoCompleteListener(final View rootView) {
+		
 		return new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -112,6 +110,7 @@ public class CompareChooseFragment extends Fragment implements
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				
 				if (selectedCourse != null) {
 					updateList();
 				}
@@ -155,6 +154,7 @@ public class CompareChooseFragment extends Fragment implements
 	 // Check the checkBox items. 
 	@Override
 	public void onCheckedItem(CheckBox checkBox) {
+		
 		// TODO Auto-generated method stub
 		Institution institution = ((Institution) checkBox
 				.getTag(ListCompareAdapter.INSTITUTION));
@@ -189,6 +189,7 @@ public class CompareChooseFragment extends Fragment implements
 	// Remove the checkbox selection. 
 	@Override
 	public void onUnchekedItem(CheckBox checkBox) {
+		
 		// TODO Auto-generated method stub
 		Institution institution = ((Institution) checkBox
 				.getTag(ListCompareAdapter.INSTITUTION));
@@ -200,9 +201,9 @@ public class CompareChooseFragment extends Fragment implements
 
 	// Method to hide the keyboard.
 	private void hideKeyboard(View view) {
-		InputMethodManager imm = (InputMethodManager) getActivity()
+		InputMethodManager inputMethodManager = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(view.getWindowToken(),
+		inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),
 				InputMethodManager.RESULT_UNCHANGED_SHOWN);
 	}
 

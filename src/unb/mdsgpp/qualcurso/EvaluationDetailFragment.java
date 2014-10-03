@@ -38,6 +38,7 @@ public class EvaluationDetailFragment extends Fragment{
 	}
 	
 	public static EvaluationDetailFragment newInstance(int id_institution, int id_course,int year){
+		
 		EvaluationDetailFragment fragment = new EvaluationDetailFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id_course);
@@ -77,6 +78,7 @@ public class EvaluationDetailFragment extends Fragment{
 	}
 	
 	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluation){
+		
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
 		ArrayList<Indicator> indicators = Indicator.getIndicators();
 		
@@ -84,22 +86,22 @@ public class EvaluationDetailFragment extends Fragment{
 		Article article = Article.getArticleByValue(evaluation.getIdArticles());
 		Bean bean = null;
 		
-		for(Indicator i : indicators){
+		for(Indicator indicator : indicators){
 			HashMap < String, String > hashMap = new HashMap < String, String>();
 			
-			if(evaluation.fieldsList().contains(i.getValue())){
+			if(evaluation.fieldsList().contains(indicator.getValue())){
 				bean = evaluation;
 			}
-			else if(book.fieldsList().contains(i.getValue())){
+			else if(book.fieldsList().contains(indicator.getValue())){
 				bean = book;
 			}
-			else if(article.fieldsList().contains(i.getValue())) {
+			else if(article.fieldsList().contains(indicator.getValue())) {
 				bean = article;
 			}
 			
 			if(bean!=null){
-				hashMap.put(IndicatorListAdapter.INDICATOR_VALUE, i.getValue());
-				hashMap.put(IndicatorListAdapter.VALUE, bean.get(i.getValue()));
+				hashMap.put(IndicatorListAdapter.INDICATOR_VALUE, indicator.getValue());
+				hashMap.put(IndicatorListAdapter.VALUE, bean.get(indicator.getValue()));
 				hashList.add(hashMap);
 			}
 		}

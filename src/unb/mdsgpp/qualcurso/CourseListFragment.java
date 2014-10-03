@@ -36,20 +36,24 @@ public class CourseListFragment extends ListFragment{
 	public static CourseListFragment newInstance(int id, int year){
 		CourseListFragment fragment = new CourseListFragment();
 		Bundle args = new Bundle();
+		
 		args.putInt(ID_INSTITUTION, id);
 		args.putInt(YEAR, year);
 		args.putParcelableArrayList(IDS_COURSES, getCoursesList(id));
 		fragment.setArguments(args);
+		
 		return fragment;
 	}
 	
 	public static CourseListFragment newInstance(int id, int year, ArrayList<Course> list){
 		CourseListFragment fragment = new CourseListFragment();
+		
 		Bundle args = new Bundle();
 		args.putInt(ID_INSTITUTION, id);
 		args.putInt(YEAR, year);
 		args.putParcelableArrayList(IDS_COURSES, list);
 		fragment.setArguments(args);
+		
 		return fragment;
 	}
 	
@@ -88,18 +92,21 @@ public class CourseListFragment extends ListFragment{
 	}
 	
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
+	public void onListItemClick(ListView listView, View view, int position, long id) {
 		if(getArguments().getInt(ID_INSTITUTION) == 0){
 			
 			beanCallbacks.onBeanListItemSelected(InstitutionListFragment.
-					newInstance((((Course)l.getAdapter().getItem(position)).getId()), 
+					newInstance((((Course)listView.getAdapter().getItem(position)).getId()), 
 							getArguments().getInt(YEAR)));
+			
 		}else{
+			
 			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.
 					newInstance(getArguments().getInt(ID_INSTITUTION), 
-							((Course)l.getAdapter().getItem(position)).getId(),getArguments().getInt(YEAR)));
+							((Course)listView.getAdapter().getItem(position)).getId(),getArguments().getInt(YEAR)));
+			
 		}
-		super.onListItemClick(l, v, position, id);
+		super.onListItemClick(listView, view, position, id);
 	}
 	
 	@Override

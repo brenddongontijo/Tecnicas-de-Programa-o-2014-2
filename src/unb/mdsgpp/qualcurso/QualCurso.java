@@ -14,7 +14,7 @@ public class QualCurso extends Application {
 	
 	@SuppressWarnings("static-access")
 	public void setDatabaseName(String databaseName){
-		this.databaseName = databaseName;
+		QualCurso.databaseName = databaseName;
 	}
 	
 	public String getDatabaseName(){
