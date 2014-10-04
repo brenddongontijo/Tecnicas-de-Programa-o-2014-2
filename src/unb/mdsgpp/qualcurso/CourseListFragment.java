@@ -18,8 +18,11 @@ import android.widget.ListView;
 
 public class CourseListFragment extends ListFragment{
 
+	// Use the id of the institution to list them.
 	private static final String ID_INSTITUTION = "idInstitution";
+	// Use the id of the course to list them.
 	private static final String IDS_COURSES = "idsCourses";
+	// Year of evaluation.
 	private static final String YEAR = "year";
 	
 	BeanListCallbacks beanCallbacks;
