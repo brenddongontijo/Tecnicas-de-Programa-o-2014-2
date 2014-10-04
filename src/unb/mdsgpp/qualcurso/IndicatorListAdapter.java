@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 public class IndicatorListAdapter extends ArrayAdapter<HashMap<String,String>> {
 	
+	// Use to show the value of the indicator.
 	public static String INDICATOR_VALUE = "indicatorValue";
 	public static String VALUE = "value";
 	private int itemLayout = 0;
