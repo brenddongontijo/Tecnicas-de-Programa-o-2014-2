@@ -30,14 +30,20 @@ public class CompareChooseFragment extends Fragment implements
 		CheckBoxListCallbacks {
 	BeanListCallbacks beanCallbacks;
 	
+	// Name a course.
 	private static final String COURSE = "course";
-
+	
+	// Used when the year of the evaluation has been chosen.
+	private int selectedYear;
+	
+	// Used when the course has been chosen.
+	private Course selectedCourse;
+	
 	private Spinner yearSpinner = null;
 	private AutoCompleteTextView autoCompleteField = null;
 	private ListView institutionList = null;
 	private ListCompareAdapter compareAdapterList = null;
-	private int selectedYear;
-	private Course selectedCourse;
+	
 	private ArrayList<Institution> selectedInstitutions = new ArrayList<Institution>();
 
 	public CompareChooseFragment() {

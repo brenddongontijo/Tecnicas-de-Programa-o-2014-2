@@ -15,15 +15,29 @@ import android.database.SQLException;
  * This class is responsible for performing a search based on indicator.
  */
 public class Search extends Bean {
+	
 	public static int COURSE = 0;
 	public static int INSTITUTION = 1;
 
+	// Id genarated by the database to a search.
 	private int searchId;
+	
+	// Use to show the date of that the search was made.
 	private Date searchDate;
+	
+	// Year of the evaluation.
 	private int evaluationYear;
+	
+	// Option to choose between Course or Evaluation.
 	private int searchOption;
+	
+	// Search course by the indicator.
 	private Indicator searchIndicator;
+	
+	// Minimum indicator value. Default = 0.
 	private int minIndicatorValue;
+	
+	// Maximum indicator value.
 	private int maxIndicatorValue;
 
 	// Empty constructor.

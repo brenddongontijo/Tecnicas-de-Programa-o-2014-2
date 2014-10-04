@@ -14,9 +14,15 @@ import android.widget.TextView;
 
 public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 
+	// Value for one indicator.
 	public static String INDICATOR_VALUE = "indicatorValue";
+	
+	// Value for the first indicator chosen.
 	public static String FIRST_VALUE = "firstValue";
+	
+	// Value for the second indicator chosen.
 	public static String SECOND_VALUE = "secondValue";
+	
 	public static String IGNORE_INDICATOR = "ignoreIndicator";
 
 	public CompareListAdapter(Context context, int textViewResourceId) {
