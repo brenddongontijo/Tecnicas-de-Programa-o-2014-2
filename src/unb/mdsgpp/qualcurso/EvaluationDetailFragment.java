@@ -22,8 +22,11 @@ import android.widget.TextView;
 
 public class EvaluationDetailFragment extends Fragment{
 	
+	// Use to show the details of the evaluation of the course.
 	private static final String ID_COURSE = "idCourse";
+	// Use to show the institution that have a course.
 	private static final String ID_INSTITUTION = "idInstitution";
+	// Year that the evaluation was made.
 	private static final String YEAR = "year";
 	
 	BeanListCallbacks beanCallbacks;
