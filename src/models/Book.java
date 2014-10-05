@@ -223,8 +223,6 @@ public class Book extends Bean {
 		else if(field.equals("entries")) {
 			this.setEntries(Integer.parseInt(data));
 		}
-		else {
-		}
 	}
 
 	// Creating an ArrayList of String with evaluation book values.

@@ -302,9 +302,6 @@ public class Evaluation extends Bean {
 		else if(field.equals("artistic_production")) {
 			this.setArtisticProduction(Integer.parseInt(data));
 		} 
-		else{
-			
-		}
 	}
 
 	// Creating an ArrayList of String with evaluation book values.

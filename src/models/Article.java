@@ -181,8 +181,6 @@ public class Article extends Bean {
 		else if (field.equals("published_conference_proceedings")) {
 			this.setPublishedConferenceProceedings(Integer.parseInt(data));
 		}
-		else {		
-		}
 	}
 
 	// Creating an ArrayList of String with evaluation article values.

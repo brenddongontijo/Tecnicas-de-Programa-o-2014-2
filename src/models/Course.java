@@ -263,9 +263,6 @@ public class Course extends Bean implements Parcelable{
 		else if(field.equals("name")) {
 			this.setName(data);
 		}
-		else {
-		
-		}
 	}
 
 	// Creating an ArrayList of String with course name.

@@ -262,9 +262,6 @@ public class Institution extends Bean implements Parcelable {
 		else if(field.equals("acronym")) {
 			this.setAcronym(data);
 		} 
-		else {
-
-		}
 	}
 
 	// Creating an ArrayList of String with institution acronym.
