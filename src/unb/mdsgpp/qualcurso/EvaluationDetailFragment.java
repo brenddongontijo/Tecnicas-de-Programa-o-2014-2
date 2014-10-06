@@ -29,7 +29,7 @@ public class EvaluationDetailFragment extends Fragment{
 	private static final String ID_INSTITUTION = "idInstitution";
 	
 	// Year that the evaluation was made.
-	private static final String YEAR = "year";
+	private static final String YEAR_OF_EVALUATION = "year";
 	
 	BeanListCallbacks beanCallbacks;
 	
@@ -38,7 +38,7 @@ public class EvaluationDetailFragment extends Fragment{
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, 0);
 		args.putInt(ID_INSTITUTION, 0);
-		args.putInt(YEAR, 0);
+		args.putInt(YEAR_OF_EVALUATION, 0);
 		this.setArguments(args);
 	}
 	
@@ -48,7 +48,7 @@ public class EvaluationDetailFragment extends Fragment{
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id_course);
 		args.putInt(ID_INSTITUTION, id_institution);
-		args.putInt(YEAR, year);
+		args.putInt(YEAR_OF_EVALUATION, year);
 		fragment.setArguments(args);
 		
 		return fragment;
@@ -66,7 +66,7 @@ public class EvaluationDetailFragment extends Fragment{
 				getInt(ID_INSTITUTION)).getAcronym());
 		Evaluation evaluation = Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
 				getArguments().getInt(ID_COURSE),
-				getArguments().getInt(YEAR));
+				getArguments().getInt(YEAR_OF_EVALUATION));
 		
 		TextView textView2 = (TextView) rootView
 				.findViewById(R.id.general_data);

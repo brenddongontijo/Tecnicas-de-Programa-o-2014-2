@@ -24,8 +24,8 @@ public class CourseListFragment extends ListFragment{
 	// Use the id of the course to list them.
 	private static final String IDS_COURSES = "idsCourses";
 	
-	// Year of evaluation.
-	private static final String YEAR = "year";
+	// Year that the evaluation was made.
+	private static final String YEAR_OF_EVALUATION = "year";
 	
 	BeanListCallbacks beanCallbacks;
 	
@@ -43,7 +43,7 @@ public class CourseListFragment extends ListFragment{
 		Bundle args = new Bundle();
 		
 		args.putInt(ID_INSTITUTION, id);
-		args.putInt(YEAR, year);
+		args.putInt(YEAR_OF_EVALUATION, year);
 		args.putParcelableArrayList(IDS_COURSES, getCoursesList(id));
 		fragment.setArguments(args);
 		
@@ -55,7 +55,7 @@ public class CourseListFragment extends ListFragment{
 		
 		Bundle args = new Bundle();
 		args.putInt(ID_INSTITUTION, id);
-		args.putInt(YEAR, year);
+		args.putInt(YEAR_OF_EVALUATION, year);
 		args.putParcelableArrayList(IDS_COURSES, list);
 		fragment.setArguments(args);
 		
@@ -102,13 +102,14 @@ public class CourseListFragment extends ListFragment{
 			
 			beanCallbacks.onBeanListItemSelected(InstitutionListFragment.
 					newInstance((((Course)listView.getAdapter().getItem(position)).getId()), 
-							getArguments().getInt(YEAR)));
+							getArguments().getInt(YEAR_OF_EVALUATION)));
 			
 		}else{
 			
 			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.
 					newInstance(getArguments().getInt(ID_INSTITUTION), 
-							((Course)listView.getAdapter().getItem(position)).getId(),getArguments().getInt(YEAR)));
+							((Course)listView.getAdapter().getItem(position)).
+							getId(),getArguments().getInt(YEAR_OF_EVALUATION)));
 			
 		}
 		super.onListItemClick(listView, view, position, id);

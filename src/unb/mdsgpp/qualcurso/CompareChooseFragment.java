@@ -79,7 +79,7 @@ public class CompareChooseFragment extends Fragment implements
 						.getParcelable(COURSE));
 		}
 
-		// Bound variables with layout objects
+		// Bound variables with layout objects.
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.compare_year);
 		this.autoCompleteField = (AutoCompleteTextView) rootView
 				.findViewById(R.id.autoCompleteTextView);
@@ -90,7 +90,7 @@ public class CompareChooseFragment extends Fragment implements
 				getActionBar().getThemedContext(), R.layout.custom_textview,
 				Course.getAllCourses()));
 		
-		// Set objects events
+		// Set objects events.
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
 		this.autoCompleteField
 				.setOnItemClickListener(getAutoCompleteListener(rootView));

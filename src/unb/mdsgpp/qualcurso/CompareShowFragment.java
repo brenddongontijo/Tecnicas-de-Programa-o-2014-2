@@ -24,17 +24,21 @@ public class CompareShowFragment extends Fragment{
 	
 	// Use to keep the evaluation of a chosen course.
 	private static String ID_EVALUATION_A = "idEvaluationA";
+	
 	// Use to keep the evaluation of a chosen course.
 	private static String ID_EVALUATION_B = "idEvaluationB";
+	
 	BeanListCallbacks beanCallbacks;
 
 	// Compare the first chosen institution	with others with better results.
 	private TextView compareFirstInstitutionBetterResults;
+	
 	// Compare the second chosen institution with others with better results.
 	private TextView compareSecondInstitutionBetterResults;
 
 	// Keep the best value for the first institution.
 	private int totalBetterEvaluationInstitutionA;
+	
 	// Keep the best value for the second institution.
 	private int totalBetterEvaluationInstitutionB;
 	
@@ -149,10 +153,12 @@ public class CompareShowFragment extends Fragment{
 		int valueA = Integer.parseInt(evaluationValueA);
 		int valueB = Integer.parseInt(evaluationValueB);
 
-		if( valueA > valueB )
+		if( valueA > valueB ) {
 			this.totalBetterEvaluationInstitutionA = this.totalBetterEvaluationInstitutionA + 1;
-		else if( valueB > valueA )
+		}	
+		if( valueB > valueA ){
 			this.totalBetterEvaluationInstitutionB = this.totalBetterEvaluationInstitutionB + 1;
+		}
 	}
 
 	private void setBetterInstitutionsValues() {

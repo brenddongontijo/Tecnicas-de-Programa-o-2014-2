@@ -39,9 +39,9 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 		View view = convertView;
 
 		if (view == null) {
-			LayoutInflater vi;
-			vi = LayoutInflater.from(getContext());
-			view = vi.inflate(R.layout.compare_show_list_item, null);
+			LayoutInflater inflateView;
+			inflateView = LayoutInflater.from(getContext());
+			view = inflateView.inflate(R.layout.compare_show_list_item, null);
 		}
 
 		HashMap<String, String> hashMap = getItem(position);
