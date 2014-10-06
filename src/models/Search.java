@@ -1,30 +1,43 @@
 package models;
 
+import helpers.Indicator;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
-
 import android.database.SQLException;
-
-import helpers.Indicator;
 
 /*
  * Class Name: Search.
  * This class is responsible for performing a search based on indicator.
  */
 public class Search extends Bean {
+	
 	public static int COURSE = 0;
 	public static int INSTITUTION = 1;
 
+	// Id genarated by the database to a search.
 	private int searchId;
+	
+	// Use to show the date of that the search was made.
 	private Date searchDate;
+	
+	// Year of the evaluation.
 	private int evaluationYear;
+	
+	// Option to choose between Course or Evaluation.
 	private int searchOption;
+	
+	// Search course by the indicator.
 	private Indicator searchIndicator;
+	
+	// Minimum indicator value. Default = 0.
 	private int minIndicatorValue;
+	
+	// Maximum indicator value.
 	private int maxIndicatorValue;
 
 	// Empty constructor.
@@ -41,6 +54,18 @@ public class Search extends Bean {
 		this.relationship = "";
 	}
 
+	// Access variable searchId.
+	@Override
+	public int getId() {
+		return this.searchId;
+	}
+	
+	// Modify variable searchId.
+	@Override
+	public void setId(int searchId) {
+		this.searchId = searchId;
+	}
+	
 	// Access variable searchDate. 
 	public Date getDate() {
 		return searchDate;
@@ -197,11 +222,6 @@ public class Search extends Bean {
 		return result;
 	}
 
-	@Override
-	public void setId(int searchId) {
-		this.searchId = searchId;
-	}
-
 	// Rewriting Search fields to String.
 	@Override
 	public String get(String field) {
@@ -280,11 +300,6 @@ public class Search extends Bean {
 		fields.add("max_value");
 		
 		return fields;
-	}
-
-	@Override
-	public int getId() {
-		return this.searchId;
 	}
 
 }

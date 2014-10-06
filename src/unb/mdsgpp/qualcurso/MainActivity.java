@@ -48,7 +48,6 @@ public class MainActivity extends ActionBarActivity implements
 			mTitle = savedInstanceState.getCharSequence(CURRENT_TITLE);
 		}
 		else {
-			
 			mTitle = getFormatedTitle(getTitle());
 		}
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
@@ -59,10 +58,11 @@ public class MainActivity extends ActionBarActivity implements
 				(DrawerLayout) findViewById(R.id.drawer_layout));		
 	}
 	
-	public CharSequence getFormatedTitle(CharSequence s){
+	public CharSequence getFormatedTitle(CharSequence titleName){
 		int actionBarTitleColor = getResources().getColor(R.color.actionbar_title_color);
+		
 		return Html.fromHtml("<font color='#"+Integer.
-				toHexString(actionBarTitleColor).substring(2)+"'><b>"+s+"</b></font>");
+				toHexString(actionBarTitleColor).substring(2)+"'><b>"+titleName+"</b></font>");
 	}
 	
 	@Override
@@ -87,7 +87,7 @@ public class MainActivity extends ActionBarActivity implements
 		Fragment fragment = null;
 		String formatedTitle = "";
 		
-		switch (position) {
+		switch(position) {
 			case 0:
 				formatedTitle = getString(R.string.title_section1);
 				fragment = new TabsFragment();
@@ -120,27 +120,22 @@ public class MainActivity extends ActionBarActivity implements
 		
 		if(fragment != null){
 			actionBar.setTitle(getFormatedTitle(formatedTitle));
+			
 			mTitle = getFormatedTitle(formatedTitle);
+			
 			if(fragment instanceof TabsFragment){
 				fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-				fragmentManager
-				.beginTransaction()
-				.replace(R.id.container,fragment).commit();
+				
+				fragmentManager.beginTransaction().replace(R.id.container,fragment).commit();
 			}
 			else {
-				fragmentManager
-				.beginTransaction()
-				.replace(R.id.container,fragment).addToBackStack(null).commit();
+				fragmentManager.beginTransaction().replace(R.id.container,fragment).addToBackStack(null).commit();
 			}
 		}
-	}
-
-	// Maybe this code should not be here.
-	public void onSectionAttached(int number) {
-		switch (number) {
-		// Nothing.
+		else{
+			
 		}
-	}	
+	}
 
 	public void restoreActionBar() {
 		ActionBar actionBar = getSupportActionBar();
@@ -151,7 +146,7 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		if (!mNavigationDrawerFragment.isDrawerOpen()) {
+		if(!mNavigationDrawerFragment.isDrawerOpen()) {
 			
 			/* Only show items in the action bar relevant to this screen if the drawer is not showing. 
 			 * Otherwise, let the drawer decide what to show in the action bar.
@@ -160,6 +155,9 @@ public class MainActivity extends ActionBarActivity implements
 			restoreActionBar();
 			
 			return true;
+		}
+		else{
+			
 		}
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -202,20 +200,16 @@ public class MainActivity extends ActionBarActivity implements
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getSupportFragmentManager();
 
-				fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,
-								fragment).addToBackStack(null).commit();
+		fragmentManager.beginTransaction().replace(R.id.container,
+				fragment).addToBackStack(null).commit();
 	}
 
 	@Override
 	public void onBeanListItemSelected(Fragment fragment, int container) {
 		FragmentManager fragmentManager = getSupportFragmentManager();
 
-		fragmentManager
-				.beginTransaction()
-				.replace(container,
-						fragment).commit();
+		fragmentManager.beginTransaction().replace(container,
+			fragment).commit();
 	}
 
 	@Override
@@ -224,7 +218,8 @@ public class MainActivity extends ActionBarActivity implements
 			onBeanListItemSelected(CourseListFragment.newInstance(((Institution)bean).getId(),
 					search.getYear(),
 					Institution.getCoursesByEvaluationFilter(((Institution)bean).getId(),search)));
-		}else if(bean instanceof Course){
+		}
+		else if(bean instanceof Course){
 			onBeanListItemSelected(InstitutionListFragment.newInstance(((Course)bean).getId(),
 					search.getYear(),
 					Course.getInstitutionsByEvaluationFilter(((Course)bean).getId(),search)));

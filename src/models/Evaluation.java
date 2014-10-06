@@ -11,21 +11,48 @@ import java.util.ArrayList;
  */
 public class Evaluation extends Bean {
 
+	// Database id to Evaluation.
 	private int id;
+	
+	// Use the Database id of Institution.
 	private int idInstitution;
+	
+	// Use the Database id of Course.
 	private int idCourse;
+	
+	// Year that the evaluation of a course was made.
 	private int evaluationYear;
+	
+	// Modality of the evaluation.
 	private String evaluationModality;
+	
+	// Year of creation of the master degree.
 	private int masterDegreeStartYear;
+	
+	// Year of creation of the doctorate degree.
 	private int doctorateStartYear;
+	
+	// Show the triennial Evaluation of a course.
 	private int triennialEvaluation;
+	
+	// Show the permanent Teachers.
 	private int permanentTeachers;
+	
+	// Number of theses.
 	private int theses;
+	
+	// Number of dissertations.
 	private int dissertations;
+	
+	// Use database id of Articles.
 	private int idArticles;
+	
+	// Use database id of Books.
 	private int idBooks;
+	
 	private int artisticProduction;
 
+	// Empty constructor.
 	public Evaluation() {
 		this.id = 0;
 		this.identifier = "evaluation";
@@ -33,12 +60,154 @@ public class Evaluation extends Bean {
 
 	}
 
+	// Declaration of a non-default constructor.
 	public Evaluation(int evaluationID) {
 		this.id = evaluationID;
 		this.identifier = "evaluation";
 		this.relationship = "";
 	}
+	
+	// Access variable id. 
+	public int getId() {
+		return id;
+	}
 
+	// Modify variable id.
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	// Access variable idInstitution. 
+	public int getIdInstitution() {
+		return idInstitution;
+	}
+
+	// Modify variable idInstitution.
+	public void setIdInstitution(int idInstitution) {
+		this.idInstitution = idInstitution;
+	}
+
+	// Access variable idCourse. 
+	public int getIdCourse() {
+		return idCourse;
+	}
+
+	// Modify variable idCourse.
+	public void setIdCourse(int idCourse) {
+		this.idCourse = idCourse;
+	}
+
+	// Access variable evaluationYear. 
+	public int getEvaluationYear() {
+		return evaluationYear;
+	}
+
+	// Modify variable evaluationYear.
+	public void setEvaluationYear(int year) {
+		this.evaluationYear = year;
+	}
+
+	// Access variable evaluationModality. 
+	public String getEvaluationModality() {
+		return evaluationModality;
+	}
+
+	// Modify variable evaluationModality.
+	public void setEvaluationModality(String modality) {
+		this.evaluationModality = modality;
+	}
+
+	// Access variable masterDegreeStartYear. 
+	public int getMasterDegreeStartYear() {
+		return masterDegreeStartYear;
+	}
+
+	// Modify variable masterDegreeStartYear.
+	public void setMasterDegreeStartYear(int masterDegreeStartYear) {
+		this.masterDegreeStartYear = masterDegreeStartYear;
+	}
+
+	// Access variable doctorateStartYear. 
+	public int getDoctorateStartYear() {
+		return doctorateStartYear;
+	}
+
+	// Modify variable doctorateStartYear.
+	public void setDoctorateStartYear(int doctorateStartYear) {
+		this.doctorateStartYear = doctorateStartYear;
+	}
+
+	// Access variable triennialEvaluation. 
+	public int getTriennialEvaluation() {
+		return triennialEvaluation;
+	}
+
+	// Modify variable triennialEvaluation.
+	public void setTriennialEvaluation(int triennialEvaluation) {
+		this.triennialEvaluation = triennialEvaluation;
+	}
+
+	// Access variable permanentTeachers. 
+	public int getPermanentTeachers() {
+		return permanentTeachers;
+	}
+
+	// Modify variable permanentTeachers.
+	public void setPermanentTeachers(int permanentTeachers) {
+		this.permanentTeachers = permanentTeachers;
+	}
+
+	// Access variable theses. 
+	public int getTheses() {
+		return theses;
+	}
+
+	// Modify variable theses.
+	public void setTheses(int theses) {
+		this.theses = theses;
+	}
+
+	// Access variable dissertations. 
+	public int getDissertations() {
+		return dissertations;
+	}
+
+	// Modify variable dissertations.
+	public void setDissertations(int dissertations) {
+		this.dissertations = dissertations;
+	}
+
+	// Access variable dissertations. 
+	public int getIdArticles() {
+		return idArticles;
+	}
+
+	// Modify variable dissertations.
+	public void setIdArticles(int idArticles) {
+		this.idArticles = idArticles;
+	}
+
+	// Access variable idBooks. 
+	public int getIdBooks() {
+		return idBooks;
+	}
+
+	// Modify variable idBooks.
+	public void setIdBooks(int idBooks) {
+		this.idBooks = idBooks;
+	}
+
+	// Access variable artisticProduction. 
+	public int getArtisticProduction() {
+		return artisticProduction;
+	}
+
+	// Modify variable artisticProduction.
+	public void setArtisticProduction(int artisticProduction) {
+		this.artisticProduction = artisticProduction;
+	}
+
+	// Rewriting fields to String.
 	@Override
 	public String get(String field) {
 		if(field.equals("_id")) {
@@ -88,6 +257,7 @@ public class Evaluation extends Bean {
 		}
 	}
 
+	// Rewriting fields to Integer.
 	@Override
 	public void set(String field, String data){
 		if(field.equals("_id")) {
@@ -132,11 +302,9 @@ public class Evaluation extends Bean {
 		else if(field.equals("artistic_production")) {
 			this.setArtisticProduction(Integer.parseInt(data));
 		} 
-		else{
-			
-		}
 	}
 
+	// Creating an ArrayList of String with evaluation book values.
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
@@ -285,146 +453,6 @@ public class Evaluation extends Bean {
 		deleteResult = genericBeanDAO.deleteBean(this);
 		
 		return deleteResult;
-	}
-
-	// Access variable id. 
-	public int getId() {
-		return id;
-	}
-
-	// Modify variable id.
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	// Access variable idInstitution. 
-	public int getIdInstitution() {
-		return idInstitution;
-	}
-
-	// Modify variable idInstitution.
-	public void setIdInstitution(int idInstitution) {
-		this.idInstitution = idInstitution;
-	}
-
-	// Access variable idCourse. 
-	public int getIdCourse() {
-		return idCourse;
-	}
-
-	// Modify variable idCourse.
-	public void setIdCourse(int idCourse) {
-		this.idCourse = idCourse;
-	}
-
-	// Access variable evaluationYear. 
-	public int getEvaluationYear() {
-		return evaluationYear;
-	}
-
-	// Modify variable evaluationYear.
-	public void setEvaluationYear(int year) {
-		this.evaluationYear = year;
-	}
-
-	// Access variable evaluationModality. 
-	public String getEvaluationModality() {
-		return evaluationModality;
-	}
-
-	// Modify variable evaluationModality.
-	public void setEvaluationModality(String modality) {
-		this.evaluationModality = modality;
-	}
-
-	// Access variable masterDegreeStartYear. 
-	public int getMasterDegreeStartYear() {
-		return masterDegreeStartYear;
-	}
-
-	// Modify variable masterDegreeStartYear.
-	public void setMasterDegreeStartYear(int masterDegreeStartYear) {
-		this.masterDegreeStartYear = masterDegreeStartYear;
-	}
-
-	// Access variable doctorateStartYear. 
-	public int getDoctorateStartYear() {
-		return doctorateStartYear;
-	}
-
-	// Modify variable doctorateStartYear.
-	public void setDoctorateStartYear(int doctorateStartYear) {
-		this.doctorateStartYear = doctorateStartYear;
-	}
-
-	// Access variable triennialEvaluation. 
-	public int getTriennialEvaluation() {
-		return triennialEvaluation;
-	}
-
-	// Modify variable triennialEvaluation.
-	public void setTriennialEvaluation(int triennialEvaluation) {
-		this.triennialEvaluation = triennialEvaluation;
-	}
-
-	// Access variable permanentTeachers. 
-	public int getPermanentTeachers() {
-		return permanentTeachers;
-	}
-
-	// Modify variable permanentTeachers.
-	public void setPermanentTeachers(int permanentTeachers) {
-		this.permanentTeachers = permanentTeachers;
-	}
-
-	// Access variable theses. 
-	public int getTheses() {
-		return theses;
-	}
-
-	// Modify variable theses.
-	public void setTheses(int theses) {
-		this.theses = theses;
-	}
-
-	// Access variable dissertations. 
-	public int getDissertations() {
-		return dissertations;
-	}
-
-	// Modify variable dissertations.
-	public void setDissertations(int dissertations) {
-		this.dissertations = dissertations;
-	}
-
-	// Access variable dissertations. 
-	public int getIdArticles() {
-		return idArticles;
-	}
-
-	// Modify variable dissertations.
-	public void setIdArticles(int idArticles) {
-		this.idArticles = idArticles;
-	}
-
-	// Access variable idBooks. 
-	public int getIdBooks() {
-		return idBooks;
-	}
-
-	// Modify variable idBooks.
-	public void setIdBooks(int idBooks) {
-		this.idBooks = idBooks;
-	}
-
-	// Access variable artisticProduction. 
-	public int getArtisticProduction() {
-		return artisticProduction;
-	}
-
-	// Modify variable artisticProduction.
-	public void setArtisticProduction(int artisticProduction) {
-		this.artisticProduction = artisticProduction;
 	}
 
 }

@@ -17,7 +17,7 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 		super(context, resource, items);
 	}
 
-	TextView option = null;
+	TextView searchType = null;
 	TextView year = null;
 	TextView indicator = null;
 	TextView firstValue = null;
@@ -32,68 +32,69 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 	 */
 	@Override
 	public View getView(int position, View contextView, ViewGroup parent) {
-		View v = contextView;
+		View historyView = contextView;
 
 		// Check if a view exists, otherwise it will be inflated.
-		if (v == null) {
-			LayoutInflater li;
-			li = LayoutInflater.from(getContext());
-			v = li.inflate(R.layout.history_list_item, null);
+		if(historyView == null) {
+			LayoutInflater layoutInflater;
+			layoutInflater = LayoutInflater.from(getContext());
+			historyView = layoutInflater.inflate(R.layout.history_list_item, null);
 		}
 
-		// Create an object of type "s" Search, and the instance.
-		Search s = getItem(position);
-		if (s != null) {
-			option = (TextView) v.findViewById(R.id.option);
-			year = (TextView) v.findViewById(R.id.year);
-			indicator = (TextView) v.findViewById(R.id.indicator);
-			firstValue = (TextView) v.findViewById(R.id.firstValue);
-			secondValue = (TextView) v.findViewById(R.id.secondValue);
-			searchDate = (TextView) v.findViewById(R.id.searchDate);
-			setListRow(s);
+		// Creating fields for a survey.
+		Search searchByIndicator = getItem(position);
+		if(searchByIndicator != null) {
+			searchType = (TextView) historyView.findViewById(R.id.option);
+			year = (TextView) historyView.findViewById(R.id.year);
+			indicator = (TextView) historyView.findViewById(R.id.indicator);
+			firstValue = (TextView) historyView.findViewById(R.id.firstValue);
+			secondValue = (TextView) historyView.findViewById(R.id.secondValue);
+			searchDate = (TextView) historyView.findViewById(R.id.searchDate);
+			
+			setListRow(searchByIndicator);
 		}
-		return v;
+		return historyView;
 	}
 
 	// Method used to populate the list of historic.
-	public void setListRow(Search s) {
+	public void setListRow(Search search) {
 		
 		/*
 		 * Checks if a course was selected in spinner indicators. Or if the
 		 * selection is an institution.
 		 */
-		if (s.getOption() == Search.COURSE) {
-			setItem(option, R.string.course);
+		if(search.getOption() == Search.COURSE) {
+			setItem(searchType, R.string.course);
 		}
-		else if (s.getOption() == Search.INSTITUTION) {
-			setItem(option, R.string.institution);
+		else if(search.getOption() == Search.INSTITUTION) {
+			setItem(searchType, R.string.institution);
 		}
 		
 		// Sets the values ​​of year, indicator , value one and two and date​​.
-		setItem(year, Integer.toString(s.getYear()));
-		setItem(indicator, s.getIndicator().getSearchIndicatorName());
-		setItem(firstValue, Integer.toString(s.getMinValue()));
-		int max = s.getMaxValue();
+		setItem(year, Integer.toString(search.getYear()));
+		setItem(indicator, search.getIndicator().getSearchIndicatorName());
+		setItem(firstValue, Integer.toString(search.getMinValue()));
+		int maximum = search.getMaxValue();
 		
-		if (max == -1) {
+		if(maximum == -1) {
 			setItem(secondValue, R.string.maximum);
 		}
 		else {
-			setItem(secondValue, Integer.toString(max));
+			setItem(secondValue, Integer.toString(maximum));
 		}
 		
 		setItem(searchDate,
-				SimpleDateFormat.getDateTimeInstance().format(s.getDate()));
+				SimpleDateFormat.getDateTimeInstance().format(search.getDate()));
 	}
 
 	public void setItem(TextView view, String data) {
-		if (view != null) {
+		if(view != null) {
 			view.setText(data);
 		}
 	}
 
 	public void setItem(TextView view, int resId) {
-		if (view != null) {
+		if(view != null) {
 			view.setText(resId);
 		}
 	}

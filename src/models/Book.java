@@ -8,10 +8,20 @@ import java.util.ArrayList;
  * This class creates an Book with all their evaluation values.
  */
 public class Book extends Bean {
+	
+	// Book id in the Database.
 	private int id;
+	
+	// Number of integral texts of a book.
 	private int integralText;
+	
+	// Number of chapters of a book.
 	private int bookChapters;
+	
+	// Number of collections of a book.
 	private int bookCollections;
+	
+	// Number of entries of a book.
 	private int entries;
 
 	// Empty constructor.
@@ -21,7 +31,7 @@ public class Book extends Bean {
 		this.relationship = "";
 	}
 
-	// Declaration of a non-default constructor
+	// Declaration of a non-default constructor.
 	public Book(int bookId) {
 		this.id = bookId;
 		this.identifier = "books";
@@ -212,8 +222,6 @@ public class Book extends Bean {
 		}
 		else if(field.equals("entries")) {
 			this.setEntries(Integer.parseInt(data));
-		}
-		else {
 		}
 	}
 

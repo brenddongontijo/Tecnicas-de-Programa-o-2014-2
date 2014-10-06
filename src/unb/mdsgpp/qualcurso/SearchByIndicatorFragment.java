@@ -43,8 +43,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		super.onAttach(activity);
 		try {
 			beanCallbacks = (BeanListCallbacks) activity;
-		} 
-		catch(ClassCastException e) {
+		} catch(ClassCastException e) {
 			throw new ClassCastException(activity.toString()
 					+ " must implement BeanListCallbacks.");
 		}
@@ -59,14 +58,18 @@ public class SearchByIndicatorFragment extends Fragment {
 	Spinner listSelectionSpinner = null;
 	Spinner filterFieldSpinner = null;
 	Spinner yearSpinner = null;
+	
 	CheckBox maximum = null;
+	
 	EditText firstNumber = null;
 	EditText secondNumber = null;
+	
 	Button searchButton = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
 		View rootView = inflater.inflate(R.layout.search_fragment, container,
 				false);
 
@@ -85,14 +88,16 @@ public class SearchByIndicatorFragment extends Fragment {
 
 		searchButton.setOnClickListener(getClickListener());
 
-		// Event to disable second number when MAX is checked
 		maximum.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			// Event to disable second number when MAX is checked
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
+				
 				if(maximum.isChecked()) {
 					secondNumber.setEnabled(false);
-				}
+				} 
 				else {
 					secondNumber.setEnabled(true);
 				}
@@ -109,42 +114,48 @@ public class SearchByIndicatorFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				int lowerNumber;
-				int higherNumber; 
-				int yearResearched; 
-				int max; 
+				int higherNumber;
+				int yearResearched;
+				int max;
 				int listSelectionPosition;
 
 				/*
 				 * If nothing was marked in the field of the first number is
 				 * inserted the value 0.
 				 */
-				if(firstNumber.getText().length() == 0) {
+				if (firstNumber.getText().length() == 0) {
 					firstNumber.setText("0");
 				}
+				
 				/*
 				 * If nothing was selected in the first field number, the
 				 * maximum checkbox is marked.
 				 */
-				if(secondNumber.getText().length() == 0) {
+				if (secondNumber.getText().length() == 0) {
 					maximum.setChecked(true);
 				}
 
-				// Getting values ​​of the numbers, and going to the strings.
+				// Getting values of the numbers, and going to the strings.
 				String firstNumberValue = firstNumber.getText().toString();
 				String secondNumberValue = secondNumber.getText().toString();
 
 				lowerNumber = Integer.parseInt(firstNumberValue);
-				higherNumber = maximum.isChecked() ? -1 : Integer
-						.parseInt(secondNumberValue);
+				if(maximum.isChecked()){
+					higherNumber = -1;
+				}else{
+					higherNumber = Integer.parseInt(secondNumberValue);
+				}
 				
+
 				listSelectionPosition = listSelectionSpinner
 						.getSelectedItemPosition();
 
 				// Gets the value of the year, contained in Spinner.
 				if(yearSpinner.getSelectedItemPosition() != 0) {
-					yearResearched = Integer.parseInt(yearSpinner.getSelectedItem()
-							.toString());
+					yearResearched = Integer.parseInt(yearSpinner
+							.getSelectedItem().toString());
 				}
+				
 				/*
 				 * If even a selected year, it sent the last value contained in
 				 * the Adapter.
@@ -165,10 +176,11 @@ public class SearchByIndicatorFragment extends Fragment {
 
 				firstNumber.clearFocus();
 				secondNumber.clearFocus();
-				
+
 				hideKeyboard(arg0);
 
-				updateSearchList(lowerNumber, max, yearResearched, listSelectionPosition,
+				updateSearchList(lowerNumber, max, yearResearched,
+						listSelectionPosition,
 						((Indicator) filterFieldSpinner
 								.getItemAtPosition(filterFieldSpinner
 										.getSelectedItemPosition())));
@@ -181,100 +193,75 @@ public class SearchByIndicatorFragment extends Fragment {
 	 * is currently accepting input.
 	 */
 	private void hideKeyboard(View view) {
-		InputMethodManager imm = (InputMethodManager) getActivity()
+		InputMethodManager inputManager = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(view.getWindowToken(),
+		inputManager.hideSoftInputFromWindow(view.getWindowToken(),
 				InputMethodManager.RESULT_UNCHANGED_SHOWN);
 	}
 
 	/*
-	 * Method created to call a list of institutions according to the parameters
-	 * entered.
+	 * Method to define the data in the search fields. Uses the data
+	 * NumberPosition of search field .
 	 */
-	private void callInstitutionList(int min, int max, int year,
-			Indicator filterField) {
-		Calendar c = Calendar.getInstance();
-		Search search = new Search();
-		search.setDate(new Date(c.getTime().getTime()));
-		search.setYear(year);
-		search.setOption(1);
-		search.setIndicator(filterField);
-		search.setMinValue(min);
-		search.setMaxValue(max);
-		search.saveSearch();
-		ArrayList<Institution> beanList = Institution
-				.getInstitutionsByEvaluationFilter(search);
-		beanCallbacks.onBeanListItemSelected(
-				SearchListFragment.newInstance(beanList, search),
-				R.id.search_list);
-	}
+	private void SetDataFields(final int min, final int max, final int year,
+			Indicator filterField, final int numberPosition) {
 
-	/*
-	 * Method created to call a list of courses according to the parameters
-	 * entered.
-	 */
-	private void callCourseList(int min, int max, int year,
-			Indicator filterField) {
-		Calendar c = Calendar.getInstance();
+		Calendar calendar = Calendar.getInstance();
+
 		Search search = new Search();
-		search.setDate(new Date(c.getTime().getTime()));
+		search.setDate(new Date(calendar.getTime().getTime()));
 		search.setYear(year);
 		search.setOption(0);
 		search.setIndicator(filterField);
 		search.setMinValue(min);
 		search.setMaxValue(max);
 		search.saveSearch();
-		ArrayList<Course> beanList = Course
-				.getCoursesByEvaluationFilter(search);
-		beanCallbacks.onBeanListItemSelected(
-				SearchListFragment.newInstance(beanList, search),
-				R.id.search_list);
+
+		if(numberPosition == 1) {
+			ArrayList<Course> courseList = Course
+					.getCoursesByEvaluationFilter(search);
+			beanCallbacks.onBeanListItemSelected(
+					SearchListFragment.newInstance(courseList, search),
+					R.id.search_list);
+		} 
+		else if((numberPosition == 2) || (numberPosition == 0)) {
+			ArrayList<Institution> institutionList = Institution
+					.getInstitutionsByEvaluationFilter(search);
+			beanCallbacks.onBeanListItemSelected(
+					SearchListFragment.newInstance(institutionList, search),
+					R.id.search_list);
+		}
 	}
 
-	
 	// Updates the list of survey information.
-	private void updateSearchList(int min, int max, int year,
-			int listSelectionPosition, Indicator filterField) {
-		if (filterField.getValue() == Indicator.DEFAULT_INDICATOR) {
-			Context c = QualCurso.getInstance();
+	private void updateSearchList(final int min, final int max, final int year,
+			final int listSelectionPosition, Indicator filterField) {
+
+		if(filterField.getValue() == Indicator.DEFAULT_INDICATOR) {
+
+			Context context = QualCurso.getInstance();
 			String emptySearchFilter = getResources().getString(
 					R.string.empty_search_filter);
 
-			/*
-			 * Send a message informing you that should make the choice of
-			 * indicator.
-			 */
-			Toast toast = Toast.makeText(c, emptySearchFilter,
+			// Message that should make the choice of the indicator.
+			Toast toast = Toast.makeText(context, emptySearchFilter,
 					Toast.LENGTH_SHORT);
 			toast.show();
-		}
+		} 
 		else {
-			switch (listSelectionPosition) {
-			/*
-			 * In the case where neither course nor institution are selected,
-			 * returns a list of institution.
-			 */
-			case 0:
+
+			// if not selected a field , is inserted a institution default.
+			if(listSelectionPosition == 0) {
 				listSelectionSpinner.setSelection(listSelectionSpinner
 						.getAdapter().getCount() - 1);
 				yearSpinner
 						.setSelection(yearSpinner.getAdapter().getCount() - 1);
-
-				callInstitutionList(min, max, year, filterField);
-				break;
-
-			//Returns a list of course.
-			case 1:
-				callCourseList(min, max, year, filterField);
-				break;
-
-			// Returns a list of institution.
-			case 2:
-				callInstitutionList(min, max, year, filterField);
-				break;
-
-			default:
-				break;
+				SetDataFields(min, max, year, filterField,
+						listSelectionPosition);
+			} 
+			else {
+				SetDataFields(min, max, year, filterField,
+						listSelectionPosition);
 			}
 		}
 	}

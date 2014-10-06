@@ -11,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+/*
+ * Class name: ListAdapter
+ * This class makes a text view for each ranking result fields.
+ */
 public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
 
 	public ListAdapter(Context context, int textViewResourceId) {
@@ -24,53 +27,53 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
+		View rankingView = convertView;
 
-		if (v == null) {
-			LayoutInflater vi;
-			vi = LayoutInflater.from(getContext());
-			v = vi.inflate(R.layout.list_item, null);
+		if(rankingView == null) {
+			LayoutInflater inflateView;
+			inflateView = LayoutInflater.from(getContext());
+			rankingView = inflateView.inflate(R.layout.list_item, null);
 		}
 
-		HashMap<String, String> h = getItem(position);
+		HashMap<String, String> hashMap = getItem(position);
 
-		if (h != null) {
-			TextView rank = (TextView) v.findViewById(R.id.position);
-			TextView institutionName = (TextView) v.findViewById(R.id.university);
-			TextView value = (TextView) v.findViewById(R.id.data);
-			ImageView trophy = (ImageView) v.findViewById(R.id.trophyIcon);
+		if(hashMap != null) {
+			TextView rank = (TextView) rankingView.findViewById(R.id.position);
+			TextView institutionName = (TextView) rankingView.findViewById(R.id.university);
+			TextView value = (TextView) rankingView.findViewById(R.id.data);
+			ImageView trophy = (ImageView) rankingView.findViewById(R.id.trophyIcon);
 
-        	if (rank != null) {
+        	if(rank != null) {
             	rank.setText(Integer.toString(position+1));
         	}
-        	if (trophy != null) {
+        	if(trophy != null) {
         		trophy.setImageDrawable(getTrophyImage(position+1));
         	}
-        	if (institutionName != null) {
-        		institutionName.setText(h.get("acronym"));
+        	if(institutionName != null) {
+        		institutionName.setText(hashMap.get("acronym"));
         	}
-        	if (value != null) {
-            	value.setText(h.get(h.get("order_field")));
+        	if(value != null) {
+            	value.setText(hashMap.get(hashMap.get("order_field")));
         	}
     	}
-    	return v;
+    	return rankingView;
 	}
 	
-	public Drawable  getTrophyImage(int position) {
+	public Drawable getTrophyImage(int position) {
 		Drawable trophy = null;
 
-		switch (position) {
-		case 1:
-			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.gold_trophy);
-			break;
-		case 2:
-			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.silver_trophy);
-			break;
-		case 3:
-			trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.bronze_trophy);
-			break;
-		default:
-			break;
+		switch(position) {
+			case 1:
+				trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.gold_trophy);
+				break;
+			case 2:
+				trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.silver_trophy);
+				break;
+			case 3:
+				trophy = QualCurso.getInstance().getResources().getDrawable(R.drawable.bronze_trophy);
+				break;
+			default:
+				break;
 		}
 		return trophy;
 	}

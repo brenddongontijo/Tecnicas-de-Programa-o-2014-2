@@ -42,7 +42,7 @@ Variables:
 	private int option; -> Option to choose between Course or Evaluation
 	
 	// New name: searchIndicator
-	private Indicator indicator;
+	private Indicator indicator; -> Search course by the indicator.
 	
 	//new name: minIndicatorValue
 	private int minValue; -> Minimum indicator value. Default = 0.

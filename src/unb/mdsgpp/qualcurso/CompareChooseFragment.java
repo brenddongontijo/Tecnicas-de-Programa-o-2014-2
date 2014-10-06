@@ -30,14 +30,20 @@ public class CompareChooseFragment extends Fragment implements
 		CheckBoxListCallbacks {
 	BeanListCallbacks beanCallbacks;
 	
+	// Name a course.
 	private static final String COURSE = "course";
-
+	
+	// Used when the year of the evaluation has been chosen.
+	private int selectedYear;
+	
+	// Used when the course has been chosen.
+	private Course selectedCourse;
+	
 	private Spinner yearSpinner = null;
 	private AutoCompleteTextView autoCompleteField = null;
 	private ListView institutionList = null;
 	private ListCompareAdapter compareAdapterList = null;
-	private int selectedYear;
-	private Course selectedCourse;
+	
 	private ArrayList<Institution> selectedInstitutions = new ArrayList<Institution>();
 
 	public CompareChooseFragment() {
@@ -68,15 +74,12 @@ public class CompareChooseFragment extends Fragment implements
 		View rootView = inflater.inflate(R.layout.compare_choose_fragment,
 				container, false);
 
-		if (savedInstanceState != null) {
-			if (savedInstanceState.getParcelable(COURSE) != null) {
+		if (savedInstanceState != null && savedInstanceState.getParcelable(COURSE) != null) {
 				setCurrentSelection((Course) savedInstanceState
 						.getParcelable(COURSE));
-
-			}
 		}
 
-		// Bound variables with layout objects
+		// Bound variables with layout objects.
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.compare_year);
 		this.autoCompleteField = (AutoCompleteTextView) rootView
 				.findViewById(R.id.autoCompleteTextView);
@@ -87,7 +90,7 @@ public class CompareChooseFragment extends Fragment implements
 				getActionBar().getThemedContext(), R.layout.custom_textview,
 				Course.getAllCourses()));
 		
-		// Set objects events
+		// Set objects events.
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
 		this.autoCompleteField
 				.setOnItemClickListener(getAutoCompleteListener(rootView));
@@ -95,6 +98,7 @@ public class CompareChooseFragment extends Fragment implements
 	}
 
 	public OnItemClickListener getAutoCompleteListener(final View rootView) {
+		
 		return new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -112,6 +116,7 @@ public class CompareChooseFragment extends Fragment implements
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				
 				if (selectedCourse != null) {
 					updateList();
 				}
@@ -155,6 +160,7 @@ public class CompareChooseFragment extends Fragment implements
 	 // Check the checkBox items. 
 	@Override
 	public void onCheckedItem(CheckBox checkBox) {
+		
 		// TODO Auto-generated method stub
 		Institution institution = ((Institution) checkBox
 				.getTag(ListCompareAdapter.INSTITUTION));
@@ -189,6 +195,7 @@ public class CompareChooseFragment extends Fragment implements
 	// Remove the checkbox selection. 
 	@Override
 	public void onUnchekedItem(CheckBox checkBox) {
+		
 		// TODO Auto-generated method stub
 		Institution institution = ((Institution) checkBox
 				.getTag(ListCompareAdapter.INSTITUTION));
@@ -200,9 +207,9 @@ public class CompareChooseFragment extends Fragment implements
 
 	// Method to hide the keyboard.
 	private void hideKeyboard(View view) {
-		InputMethodManager imm = (InputMethodManager) getActivity()
+		InputMethodManager inputMethodManager = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(view.getWindowToken(),
+		inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),
 				InputMethodManager.RESULT_UNCHANGED_SHOWN);
 	}
 

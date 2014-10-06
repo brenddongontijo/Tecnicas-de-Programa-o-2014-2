@@ -11,7 +11,11 @@ import java.util.ArrayList;
  * This class creates an Course with their respective name.
  */
 public class Course extends Bean implements Parcelable{
+	
+	// Database id to Course.
 	private int courseId;
+	
+	// Name of the Course.
 	private String courseName;
 
 	// Empty constructor.
@@ -258,9 +262,6 @@ public class Course extends Bean implements Parcelable{
 		}
 		else if(field.equals("name")) {
 			this.setName(data);
-		}
-		else {
-		
 		}
 	}
 

@@ -16,6 +16,7 @@ import libraries.DataBase;
  */
 public class GenericBeanDAO extends DataBase {
 
+	// Represents a statement that can be executed against a database.
 	private SQLiteStatement pst;
 	
 	public GenericBeanDAO() throws SQLException {
@@ -111,7 +112,7 @@ public class GenericBeanDAO extends DataBase {
 		String[] strings = new String[values.size()];
 		strings = values.toArray(strings);
 		
-		Cursor cs;//= this.database.rawQuery(sql,strings);
+		Cursor cs;
 		
 		cs = this.database.query(bean.identifier, null, 
 				sql,

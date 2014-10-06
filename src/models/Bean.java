@@ -14,6 +14,8 @@ public abstract class Bean {
 	 * Models: Article, Book, Course, Evaluation, Institution and Search.
 	 */
 	protected String identifier;
+	
+	// Make a relationship between models.
 	protected String relationship;
 
 	public abstract String get(String field);

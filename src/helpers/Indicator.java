@@ -13,7 +13,11 @@ import unb.mdsgpp.qualcurso.R;
  * The class Indicator helps to make one search based on the evaluation indicators.
  */
 public class Indicator {
+	
+	// Search indicator name.
 	private String searchIndicatorName;
+	
+	// Search indicator value.
 	private String searchIndicatorValue;
 
 	public static final String DEFAULT_INDICATOR = "defaultIndicator";
@@ -52,6 +56,8 @@ public class Indicator {
 
 	// This method keep all indicators in one ArrayList.
 	public static ArrayList<Indicator> getIndicators(){
+		
+		// Through an instance of QualCurso ,we obtain an  array of string institutions.
 		String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
 		
 		ArrayList<Indicator> arrayOfIndicators = new ArrayList<Indicator>();
@@ -118,6 +124,7 @@ public class Indicator {
 		Indicator indicator = null;
 		
 		for(Indicator finderIndicator : getIndicators()) {
+			
 			// Trying to find the indicator.
 			if(finderIndicator.getValue().equals(value)) {
 				indicator = finderIndicator;

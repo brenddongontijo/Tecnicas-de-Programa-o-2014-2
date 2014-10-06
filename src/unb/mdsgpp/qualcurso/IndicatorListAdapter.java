@@ -14,8 +14,12 @@ import android.widget.TextView;
 
 public class IndicatorListAdapter extends ArrayAdapter<HashMap<String,String>> {
 	
+	// Use to keep the value of the indicator.
 	public static String INDICATOR_VALUE = "indicatorValue";
+	
+	// Use to keep a value.
 	public static String VALUE = "value";
+	
 	private int itemLayout = 0;
 
 	public IndicatorListAdapter(Context context, int resource, List<HashMap<String,String>> items) {
@@ -25,30 +29,30 @@ public class IndicatorListAdapter extends ArrayAdapter<HashMap<String,String>> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
+		View view = convertView;
 
-		if (v == null) {
-			LayoutInflater vi;
-			vi = LayoutInflater.from(getContext());
-			v = vi.inflate(itemLayout, null);
+		if (view == null) {
+			LayoutInflater inflateView;
+			inflateView = LayoutInflater.from(getContext());
+			view = inflateView.inflate(itemLayout, null);
 		}
 
-		HashMap<String,String> h = getItem(position);
+		HashMap<String,String> hashMap = getItem(position);
 
-		if (h != null) {
-			TextView indicator = (TextView) v.findViewById(R.id.indicator);
-			TextView indicatorText = (TextView) v.findViewById(R.id.indicator_text);
+		if (hashMap != null) {
+			TextView indicator = (TextView) view.findViewById(R.id.indicator);
+			TextView indicatorText = (TextView) view.findViewById(R.id.indicator_text);
 
         	if (indicator != null) {
-            	indicator.setText(h.get(VALUE));
+            	indicator.setText(hashMap.get(VALUE));
         	}
         	
         	if (indicatorText != null) {
-        		indicatorText.setText(Indicator.getIndicatorByValue(h.get(INDICATOR_VALUE)).
+        		indicatorText.setText(Indicator.getIndicatorByValue(hashMap.get(INDICATOR_VALUE)).
         				getSearchIndicatorName());
         	}
     	}
 
-    	return v;
+    	return view;
 	}
 }

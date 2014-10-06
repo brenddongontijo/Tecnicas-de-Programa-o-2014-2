@@ -22,9 +22,14 @@ import android.widget.TextView;
 
 public class EvaluationDetailFragment extends Fragment{
 	
+	// Use to show the details of the evaluation of the course.
 	private static final String ID_COURSE = "idCourse";
+	
+	// Use to show the institution that have a course.
 	private static final String ID_INSTITUTION = "idInstitution";
-	private static final String YEAR = "year";
+	
+	// Year that the evaluation was made.
+	private static final String YEAR_OF_EVALUATION = "year";
 	
 	BeanListCallbacks beanCallbacks;
 	
@@ -33,16 +38,17 @@ public class EvaluationDetailFragment extends Fragment{
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, 0);
 		args.putInt(ID_INSTITUTION, 0);
-		args.putInt(YEAR, 0);
+		args.putInt(YEAR_OF_EVALUATION, 0);
 		this.setArguments(args);
 	}
 	
 	public static EvaluationDetailFragment newInstance(int id_institution, int id_course,int year){
+		
 		EvaluationDetailFragment fragment = new EvaluationDetailFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id_course);
 		args.putInt(ID_INSTITUTION, id_institution);
-		args.putInt(YEAR, year);
+		args.putInt(YEAR_OF_EVALUATION, year);
 		fragment.setArguments(args);
 		
 		return fragment;
@@ -60,7 +66,7 @@ public class EvaluationDetailFragment extends Fragment{
 				getInt(ID_INSTITUTION)).getAcronym());
 		Evaluation evaluation = Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
 				getArguments().getInt(ID_COURSE),
-				getArguments().getInt(YEAR));
+				getArguments().getInt(YEAR_OF_EVALUATION));
 		
 		TextView textView2 = (TextView) rootView
 				.findViewById(R.id.general_data);
@@ -77,6 +83,7 @@ public class EvaluationDetailFragment extends Fragment{
 	}
 	
 	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluation){
+		
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
 		ArrayList<Indicator> indicators = Indicator.getIndicators();
 		
@@ -84,22 +91,22 @@ public class EvaluationDetailFragment extends Fragment{
 		Article article = Article.getArticleByValue(evaluation.getIdArticles());
 		Bean bean = null;
 		
-		for(Indicator i : indicators){
+		for(Indicator indicator : indicators){
 			HashMap < String, String > hashMap = new HashMap < String, String>();
 			
-			if(evaluation.fieldsList().contains(i.getValue())){
+			if(evaluation.fieldsList().contains(indicator.getValue())){
 				bean = evaluation;
 			}
-			else if(book.fieldsList().contains(i.getValue())){
+			else if(book.fieldsList().contains(indicator.getValue())){
 				bean = book;
 			}
-			else if(article.fieldsList().contains(i.getValue())) {
+			else if(article.fieldsList().contains(indicator.getValue())) {
 				bean = article;
 			}
 			
 			if(bean!=null){
-				hashMap.put(IndicatorListAdapter.INDICATOR_VALUE, i.getValue());
-				hashMap.put(IndicatorListAdapter.VALUE, bean.get(i.getValue()));
+				hashMap.put(IndicatorListAdapter.INDICATOR_VALUE, indicator.getValue());
+				hashMap.put(IndicatorListAdapter.VALUE, bean.get(indicator.getValue()));
 				hashList.add(hashMap);
 			}
 		}
