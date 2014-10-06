@@ -24,21 +24,21 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
+		View view = convertView;
 
-		if (v == null) {
-			LayoutInflater vi;
-			vi = LayoutInflater.from(getContext());
-			v = vi.inflate(R.layout.list_item, null);
+		if (view == null) {
+			LayoutInflater inflateView;
+			inflateView = LayoutInflater.from(getContext());
+			view = inflateView.inflate(R.layout.list_item, null);
 		}
 
-		HashMap<String, String> h = getItem(position);
+		HashMap<String, String> hashMap = getItem(position);
 
-		if (h != null) {
-			TextView rank = (TextView) v.findViewById(R.id.position);
-			TextView institutionName = (TextView) v.findViewById(R.id.university);
-			TextView value = (TextView) v.findViewById(R.id.data);
-			ImageView trophy = (ImageView) v.findViewById(R.id.trophyIcon);
+		if (hashMap != null) {
+			TextView rank = (TextView) view.findViewById(R.id.position);
+			TextView institutionName = (TextView) view.findViewById(R.id.university);
+			TextView value = (TextView) view.findViewById(R.id.data);
+			ImageView trophy = (ImageView) view.findViewById(R.id.trophyIcon);
 
         	if (rank != null) {
             	rank.setText(Integer.toString(position+1));
@@ -47,13 +47,13 @@ public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
         		trophy.setImageDrawable(getTrophyImage(position+1));
         	}
         	if (institutionName != null) {
-        		institutionName.setText(h.get("acronym"));
+        		institutionName.setText(hashMap.get("acronym"));
         	}
         	if (value != null) {
-            	value.setText(h.get(h.get("order_field")));
+            	value.setText(hashMap.get(hashMap.get("order_field")));
         	}
     	}
-    	return v;
+    	return view;
 	}
 	
 	public Drawable  getTrophyImage(int position) {

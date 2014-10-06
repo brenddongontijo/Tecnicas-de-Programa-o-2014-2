@@ -22,8 +22,10 @@ public class InstitutionListFragment extends ListFragment{
 	
 	// Use the id to show the course.
 	private static final String ID_COURSE = "idCourse";
+	
 	// Use the id to show the institution that have that course.
 	private static final String IDS_INSTITUTIONS = "idsInstitutions";
+	
 	// Show the year that the course was evaluated.
 	private static final String YEAR = "year";
 	
@@ -113,17 +115,17 @@ public class InstitutionListFragment extends ListFragment{
     }
 	
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
+	public void onListItemClick(ListView listView, View view, int position, long id) {
 		if(getArguments().getInt(ID_COURSE)==0){
 			beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance
-					(((Institution)l.getItemAtPosition(position)).getId(),getArguments().getInt(YEAR)));
+					(((Institution)listView.getItemAtPosition(position)).getId(),getArguments().getInt(YEAR)));
 		}
 		else {
 			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance
-					(((Institution)l.getItemAtPosition(position)).getId() ,getArguments().
+					(((Institution)listView.getItemAtPosition(position)).getId() ,getArguments().
 							getInt(ID_COURSE),getArguments().getInt(YEAR)));
 		}
-			super.onListItemClick(l, v, position, id);
+			super.onListItemClick(listView, view, position, id);
 	}
 	
 	private static ArrayList<Institution> getInstitutionsList(int idCourse) throws SQLException{

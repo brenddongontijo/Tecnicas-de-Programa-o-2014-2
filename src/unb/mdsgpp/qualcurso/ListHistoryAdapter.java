@@ -36,9 +36,9 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 
 		// Check if a view exists, otherwise it will be inflated.
 		if (view == null) {
-			LayoutInflater li;
-			li = LayoutInflater.from(getContext());
-			view = li.inflate(R.layout.history_list_item, null);
+			LayoutInflater inflateLayout;
+			inflateLayout = LayoutInflater.from(getContext());
+			view = inflateLayout.inflate(R.layout.history_list_item, null);
 		}
 
 		// Create an object of type "search" Search, and the instance.
