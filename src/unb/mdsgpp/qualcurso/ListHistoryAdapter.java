@@ -32,28 +32,28 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 	 */
 	@Override
 	public View getView(int position, View contextView, ViewGroup parent) {
-		View view = contextView;
+		View historyView = contextView;
 
 		// Check if a view exists, otherwise it will be inflated.
-		if(view == null) {
+		if(historyView == null) {
 			LayoutInflater layoutInflater;
 			layoutInflater = LayoutInflater.from(getContext());
-			view = layoutInflater.inflate(R.layout.history_list_item, null);
+			historyView = layoutInflater.inflate(R.layout.history_list_item, null);
 		}
 
-		// Create an object of type "search" Search, and the instance.
-		Search search = getItem(position);
-		if(search != null) {
-			searchType = (TextView) view.findViewById(R.id.option);
-			year = (TextView) view.findViewById(R.id.year);
-			indicator = (TextView) view.findViewById(R.id.indicator);
-			firstValue = (TextView) view.findViewById(R.id.firstValue);
-			secondValue = (TextView) view.findViewById(R.id.secondValue);
-			searchDate = (TextView) view.findViewById(R.id.searchDate);
+		// Creating fields for a survey.
+		Search searchByIndicator = getItem(position);
+		if(searchByIndicator != null) {
+			searchType = (TextView) historyView.findViewById(R.id.option);
+			year = (TextView) historyView.findViewById(R.id.year);
+			indicator = (TextView) historyView.findViewById(R.id.indicator);
+			firstValue = (TextView) historyView.findViewById(R.id.firstValue);
+			secondValue = (TextView) historyView.findViewById(R.id.secondValue);
+			searchDate = (TextView) historyView.findViewById(R.id.searchDate);
 			
-			setListRow(search);
+			setListRow(searchByIndicator);
 		}
-		return view;
+		return historyView;
 	}
 
 	// Method used to populate the list of historic.
@@ -63,10 +63,10 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 		 * Checks if a course was selected in spinner indicators. Or if the
 		 * selection is an institution.
 		 */
-		if (search.getOption() == Search.COURSE) {
+		if(search.getOption() == Search.COURSE) {
 			setItem(searchType, R.string.course);
 		}
-		else if (search.getOption() == Search.INSTITUTION) {
+		else if(search.getOption() == Search.INSTITUTION) {
 			setItem(searchType, R.string.institution);
 		}
 		

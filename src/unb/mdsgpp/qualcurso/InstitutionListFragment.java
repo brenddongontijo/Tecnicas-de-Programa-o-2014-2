@@ -33,33 +33,41 @@ public class InstitutionListFragment extends ListFragment{
 	
 	public InstitutionListFragment() {
 		super();
+		
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, 0);
 		args.putInt(YEAR_OF_EVALUATION, 0);
 		args.putParcelableArrayList(IDS_INSTITUTIONS, getInstitutionsList(0));
+		
 		this.setArguments(args);
 	}
 	
-	public static InstitutionListFragment newInstance(int id, int year){
-		InstitutionListFragment fragment = new InstitutionListFragment();
-		Bundle args = new Bundle();
-		args.putInt(ID_COURSE, id);
-		args.putInt(YEAR_OF_EVALUATION, year);
-		args.putParcelableArrayList(IDS_INSTITUTIONS, getInstitutionsList(id));
-		fragment.setArguments(args);
+	public static InstitutionListFragment newInstance(final int courseId, final int evaluationYear){
+		InstitutionListFragment fragmentOfInstitutions = new InstitutionListFragment();
 		
-		return fragment;
+		Bundle args = new Bundle();
+		args.putInt(ID_COURSE, courseId);
+		args.putInt(YEAR_OF_EVALUATION, evaluationYear);
+		args.putParcelableArrayList(IDS_INSTITUTIONS, getInstitutionsList(courseId));
+		
+		fragmentOfInstitutions.setArguments(args);
+		
+		return fragmentOfInstitutions;
 	}
 	
-	public static InstitutionListFragment newInstance(int id, int year, ArrayList<Institution> institutions){
-		InstitutionListFragment fragment = new InstitutionListFragment();
-		Bundle args = new Bundle();
-		args.putInt(ID_COURSE, id);
-		args.putInt(YEAR_OF_EVALUATION, year);
-		args.putParcelableArrayList(IDS_INSTITUTIONS, institutions);
-		fragment.setArguments(args);
+	public static InstitutionListFragment newInstance(final int courseId, final int evaluationYear, 
+			ArrayList<Institution> allInstitutions){
 		
-		return fragment;
+		InstitutionListFragment fragmentOfInstitutions = new InstitutionListFragment();
+		
+		Bundle args = new Bundle();
+		args.putInt(ID_COURSE, courseId);
+		args.putInt(YEAR_OF_EVALUATION, evaluationYear);
+		args.putParcelableArrayList(IDS_INSTITUTIONS, allInstitutions);
+		
+		fragmentOfInstitutions.setArguments(args);
+		
+		return fragmentOfInstitutions;
 	}
 	
 	@Override
@@ -72,13 +80,14 @@ public class InstitutionListFragment extends ListFragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		ArrayList<Institution> list; 
+		
+		ArrayList<Institution> listOfInstitutions; 
 	
 		if(getArguments().getParcelableArrayList(IDS_INSTITUTIONS) != null){
-			list = getArguments().getParcelableArrayList(IDS_INSTITUTIONS);
+			listOfInstitutions = getArguments().getParcelableArrayList(IDS_INSTITUTIONS);
 		}
 		else {
-			list = savedInstanceState.getParcelableArrayList(IDS_INSTITUTIONS);
+			listOfInstitutions = savedInstanceState.getParcelableArrayList(IDS_INSTITUTIONS);
 		}
 		
 		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list, container,
@@ -86,12 +95,12 @@ public class InstitutionListFragment extends ListFragment{
 		rootView = (ListView) rootView.findViewById(android.R.id.list);
 		
 		try {
-			if(list != null){
+			if(listOfInstitutions != null){
 				rootView.setAdapter(new ArrayAdapter<Institution>(
 						getActionBar().getThemedContext(),
-						R.layout.custom_textview, list));
+						R.layout.custom_textview, listOfInstitutions));
 			}
-		} catch (SQLException e) {
+		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return rootView;
@@ -103,7 +112,7 @@ public class InstitutionListFragment extends ListFragment{
 		
 		try {
             beanCallbacks = (BeanListCallbacks) activity;
-        } catch (ClassCastException e) {
+        } catch(ClassCastException e) {
             throw new ClassCastException(activity.toString()+" must implement BeanListCallbacks.");
         }
 	}
@@ -116,7 +125,7 @@ public class InstitutionListFragment extends ListFragment{
 	
 	@Override
 	public void onListItemClick(ListView listView, View view, int position, long id) {
-		if(getArguments().getInt(ID_COURSE)==0){
+		if(getArguments().getInt(ID_COURSE)==0) {
 			beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance
 					(((Institution)listView.getItemAtPosition(position)).getId(),getArguments()
 							.getInt(YEAR_OF_EVALUATION)));
@@ -126,11 +135,11 @@ public class InstitutionListFragment extends ListFragment{
 					(((Institution)listView.getItemAtPosition(position)).getId() ,getArguments().
 							getInt(ID_COURSE),getArguments().getInt(YEAR_OF_EVALUATION)));
 		}
-			super.onListItemClick(listView, view, position, id);
+		super.onListItemClick(listView, view, position, id);
 	}
 	
 	private static ArrayList<Institution> getInstitutionsList(int idCourse) throws SQLException{
-		if(idCourse == 0){
+		if(idCourse == 0) {
 			return Institution.getAllInstitutions();
 		}
 		else {

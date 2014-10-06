@@ -28,37 +28,41 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 	
 	private ArrayList<Boolean> checkedItems = new ArrayList<Boolean>();
 
-	// Instantiating the builder.
+	// Unchecking checkboxes.
 	public ListCompareAdapter(Context context, int resource,
 			List<Institution> item, Fragment callingFragment) {
 		super(context, resource, item);
+		
 		this.callingFragment = callingFragment;
+		
 		checkedItems = new ArrayList<Boolean>();
 		
-		for (int i = 0; i < this.getCount(); i = i +1) {
+		for(int counter = 0; counter < this.getCount(); counter = counter + 1) {
 			checkedItems.add(false);
 		}
 	}
  
 	// Method used to inflate the view.
 	@Override
-	public View getView(int position, View contextView, ViewGroup parent) {
+	public View getView(final int selectedPosition, View contextView, ViewGroup parent) {
 		View currentView = contextView;
+		
 		checkBoxCallBacks = (CheckBoxListCallbacks) this.callingFragment;
-		if (currentView == null) {
+		
+		if(currentView == null) {
 			LayoutInflater screenLayout;
 			screenLayout = LayoutInflater.from(getContext());
 			currentView = screenLayout.inflate(R.layout.compare_choose_list_item, null);
 		}
 
-		Institution institution = getItem(position);
+		Institution institutionForComparation = getItem(selectedPosition);
 
-		if (institution != null) {
+		if(institutionForComparation != null) {
 			checkBox = (CheckBox) currentView.findViewById(R.id.compare_institution_checkbox);
-			checkBox.setText(institution.getAcronym());
-			checkBox.setTag(INSTITUTION, institution);
-			checkBox.setTag(POSITION, position);
-			checkBox.setChecked(checkedItems.get(position));
+			checkBox.setText(institutionForComparation.getAcronym());
+			checkBox.setTag(INSTITUTION, institutionForComparation);
+			checkBox.setTag(POSITION, selectedPosition);
+			checkBox.setChecked(checkedItems.get(selectedPosition));
 			checkBox.setOnCheckedChangeListener(this);
 			currentView.setTag(checkBox);
 		}
@@ -71,8 +75,8 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		// TODO Auto-generated method stub
 		int position = (Integer) buttonView.getTag(ListCompareAdapter.POSITION);
 		
-		if (position != ListView.INVALID_POSITION) {
-			if (isChecked) {
+		if(position != ListView.INVALID_POSITION) {
+			if(isChecked) {
 				checkBoxCallBacks.onCheckedItem((CheckBox) buttonView);
 			}
 			else {
