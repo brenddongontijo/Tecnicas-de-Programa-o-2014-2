@@ -145,6 +145,7 @@ public class SearchByIndicatorFragment extends Fragment {
 					yearResearched = Integer.parseInt(yearSpinner
 							.getSelectedItem().toString());
 				}
+				
 				/*
 				 * If even a selected year, it sent the last value contained in
 				 * the Adapter.
