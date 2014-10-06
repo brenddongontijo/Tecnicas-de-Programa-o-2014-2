@@ -22,7 +22,9 @@ import android.widget.ListView;
 
 public class SearchListFragment extends ListFragment {
 
+	// Variable used to keep the year of the evaluation.
 	private static final String evaluationYear = "year";
+	
 	private static final String indicatorField = "field";
 	private static final String minimumValue = "rangeA";
 	private static final String maximumValue = "rangeB";
@@ -66,8 +68,7 @@ public class SearchListFragment extends ListFragment {
 		}
 	}
 
-	// Called immediately prior to the fragment no longer being associated with
-	// its activity.
+	// Called immediately prior to the fragment no longer being associated with its activity.
 	@Override
 	public void onDetach() {
 		super.onDetach();
