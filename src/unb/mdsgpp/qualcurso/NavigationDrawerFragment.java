@@ -149,8 +149,8 @@ public class NavigationDrawerFragment extends Fragment {
 		 */
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
+		
 		// Set up the drawer's list view with items and click listener.
-
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
@@ -189,8 +189,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 					/*
 					 * The user manually opened the drawer; store this flag to
-					 * prevent auto-showing the navigation drawer automatically
-					 * in the future.
+					 * prevent auto-showing the navigation drawer automatically in the future.
 					 */
 					mUserLearnedDrawer = true;
 					SharedPreferences sp = PreferenceManager
@@ -297,16 +296,13 @@ public class NavigationDrawerFragment extends Fragment {
 		if(mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		else{
-			
-		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 
 	/*
 	 * Per the navigation drawer design guidelines, updates the action bar to
-	 * show the global app 'context', rather than just what's in the current
-	 * screen.
+	 * show the global app 'context', rather than just what's in the current screen.
 	 */
 	private void showGlobalContextActionBar() {
 		ActionBar actionBar = getActionBar();

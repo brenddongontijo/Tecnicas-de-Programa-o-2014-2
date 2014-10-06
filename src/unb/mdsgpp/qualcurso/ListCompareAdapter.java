@@ -34,6 +34,7 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		super(context, resource, item);
 		this.callingFragment = callingFragment;
 		checkedItems = new ArrayList<Boolean>();
+		
 		for (int i = 0; i < this.getCount(); i = i +1) {
 			checkedItems.add(false);
 		}

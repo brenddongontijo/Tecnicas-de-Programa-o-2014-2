@@ -140,8 +140,12 @@ public class SearchByIndicatorFragment extends Fragment {
 				String secondNumberValue = secondNumber.getText().toString();
 
 				lowerNumber = Integer.parseInt(firstNumberValue);
-				higherNumber = maximum.isChecked() ? -1 : Integer
-						.parseInt(secondNumberValue);
+				if(maximum.isChecked()){
+					higherNumber = -1;
+				}else{
+					higherNumber = Integer.parseInt(secondNumberValue);
+				}
+				
 
 				listSelectionPosition = listSelectionSpinner
 						.getSelectedItemPosition();

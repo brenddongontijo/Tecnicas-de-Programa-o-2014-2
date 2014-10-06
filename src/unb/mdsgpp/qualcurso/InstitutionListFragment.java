@@ -27,7 +27,7 @@ public class InstitutionListFragment extends ListFragment{
 	private static final String IDS_INSTITUTIONS = "idsInstitutions";
 	
 	// Show the year that the course was evaluated.
-	private static final String YEAR = "year";
+	private static final String YEAR_OF_EVALUATION = "year";
 	
 	BeanListCallbacks beanCallbacks;
 	
@@ -35,7 +35,7 @@ public class InstitutionListFragment extends ListFragment{
 		super();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, 0);
-		args.putInt(YEAR, 0);
+		args.putInt(YEAR_OF_EVALUATION, 0);
 		args.putParcelableArrayList(IDS_INSTITUTIONS, getInstitutionsList(0));
 		this.setArguments(args);
 	}
@@ -44,7 +44,7 @@ public class InstitutionListFragment extends ListFragment{
 		InstitutionListFragment fragment = new InstitutionListFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id);
-		args.putInt(YEAR, year);
+		args.putInt(YEAR_OF_EVALUATION, year);
 		args.putParcelableArrayList(IDS_INSTITUTIONS, getInstitutionsList(id));
 		fragment.setArguments(args);
 		
@@ -55,7 +55,7 @@ public class InstitutionListFragment extends ListFragment{
 		InstitutionListFragment fragment = new InstitutionListFragment();
 		Bundle args = new Bundle();
 		args.putInt(ID_COURSE, id);
-		args.putInt(YEAR, year);
+		args.putInt(YEAR_OF_EVALUATION, year);
 		args.putParcelableArrayList(IDS_INSTITUTIONS, institutions);
 		fragment.setArguments(args);
 		
@@ -118,12 +118,13 @@ public class InstitutionListFragment extends ListFragment{
 	public void onListItemClick(ListView listView, View view, int position, long id) {
 		if(getArguments().getInt(ID_COURSE)==0){
 			beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance
-					(((Institution)listView.getItemAtPosition(position)).getId(),getArguments().getInt(YEAR)));
+					(((Institution)listView.getItemAtPosition(position)).getId(),getArguments()
+							.getInt(YEAR_OF_EVALUATION)));
 		}
 		else {
 			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance
 					(((Institution)listView.getItemAtPosition(position)).getId() ,getArguments().
-							getInt(ID_COURSE),getArguments().getInt(YEAR)));
+							getInt(ID_COURSE),getArguments().getInt(YEAR_OF_EVALUATION)));
 		}
 			super.onListItemClick(listView, view, position, id);
 	}

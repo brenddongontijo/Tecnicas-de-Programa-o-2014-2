@@ -27,7 +27,10 @@ import android.widget.Toast;
 public class RankingFragment extends Fragment {
 
 	BeanListCallbacks beanCallbacks;
+	
+	// Variable used to show a course in the ranking.
 	private static final String COURSE = "course";
+	
 	private static final String INDICATOR_FILTER_FIELD = "filterField";
 
 	public RankingFragment() {
@@ -266,9 +269,6 @@ public class RankingFragment extends Fragment {
 
 			GenericBeanDAO genericBeanDao = new GenericBeanDAO();
 			
-			/*String sqlCommand = "id_course =" + this.currentSelectionCourse.getId()
-			 *		+ " AND year =" + evaluationYear, "id_institution", + ;
-			 */
 			ListAdapter orderedCourseList = new ListAdapter(getActivity()
 					.getApplicationContext(), R.layout.list_item,
 					genericBeanDao.selectOrdered(rankingFields, rankingFields.get(0),

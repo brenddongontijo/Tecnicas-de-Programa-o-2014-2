@@ -32,9 +32,9 @@ public class IndicatorListAdapter extends ArrayAdapter<HashMap<String,String>> {
 		View view = convertView;
 
 		if (view == null) {
-			LayoutInflater vi;
-			vi = LayoutInflater.from(getContext());
-			view = vi.inflate(itemLayout, null);
+			LayoutInflater inflateView;
+			inflateView = LayoutInflater.from(getContext());
+			view = inflateView.inflate(itemLayout, null);
 		}
 
 		HashMap<String,String> hashMap = getItem(position);
