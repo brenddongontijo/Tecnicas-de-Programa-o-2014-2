@@ -267,8 +267,8 @@ public class RankingFragment extends Fragment {
 			GenericBeanDAO genericBeanDao = new GenericBeanDAO();
 			
 			/*String sqlCommand = "id_course =" + this.currentSelectionCourse.getId()
-					+ " AND year =" + evaluationYear, "id_institution", + ;
-			*/
+			 *		+ " AND year =" + evaluationYear, "id_institution", + ;
+			 */
 			ListAdapter orderedCourseList = new ListAdapter(getActivity()
 					.getApplicationContext(), R.layout.list_item,
 					genericBeanDao.selectOrdered(rankingFields, rankingFields.get(0),

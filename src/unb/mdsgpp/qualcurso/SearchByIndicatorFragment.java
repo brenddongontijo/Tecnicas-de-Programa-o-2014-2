@@ -89,6 +89,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		searchButton.setOnClickListener(getClickListener());
 
 		maximum.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
 			// Event to disable second number when MAX is checked
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
@@ -125,6 +126,7 @@ public class SearchByIndicatorFragment extends Fragment {
 				if (firstNumber.getText().length() == 0) {
 					firstNumber.setText("0");
 				}
+				
 				/*
 				 * If nothing was selected in the first field number, the
 				 * maximum checkbox is marked.

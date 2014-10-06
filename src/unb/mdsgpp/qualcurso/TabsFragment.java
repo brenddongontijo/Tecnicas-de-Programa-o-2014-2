@@ -69,9 +69,8 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 	}
 
 	/*
-	 * Called when all saved state has been restored into the view hierarchy of
-	 * the fragment. (non-Javadoc) see
-	 * android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
+	 * Called when all saved state has been restored into the view hierarchy ofthe fragment. 
+	 * (non-Javadoc) see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
 	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -209,8 +208,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 			}
 		}
 
-		// If there is no change, checks the current tab and list according the
-		// same.
+		// If there is no change, checks the current tab and list according the same.
 		else {
 			if(currentSelectedTab == 0) {
 				beanCallbacks.onBeanListItemSelected(
