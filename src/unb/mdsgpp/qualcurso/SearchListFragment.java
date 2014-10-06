@@ -36,7 +36,7 @@ public class SearchListFragment extends ListFragment {
 	}
 
 	public static SearchListFragment newInstance(
-			ArrayList<? extends Parcelable> list, Search search) {
+			ArrayList<? extends Parcelable> parcelableList, Search search) {
 
 		SearchListFragment searchListFragment = new SearchListFragment();
 
@@ -47,7 +47,7 @@ public class SearchListFragment extends ListFragment {
 				.getValue());
 		fieldsToBeFilled.putInt(minimumValue, search.getMinValue());
 		fieldsToBeFilled.putInt(maximumValue, search.getMaxValue());
-		fieldsToBeFilled.putParcelableArrayList(listOfBeans, list);
+		fieldsToBeFilled.putParcelableArrayList(listOfBeans, parcelableList);
 
 		searchListFragment.setArguments(fieldsToBeFilled);
 
@@ -81,9 +81,10 @@ public class SearchListFragment extends ListFragment {
 
 		ArrayList<Parcelable> beanList;
 
-		if (getArguments().getParcelableArrayList(listOfBeans) != null) {
+		if(getArguments().getParcelableArrayList(listOfBeans) != null) {
 			beanList = getArguments().getParcelableArrayList(listOfBeans);
-		} else {
+		} 
+		else {
 			beanList = savedInstanceState.getParcelableArrayList(listOfBeans);
 		}
 
@@ -94,7 +95,7 @@ public class SearchListFragment extends ListFragment {
 		try {
 			rootView.setAdapter(new ArrayAdapter<Parcelable>(getActionBar()
 					.getThemedContext(), R.layout.custom_textview, beanList));
-		} catch (SQLException e) {
+		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -117,6 +118,7 @@ public class SearchListFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView listView, View currentView,
 			int selectedBeanPosition, long id) {
+		
 		Parcelable typeBean = (Parcelable) listView
 				.getItemAtPosition(selectedBeanPosition);
 
@@ -124,7 +126,6 @@ public class SearchListFragment extends ListFragment {
 				.getIndicatorByValue(getArguments().getString(indicatorField));
 
 		int selectedYear = getArguments().getInt(evaluationYear);
-
 		int minValue = getArguments().getInt(minimumValue);
 		int maxValue = getArguments().getInt(maximumValue);
 
@@ -132,9 +133,10 @@ public class SearchListFragment extends ListFragment {
 		search.setIndicator(selectedIndicator);
 		search.setYear(selectedYear);
 
-		if (typeBean instanceof Institution) {
+		if(typeBean instanceof Institution) {
 			search.setOption(Search.INSTITUTION);
-		} else if (typeBean instanceof Course) {
+		} 
+		else if(typeBean instanceof Course) {
 			search.setOption(Search.COURSE);
 		}
 

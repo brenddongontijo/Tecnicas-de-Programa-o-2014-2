@@ -167,6 +167,9 @@ public class RankingFragment extends Fragment {
 						&& (indicatorField != Indicator.DEFAULT_INDICATOR)) {
 					updateList();
 				}
+				else {
+					
+				}
 			}
 
 			@Override
@@ -190,6 +193,9 @@ public class RankingFragment extends Fragment {
 				if(currentSelectionCourse != null
 						&& indicatorField != Indicator.DEFAULT_INDICATOR) {
 					updateList();
+				}
+				else{
+					
 				}
 			}
 
