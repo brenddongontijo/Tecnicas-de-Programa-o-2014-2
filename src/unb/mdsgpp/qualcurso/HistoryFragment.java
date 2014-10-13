@@ -69,10 +69,10 @@ public class HistoryFragment extends Fragment {
 				Search search = (Search) parent.getItemAtPosition(position);
 
 				if (search.getOption() == Search.INSTITUTION) {
-					displayInstitutionList(search);
+					displayList(search);
 				}
-				else if (search.getOption() == Search.COURSE) {
-					displayCourseList(search);
+				if (search.getOption() == Search.COURSE) {
+					displayList(search);
 				}
 			}
 		});
@@ -80,33 +80,26 @@ public class HistoryFragment extends Fragment {
 		return rootView;
 	}
 
-	// Search a list of institution receiving a search object.
-	private void displayInstitutionList(Search search) {
+	// Search a list of institution and course receiving a search object.
+	public void displayList(Search search){
 		ArrayList<Institution> institutions = Institution
 				.getInstitutionsByEvaluationFilter(search);
-
-		if (institutions.size() == 0) {
+		
+		ArrayList<Course> courses = Course.getCoursesByEvaluationFilter(search);
+		
+		if (institutions.size() == 0 && courses.size() == 0) {
 			displayToastMessage(getResources().getString(
 					R.string.empty_histoty_search_result));
 		}
-		else {
+		if (institutions.size() != 0) {
 			beanCallbacks.onBeanListItemSelected(SearchListFragment
 					.newInstance(institutions, search));
 		}
-	}
-
-	// Search a list of courses receiving a search object.
-	private void displayCourseList(Search search) {
-		ArrayList<Course> courses = Course.getCoursesByEvaluationFilter(search);
-
-		if (courses.size() == 0) {
-			displayToastMessage(getResources().getString(
-					R.string.empty_histoty_search_result));
-		}
-		else {
+		if (courses.size() != 0) {
 			beanCallbacks.onBeanListItemSelected(SearchListFragment
 					.newInstance(courses, search));
 		}
+		
 	}
 
 	// Displays a message on the screen.
