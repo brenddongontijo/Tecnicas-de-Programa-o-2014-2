@@ -62,7 +62,7 @@ public class RankingFragment extends Fragment {
 	Course currentSelectionCourse = null;
 	String indicatorField = Indicator.DEFAULT_INDICATOR;
 
-	public void UpdateList(){
+	public void toCallUpdateList(){
 		if(currentSelectionCourse != null
 				&& indicatorField != Indicator.DEFAULT_INDICATOR) {
 			updateList();
@@ -110,7 +110,7 @@ public class RankingFragment extends Fragment {
 		autoCompleteField
 				.setOnItemClickListener(getAutoCompleteListener(rootView));
 		
-		UpdateList();
+		toCallUpdateList();
 		
 		return rootView;
 	}
@@ -171,7 +171,7 @@ public class RankingFragment extends Fragment {
 				setFilterField(((Indicator) arg0.getItemAtPosition(arg2))
 						.getValue());
 				
-				UpdateList();
+				toCallUpdateList();
 				
 			}
 
@@ -193,7 +193,7 @@ public class RankingFragment extends Fragment {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				
-				UpdateList();
+				toCallUpdateList();
 
 			}
 

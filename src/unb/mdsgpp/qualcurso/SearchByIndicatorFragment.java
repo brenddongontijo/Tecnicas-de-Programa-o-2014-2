@@ -146,9 +146,7 @@ public class SearchByIndicatorFragment extends Fragment {
 					higherNumber = Integer.parseInt(secondNumberValue);
 				}
 				
-
-				listSelectionPosition = listSelectionSpinner
-						.getSelectedItemPosition();
+				listSelectionPosition = listSelectionSpinner.getSelectedItemPosition();
 
 				// Gets the value of the year, contained in Spinner.
 				if(yearSpinner.getSelectedItemPosition() != 0) {
@@ -217,20 +215,21 @@ public class SearchByIndicatorFragment extends Fragment {
 		search.setMaxValue(max);
 		search.saveSearch();
 
-		if(numberPosition == 1) {
-			ArrayList<Course> courseList = Course
-					.getCoursesByEvaluationFilter(search);
-			beanCallbacks.onBeanListItemSelected(
-					SearchListFragment.newInstance(courseList, search),
-					R.id.search_list);
-		} 
-		else if((numberPosition == 2) || (numberPosition == 0)) {
+		if ((numberPosition == 2) || (numberPosition == 0)){
 			ArrayList<Institution> institutionList = Institution
 					.getInstitutionsByEvaluationFilter(search);
 			beanCallbacks.onBeanListItemSelected(
 					SearchListFragment.newInstance(institutionList, search),
 					R.id.search_list);
 		}
+		else  {
+			ArrayList<Course> courseList = Course
+					.getCoursesByEvaluationFilter(search);
+			beanCallbacks.onBeanListItemSelected(
+					SearchListFragment.newInstance(courseList, search),
+					R.id.search_list);
+		} 
+		
 	}
 
 	// Updates the list of survey information.
@@ -254,14 +253,12 @@ public class SearchByIndicatorFragment extends Fragment {
 			if(listSelectionPosition == 0) {
 				listSelectionSpinner.setSelection(listSelectionSpinner
 						.getAdapter().getCount() - 1);
-				yearSpinner
-						.setSelection(yearSpinner.getAdapter().getCount() - 1);
+				yearSpinner.setSelection(yearSpinner.getAdapter().getCount() - 1);
 				SetDataFields(min, max, year, filterField,
 						listSelectionPosition);
 			} 
 			else {
-				SetDataFields(min, max, year, filterField,
-						listSelectionPosition);
+				SetDataFields(min, max, year, filterField, listSelectionPosition);
 			}
 		}
 	}
