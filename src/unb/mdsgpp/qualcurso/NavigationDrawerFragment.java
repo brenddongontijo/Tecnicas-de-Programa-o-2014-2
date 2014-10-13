@@ -171,10 +171,6 @@ public class NavigationDrawerFragment extends Fragment {
 				if(!isAdded()) {
 					return;
 				}
-
-				else{
-					
-				}
 				getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
 			}
 
@@ -285,9 +281,7 @@ public class NavigationDrawerFragment extends Fragment {
 			inflater.inflate(R.menu.global, menu);
 			showGlobalContextActionBar();
 		}
-		else{
-			
-		}
+
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
