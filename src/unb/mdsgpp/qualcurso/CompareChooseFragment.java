@@ -71,14 +71,12 @@ public class CompareChooseFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
 		View rootView = inflater.inflate(R.layout.compare_choose_fragment,
 				container, false);
-
-		if (savedInstanceState != null && savedInstanceState.getParcelable(COURSE) != null) {
-				setCurrentSelection((Course) savedInstanceState
-						.getParcelable(COURSE));
-		}
-
+		
+		checkSavedInstances(savedInstanceState);
+		
 		// Bound variables with layout objects.
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.compare_year);
 		this.autoCompleteField = (AutoCompleteTextView) rootView
@@ -95,6 +93,19 @@ public class CompareChooseFragment extends Fragment implements
 		this.autoCompleteField
 				.setOnItemClickListener(getAutoCompleteListener(rootView));
 		return rootView;
+	}
+
+	/*
+	 * This method checks if there is already an instance saved.
+	 */
+	private void checkSavedInstances(Bundle savedInstanceState) {
+		if(savedInstanceState != null && savedInstanceState.getParcelable(COURSE) != null) {
+			setCurrentSelection((Course) savedInstanceState
+					.getParcelable(COURSE));
+		}
+		else{
+			
+		}
 	}
 
 	public OnItemClickListener getAutoCompleteListener(final View rootView) {
@@ -135,15 +146,7 @@ public class CompareChooseFragment extends Fragment implements
 	public void updateList() {
 		selectedInstitutions = new ArrayList<Institution>();
 		
-		if (yearSpinner.getSelectedItemPosition() != 0) {
-			selectedYear = Integer.parseInt(yearSpinner.getSelectedItem()
-					.toString());
-		} else {
-			yearSpinner.setSelection(yearSpinner.getAdapter().getCount() - 1);
-			selectedYear = Integer.parseInt(yearSpinner.getAdapter()
-					.getItem(yearSpinner.getAdapter().getCount() - 1)
-					.toString());
-		}
+		verifySelecterYear(yearSpinner);
 		
 		if (this.selectedCourse != null) {
 			ArrayList<Institution> courseInstitutions = this.selectedCourse
@@ -156,8 +159,25 @@ public class CompareChooseFragment extends Fragment implements
 		}
 	}
 
+	/*
+	 * This method checks if any year was already selected and select the last
+	 * evaluation year by default.
+	 */
+	private void verifySelecterYear(Spinner yearSpinner) {
+		if(yearSpinner.getSelectedItemPosition() != 0) {
+				selectedYear = Integer.parseInt(yearSpinner.getSelectedItem()
+						.toString());
+		} 
+		else {
+			yearSpinner.setSelection(yearSpinner.getAdapter().getCount() - 1);
+			selectedYear = Integer.parseInt(yearSpinner.getAdapter()
+					.getItem(yearSpinner.getAdapter().getCount() - 1)
+					.toString());
+		}
+		
+	}
 
-	 // Check the checkBox items. 
+	// Check the checkBox items. 
 	@Override
 	public void onCheckedItem(CheckBox checkBox) {
 		
