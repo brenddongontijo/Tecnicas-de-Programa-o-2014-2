@@ -46,19 +46,24 @@ public class CompareShowFragment extends Fragment{
 	public CompareShowFragment() {
 		// TODO Auto-generated constructor stub
 		super();
+		
 		Bundle args = new Bundle();
 		args.putInt(ID_EVALUATION_A, 0);
 		args.putInt(ID_EVALUATION_B, 0);
+		
 		this.setArguments(args);
 	}
 	
-	public static CompareShowFragment newInstance(int idEvaluationA, int idEvaluationB){
-		CompareShowFragment fragment = new CompareShowFragment();
+	public static CompareShowFragment newInstance(final int idEvaluationA, final int idEvaluationB){
+		CompareShowFragment compareShowFragment = new CompareShowFragment();
+		
 		Bundle args = new Bundle();
 		args.putInt(ID_EVALUATION_A, idEvaluationA);
 		args.putInt(ID_EVALUATION_B, idEvaluationB);
-		fragment.setArguments(args);
-		return fragment;
+		
+		compareShowFragment.setArguments(args);
+		
+		return compareShowFragment;
 	}
 	
 	@Override
@@ -92,18 +97,21 @@ public class CompareShowFragment extends Fragment{
 		this.totalBetterEvaluationInstitutionB = 0;
 
 		ListView compareIndicatorList = (ListView) rootView.findViewById(R.id.compare_indicator_list);
+		
 		compareIndicatorList.setAdapter(new CompareListAdapter(getActivity().getApplicationContext()
-				, R.layout.compare_show_list_item, getListItems(evaluationA, evaluationB)));
+				,R.layout.compare_show_list_item, getListItems(evaluationA, evaluationB)));
 
 		this.setBetterInstitutionsValues();
 
 		super.onCreateView(inflater, container, savedInstanceState);
+		
 		return rootView;
 	}
 
 
 	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluationA, Evaluation evaluationB){
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
+		
 		ArrayList<Indicator> indicators = Indicator.getIndicators();
 
 		Book bookA = Book.getBookByValue(evaluationA.getIdBooks());
@@ -115,34 +123,48 @@ public class CompareShowFragment extends Fragment{
 		Bean beanA = null;
 		Bean beanB = null;
 		
-		for(Indicator i : indicators){
+		for(Indicator indicator : indicators){
 			HashMap<String, String> hashMap = new HashMap<String, String>();
-			if(evaluationA.fieldsList().contains(i.getValue())){
+			
+			if(evaluationA.fieldsList().contains(indicator.getValue())){
 				beanA = evaluationA;
 				beanB = evaluationB;
-			}else if(bookA.fieldsList().contains(i.getValue())){
+			}
+			else if(bookA.fieldsList().contains(indicator.getValue())){
 				beanA = bookA;
 				beanB = bookB;
-			}else if(articleA.fieldsList().contains(i.getValue())) {
+			}
+			else if(articleA.fieldsList().contains(indicator.getValue())) {
 				beanA = articleA;
 				beanB = articleB;
 			}
-
-			if(beanA!=null){
-				hashMap.put(CompareListAdapter.INDICATOR_VALUE, i.getValue());
-				hashMap.put(CompareListAdapter.FIRST_VALUE, beanA.get(i.getValue()));
-				hashMap.put(CompareListAdapter.SECOND_VALUE, beanB.get(i.getValue()));
+			
+			if(beanA != null){
+				hashMap.put(CompareListAdapter.INDICATOR_VALUE, indicator.getValue());
+				hashMap.put(CompareListAdapter.FIRST_VALUE, beanA.get(indicator.getValue()));
+				hashMap.put(CompareListAdapter.SECOND_VALUE, beanB.get(indicator.getValue()));
 				
-				if(i.getValue().equals(new Evaluation().fieldsList().get(5))){
+				boolean currentIndicatorEqualsMasterDegreeStartYear = (indicator.getValue().
+						equals(new Evaluation().fieldsList().get(5)));
+				
+				boolean currentIndicatorEqualsDoctorateStartYear = (indicator.getValue().
+						equals(new Evaluation().fieldsList().get(6)));
+				
+				if(currentIndicatorEqualsMasterDegreeStartYear){
 					hashMap.put(CompareListAdapter.IGNORE_INDICATOR, "true");
-				}else if (i.getValue().equals(new Evaluation().fieldsList().get(6))){
+				}
+				else if(currentIndicatorEqualsDoctorateStartYear){
 					hashMap.put(CompareListAdapter.IGNORE_INDICATOR, "true");
-				}else{
-					this.incrementBetterValues(beanA.get(i.getValue()), beanB.get(i.getValue()));
+				}
+				else{
+					this.incrementBetterValues(beanA.get(indicator.getValue()), beanB.get(indicator.getValue()));
 					hashMap.put(CompareListAdapter.IGNORE_INDICATOR, "false");
 				}
+				
 				hashList.add(hashMap);
-			
+			}
+			else{
+				
 			}
 		}
 
@@ -153,17 +175,18 @@ public class CompareShowFragment extends Fragment{
 		int valueA = Integer.parseInt(evaluationValueA);
 		int valueB = Integer.parseInt(evaluationValueB);
 
-		if( valueA > valueB ) {
-			this.totalBetterEvaluationInstitutionA = this.totalBetterEvaluationInstitutionA + 1;
+		if(valueA > valueB) {
+			this.totalBetterEvaluationInstitutionA = (this.totalBetterEvaluationInstitutionA + 1);
 		}	
-		if( valueB > valueA ){
-			this.totalBetterEvaluationInstitutionB = this.totalBetterEvaluationInstitutionB + 1;
+		if(valueB > valueA){
+			this.totalBetterEvaluationInstitutionB = (this.totalBetterEvaluationInstitutionB + 1);
 		}
 	}
 
 	private void setBetterInstitutionsValues() {
 		this.compareFirstInstitutionBetterResults.
 		setText(Integer.toString(this.totalBetterEvaluationInstitutionA));
+		
 		this.compareSecondInstitutionBetterResults.
 		setText(Integer.toString(this.totalBetterEvaluationInstitutionB));
 	}
@@ -184,6 +207,4 @@ public class CompareShowFragment extends Fragment{
         super.onDetach();
         beanCallbacks = null;
     }
-
-
 }

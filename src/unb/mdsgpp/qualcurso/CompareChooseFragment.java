@@ -99,7 +99,11 @@ public class CompareChooseFragment extends Fragment implements
 	 * This method checks if there is already an instance saved.
 	 */
 	private void checkSavedInstances(Bundle savedInstanceState) {
-		if(savedInstanceState != null && savedInstanceState.getParcelable(COURSE) != null) {
+		boolean savedInstanceStateIsValid = (savedInstanceState != null);
+		boolean savedInstanceStateOfCourseIsValid = (savedInstanceState.
+				getParcelable(COURSE) != null);
+				
+		if(savedInstanceStateIsValid && savedInstanceStateOfCourseIsValid){
 			setCurrentSelection((Course) savedInstanceState
 					.getParcelable(COURSE));
 		}
@@ -115,6 +119,7 @@ public class CompareChooseFragment extends Fragment implements
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long rowId) {
 				setCurrentSelection((Course) parent.getItemAtPosition(position));
+				
 				updateList();
 
 				hideKeyboard(rootView);
@@ -128,7 +133,7 @@ public class CompareChooseFragment extends Fragment implements
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				
-				if (selectedCourse != null) {
+				if(selectedCourse != null) {
 					updateList();
 				}
 			}
@@ -157,15 +162,17 @@ public class CompareChooseFragment extends Fragment implements
 	 * evaluation year by default.
 	 */
 	private void verifySelecterYear(Spinner yearSpinner) {
-		boolean anyYearWasSelected = yearSpinner.getSelectedItemPosition() != 0;
+		boolean anyYearWasSelected = (yearSpinner.getSelectedItemPosition() != 0);
+		
 		if(anyYearWasSelected) {
 				selectedYear = Integer.parseInt(yearSpinner.getSelectedItem()
 						.toString());
 		} 
 		else {
-			yearSpinner.setSelection(yearSpinner.getAdapter().getCount() - 1);
-			
 			final int lastEvaluationYear = yearSpinner.getAdapter().getCount() - 1;
+			
+			yearSpinner.setSelection(lastEvaluationYear);
+			
 			selectedYear = Integer.parseInt(yearSpinner.getAdapter()
 					.getItem(lastEvaluationYear)
 					.toString());
@@ -178,6 +185,7 @@ public class CompareChooseFragment extends Fragment implements
 	private void verifySelectedCourse(Course selectedCourse) {
 		boolean courseIsValid = (this.selectedCourse != null);
 		if(courseIsValid) {
+			
 			ArrayList<Institution> courseInstitutions = this.selectedCourse
 					.getInstitutionsByYear(selectedYear);
 			
