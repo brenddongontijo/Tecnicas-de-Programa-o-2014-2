@@ -71,14 +71,12 @@ public class CompareChooseFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
 		View rootView = inflater.inflate(R.layout.compare_choose_fragment,
 				container, false);
-
-		if (savedInstanceState != null && savedInstanceState.getParcelable(COURSE) != null) {
-				setCurrentSelection((Course) savedInstanceState
-						.getParcelable(COURSE));
-		}
-
+		
+		checkSavedInstances(savedInstanceState);
+		
 		// Bound variables with layout objects.
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.compare_year);
 		this.autoCompleteField = (AutoCompleteTextView) rootView
@@ -97,6 +95,23 @@ public class CompareChooseFragment extends Fragment implements
 		return rootView;
 	}
 
+	/*
+	 * This method checks if there is already an instance saved.
+	 */
+	private void checkSavedInstances(Bundle savedInstanceState) {
+		boolean savedInstanceStateIsValid = (savedInstanceState != null);
+		boolean savedInstanceStateOfCourseIsValid = (savedInstanceState.
+				getParcelable(COURSE) != null);
+				
+		if(savedInstanceStateIsValid && savedInstanceStateOfCourseIsValid){
+			setCurrentSelection((Course) savedInstanceState
+					.getParcelable(COURSE));
+		}
+		else{
+			
+		}
+	}
+
 	public OnItemClickListener getAutoCompleteListener(final View rootView) {
 		
 		return new OnItemClickListener() {
@@ -104,6 +119,7 @@ public class CompareChooseFragment extends Fragment implements
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long rowId) {
 				setCurrentSelection((Course) parent.getItemAtPosition(position));
+				
 				updateList();
 
 				hideKeyboard(rootView);
@@ -117,7 +133,7 @@ public class CompareChooseFragment extends Fragment implements
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				
-				if (selectedCourse != null) {
+				if(selectedCourse != null) {
 					updateList();
 				}
 			}
@@ -135,29 +151,57 @@ public class CompareChooseFragment extends Fragment implements
 	public void updateList() {
 		selectedInstitutions = new ArrayList<Institution>();
 		
-		if (yearSpinner.getSelectedItemPosition() != 0) {
-			selectedYear = Integer.parseInt(yearSpinner.getSelectedItem()
-					.toString());
-		} else {
-			yearSpinner.setSelection(yearSpinner.getAdapter().getCount() - 1);
+		verifySelecterYear(yearSpinner);
+		
+		verifySelectedCourse(this.selectedCourse);
+		
+	}
+
+	/*
+	 * This method checks if any year was already selected and select the last
+	 * evaluation year by default.
+	 */
+	private void verifySelecterYear(Spinner yearSpinner) {
+		boolean anyYearWasSelected = (yearSpinner.getSelectedItemPosition() != 0);
+		
+		if(anyYearWasSelected) {
+				selectedYear = Integer.parseInt(yearSpinner.getSelectedItem()
+						.toString());
+		} 
+		else {
+			final int lastEvaluationYear = yearSpinner.getAdapter().getCount() - 1;
+			
+			yearSpinner.setSelection(lastEvaluationYear);
+			
 			selectedYear = Integer.parseInt(yearSpinner.getAdapter()
-					.getItem(yearSpinner.getAdapter().getCount() - 1)
+					.getItem(lastEvaluationYear)
 					.toString());
 		}
-		
-		if (this.selectedCourse != null) {
+	}
+	
+	/*
+	 * This method checks if any course was selected.
+	 */
+	private void verifySelectedCourse(Course selectedCourse) {
+		boolean courseIsValid = (this.selectedCourse != null);
+		if(courseIsValid) {
+			
 			ArrayList<Institution> courseInstitutions = this.selectedCourse
 					.getInstitutionsByYear(selectedYear);
+			
 			compareAdapterList = new ListCompareAdapter(getActionBar()
 					.getThemedContext(), R.layout.compare_choose_list_item,
 					courseInstitutions, this);
 
 			this.institutionList.setAdapter(compareAdapterList);
 		}
+		else{
+			
+		}
+		
 	}
 
-
-	 // Check the checkBox items. 
+	// Check the checkBox items. 
 	@Override
 	public void onCheckedItem(CheckBox checkBox) {
 		
@@ -165,23 +209,32 @@ public class CompareChooseFragment extends Fragment implements
 		Institution institution = ((Institution) checkBox
 				.getTag(ListCompareAdapter.INSTITUTION));
 		
-		if (!selectedInstitutions.contains(institution)) {
+		if(!selectedInstitutions.contains(institution)) {
 			selectedInstitutions.add(institution);
+			
+			
+			final int maximumNumberOfInstitutionsToCompare = 2;
 			
 			/*
 			 * Restricted to two selections in checkBox, checkBox if two are
 			 * selected generates a list of results.
 			 */
-			if (selectedInstitutions.size() == 2) {
-				System.out.println(Integer.toString(selectedYear));
+			boolean allInstitutionsIsSelected = (selectedInstitutions.size() == 
+					(maximumNumberOfInstitutionsToCompare));
+			
+			if(allInstitutionsIsSelected) {
 				Evaluation evaluationA = Evaluation.getFromRelation(
 						selectedInstitutions.get(0).getId(),
 						selectedCourse.getId(), selectedYear);
 				Evaluation evaluationB = Evaluation.getFromRelation(
 						selectedInstitutions.get(1).getId(),
 						selectedCourse.getId(), selectedYear);
+				
 				beanCallbacks.onBeanListItemSelected(CompareShowFragment
 						.newInstance(evaluationA.getId(), evaluationB.getId()));
+			}
+			else{
+				
 			}
 		}
 	}
@@ -200,7 +253,7 @@ public class CompareChooseFragment extends Fragment implements
 		Institution institution = ((Institution) checkBox
 				.getTag(ListCompareAdapter.INSTITUTION));
 		
-		if (selectedInstitutions.contains(institution)) {
+		if(selectedInstitutions.contains(institution)) {
 			selectedInstitutions.remove(institution);
 		}
 	}

@@ -179,9 +179,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 						CourseListFragment.newInstance(0, 2010), placeholder);
 			}
 		}
-		else{
-			
-		}
+
 	}
 
 	// Called when the query text is changed by the user.
@@ -202,8 +200,7 @@ public class TabsFragment extends Fragment implements OnTabChangeListener,
 			// If the tab is a second list courses.
 			else if(currentSelectedTab == 1) {
 				ArrayList<Bean> arrayOfBeans = getFilteredList(writtenText, allCourses);
-				beanCallbacks
-						.onBeanListItemSelected(CourseListFragment.newInstance(
+				beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance(
 								0, 2010, castBeansToCourses(arrayOfBeans)), R.id.tab_2);
 			}
 		}

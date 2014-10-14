@@ -62,6 +62,13 @@ public class RankingFragment extends Fragment {
 	Course currentSelectionCourse = null;
 	String indicatorField = Indicator.DEFAULT_INDICATOR;
 
+	public void toCallUpdateList(){
+		if(currentSelectionCourse != null
+				&& indicatorField != Indicator.DEFAULT_INDICATOR) {
+			updateList();
+		}
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -103,10 +110,8 @@ public class RankingFragment extends Fragment {
 		autoCompleteField
 				.setOnItemClickListener(getAutoCompleteListener(rootView));
 		
-		if(currentSelectionCourse != null
-				&& indicatorField != Indicator.DEFAULT_INDICATOR) {
-			updateList();
-		}
+		toCallUpdateList();
+		
 		return rootView;
 	}
 
@@ -166,13 +171,8 @@ public class RankingFragment extends Fragment {
 				setFilterField(((Indicator) arg0.getItemAtPosition(arg2))
 						.getValue());
 				
-				if((currentSelectionCourse != null)
-						&& (indicatorField != Indicator.DEFAULT_INDICATOR)) {
-					updateList();
-				}
-				else {
-					
-				}
+				toCallUpdateList();
+				
 			}
 
 			@Override
@@ -193,13 +193,8 @@ public class RankingFragment extends Fragment {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				
-				if(currentSelectionCourse != null
-						&& indicatorField != Indicator.DEFAULT_INDICATOR) {
-					updateList();
-				}
-				else{
-					
-				}
+				toCallUpdateList();
+
 			}
 
 			@Override
@@ -288,9 +283,9 @@ public class RankingFragment extends Fragment {
 
 	// Used to hide the keyboard smoothly when required.
 	private void hideKeyboard(View view) {
-		InputMethodManager imm = (InputMethodManager) getActivity()
+		InputMethodManager inputMethodManager = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(view.getWindowToken(),
+		inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),
 				InputMethodManager.RESULT_UNCHANGED_SHOWN);
 	}
 }
