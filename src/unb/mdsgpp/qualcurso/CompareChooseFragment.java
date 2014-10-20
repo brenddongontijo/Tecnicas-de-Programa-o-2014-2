@@ -99,11 +99,7 @@ public class CompareChooseFragment extends Fragment implements
 	 * This method checks if there is already an instance saved.
 	 */
 	private void checkSavedInstances(Bundle savedInstanceState) {
-		boolean savedInstanceStateIsValid = (savedInstanceState != null);
-		boolean savedInstanceStateOfCourseIsValid = (savedInstanceState.
-				getParcelable(COURSE) != null);
-				
-		if(savedInstanceStateIsValid && savedInstanceStateOfCourseIsValid){
+		if(savedInstanceState != null && savedInstanceState.getParcelable(COURSE) != null) {
 			setCurrentSelection((Course) savedInstanceState
 					.getParcelable(COURSE));
 		}
