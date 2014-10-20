@@ -289,19 +289,24 @@ public class GenericBeanDAO extends DataBase {
 		return result;
 	}
 
-	public ArrayList<Bean> runSql(Bean type, String sql) throws SQLException {
-		this.openConnection();
-		ArrayList<Bean> result = new ArrayList<Bean>();
-		Cursor cs = this.database.rawQuery(sql, null);
-		while (cs.moveToNext()) {
-			Bean bean = init(type.identifier);
-			for (String s : type.fieldsList()) {
-				bean.set(s, cs.getString(cs.getColumnIndex(s)));
+	public void setBeanOfIdentifer(Cursor beanCursor, ArrayList<Bean> listOfBeans, Bean typeBean ){
+		while (beanCursor.moveToNext()) {
+			Bean bean = init(typeBean.identifier);
+			for (String nameBeanField : typeBean.fieldsList()) {
+				bean.set(nameBeanField, beanCursor.getString(beanCursor.getColumnIndex(nameBeanField)));
 			}
-			result.add(bean);
+			listOfBeans.add(bean);
 		}
+	}
+	
+	public ArrayList<Bean> runSql(Bean typeBean, String sql) throws SQLException {
+		this.openConnection();
+		ArrayList<Bean> listOfBeans = new ArrayList<Bean>();
+		Cursor beanCursor = this.database.rawQuery(sql, null);
+
+		setBeanOfIdentifer(beanCursor, listOfBeans, typeBean);
 		this.closeConnection();
-		return result;
+		return listOfBeans;
 	}
 
 	/*
@@ -402,38 +407,30 @@ public class GenericBeanDAO extends DataBase {
 		return values;
 	}
 
-	public ArrayList<Bean> selectBeanWhere(Bean type, String field,
+	public ArrayList<Bean> selectBeanWhere(Bean typeOfBean, String fieldDatabase,
 			String value, boolean use_like, String orderField)
 			throws SQLException {
 		this.openConnection();
 
-		ArrayList<Bean> beans = new ArrayList<Bean>();
-		Cursor cs;
+		ArrayList<Bean> listBeans = new ArrayList<Bean>();
+		Cursor makeSearch;
 
 		// Testing is user_like == false.
 		if (!use_like) {
 
 			// Making a search on database based on "value".
-			cs = this.database.query(type.identifier, null, field + " = ?",
+			makeSearch = this.database.query(typeOfBean.identifier, null, fieldDatabase + " = ?",
 					new String[] { value }, null, null, orderField);
 		} else {
-			cs = this.database.query(type.identifier, null, field + " LIKE ?",
+			makeSearch = this.database.query(typeOfBean.identifier, null, fieldDatabase + " LIKE ?",
 					new String[] { "%" + value + "%" }, null, null, orderField);
 		}
 
 		// Getting all beans and adding into ArrayList.
-		while (cs.moveToNext()) {
-			Bean bean = init(type.identifier);
-
-			for (String s : type.fieldsList()) {
-				bean.set(s, cs.getString(cs.getColumnIndex(s)));
-			}
-
-			beans.add(bean);
-		}
+		setBeanOfIdentifer(makeSearch, listBeans, typeOfBean);
 		this.closeConnection();
 
-		return beans;
+		return listBeans;
 	}
 
 	// The method deleteBean() aims to delete a determinate Bean on Database.
