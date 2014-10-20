@@ -80,20 +80,12 @@ public class GenericBeanDAO extends DataBase {
 			sql += " ORDER BY " + orderField;
 		}
 
-		Cursor cs = this.database.rawQuery(
+		Cursor cursorBeans = this.database.rawQuery(
 				sql,
 				new String[] { bean.get(bean.fieldsList().get(0)),
 						Integer.toString(year) });
 
-		while (cs.moveToNext()) {
-			Bean object = init(table);
-
-			for (String s : object.fieldsList()) {
-				object.set(s, cs.getString(cs.getColumnIndex(s)));
-			}
-
-			beans.add(object);
-		}
+		moveCursor(cursorBeans, beans, table);
 
 		this.closeConnection();
 
