@@ -16,7 +16,7 @@ import libraries.DataBase;
 public class GenericBeanDAO extends DataBase {
 
 	// Represents a statement that can be executed against a database.
-	private SQLiteStatement pst;
+	private SQLiteStatement performDatabase;
 
 	public GenericBeanDAO() throws SQLException {
 		super();
@@ -41,14 +41,15 @@ public class GenericBeanDAO extends DataBase {
 		Cursor cursorBeans = this.database.rawQuery(sql,
 				new String[] { bean.get(bean.fieldsList().get(0)) });
 
-		moveCursor(cursorBeans, beans, table);
+		insertBeans(cursorBeans, beans, table);
 
 		this.closeConnection();
 
 		return beans;
 	}
-
-	public void moveCursor(Cursor cursorBeans, ArrayList<Bean> beans,
+	
+	
+	public void insertBeans(Cursor cursorBeans, ArrayList<Bean> beans,
 			String table) {
 
 		while (cursorBeans.moveToNext()) {
@@ -85,7 +86,7 @@ public class GenericBeanDAO extends DataBase {
 				new String[] { bean.get(bean.fieldsList().get(0)),
 						Integer.toString(year) });
 
-		moveCursor(cursorBeans, beans, table);
+		insertBeans(cursorBeans, beans, table);
 
 		this.closeConnection();
 
@@ -161,15 +162,15 @@ public class GenericBeanDAO extends DataBase {
 
 		sql += ") VALUES(" + replace + ")";
 
-		this.pst = this.database.compileStatement(sql);
+		this.performDatabase = this.database.compileStatement(sql);
 
 		for (String s : notPrimaryFields) {
-			this.pst.bindString(i, bean.get(s));
+			this.performDatabase.bindString(i, bean.get(s));
 			i++;
 		}
 
-		long result = this.pst.executeInsert();
-		this.pst.clearBindings();
+		long result = this.performDatabase.executeInsert();
+		this.performDatabase.clearBindings();
 
 		this.closeConnection();
 
@@ -185,12 +186,12 @@ public class GenericBeanDAO extends DataBase {
 				+ parentBean.identifier + ",id_" + childBean.identifier
 				+ ") VALUES(?,?)";
 
-		this.pst = this.database.compileStatement(sql);
-		this.pst.bindString(1, parentBean.get(parentBean.fieldsList().get(0)));
-		this.pst.bindString(2, childBean.get(childBean.fieldsList().get(0)));
+		this.performDatabase = this.database.compileStatement(sql);
+		this.performDatabase.bindString(1, parentBean.get(parentBean.fieldsList().get(0)));
+		this.performDatabase.bindString(2, childBean.get(childBean.fieldsList().get(0)));
 
-		long result = this.pst.executeInsert();
-		this.pst.clearBindings();
+		long result = this.performDatabase.executeInsert();
+		this.performDatabase.clearBindings();
 
 		this.closeConnection();
 
@@ -206,12 +207,12 @@ public class GenericBeanDAO extends DataBase {
 				+ parentBean.identifier + " = ? AND id_" + childBean.identifier
 				+ " = ?";
 
-		this.pst = this.database.compileStatement(sql);
-		this.pst.bindString(1, parentBean.get(parentBean.fieldsList().get(0)));
-		this.pst.bindString(2, childBean.get(childBean.fieldsList().get(0)));
+		this.performDatabase = this.database.compileStatement(sql);
+		this.performDatabase.bindString(1, parentBean.get(parentBean.fieldsList().get(0)));
+		this.performDatabase.bindString(2, childBean.get(childBean.fieldsList().get(0)));
 
-		int result = this.pst.executeUpdateDelete();
-		this.pst.clearBindings();
+		int result = this.performDatabase.executeUpdateDelete();
+		this.performDatabase.clearBindings();
 
 		this.closeConnection();
 
@@ -289,7 +290,7 @@ public class GenericBeanDAO extends DataBase {
 		return result;
 	}
 
-	public void setBeanOfIdentifer(Cursor beanCursor, ArrayList<Bean> listOfBeans, Bean typeBean ){
+	public void setBeanOfIdentifier(Cursor beanCursor, ArrayList<Bean> listOfBeans, Bean typeBean ){
 		while (beanCursor.moveToNext()) {
 			Bean bean = init(typeBean.identifier);
 			for (String nameBeanField : typeBean.fieldsList()) {
@@ -304,7 +305,7 @@ public class GenericBeanDAO extends DataBase {
 		ArrayList<Bean> listOfBeans = new ArrayList<Bean>();
 		Cursor beanCursor = this.database.rawQuery(sql, null);
 
-		setBeanOfIdentifer(beanCursor, listOfBeans, typeBean);
+		setBeanOfIdentifier(beanCursor, listOfBeans, typeBean);
 		this.closeConnection();
 		return listOfBeans;
 	}
@@ -392,12 +393,12 @@ public class GenericBeanDAO extends DataBase {
 
 		ArrayList<HashMap<String, String>> values = new ArrayList<HashMap<String, String>>();
 		this.openConnection();
-		Cursor cs = this.database.rawQuery(sql, null);
+		Cursor databaseCursor = this.database.rawQuery(sql, null);
 
-		while (cs.moveToNext()) {
+		while (databaseCursor.moveToNext()) {
 			HashMap<String, String> hash = new HashMap<String, String>();
 			for (String s : returnFields) {
-				hash.put(s, cs.getString(cs.getColumnIndex(s)));
+				hash.put(s, databaseCursor.getString(databaseCursor.getColumnIndex(s)));
 			}
 			hash.put("order_field", orderedBy);
 			values.add(hash);
@@ -427,7 +428,7 @@ public class GenericBeanDAO extends DataBase {
 		}
 
 		// Getting all beans and adding into ArrayList.
-		setBeanOfIdentifer(makeSearch, listBeans, typeOfBean);
+		setBeanOfIdentifier(makeSearch, listBeans, typeOfBean);
 		this.closeConnection();
 
 		return listBeans;
@@ -440,10 +441,10 @@ public class GenericBeanDAO extends DataBase {
 		// bean.fieldsList().get(0) is the primary key from bean.identifier.
 		String sql = "DELETE FROM " + bean.identifier + " WHERE "
 				+ bean.fieldsList().get(0) + " = ?";
-		this.pst = this.database.compileStatement(sql);
-		this.pst.bindString(1, bean.get(bean.fieldsList().get(0)));
-		int result = this.pst.executeUpdateDelete();
-		this.pst.clearBindings();
+		this.performDatabase = this.database.compileStatement(sql);
+		this.performDatabase.bindString(1, bean.get(bean.fieldsList().get(0)));
+		int result = this.performDatabase.executeUpdateDelete();
+		this.performDatabase.clearBindings();
 		this.closeConnection();
 
 		return (result == 1) ? true : false;
