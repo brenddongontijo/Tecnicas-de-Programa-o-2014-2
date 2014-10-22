@@ -22,8 +22,10 @@ public class GenericBeanDAO extends DataBase {
 		super();
 	}
 
-	// This method will access a specific table in Database and ordering if
-	// necessary.
+	/* 
+	 * This method will access a specific table in Database and ordering if
+	 * necessary.
+	 */
 	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table,
 			String orderField) throws SQLException {
 		this.openConnection();
@@ -35,7 +37,7 @@ public class GenericBeanDAO extends DataBase {
 				+ "AND ci.id_" + table + " = c._id GROUP BY c._id";
 
 		if (orderField != null) {
-			sql += " ORDER BY " + orderField;
+			sql = sql + " ORDER BY " + orderField;
 		}
 
 		Cursor cursorBeans = this.database.rawQuery(sql,
@@ -64,8 +66,10 @@ public class GenericBeanDAO extends DataBase {
 		}
 	}
 
-	// This method will access a specific table in Database based on year and
-	// ordering if necessary.
+	/* 
+	 * This method will access a specific table in Database based on year and
+	 * ordering if necessary.
+	 */
 	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table,
 			int year, String orderField) throws SQLException {
 		this.openConnection();
@@ -78,12 +82,11 @@ public class GenericBeanDAO extends DataBase {
 				+ " = c._id AND ci.year = ? GROUP BY c._id";
 
 		if (orderField != null) {
-			sql += " ORDER BY " + orderField;
+			sql = sql + " ORDER BY " + orderField;
 		}
 
 		Cursor cursorBeans = this.database.rawQuery(
-				sql,
-				new String[] { bean.get(bean.fieldsList().get(0)),
+				sql, new String[] { bean.get(bean.fieldsList().get(0)),
 						Integer.toString(year) });
 
 		insertBeans(cursorBeans, beans, table);
@@ -101,18 +104,17 @@ public class GenericBeanDAO extends DataBase {
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		ArrayList<String> values = new ArrayList<String>();
 
-		// String sql = "SELECT * FROM " + bean.identifier + " WHERE ";
 		String sql = "";
 
 		for (String s : fields) {
-			sql += " " + s + " = ? AND";
+			sql = sql + " " + s + " = ? AND";
 			values.add(bean.get(s));
 		}
 
 		sql = sql.substring(0, sql.length() - 3);
 
 		if (orderField != null) {
-			sql += " ORDER BY " + orderField;
+			sql = sql + " ORDER BY " + orderField;
 		}
 
 		String[] strings = new String[values.size()];
@@ -153,28 +155,32 @@ public class GenericBeanDAO extends DataBase {
 		String sql = "INSERT INTO " + bean.identifier + "(";
 
 		for (String s : notPrimaryFields) {
-			sql += s + ",";
+			sql = sql + s + ",";
 			replace += "?,";
 		}
 
 		sql = sql.substring(0, sql.length() - 1);
 		replace = replace.substring(0, replace.length() - 1);
 
-		sql += ") VALUES(" + replace + ")";
+		sql = sql + ") VALUES(" + replace + ")";
 
 		this.performDatabase = this.database.compileStatement(sql);
 
 		for (String s : notPrimaryFields) {
 			this.performDatabase.bindString(i, bean.get(s));
-			i++;
+			i = i + 1;
 		}
 
 		long result = this.performDatabase.executeInsert();
 		this.performDatabase.clearBindings();
 
 		this.closeConnection();
-
-		return (result != -1) ? true : false;
+		
+		if (result != -1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// This method adds a relation between Institution and Course.
@@ -194,8 +200,13 @@ public class GenericBeanDAO extends DataBase {
 		this.performDatabase.clearBindings();
 
 		this.closeConnection();
-
-		return (result != -1) ? true : false;
+		
+		if (result != -1) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 	// This method deletes the relation between Institution and Course.
@@ -216,11 +227,17 @@ public class GenericBeanDAO extends DataBase {
 
 		this.closeConnection();
 
-		return (result == 1) ? true : false;
+		if (result == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	// This method will return a specific Bean with all theirs values in
-	// Database.
+	/* 
+	 * This method will return a specific Bean with all theirs values in
+	 * Database.
+	 */
 	public Bean selectBean(Bean bean) throws SQLException {
 		this.openConnection();
 
@@ -341,9 +358,9 @@ public class GenericBeanDAO extends DataBase {
 
 		// Testing if last == false.
 		if (!last) {
-			sql += " LIMIT 1";
+			sql = sql + " LIMIT 1";
 		} else {
-			sql += " DESC LIMIT 1";
+			sql = sql + " DESC LIMIT 1";
 		}
 
 		this.openConnection();
@@ -367,28 +384,29 @@ public class GenericBeanDAO extends DataBase {
 		String fields = "";
 
 		for (String s : returnFields) {
-			fields += s + ",";
+			fields = fields + s + ",";
 		}
 
 		fields = fields.substring(0, fields.length() - 1);
 		String sql = "SELECT "
 				+ fields
 				+ " FROM course AS c,institution AS i , evaluation AS e, articles AS a, books AS b"
-				+ " WHERE id_institution = i._id AND id_course = c._id AND id_articles = a._id AND id_books = b._id ";
+				+ " WHERE id_institution = i._id AND id_course = c._id AND id_articles = a._id AND " +
+				"id_books = b._id ";
 
 		if (condition != null) {
-			sql += "AND " + condition + " ";
+			sql = sql + "AND " + condition + " ";
 		}
 		if (groupBy != null) {
-			sql += " GROUP BY " + groupBy;
+			sql = sql + " GROUP BY " + groupBy;
 		}
 		if (orderedBy != null) {
-			sql += " ORDER BY " + orderedBy;
+			sql = sql + " ORDER BY " + orderedBy;
 		}
 		if (desc) {
-			sql += " DESC";
+			sql = sql + " DESC";
 		} else {
-			sql += " ASC";
+			sql = sql + " ASC";
 		}
 
 		ArrayList<HashMap<String, String>> values = new ArrayList<HashMap<String, String>>();
@@ -447,7 +465,11 @@ public class GenericBeanDAO extends DataBase {
 		this.performDatabase.clearBindings();
 		this.closeConnection();
 
-		return (result == 1) ? true : false;
+		if (result == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// The method init() Creates a Bean based on the current bean.Identifier.
