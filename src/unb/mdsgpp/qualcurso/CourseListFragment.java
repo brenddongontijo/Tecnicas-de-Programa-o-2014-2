@@ -59,6 +59,14 @@ public class CourseListFragment extends ListFragment{
 		return courseListFragment;
 	}
 	
+	/**
+	 * This method initiate the Bundle with id institution, evaluation year and if necessary an array of courses. 
+	 * 
+	 * @param idInstitution			institution id present on Database.
+	 * @param evaluationYear		year of the evaluation
+	 * @param coursesArray			array of courses.
+	 * @return						a filled Bundle.
+	 */
 	private static Bundle initiateBundle(final int idInstitution, final int evaluationYear, final ArrayList<Course> coursesArray){
 		Bundle bundle = new Bundle();
 		bundle.putInt(ID_INSTITUTION, idInstitution);
@@ -66,16 +74,22 @@ public class CourseListFragment extends ListFragment{
 		
 		final boolean coursesArrayNotEmpty = coursesArray != null;
 		
-		if(coursesArrayNotEmpty){
+		if(coursesArrayNotEmpty) {
 			bundle.putParcelableArrayList(IDS_COURSES, coursesArray);
 		}
-		else{
+		else {
 			
 		}
 		
 		return bundle;
 	}
 	
+	/**
+	 * This method set arguments from CourseListFragment to possess a Bundle.
+	 * 
+	 * @param bundle				
+	 * @return						CourseListFragment with bundle.
+	 */
 	private static CourseListFragment initiateAndSetArgumentsOfCourseListFragment(Bundle bundle){
 		CourseListFragment courseListFragment = new CourseListFragment();
 		courseListFragment.setArguments(bundle);
@@ -105,13 +119,13 @@ public class CourseListFragment extends ListFragment{
 		try {
 			final boolean arrayCoursesNotEmpty = (coursesArray != null);
 			
-			if(arrayCoursesNotEmpty){
+			if(arrayCoursesNotEmpty) {
 				coursesView.setAdapter(new ArrayAdapter<Course>(
 			        getActionBar().getThemedContext(),
 			        R.layout.custom_textview,
 			        coursesArray));
 			}
-			else{
+			else {
 				
 			}
 		} catch (SQLException e) {
@@ -120,14 +134,21 @@ public class CourseListFragment extends ListFragment{
 		return coursesView;
 	}
 	
+	/**
+	 * This method verify if already exists an savedInstance from CourseListFragment and fill the array with
+	 * the id of the courses present on Database.
+	 * 
+	 * @param savedInstanceState		responsible for verifying that the fragment will be recreated.
+	 * @return							array with id courses.
+	 */
 	private ArrayList<Course> fillArrayWithCourses(Bundle savedInstanceState){
 		ArrayList<Course> coursesArray;
 		
-		final boolean noneSavedInstancesWereMade = getArguments().getParcelableArrayList(IDS_COURSES) != null;
-		if(noneSavedInstancesWereMade){
+		final boolean noneSavedInstancesWereMade = (getArguments().getParcelableArrayList(IDS_COURSES) != null);
+		if(noneSavedInstancesWereMade) {
 			coursesArray = getArguments().getParcelableArrayList(IDS_COURSES);
 		}
-		else{
+		else {
 			coursesArray = savedInstanceState.getParcelableArrayList(IDS_COURSES);
 		}
 		
@@ -141,22 +162,36 @@ public class CourseListFragment extends ListFragment{
 	}
 	
 	@Override
-	public void onListItemClick(ListView listView, View view, int position, long id) {
-		if(getArguments().getInt(ID_INSTITUTION) == 0){
-			
+	public void onListItemClick(ListView coursesListView, View view, final int coursePosition, final long id) {
+		forwardsToInstitutionsOrEvaluation(coursesListView, coursePosition);
+		
+		super.onListItemClick(coursesListView, view, coursePosition, id);
+	}
+	
+	/**
+	 * This method verify if any institution was already selected and directs to InstitutionListFragment otherwise
+	 * directs to EvaluationDetailFragment.
+	 * 
+	 * @param coursesListView					ListView containing all courses.
+	 * @param coursePosition					position of any position of the chosen course.
+	 * @return									instance of InstitutionListFragment or EvaluationDetailFragment.
+	 */
+	private BeanListCallbacks forwardsToInstitutionsOrEvaluation(ListView coursesListView, final int coursePosition){
+		final boolean noneInstitutionSelected = (getArguments().getInt(ID_INSTITUTION) == 0);
+		
+		if(noneInstitutionSelected) {
 			beanCallbacks.onBeanListItemSelected(InstitutionListFragment.
-					newInstance((((Course)listView.getAdapter().getItem(position)).getId()), 
+					newInstance((((Course)coursesListView.getAdapter().getItem(coursePosition)).getId()), 
 							getArguments().getInt(YEAR_OF_EVALUATION)));
-			
-		}else{
-			
+		}
+		else {
 			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.
 					newInstance(getArguments().getInt(ID_INSTITUTION), 
-							((Course)listView.getAdapter().getItem(position)).
+							((Course)coursesListView.getAdapter().getItem(coursePosition)).
 							getId(),getArguments().getInt(YEAR_OF_EVALUATION)));
-			
 		}
-		super.onListItemClick(listView, view, position, id);
+		
+		return beanCallbacks;
 	}
 	
 	@Override
@@ -176,10 +211,18 @@ public class CourseListFragment extends ListFragment{
         beanCallbacks = null;
     }
 	
-	private static ArrayList<Course> getCoursesList(int idInstitution) throws SQLException{
-		if(idInstitution == 0){
+	/**
+	 * This method picks all courses or institutions linked to a specific course.
+	 * 
+	 * @param idInstitution					id institution to be searched on Database.
+	 * @return								all courses or institutions linked to a specific course.
+	 * @throws SQLException
+	 */
+	private static ArrayList<Course> getCoursesList(final int idInstitution) throws SQLException{
+		if(idInstitution == 0) {
 			return Course.getAllCourses();
-		}else{
+		}
+		else {
 			return Institution.getInstitutionByValue(idInstitution).getCoursesByYear();
 		}
 	}
