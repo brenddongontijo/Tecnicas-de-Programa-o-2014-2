@@ -68,6 +68,15 @@ public class CompareChooseFragment extends Fragment implements
 		beanCallbacks = null;
 	}
 
+	/**
+	 * This method creates the compare choose view associated with the CompareChooseFragment.
+	 * 
+	 * @param inflater					responsible to inflate a view.
+	 * @param container					responsible to generate the LayoutParams of the view.
+	 * @param savedInstanceState		responsible for verifying that the fragment will be recreated.
+	 * 
+	 * @return							current view of CompareChooseFragment associated with parameters chosen.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -95,21 +104,32 @@ public class CompareChooseFragment extends Fragment implements
 		return rootView;
 	}
 
-	// This method checks if there is already an instance saved.
+	/** 
+	 * This method checks if there is already an instance saved.
+	 * 
+	 * @param savedInstanceState		mapping from String values to Parcelable.
+	 */
 	private void checkSavedInstances(Bundle savedInstanceState) {
-		if (savedInstanceState != null && savedInstanceState.getParcelable(COURSE) != null) {
-			setCurrentSelection((Course) savedInstanceState
+		final boolean nonePreviouslySavedState = (savedInstanceState != null);
+		final boolean nonePreviouslySavedCourseState = (savedInstanceState.getParcelable(COURSE) != null);
+		
+		if(nonePreviouslySavedState && nonePreviouslySavedCourseState) {
+			setCurrentSelectionCourse((Course) savedInstanceState
 					.getParcelable(COURSE));
+		}
+		else{
+			
 		}
 	}
 
+	//
 	public OnItemClickListener getAutoCompleteListener(final View rootView) {
 		
 		return new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long rowId) {
-				setCurrentSelection((Course) parent.getItemAtPosition(position));
+				setCurrentSelectionCourse((Course) parent.getItemAtPosition(position));
 				
 				updateList();
 
@@ -135,7 +155,7 @@ public class CompareChooseFragment extends Fragment implements
 		};
 	}
 
-	public void setCurrentSelection(Course currentSelection) {
+	public void setCurrentSelectionCourse(Course currentSelection) {
 		this.selectedCourse = currentSelection;
 	}
 
@@ -153,7 +173,7 @@ public class CompareChooseFragment extends Fragment implements
 	 * evaluation year by default.
 	 */
 	private void verifySelecterYear(Spinner yearSpinner) {
-		boolean anyYearWasSelected = (yearSpinner.getSelectedItemPosition() != 0);
+		final boolean anyYearWasSelected = (yearSpinner.getSelectedItemPosition() != 0);
 		
 		if (anyYearWasSelected) {
 				selectedYear = Integer.parseInt(yearSpinner.getSelectedItem().toString());
