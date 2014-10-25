@@ -15,13 +15,13 @@ import android.widget.TextView;
  * Class name: ListAdapter
  * This class makes a text view for each ranking result fields.
  */
-public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
+public class RankingListAdapter extends ArrayAdapter<HashMap<String, String>> {
 
-	public ListAdapter(Context context, int textViewResourceId) {
+	public RankingListAdapter(Context context, int textViewResourceId) {
 		super(context, textViewResourceId);
 	}
 
-	public ListAdapter(Context context, int resource, List<HashMap<String, String>> items) {
+	public RankingListAdapter(Context context, int resource, List<HashMap<String, String>> items) {
 		super(context, resource, items);
 	}
 

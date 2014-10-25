@@ -44,21 +44,17 @@ public class CourseListFragment extends ListFragment{
 	}
 	
 	public static CourseListFragment newInstance(int idInstitution, int evaluationYear){
-		CourseListFragment courseListFragment = new CourseListFragment();
-		
 		Bundle bundle = initiateBundle(idInstitution, evaluationYear, getCoursesList(idInstitution));
 		
-		courseListFragment.setArguments(bundle);
+		CourseListFragment courseListFragment = initiateAndSetArgumentsOfCourseListFragment(bundle);
 		
 		return courseListFragment;
 	}
 	
 	public static CourseListFragment newInstance(int idInstitution, int evaluationYear, ArrayList<Course> coursesList){
-		CourseListFragment courseListFragment = new CourseListFragment();
-		
 		Bundle bundle = initiateBundle(idInstitution, evaluationYear, coursesList);
 		
-		courseListFragment.setArguments(bundle);
+		CourseListFragment courseListFragment = initiateAndSetArgumentsOfCourseListFragment(bundle);
 		
 		return courseListFragment;
 	}
@@ -80,32 +76,62 @@ public class CourseListFragment extends ListFragment{
 		return bundle;
 	}
 	
+	private static CourseListFragment initiateAndSetArgumentsOfCourseListFragment(Bundle bundle){
+		CourseListFragment courseListFragment = new CourseListFragment();
+		courseListFragment.setArguments(bundle);
+		
+		return courseListFragment;
+	}
+	
+	/**
+	 * This method creates the course list view associated with the CourseListFragment.
+	 * 
+	 * @param inflater					responsible to inflate a view.
+	 * @param container					responsible to generate the LayoutParams of the view.
+	 * @param savedInstanceState		responsible for verifying that the fragment will be recreated.
+	 * 
+	 * @return							view containing all courses.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		ArrayList<Course> list;
 		
-		if(getArguments().getParcelableArrayList(IDS_COURSES) != null){
-			list = getArguments().getParcelableArrayList(IDS_COURSES);
-		}else{
-			list = savedInstanceState.getParcelableArrayList(IDS_COURSES);
-		}
+		ArrayList<Course> coursesArray = fillArrayWithCourses(savedInstanceState);
 		
-		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list, container,
+		ListView coursesView = (ListView) inflater.inflate(R.layout.fragment_list, container,
 				false);
-		rootView = (ListView) rootView.findViewById(android.R.id.list);
+		coursesView = (ListView) coursesView.findViewById(android.R.id.list);
 		
 		try {
-			if(list != null){
-			rootView.setAdapter(new ArrayAdapter<Course>(
+			final boolean arrayCoursesNotEmpty = (coursesArray != null);
+			
+			if(arrayCoursesNotEmpty){
+				coursesView.setAdapter(new ArrayAdapter<Course>(
 			        getActionBar().getThemedContext(),
 			        R.layout.custom_textview,
-			        list));
+			        coursesArray));
+			}
+			else{
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return rootView;
+		return coursesView;
+	}
+	
+	private ArrayList<Course> fillArrayWithCourses(Bundle savedInstanceState){
+		ArrayList<Course> coursesArray;
+		
+		final boolean noneSavedInstancesWereMade = getArguments().getParcelableArrayList(IDS_COURSES) != null;
+		if(noneSavedInstancesWereMade){
+			coursesArray = getArguments().getParcelableArrayList(IDS_COURSES);
+		}
+		else{
+			coursesArray = savedInstanceState.getParcelableArrayList(IDS_COURSES);
+		}
+		
+		return coursesArray;
 	}
 	
 	@Override
