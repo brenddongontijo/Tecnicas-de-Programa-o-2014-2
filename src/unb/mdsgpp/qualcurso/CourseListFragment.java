@@ -16,6 +16,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/**
+ * Class Name: CourseListFragment
+ * 
+ * This class is responsible for create a fragment containing all courses.
+ */
 public class CourseListFragment extends ListFragment{
 
 	// Use the id of the institution to list them.
@@ -32,34 +37,47 @@ public class CourseListFragment extends ListFragment{
 	
 	public CourseListFragment() {
 		super();
-		Bundle args = new Bundle();
-		args.putInt(ID_INSTITUTION, 0);
-		args.putParcelableArrayList(IDS_COURSES, getCoursesList(0));
-		this.setArguments(args);
-	}
-
-	public static CourseListFragment newInstance(int id, int year){
-		CourseListFragment fragment = new CourseListFragment();
-		Bundle args = new Bundle();
 		
-		args.putInt(ID_INSTITUTION, id);
-		args.putInt(YEAR_OF_EVALUATION, year);
-		args.putParcelableArrayList(IDS_COURSES, getCoursesList(id));
-		fragment.setArguments(args);
+		Bundle bundle = initiateBundle(0, 0, null);
 		
-		return fragment;
+		this.setArguments(bundle);
 	}
 	
-	public static CourseListFragment newInstance(int id, int year, ArrayList<Course> list){
-		CourseListFragment fragment = new CourseListFragment();
+	public static CourseListFragment newInstance(int idInstitution, int evaluationYear){
+		CourseListFragment courseListFragment = new CourseListFragment();
 		
-		Bundle args = new Bundle();
-		args.putInt(ID_INSTITUTION, id);
-		args.putInt(YEAR_OF_EVALUATION, year);
-		args.putParcelableArrayList(IDS_COURSES, list);
-		fragment.setArguments(args);
+		Bundle bundle = initiateBundle(idInstitution, evaluationYear, getCoursesList(idInstitution));
 		
-		return fragment;
+		courseListFragment.setArguments(bundle);
+		
+		return courseListFragment;
+	}
+	
+	public static CourseListFragment newInstance(int idInstitution, int evaluationYear, ArrayList<Course> coursesList){
+		CourseListFragment courseListFragment = new CourseListFragment();
+		
+		Bundle bundle = initiateBundle(idInstitution, evaluationYear, coursesList);
+		
+		courseListFragment.setArguments(bundle);
+		
+		return courseListFragment;
+	}
+	
+	private static Bundle initiateBundle(final int idInstitution, final int evaluationYear, final ArrayList<Course> coursesArray){
+		Bundle bundle = new Bundle();
+		bundle.putInt(ID_INSTITUTION, idInstitution);
+		bundle.putInt(YEAR_OF_EVALUATION, evaluationYear);
+		
+		final boolean coursesArrayNotEmpty = coursesArray != null;
+		
+		if(coursesArrayNotEmpty){
+			bundle.putParcelableArrayList(IDS_COURSES, coursesArray);
+		}
+		else{
+			
+		}
+		
+		return bundle;
 	}
 	
 	@Override

@@ -26,6 +26,11 @@ import android.widget.Spinner;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+/**
+ * Class Name: CompareChooseFragment
+ * 
+ * This class is responsible for create a fragment related with the comparison between two institutions.
+ */
 public class CompareChooseFragment extends Fragment implements
 		CheckBoxListCallbacks {
 	BeanListCallbacks beanCallbacks;
@@ -50,6 +55,11 @@ public class CompareChooseFragment extends Fragment implements
 		super();
 	}
 
+	/**
+	 * Called when a fragment is first attached to its activity
+	 * 
+	 * @param activity				   single, focused thing that the user can do.
+	 */
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -62,6 +72,9 @@ public class CompareChooseFragment extends Fragment implements
 		}
 	}
 
+	/**
+	 * Called once the fragment is associated with its activity
+	 */
 	@Override
 	public void onDetach() {
 		super.onDetach();
@@ -122,7 +135,13 @@ public class CompareChooseFragment extends Fragment implements
 		}
 	}
 
-	//
+	/** 
+	 * This method is responsible to filter a list of courses based on what was written.
+	 * 
+	 * @param rootView		view of CompareChooseFragment.
+	 * 
+	 * @return 				list of institutions that possess the chosen course.			
+	 */
 	public OnItemClickListener getAutoCompleteListener(final View rootView) {
 		
 		return new OnItemClickListener() {
@@ -191,7 +210,7 @@ public class CompareChooseFragment extends Fragment implements
 	
 	// This method checks if any course was selected.
 	private void verifySelectedCourse(Course selectedCourse) {
-		boolean courseIsValid = (this.selectedCourse != null);
+		final boolean courseIsValid = (this.selectedCourse != null);
 		if (courseIsValid) {
 			
 			ArrayList<Institution> courseInstitutions = this.selectedCourse
@@ -222,10 +241,10 @@ public class CompareChooseFragment extends Fragment implements
 			 * Restricted to two selections in checkBox, checkBox if two are
 			 * selected generates a list of results.
 			 */
-			boolean allInstitutionsIsSelected = (selectedInstitutions.size() == 
+			boolean twoInstitutionsAreSelected = (selectedInstitutions.size() == 
 					(maximumNumberOfInstitutionsToCompare));
 			
-			if (allInstitutionsIsSelected) {
+			if (twoInstitutionsAreSelected) {
 				Evaluation evaluationA = Evaluation.getFromRelation(
 						selectedInstitutions.get(0).getId(),
 						selectedCourse.getId(), selectedYear);
