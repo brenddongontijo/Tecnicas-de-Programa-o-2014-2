@@ -1,6 +1,7 @@
 *.class
 bin/*
 gen/*
+project.properties
 android-support-v4.jar
 local.properties
 	
