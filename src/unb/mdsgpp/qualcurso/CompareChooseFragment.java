@@ -123,10 +123,7 @@ public class CompareChooseFragment extends Fragment implements
 	 * @param savedInstanceState		mapping from String values to Parcelable.
 	 */
 	private void checkSavedInstances(Bundle savedInstanceState) {
-		final boolean nonePreviouslySavedState = (savedInstanceState != null);
-		final boolean nonePreviouslySavedCourseState = (savedInstanceState.getParcelable(COURSE) != null);
-		
-		if(nonePreviouslySavedState && nonePreviouslySavedCourseState) {
+		if((savedInstanceState != null) && (savedInstanceState.getParcelable(COURSE) != null)) {
 			setCurrentSelectionCourse((Course) savedInstanceState
 					.getParcelable(COURSE));
 		}
