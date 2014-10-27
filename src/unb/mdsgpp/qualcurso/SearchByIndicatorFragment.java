@@ -128,12 +128,9 @@ public class SearchByIndicatorFragment extends Fragment {
 	 * 
 	 * @param secondNumber
 	 */
-	public EditText markedSecondNumberInsertMaximum(EditText secondNumber) {
+	public void markedSecondNumberInsertMaximum(EditText secondNumber) {
 		if (secondNumber.getText().length() == 0) {
 			maximum.setChecked(true);
-			return firstNumber;
-		} else {
-			return firstNumber;
 		}
 	}
 
@@ -155,6 +152,27 @@ public class SearchByIndicatorFragment extends Fragment {
 		return max;
 
 	}
+
+	/**
+	 * If even a selected year, it sent the last value contained in
+	 * the Adapter.
+	 * @return
+	 */
+	public int getsYearResearched(){
+		int yearResearched;
+		if (yearSpinner.getSelectedItemPosition() != 0)
+		{
+			yearResearched = Integer.parseInt(yearSpinner.getSelectedItem().toString());
+		}
+		else {
+			yearResearched = Integer.parseInt(yearSpinner.getAdapter()
+					.getItem(yearSpinner.getAdapter().getCount() - 1)
+					.toString());
+		}
+		return yearResearched;
+	}
+	
+	 			// Gets the value of the year, contained in Spinner.
 
 	// Method to perform the action after the click.
 	public OnClickListener getClickListener() {
@@ -180,21 +198,7 @@ public class SearchByIndicatorFragment extends Fragment {
 				listSelectionPosition = listSelectionSpinner
 						.getSelectedItemPosition();
 
-				// Gets the value of the year, contained in Spinner.
-				if (yearSpinner.getSelectedItemPosition() != 0) {
-					yearResearched = Integer.parseInt(yearSpinner
-							.getSelectedItem().toString());
-				}
-
-				/*
-				 * If even a selected year, it sent the last value contained in
-				 * the Adapter.
-				 */
-				else {
-					yearResearched = Integer.parseInt(yearSpinner.getAdapter()
-							.getItem(yearSpinner.getAdapter().getCount() - 1)
-							.toString());
-				}
+				yearResearched = getsYearResearched();
 
 				maxNumber = getMaximumValue(maximum, secondNumberValue);
 				secondNumber.clearFocus();
