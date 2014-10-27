@@ -137,6 +137,25 @@ public class SearchByIndicatorFragment extends Fragment {
 		}
 	}
 
+	/**
+	 * // Checking if the checkBox maximum is selected. And set the value
+	 * maximum
+	 * 
+	 * @param maximum
+	 * @param secondNumberValue
+	 * @return
+	 */
+	public int getMaximumValue(CheckBox maximum, String secondNumberValue) {
+		int max = 0;
+		if (maximum.isChecked()) {
+			max = -1;
+		} else {
+			max = Integer.parseInt(secondNumberValue);
+		}
+		return max;
+
+	}
+
 	// Method to perform the action after the click.
 	public OnClickListener getClickListener() {
 		return new OnClickListener() {
@@ -144,9 +163,8 @@ public class SearchByIndicatorFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				int lowerNumber;
-				int higherNumber;
+				int maxNumber;
 				int yearResearched;
-				int max;
 				int listSelectionPosition;
 
 				markedFirstNumberInsertZero(firstNumber);
@@ -158,11 +176,6 @@ public class SearchByIndicatorFragment extends Fragment {
 				String secondNumberValue = secondNumber.getText().toString();
 
 				lowerNumber = Integer.parseInt(firstNumberValue);
-				if (maximum.isChecked()) {
-					higherNumber = -1;
-				} else {
-					higherNumber = Integer.parseInt(secondNumberValue);
-				}
 
 				listSelectionPosition = listSelectionSpinner
 						.getSelectedItemPosition();
@@ -183,19 +196,12 @@ public class SearchByIndicatorFragment extends Fragment {
 							.toString());
 				}
 
-				// Checking if the checkBox is selected.
-				if (maximum.isChecked()) {
-					max = -1;
-				} else {
-					max = higherNumber;
-				}
-
-				firstNumber.clearFocus();
+				maxNumber = getMaximumValue(maximum, secondNumberValue);
 				secondNumber.clearFocus();
 
 				hideKeyboard(arg0);
 
-				updateSearchList(lowerNumber, max, yearResearched,
+				updateSearchList(lowerNumber, maxNumber, yearResearched,
 						listSelectionPosition,
 						((Indicator) filterFieldSpinner
 								.getItemAtPosition(filterFieldSpinner
