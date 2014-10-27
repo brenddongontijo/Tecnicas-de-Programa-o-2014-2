@@ -16,7 +16,11 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-// Class designed to generate a list of comparisons.
+/**
+ * Class name: ListCompareAdapter.
+ * 
+ * Class designed to generate a list of comparisons.
+ */
 public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		OnCheckedChangeListener {
 
@@ -42,6 +46,9 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		}
 	}
  
+	/**
+	 * Method used to inflate the view.
+	 */
 	@Override
 	public View getView(final int selectedPosition, View contextView, ViewGroup parent) {
 		View currentView = contextView;
@@ -85,7 +92,9 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		
 	}
 
-	// Used in changing buttons.
+	/**
+	 * Used in changing buttons.
+	 */
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		// TODO Auto-generated method stub
