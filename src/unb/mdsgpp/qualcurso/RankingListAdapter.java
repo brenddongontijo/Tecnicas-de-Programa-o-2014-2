@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Class name: ListAdapter
+ * Class name: RankingListAdapter
  * 
  * This class makes a text view for each ranking result fields.
  */
@@ -28,7 +28,7 @@ public class RankingListAdapter extends ArrayAdapter<HashMap<String, String>> {
 	}
 
 	/**
-	 * Method tha inflates the ranking view.
+	 * Method that inflates the ranking view.
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -50,6 +50,7 @@ public class RankingListAdapter extends ArrayAdapter<HashMap<String, String>> {
 	 * 
 	 * @param rankingView
 	 * @param position
+	 * 
 	 * @return
 	 */
 	private View makeRankingView(View rankingView, int position) {
@@ -86,6 +87,7 @@ public class RankingListAdapter extends ArrayAdapter<HashMap<String, String>> {
 	 * Method that put the trophy image in the ranking.
 	 * 
 	 * @param position
+	 * 
 	 * @return
 	 */
 	public Drawable getTrophyImage(int position) {
