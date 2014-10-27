@@ -29,7 +29,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 /**
  * Class Name: CompareChooseFragment
  * 
- * This class is responsible for create a fragment related with the comparison between two institutions.
+ * This class is responsible for create a fragment related with the choose comparison between two institutions.
  */
 public class CompareChooseFragment extends Fragment implements
 		CheckBoxListCallbacks {

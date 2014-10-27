@@ -43,13 +43,8 @@ public class MainActivity extends ActionBarActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		if(savedInstanceState != null){
-			drawerPosition = savedInstanceState.getInt(DRAWER_POSITION);
-			mTitle = savedInstanceState.getCharSequence(CURRENT_TITLE);
-		}
-		else {
-			mTitle = getFormatedTitle(getTitle());
-		}
+		checksSavedInstanceState(savedInstanceState);
+		
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 
@@ -58,11 +53,29 @@ public class MainActivity extends ActionBarActivity implements
 				(DrawerLayout) findViewById(R.id.drawer_layout));		
 	}
 	
+	/**
+	 * This method checks if already exist a saved instance and set positions 
+	 * the drawer position and title menu name. 
+	 * 
+	 * @param savedInstanceState
+	 */
+	private void checksSavedInstanceState(Bundle savedInstanceState) {
+		if(savedInstanceState != null){
+			drawerPosition = savedInstanceState.getInt(DRAWER_POSITION);
+			mTitle = savedInstanceState.getCharSequence(CURRENT_TITLE);
+		}
+		else {
+			mTitle = getFormatedTitle(getTitle());
+		}
+	}
+	
 	public CharSequence getFormatedTitle(CharSequence titleName){
 		int actionBarTitleColor = getResources().getColor(R.color.actionbar_title_color);
 		
-		return Html.fromHtml("<font color='#"+Integer.
+		CharSequence newTitleName = Html.fromHtml("<font color='#"+Integer.
 				toHexString(actionBarTitleColor).substring(2)+"'><b>"+titleName+"</b></font>");
+		
+		return newTitleName;
 	}
 	
 	@Override
@@ -78,47 +91,17 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public void onNavigationDrawerItemSelected(int position) {
+	public void onNavigationDrawerItemSelected(int drawerPosition) {
 		
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		
-		ActionBar actionBar = getSupportActionBar();	
-		Fragment fragment = null;
-		String formatedTitle = "";
-		
-		switch(position) {
-			case 0:
-				formatedTitle = getString(R.string.title_section1);
-				fragment = new TabsFragment();
-				drawerPosition = 0;
-			break;
-			case 1:
-				formatedTitle = getString(R.string.title_section2);
-				fragment = new SearchByIndicatorFragment();
-				drawerPosition = 1;
-				break;
-			case 2:
-				formatedTitle = getString(R.string.title_section3);
-				fragment = new RankingFragment();
-				drawerPosition = 2;
-				break;
-			case 3:
-				formatedTitle = getString(R.string.title_section4);
-				fragment = new HistoryFragment();
-				drawerPosition = 3;
-				break;
-			case 4:
-				formatedTitle = getString(R.string.title_section5);
-				fragment = new CompareChooseFragment();
-				drawerPosition = 4;
-				break;
-			default:
-				fragment = null;
-				break;
-			}	
+		ActionBar actionBar = getSupportActionBar();
+		Fragment fragment = setFragmentOfDrawerPosition(drawerPosition);
 		
 		if(fragment != null){
+			String formatedTitle = updatesMenuName(drawerPosition);
+			
 			actionBar.setTitle(getFormatedTitle(formatedTitle));
 			
 			mTitle = getFormatedTitle(formatedTitle);
@@ -136,7 +119,91 @@ public class MainActivity extends ActionBarActivity implements
 			
 		}
 	}
+	
+	/**
+	 * This method change the corresponding fragment to the position of the drawer.
+	 * 
+	 * @param choosenOption
+	 * @param formatedTitle
+	 * @return
+	 */
+	private Fragment setFragmentOfDrawerPosition(final int choosenOption){
+		
+		Fragment fragment = null;
 
+		final int evaluations = 0;
+		final int search = 1;
+		final int ranking = 2;
+		final int listHistory = 3;
+		final int compareInstitutions = 4;
+		
+		switch(choosenOption) {
+			case evaluations:
+				fragment = new TabsFragment();
+				drawerPosition = 0;
+				break;
+			case search:
+				fragment = new SearchByIndicatorFragment();
+				drawerPosition = 1;
+				break;
+			case ranking:
+				fragment = new RankingFragment();
+				drawerPosition = 2;
+				break;
+			case listHistory:
+				fragment = new HistoryFragment();
+				drawerPosition = 3;
+				break;
+			case compareInstitutions:
+				fragment = new CompareChooseFragment();
+				drawerPosition = 4;
+				break;
+			default:
+				fragment = null;
+				break;
+		}
+		
+		return fragment;
+	}
+
+	/**
+	 * This function change the name of menu based on drawer position selected.
+	 * 
+	 * @param choosenOption				drawer position.
+	 * @return							name of corresponding drawer. 
+	 */
+	private String updatesMenuName(final int choosenOption){
+		String formatedTitle = "";
+		
+		final int evaluations = 0;
+		final int search = 1;
+		final int ranking = 2;
+		final int listHistory = 3;
+		final int compareInstitutions = 4;
+		
+		switch(choosenOption) {
+			case evaluations:
+				formatedTitle = getString(R.string.title_section1);
+				break;
+			case search:
+				formatedTitle = getString(R.string.title_section2);
+				break;
+			case ranking:
+				formatedTitle = getString(R.string.title_section3);
+				break;
+			case listHistory:
+				formatedTitle = getString(R.string.title_section4);
+				break;
+			case compareInstitutions:
+				formatedTitle = getString(R.string.title_section5);
+				break;
+			default:
+				break;
+		}
+		
+		return formatedTitle;
+	}
+	
 	public void restoreActionBar() {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
