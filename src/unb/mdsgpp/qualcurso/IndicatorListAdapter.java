@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+/**
+ * Class name: IndicatorListAdapter.
+ */
 public class IndicatorListAdapter extends ArrayAdapter<HashMap<String,String>> {
 	
 	// Use to keep the value of the indicator.
@@ -56,7 +59,8 @@ public class IndicatorListAdapter extends ArrayAdapter<HashMap<String,String>> {
 	 * Method that checks if the view is null.
 	 * 
 	 * @param view
-	 * @return
+	 * 
+	 * @return view
 	 */
 	private View nullView(View view) {
 		
