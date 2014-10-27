@@ -31,11 +31,7 @@ public class IndicatorListAdapter extends ArrayAdapter<HashMap<String,String>> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
 
-		if (view == null) {
-			LayoutInflater inflateView;
-			inflateView = LayoutInflater.from(getContext());
-			view = inflateView.inflate(itemLayout, null);
-		}
+		view = nullView(view);
 
 		HashMap<String,String> hashMap = getItem(position);
 
@@ -54,5 +50,25 @@ public class IndicatorListAdapter extends ArrayAdapter<HashMap<String,String>> {
     	}
 
     	return view;
+	}
+	
+	/**
+	 * Method that checks if the view is null.
+	 * 
+	 * @param view
+	 * @return
+	 */
+	private View nullView(View view) {
+		
+		if (view == null) {
+			LayoutInflater inflateView;
+			inflateView = LayoutInflater.from(getContext());
+			view = inflateView.inflate(itemLayout, null);
+		} 
+		else {
+			
+		}
+		
+		return view;
 	}
 }

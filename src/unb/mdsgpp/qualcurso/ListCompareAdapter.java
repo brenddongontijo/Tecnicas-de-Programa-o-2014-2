@@ -42,22 +42,17 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		}
 	}
  
-	// Method used to inflate the view.
 	@Override
 	public View getView(final int selectedPosition, View contextView, ViewGroup parent) {
 		View currentView = contextView;
 		
 		checkBoxCallBacks = (CheckBoxListCallbacks) this.callingFragment;
 		
-		if(currentView == null) {
-			LayoutInflater screenLayout;
-			screenLayout = LayoutInflater.from(getContext());
-			currentView = screenLayout.inflate(R.layout.compare_choose_list_item, null);
-		}
-
+		currentView = nullCurrentView(currentView);
+		
 		Institution institutionForComparation = getItem(selectedPosition);
 
-		if(institutionForComparation != null) {
+		if (institutionForComparation != null) {
 			checkBox = (CheckBox) currentView.findViewById(R.id.compare_institution_checkbox);
 			checkBox.setText(institutionForComparation.getAcronym());
 			checkBox.setTag(INSTITUTION, institutionForComparation);
@@ -68,6 +63,27 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		}
 		return currentView;
 	}
+	
+	/**
+	 * Method that checks if the view been used is null.
+	 * 
+	 * @param currentView
+	 * @return
+	 */
+	private View nullCurrentView(View currentView) {
+		
+		if (currentView == null) {
+			LayoutInflater screenLayout;
+			screenLayout = LayoutInflater.from(getContext());
+			currentView = screenLayout.inflate(R.layout.compare_choose_list_item, null);
+		}
+		else {
+			
+		}
+		
+		return currentView;
+		
+	}
 
 	// Used in changing buttons.
 	@Override
@@ -75,8 +91,8 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		// TODO Auto-generated method stub
 		int position = (Integer) buttonView.getTag(ListCompareAdapter.POSITION);
 		
-		if(position != ListView.INVALID_POSITION) {
-			if(isChecked) {
+		if (position != ListView.INVALID_POSITION) {
+			if (isChecked) {
 				checkBoxCallBacks.onCheckedItem((CheckBox) buttonView);
 			}
 			else {
