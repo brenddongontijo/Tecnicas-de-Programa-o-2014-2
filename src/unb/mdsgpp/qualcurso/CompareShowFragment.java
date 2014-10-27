@@ -20,6 +20,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Class Name: CompareShowFragment
+ * 
+ * This class is responsible for create a fragment related with the show comparison between two institutions.
+ */
 public class CompareShowFragment extends Fragment{
 	
 	// Use to keep the evaluation of a chosen course.
@@ -47,23 +52,34 @@ public class CompareShowFragment extends Fragment{
 		// TODO Auto-generated constructor stub
 		super();
 		
-		Bundle args = new Bundle();
-		args.putInt(ID_EVALUATION_A, 0);
-		args.putInt(ID_EVALUATION_B, 0);
+		Bundle bundle = fillBundleWithEvaluationsIds(0, 0);
 		
-		this.setArguments(args);
+		this.setArguments(bundle);
 	}
 	
 	public static CompareShowFragment newInstance(final int idEvaluationA, final int idEvaluationB){
+		Bundle bundle = fillBundleWithEvaluationsIds(idEvaluationA, idEvaluationB);
+		
 		CompareShowFragment compareShowFragment = new CompareShowFragment();
-		
-		Bundle args = new Bundle();
-		args.putInt(ID_EVALUATION_A, idEvaluationA);
-		args.putInt(ID_EVALUATION_B, idEvaluationB);
-		
-		compareShowFragment.setArguments(args);
+		compareShowFragment.setArguments(bundle);
 		
 		return compareShowFragment;
+	}
+	
+	/**
+	 * This method initiate the Bundle with id of two evaluations. 
+	 * 
+	 * @param idInstitution			institution id present on Database.
+	 * @param evaluationYear		year of the evaluation
+	 * @param coursesArray			array of courses.
+	 * @return						a filled Bundle.
+	 */
+	private static Bundle fillBundleWithEvaluationsIds(final int idFirstEvaluation, final int idSecondEvaluation){
+		Bundle bundle = new Bundle();
+		bundle.putInt(ID_EVALUATION_A, idFirstEvaluation);
+		bundle.putInt(ID_EVALUATION_B, idSecondEvaluation);
+		
+		return bundle;
 	}
 	
 	@Override
