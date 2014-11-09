@@ -9,8 +9,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import libraries.DataBase;
 
-/*
+/**
  * Class Name: GenericBeanDAO
+ * 
  * This class aims to make a generic DAO and avoid replication code. 
  */
 public class GenericBeanDAO extends DataBase {
@@ -18,13 +19,22 @@ public class GenericBeanDAO extends DataBase {
 	// Represents a statement that can be executed against a database.
 	private SQLiteStatement performDatabase;
 
+	/**
+	 * @throws SQLException
+	 */
 	public GenericBeanDAO() throws SQLException {
 		super();
 	}
 
-	/* 
+	/**
 	 * This method will access a specific table in Database and ordering if
 	 * necessary.
+	 * 
+	 * @param bean
+	 * @param table
+	 * @param orderField
+	 * @return beans.
+	 * @throws SQLException
 	 */
 	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table,
 			String orderField) throws SQLException {
@@ -50,7 +60,11 @@ public class GenericBeanDAO extends DataBase {
 		return beans;
 	}
 	
-	
+	/**
+	 * @param cursorBeans
+	 * @param beans
+	 * @param table
+	 */
 	public void insertBeans(Cursor cursorBeans, ArrayList<Bean> beans,
 			String table) {
 
@@ -66,9 +80,16 @@ public class GenericBeanDAO extends DataBase {
 		}
 	}
 
-	/* 
+	/**
 	 * This method will access a specific table in Database based on year and
 	 * ordering if necessary.
+	 * 
+	 * @param bean
+	 * @param table
+	 * @param year
+	 * @param orderField
+	 * @return
+	 * @throws SQLException
 	 */
 	public ArrayList<Bean> selectBeanRelationship(Bean bean, String table,
 			int year, String orderField) throws SQLException {
@@ -96,7 +117,13 @@ public class GenericBeanDAO extends DataBase {
 		return beans;
 	}
 
-	// TO-DO.
+	/**
+	 * @param bean
+	 * @param fields
+	 * @param orderField
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Bean> selectFromFields(Bean bean,
 			ArrayList<String> fields, String orderField) throws SQLException {
 		this.openConnection();
@@ -140,7 +167,13 @@ public class GenericBeanDAO extends DataBase {
 		return beans;
 	}
 
-	// This method insert values in a specific Bean table.
+	/**
+	 * This method insert values in a specific Bean table.
+	 * 
+	 * @param bean
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean insertBean(Bean bean) throws SQLException {
 		this.openConnection();
 
@@ -183,7 +216,14 @@ public class GenericBeanDAO extends DataBase {
 		}
 	}
 
-	// This method adds a relation between Institution and Course.
+	/**
+	 * This method adds a relation between Institution and Course.
+	 * 
+	 * @param parentBean
+	 * @param childBean
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean addBeanRelationship(Bean parentBean, Bean childBean)
 			throws SQLException {
 		this.openConnection();
@@ -209,7 +249,14 @@ public class GenericBeanDAO extends DataBase {
 		
 	}
 
-	// This method deletes the relation between Institution and Course.
+	/**
+	 * This method deletes the relation between Institution and Course.
+	 * 
+	 * @param parentBean
+	 * @param childBean
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean deleteBeanRelationship(Bean parentBean, Bean childBean)
 			throws SQLException {
 		this.openConnection();
@@ -234,9 +281,13 @@ public class GenericBeanDAO extends DataBase {
 		}
 	}
 
-	/* 
+	/**
 	 * This method will return a specific Bean with all theirs values in
 	 * Database.
+	 * 
+	 * @param bean
+	 * @return
+	 * @throws SQLException
 	 */
 	public Bean selectBean(Bean bean) throws SQLException {
 		this.openConnection();
@@ -262,7 +313,14 @@ public class GenericBeanDAO extends DataBase {
 		return result;
 	}
 
-	// This method keeps all same Beans into a ArrayList.
+	/**
+	 * This method keeps all same Beans into a ArrayList.
+	 * 
+	 * @param type
+	 * @param orderField
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Bean> selectAllBeans(Bean type, String orderField)
 			throws SQLException {
 		this.openConnection();
@@ -286,6 +344,11 @@ public class GenericBeanDAO extends DataBase {
 		return beans;
 	}
 
+	/**
+	 * @param sql
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<String[]> runSql(String sql) throws SQLException {
 		this.openConnection();
 
@@ -307,6 +370,11 @@ public class GenericBeanDAO extends DataBase {
 		return result;
 	}
 
+	/**
+	 * @param beanCursor
+	 * @param listOfBeans
+	 * @param typeBean
+	 */
 	public void setBeanOfIdentifier(Cursor beanCursor, ArrayList<Bean> listOfBeans, Bean typeBean ){
 		while (beanCursor.moveToNext()) {
 			Bean bean = init(typeBean.identifier);
@@ -317,6 +385,12 @@ public class GenericBeanDAO extends DataBase {
 		}
 	}
 	
+	/**
+	 * @param typeBean
+	 * @param sql
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Bean> runSql(Bean typeBean, String sql) throws SQLException {
 		this.openConnection();
 		ArrayList<Bean> listOfBeans = new ArrayList<Bean>();
@@ -327,9 +401,13 @@ public class GenericBeanDAO extends DataBase {
 		return listOfBeans;
 	}
 
-	/*
+	/**
 	 * The method countBean() count the number of Beans on Database based on
 	 * Bean identifier.
+	 * 
+	 * @param type
+	 * @return
+	 * @throws SQLException
 	 */
 	public Integer countBean(Bean type) throws SQLException {
 		this.openConnection();
@@ -347,9 +425,14 @@ public class GenericBeanDAO extends DataBase {
 		return count;
 	}
 
-	/*
+	/**
 	 * The method firstOrLastBean() returns the first or last Bean based on
 	 * boolean "last".
+	 * 
+	 * @param type
+	 * @param last
+	 * @return
+	 * @throws SQLException
 	 */
 	public Bean firstOrLastBean(Bean type, boolean last) throws SQLException {
 		Bean bean = null;
@@ -378,6 +461,14 @@ public class GenericBeanDAO extends DataBase {
 		return bean;
 	}
 
+	/**
+	 * @param returnFields
+	 * @param orderedBy
+	 * @param condition
+	 * @param groupBy
+	 * @param desc
+	 * @return
+	 */
 	public ArrayList<HashMap<String, String>> selectOrdered(
 			ArrayList<String> returnFields, String orderedBy, String condition,
 			String groupBy, boolean desc) {
@@ -426,6 +517,15 @@ public class GenericBeanDAO extends DataBase {
 		return values;
 	}
 
+	/**
+	 * @param typeOfBean
+	 * @param fieldDatabase
+	 * @param value
+	 * @param use_like
+	 * @param orderField
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Bean> selectBeanWhere(Bean typeOfBean, String fieldDatabase,
 			String value, boolean use_like, String orderField)
 			throws SQLException {
@@ -452,7 +552,13 @@ public class GenericBeanDAO extends DataBase {
 		return listBeans;
 	}
 
-	// The method deleteBean() aims to delete a determinate Bean on Database.
+	/**
+	 * The method deleteBean() aims to delete a determinate Bean on Database.
+	 * 
+	 * @param bean
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean deleteBean(Bean bean) throws SQLException {
 		this.openConnection();
 
@@ -472,7 +578,12 @@ public class GenericBeanDAO extends DataBase {
 		}
 	}
 
-	// The method init() Creates a Bean based on the current bean.Identifier.
+	/**
+	 * The method init() Creates a Bean based on the current bean.Identifier.
+	 * 
+	 * @param beanIdentifier
+	 * @return
+	 */
 	public Bean init(String beanIdentifier) {
 		Bean object = null;
 
