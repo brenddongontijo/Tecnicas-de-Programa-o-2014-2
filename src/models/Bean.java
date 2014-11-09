@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-/*
+/**
  * Class Name: Bean.
  * This class transforms an Article, Book, Course, Evaluation, Institution or Search
  * into a Bean witch will be able to access GenericBeanDAO.

@@ -1,9 +1,10 @@
 package models;
 
 import android.database.SQLException;
+
 import java.util.ArrayList;
 
-/*
+/**
  * Class Name: Book
  * This class creates an Book with all their evaluation values.
  */
@@ -88,7 +89,12 @@ public class Book extends Bean {
 		this.entries = entries;
 	}
 
-	// This method saves one Book into Database.
+	/**
+	 * This method saves one Book into Database.
+	 * 
+	 * @return				Book inserted on Database or not.
+	 * @throws SQLException
+	 */
 	public boolean saveBook() throws  SQLException {
 		boolean saveResult = false;
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -99,7 +105,13 @@ public class Book extends Bean {
 		return saveResult;
 	}
 
-	// This method picks an Book on Database based on his id.
+	/**
+	 * This method return an Book based on his id.
+	 * 
+	 * @param bookId					book id on Database.
+	 * @return							book corresponding to the id.
+	 * @throws SQLException
+	 */
 	public static Book getBookByValue(int bookId) throws SQLException {
 		Book bookWithId = new Book(bookId);
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -110,7 +122,12 @@ public class Book extends Bean {
 		return bookWithId;
 	}
 
-	// This method get all Books from database.
+	/**
+	 * This method get all Books from database.
+	 * 
+	 * @return				array with all books.
+	 * @throws SQLException
+	 */
 	public static ArrayList<Book> getAllBooks() throws SQLException {
 		Book book = new Book();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -124,7 +141,12 @@ public class Book extends Bean {
 		return arrayOfBooks;
 	}
 
-	// This method counts the number of Books into Database.
+	/**
+	 * This method counts the number of Books into Database.
+	 * 
+	 * @return			number of books present on Database.
+	 * @throws SQLException
+	 */
 	public static int numberOfBooks() throws SQLException {
 		int numberOfBooks = 0;
 		
@@ -136,7 +158,12 @@ public class Book extends Bean {
 		return numberOfBooks;
 	}
 
-	// This method returns the first Book into Database.
+	/**
+	 * This method returns the first Book into Database.
+	 * 
+	 * @return			first book on Database.
+	 * @throws SQLException
+	 */
 	public static Book firstBook() throws SQLException {
 		Book book = new Book();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -146,7 +173,12 @@ public class Book extends Bean {
 		return book;
 	}
 
-	// This method returns the last Book into Database.
+	/**
+	 * This method returns the last Book into Database.
+	 * 
+	 * @return			last book on Database.
+	 * @throws SQLException
+	 */
 	public static Book lastBook() throws SQLException {
 		Book book = new Book();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -156,7 +188,15 @@ public class Book extends Bean {
 		return book;
 	}
 
-	// This method will try to find an Book based on a search.  
+	/**
+	 * This method will try to find an Book based on a search. 
+	 * 
+	 * @param field
+	 * @param value
+	 * @param like
+	 * @return
+	 * @throws SQLException
+	 */
 	public static ArrayList<Book> getWhere(String field, String value, 
 			boolean like) throws SQLException {
 		
@@ -172,7 +212,12 @@ public class Book extends Bean {
 		return arrayOfBooks;
 	}
 	
-	// This method deletes an Book from Database.
+	/**
+	 * This method deletes an Book from Database.
+	 * 
+	 * @return			Book deleted from Database or not.
+	 * @throws SQLException
+	 */
 	public boolean deleteBook() throws SQLException {
 		boolean deleteResult = false;
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -181,31 +226,57 @@ public class Book extends Bean {
 		
 		return deleteResult;
 	}
-
-	// Rewriting fields to String.
+	
+	/**
+	 * Creating an Parcelable to Book.
+	 */
+	@Override
+	public ArrayList<String> fieldsList() {
+		ArrayList<String> fields = new ArrayList<String>();
+		
+		fields.add("_id");
+		fields.add("integral_text");
+		fields.add("chapters");
+		fields.add("collections");
+		fields.add("entries");
+		
+		return fields;
+	}
+		
+	/**
+	 * Rewriting article Parcelable get parameters to String.
+	 * 
+	 * @return 			corresponding value into a String.
+	 */
 	@Override
 	public String get(String field) {
+		String correpondingField = "";
+		
 		if(field.equals("_id")) {
-			return Integer.toString(this.getId());
+			correpondingField = Integer.toString(this.getId());
 		}
 		else if(field.equals("integral_text")) {
-			return Integer.toString(this.getIntegralText());
+			correpondingField = Integer.toString(this.getIntegralText());
 		}
 		else if(field.equals("chapters")) {
-			return Integer.toString(this.getBookChapters());
+			correpondingField = Integer.toString(this.getBookChapters());
 		}
 		else if(field.equals("collections")) {
-			return Integer.toString(this.getBookCollections());
+			correpondingField = Integer.toString(this.getBookCollections());
 		}
 		else if(field.equals("entries")) {
-			return Integer.toString(this.getEntries());
+			correpondingField = Integer.toString(this.getEntries());
 		}
 		else{
-			return "";
+			correpondingField = "";
 		}
+		
+		return correpondingField;
 	}
 
-	// Rewriting fields to Integer.
+	/**
+	 * Rewriting article Parcelable set parameters to their specific types.
+	 */
 	@Override
 	public void set(String field, String data) {
 		if(field.equals("_id")) {
@@ -223,20 +294,6 @@ public class Book extends Bean {
 		else if(field.equals("entries")) {
 			this.setEntries(Integer.parseInt(data));
 		}
-	}
-
-	// Creating an ArrayList of String with evaluation book values.
-	@Override
-	public ArrayList<String> fieldsList() {
-		ArrayList<String> fields = new ArrayList<String>();
-		
-		fields.add("_id");
-		fields.add("integral_text");
-		fields.add("chapters");
-		fields.add("collections");
-		fields.add("entries");
-		
-		return fields;
 	}
 	
 }
