@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
-/*
+/**
  * Class Name: DataBase.
  * This class creates the Database opening and closing the connection to the same.
  */
@@ -22,12 +22,16 @@ public class DataBase extends SQLiteAssetHelper {
 		super(QualCurso.getInstance(), QualCurso.getInstance().getDatabaseName(), null, DATABASE_VERSION);
 	}
 	
-	// Opens the connection with the database.
+	/**
+	 * This method opens the connection with the database.
+	 */
 	protected void openConnection(){
 		database = this.getReadableDatabase();
 	}
 	
-	// Close connection to the database.
+	/**
+	 * This method close connection to the database.
+	 */
 	protected void closeConnection(){
 		database.close();
 	}
