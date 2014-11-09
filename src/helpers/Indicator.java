@@ -8,9 +8,9 @@ import models.Evaluation;
 import unb.mdsgpp.qualcurso.QualCurso;
 import unb.mdsgpp.qualcurso.R;
 
-/*
+/**
  * Class Name: Indicator.
- * The class Indicator helps to make one search based on the evaluation indicators.
+ * This class helps to make one search based on the evaluation indicators.
  */
 public class Indicator {
 	
@@ -54,15 +54,38 @@ public class Indicator {
 		return this.getSearchIndicatorName();
 	}
 
-	// This method keep all indicators in one ArrayList.
+	/**
+	 * This method keep all indicators in one ArrayList.
+	 *  
+	 * @return list with all important indicators.
+	 */
 	public static ArrayList<Indicator> getIndicators(){
 		
-		// Through an instance of QualCurso ,we obtain an  array of string institutions.
+		// Through an instance of QualCurso, we obtain an  array of string institutions.
 		String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
 		
 		ArrayList<Indicator> arrayOfIndicators = new ArrayList<Indicator>();
 
+		// Setting the default indicator.
 		arrayOfIndicators.add(new Indicator(indicatorList[0], DEFAULT_INDICATOR));
+		
+		arrayOfIndicators = fillArrayWithEvaluationIndicators(arrayOfIndicators);
+		
+		arrayOfIndicators = fillArrayWithBookIndicators(arrayOfIndicators);
+		
+		arrayOfIndicators = fillArrayWithArticleIndicators(arrayOfIndicators);
+
+		return arrayOfIndicators;
+	}
+
+	/**
+	 * This method fill one array with evaluation indicators.
+	 * 
+	 * @param arrayWithEvaluationInditators			array to be filled.
+	 * @return										array with evaluation indicators.
+	 */
+	private static ArrayList<Indicator> fillArrayWithEvaluationIndicators(ArrayList<Indicator> arrayOfIndicators){
+		String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
 		
 		// Adding triennial_evaluation.
 		arrayOfIndicators.add(new Indicator(indicatorList[1], new Evaluation().
@@ -92,6 +115,18 @@ public class Indicator {
 		arrayOfIndicators.add(new Indicator(indicatorList[7], new Evaluation().
 				fieldsList().get(13)));
 		
+		return arrayOfIndicators;
+	}
+	
+	/**
+	 * This method fill one array with book indicators.
+	 * 
+	 * @param arrayWithIndicators		array to be filled.
+	 * @return							array with book indicators.
+	 */
+	private static ArrayList<Indicator> fillArrayWithBookIndicators(ArrayList<Indicator> arrayOfIndicators){
+		String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
+		
 		// Adding chapters.
 		arrayOfIndicators.add(new Indicator(indicatorList[8], new Book().
 				fieldsList().get(2)));
@@ -108,6 +143,18 @@ public class Indicator {
 		arrayOfIndicators.add(new Indicator(indicatorList[11], new Book().
 				fieldsList().get(4)));
 		
+		return arrayOfIndicators;
+	}
+	
+	/**
+	 * This method fill one array with article indicators.
+	 * 
+	 * @param arrayOfIndicators		array to be filled.
+	 * @return						array with article indicators.
+	 */
+	private static ArrayList<Indicator> fillArrayWithArticleIndicators(ArrayList<Indicator> arrayOfIndicators){
+		String [] indicatorList = QualCurso.getInstance().getResources().getStringArray(R.array.indicator);
+		
 		// Adding published_journals.
 		arrayOfIndicators.add(new Indicator(indicatorList[12], new Article().
 				fieldsList().get(1)));
@@ -118,17 +165,25 @@ public class Indicator {
 
 		return arrayOfIndicators;
 	}
-
-	// This method find a specific indicator in all indicators.	 
-	public static Indicator getIndicatorByValue(String value) {
+	
+	/**
+	 *  This method find a specific indicator in all indicators.	 
+	 *  
+	 * @param indicatorSearchValue			value to be found
+	 * @return								Indicator based on the value found
+	 */
+	public static Indicator getIndicatorByValue(final String indicatorSearchValue) {
 		Indicator indicator = null;
 		
 		for(Indicator finderIndicator : getIndicators()) {
 			
 			// Trying to find the indicator.
-			if(finderIndicator.getValue().equals(value)) {
+			if(finderIndicator.getValue().equals(indicatorSearchValue)) {
 				indicator = finderIndicator;
 				break;
+			}
+			else{
+				
 			}
 		}
 
