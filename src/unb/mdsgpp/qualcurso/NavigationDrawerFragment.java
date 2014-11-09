@@ -22,7 +22,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-/*
+/**
+ * Class name: NavigationDrawerFragment.
+ * 
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
@@ -56,6 +58,7 @@ public class NavigationDrawerFragment extends Fragment {
 	}
 
 	/**
+	 * Change selected position.
 	 * 
 	 * @param savedInstanceState
 	 * @return
@@ -170,15 +173,11 @@ public class NavigationDrawerFragment extends Fragment {
 		 * ActionBarDrawerToggle ties together the the proper interactions
 		 * between the navigation drawer and the action bar app icon.
 		 */
-		mDrawerToggle = new ActionBarDrawerToggle(getActivity(), // host
-																	// Activity
+		mDrawerToggle = new ActionBarDrawerToggle(getActivity(), // host Activity
 				mDrawerLayout, // DrawerLayout object
-				R.drawable.ic_drawer, // navigation drawer image to replace 'Up'
-										// caret
-				R.string.navigation_drawer_open, // "open drawer" description
-													// for accessibility
-				R.string.navigation_drawer_close // "close drawer" description
-													// for accessibility
+				R.drawable.ic_drawer, // navigation drawer image to replace 'Up' caret
+				R.string.navigation_drawer_open, // "open drawer" description for accessibility
+				R.string.navigation_drawer_close // "close drawer" description for accessibility
 		) {
 			@Override
 			public void onDrawerClosed(View drawerView) {
@@ -216,13 +215,8 @@ public class NavigationDrawerFragment extends Fragment {
 			}
 		};
 
-		/*
-		 * If the user hasn't 'learned' about the drawer, open it to introduce
-		 * them to the drawer, per the navigation drawer design guidelines.
-		 */
-		if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
-			mDrawerLayout.openDrawer(mFragmentContainerView);
-		}
+		learnDrawer();
+		
 
 		// Defer code dependent on restoration of previous instance state.
 		mDrawerLayout.post(new Runnable() {
@@ -233,6 +227,16 @@ public class NavigationDrawerFragment extends Fragment {
 		});
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
+	}
+	
+	/**
+	 * If the user hasn't 'learned' about the drawer, open it to introduce
+	 * them to the drawer, per the navigation drawer design guidelines.
+	 */
+	private void learnDrawer() {
+		if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
+			mDrawerLayout.openDrawer(mFragmentContainerView);
+		}
 	}
 
 	private void selectItem(int position) {
@@ -286,14 +290,14 @@ public class NavigationDrawerFragment extends Fragment {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
+	/**
+	 * If the drawer is open, show the global app actions in the action bar.
+	 * See also showGlobalContextActionBar, which controls the top-left area
+	 * of the action bar.
+	 */
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-		/*
-		 * If the drawer is open, show the global app actions in the action bar.
-		 * See also showGlobalContextActionBar, which controls the top-left area
-		 * of the action bar.
-		 */
 		if (mDrawerLayout != null && isDrawerOpen()) {
 			inflater.inflate(R.menu.global, menu);
 			showGlobalContextActionBar();
@@ -311,7 +315,7 @@ public class NavigationDrawerFragment extends Fragment {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/*
+	/**
 	 * Per the navigation drawer design guidelines, updates the action bar to
 	 * show the global app 'context', rather than just what's in the current
 	 * screen.
@@ -336,7 +340,7 @@ public class NavigationDrawerFragment extends Fragment {
 		return ((ActionBarActivity) getActivity()).getSupportActionBar();
 	}
 
-	/*
+	/**
 	 * Callback interface that all activities using this fragment must
 	 * implement.
 	 */

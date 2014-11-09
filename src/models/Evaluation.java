@@ -4,8 +4,9 @@ import android.database.SQLException;
 
 import java.util.ArrayList;
 
-/*
+/**
  * Class Name: Evaluation.
+ * 
  * This class receives all data based on university evaluation from
  * "Portal Brasileiro de Dados Abertos" xls spreadsheet.
  */
@@ -207,7 +208,9 @@ public class Evaluation extends Bean {
 		this.artisticProduction = artisticProduction;
 	}
 
-	// Rewriting fields to String.
+	/**
+	 * Rewriting fields to String.
+	 */
 	@Override
 	public String get(String field) {
 		if(field.equals("_id")) {
@@ -257,7 +260,9 @@ public class Evaluation extends Bean {
 		}
 	}
 
-	// Rewriting fields to Integer.
+	/**
+	 * Rewriting fields to Integer.
+	 */
 	@Override
 	public void set(String field, String data){
 		if(field.equals("_id")) {
@@ -304,7 +309,9 @@ public class Evaluation extends Bean {
 		} 
 	}
 
-	// Creating an ArrayList of String with evaluation book values.
+	/**
+	 * Creating an ArrayList of String with evaluation book values.
+	 */
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
@@ -327,7 +334,12 @@ public class Evaluation extends Bean {
 		return fields;
 	}
 	
-	// This method saves one Evaluation into Database.
+	/**
+	 * This method saves one Evaluation into Database.
+	 * 
+	 * @return inserted evaluation.
+	 * @throws SQLException
+	 */
 	public boolean saveEvaluation() throws SQLException {
 		boolean saveResult = false;
 		
@@ -339,7 +351,13 @@ public class Evaluation extends Bean {
 		return saveResult;
 	}
 
-	// This method picks an Evaluation on Database based on his id.
+	/**
+	 * This method picks an Evaluation on Database based on his id.
+	 * 
+	 * @param evaluationId 
+	 * @return evaluation that mathes the id.
+	 * @throws SQLException
+	 */
 	public static Evaluation getEvaluationById(int evaluationId) throws SQLException {
 		Evaluation evaluation = new Evaluation(evaluationId);
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -349,7 +367,12 @@ public class Evaluation extends Bean {
 		return evaluation;
 	}
 
-	// This method get all Evaluations from database.
+	/**
+	 * This method get all Evaluations from database.
+	 * 
+	 * @return an array of evaluation.
+	 * @throws SQLException
+	 */
 	public static ArrayList<Evaluation> getAllEvaluations() throws SQLException {
 		
 		Evaluation evaluation = new Evaluation();
@@ -364,7 +387,12 @@ public class Evaluation extends Bean {
 		return arrayOfEvaluations;
 	}
 	
-	// This method counts the number of Evaluations into Database.
+	/**
+	 * This method counts the number of Evaluations into Database.
+	 * 
+	 * @return the numbers of evaluations in database.
+	 * @throws SQLException
+	 */
 	public static int numberOfEvaluations() throws SQLException {
 		int numberOfEvaluations = 0;
 		
@@ -376,7 +404,12 @@ public class Evaluation extends Bean {
 		return numberOfEvaluations;
 	}
 
-	// This method returns the first Evaluation into Database.
+	/**
+	 * This method returns the first Evaluation into Database.
+	 * 
+	 * @return the first evaluation.
+	 * @throws SQLException
+	 */
 	public static Evaluation firstEvaluation() throws SQLException {
 		Evaluation evaluation = new Evaluation();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -386,7 +419,12 @@ public class Evaluation extends Bean {
 		return evaluation;
 	}
 
-	// This method returns the last Evaluation into Database.
+	/**
+	 * This method returns the last Evaluation into Database.
+	 * 
+	 * @return last evaluation.
+	 * @throws SQLException
+	 */
 	public static Evaluation lastEvaluation() throws SQLException {
 		Evaluation evaluation = new Evaluation();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -396,7 +434,15 @@ public class Evaluation extends Bean {
 		return evaluation;
 	}
 
-	// This method will try to find an Evaluation based on a search.  
+	/**
+	 * This method will try to find an Evaluation based on a search.
+	 *   
+	 * @param field
+	 * @param value
+	 * @param like
+	 * @return an array of evaluation.
+	 * @throws SQLException
+	 */
 	public static ArrayList<Evaluation> getWhere(String field, String value, boolean like) 
 			throws SQLException {
 		
@@ -412,7 +458,14 @@ public class Evaluation extends Bean {
 		return arrayOfEvaluations;
 	}
 	
-	// This method returns a Evaluation between a Institution and Course.
+	/**
+	 * This method returns a Evaluation between a Institution and Course.
+	 * 
+	 * @param idInstitution
+	 * @param idCourse
+	 * @param evaluationYear
+	 * @return the evaluation.
+	 */
 	public static Evaluation getFromRelation(int idInstitution, int idCourse, int evaluationYear){
 		Evaluation evaluation = new Evaluation();
 		evaluation.setIdInstitution(idInstitution);
@@ -444,7 +497,12 @@ public class Evaluation extends Bean {
 		return evaluation;
 	}
 	
-	// This method deletes an Evaluation from Database.
+	/**
+	 * This method deletes an Evaluation from Database.
+	 * 
+	 * @return the deleted evaluation.
+	 * @throws SQLException
+	 */
 	public boolean deleteEvaluation() throws  SQLException {
 		boolean deleteResult = false;
 		
