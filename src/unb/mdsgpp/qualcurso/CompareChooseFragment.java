@@ -184,9 +184,11 @@ public class CompareChooseFragment extends Fragment implements
 		
 	}
 
-	/*
+	/**
 	 * This method checks if any year was already selected and select the last
 	 * evaluation year by default.
+	 * 
+	 * @param yearSpinner		year chosen.
 	 */
 	private void verifySelecterYear(Spinner yearSpinner) {
 		final boolean anyYearWasSelected = (yearSpinner.getSelectedItemPosition() != 0);
@@ -204,10 +206,14 @@ public class CompareChooseFragment extends Fragment implements
 		}
 	}
 	
-	
-	// This method checks if any course was selected.
+	/**
+	 * This method checks if any course was selected.
+	 * 
+	 * @param selectedCourse		current selected course.
+	 */
 	private void verifySelectedCourse(Course selectedCourse) {
 		final boolean courseIsValid = (this.selectedCourse != null);
+		
 		if (courseIsValid) {
 			
 			ArrayList<Institution> courseInstitutions = this.selectedCourse
@@ -220,12 +226,13 @@ public class CompareChooseFragment extends Fragment implements
 			this.institutionList.setAdapter(compareAdapterList);
 		}		
 	}
-
-	// Check the checkBox items. 
+	
+	/**
+	 * This method check the selected checkBox items. 
+	 */
 	@Override
 	public void onCheckedItem(CheckBox checkBox) {
 		
-		// TODO Auto-generated method stub
 		Institution institution = ((Institution) checkBox
 				.getTag(ListCompareAdapter.INSTITUTION));
 		
@@ -235,13 +242,14 @@ public class CompareChooseFragment extends Fragment implements
 			final int maximumNumberOfInstitutionsToCompare = 2;
 			
 			/*
-			 * Restricted to two selections in checkBox, checkBox if two are
+			 * Restricted to two selections in checkBox, checks if two are
 			 * selected generates a list of results.
 			 */
 			boolean twoInstitutionsAreSelected = (selectedInstitutions.size() == 
 					(maximumNumberOfInstitutionsToCompare));
 			
 			if (twoInstitutionsAreSelected) {
+				// Filling two evaluations with the selected institutions.
 				Evaluation evaluationA = Evaluation.getFromRelation(
 						selectedInstitutions.get(0).getId(),
 						selectedCourse.getId(), selectedYear);
@@ -249,9 +257,16 @@ public class CompareChooseFragment extends Fragment implements
 						selectedInstitutions.get(1).getId(),
 						selectedCourse.getId(), selectedYear);
 				
+				// Calling the next fragment: CompareShowFragment.
 				beanCallbacks.onBeanListItemSelected(CompareShowFragment
 						.newInstance(evaluationA.getId(), evaluationB.getId()));
 			}
+			else{
+				
+			}
+		}
+		else{
+			// TO-DO: Make not found institution exception.
 		}
 	}
 
@@ -261,7 +276,9 @@ public class CompareChooseFragment extends Fragment implements
 		super.onPause();
 	}
 	
-	// Remove the checkbox selection. 
+	/**
+	 * Remove the checkbox selection. 
+	 */
 	@Override
 	public void onUnchekedItem(CheckBox checkBox) {
 		
@@ -273,7 +290,11 @@ public class CompareChooseFragment extends Fragment implements
 		}
 	}
 
-	// Method to hide the keyboard.
+	/**
+	 * Method to hide the keyboard.
+	 * 
+	 * @param view		current view.
+	 */
 	private void hideKeyboard(View view) {
 		InputMethodManager inputMethodManager = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -281,8 +302,14 @@ public class CompareChooseFragment extends Fragment implements
 				InputMethodManager.RESULT_UNCHANGED_SHOWN);
 	}
 
-	// Method for obtaining a ActionBar.
+	/**
+	 * Method for obtaining a ActionBar.
+	 * 
+	 * @return		action bar.
+	 */
 	private ActionBar getActionBar() {
-		return ((ActionBarActivity) getActivity()).getSupportActionBar();
+		ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+		
+		return actionBar;
 	}
 }

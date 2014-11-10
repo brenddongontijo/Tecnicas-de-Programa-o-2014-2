@@ -124,7 +124,12 @@ public class CompareShowFragment extends Fragment{
 		return rootView;
 	}
 
-
+	/**
+	 * 
+	 * @param evaluationA
+	 * @param evaluationB
+	 * @return
+	 */
 	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluationA, Evaluation evaluationB){
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
 		

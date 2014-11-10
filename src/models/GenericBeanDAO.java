@@ -273,10 +273,13 @@ public class GenericBeanDAO extends DataBase {
 		this.performDatabase.clearBindings();
 
 		this.closeConnection();
-
-		if (result == 1) {
+		
+		boolean deleteSucefull = (result == 1);
+		
+		if (deleteSucefull) {
 			return true;
-		} else {
+		} 
+		else {
 			return false;
 		}
 	}
@@ -285,25 +288,25 @@ public class GenericBeanDAO extends DataBase {
 	 * This method will return a specific Bean with all theirs values in
 	 * Database.
 	 * 
-	 * @param bean
-	 * @return
+	 * @param choosenBean				chosen bean to be searched.	
+	 * @return							chosen bean.
 	 * @throws SQLException
 	 */
-	public Bean selectBean(Bean bean) throws SQLException {
+	public Bean selectBean(Bean choosenBean) throws SQLException {
 		this.openConnection();
 
 		Bean result = null;
 
-		String sql = "SELECT * FROM " + bean.identifier + " WHERE "
-				+ bean.fieldsList().get(0) + " = ?";
+		String sql = "SELECT * FROM " + choosenBean.identifier + " WHERE "
+				+ choosenBean.fieldsList().get(0) + " = ?";
 
 		Cursor cs = this.database.rawQuery(sql,
-				new String[] { bean.get(bean.fieldsList().get(0)) });
+				new String[] { choosenBean.get(choosenBean.fieldsList().get(0)) });
 
 		if (cs.moveToFirst()) {
-			result = init(bean.identifier);
+			result = init(choosenBean.identifier);
 
-			for (String s : bean.fieldsList()) {
+			for (String s : choosenBean.fieldsList()) {
 				result.set(s, cs.getString(cs.getColumnIndex(s)));
 			}
 		}
@@ -345,6 +348,7 @@ public class GenericBeanDAO extends DataBase {
 	}
 
 	/**
+	 * 
 	 * @param sql
 	 * @return
 	 * @throws SQLException

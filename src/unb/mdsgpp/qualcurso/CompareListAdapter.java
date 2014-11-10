@@ -70,7 +70,7 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 			checksWhichIndicatorIsWinner(hashMap, firstIndicatorTextView, secondIndicatorTextView);
 		}
 		else{
-			
+			// TO-DO: create a null exception for hashmap.
 		}
 
 		return compareView;
@@ -99,7 +99,10 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 			final int firstIndicatorWinner = 1;
 			final int secondIndicatorWinner = 2;
 			final int drawOnIndicators = 3;
-			if (hashMap.get(IGNORE_INDICATOR).equals("false")) {
+			
+			final boolean indicatorValidForComparision = (hashMap.get(IGNORE_INDICATOR).equals("false"));
+			
+			if (indicatorValidForComparision) {
 				if (firstIndicator > secondIndicator) {
 					paintWinnerAndLoserIndicators(firstIndicatorWinner, firstIndicatorTextView, secondIndicatorTextView);
 				} 
@@ -113,7 +116,10 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 			} 
 			else {
 				paintWinnerAndLoserIndicators(drawOnIndicators, firstIndicatorTextView, secondIndicatorTextView);
-			 }
+			}
+		}
+		else{
+			// TO-DO: create a null exception for view.
 		}
 	}
 
@@ -133,7 +139,7 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 			compareView = inflateView.inflate(R.layout.compare_show_list_item, null);
 		}
 		else {
-			
+			// TO-DO: create a null exception for view.
 		}
 		
 		return compareView;

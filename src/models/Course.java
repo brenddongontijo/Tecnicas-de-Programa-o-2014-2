@@ -225,7 +225,7 @@ public class Course extends Bean implements Parcelable{
 	/**
 	 * This method will get all courses relates to a specific evaluation filter.
 	 * 
-	 * @param search
+	 * @param search	
 	 * @return an array of courses.
 	 * @throws SQLException
 	 */
@@ -332,7 +332,7 @@ public class Course extends Bean implements Parcelable{
 	}
 
 	/**
-	 * Rewriting fields to Integer.
+	 * Rewriting fields to their specific types.
 	 */
 	@Override
 	public void set(String field, String data) {
@@ -345,7 +345,7 @@ public class Course extends Bean implements Parcelable{
 	}
 
 	/**
-	 * Creating an ArrayList of String with course name.
+	 * Creating an ArrayList of String with course parameters.
 	 */
 	@Override
 	public ArrayList<String> fieldsList() {
@@ -362,6 +362,11 @@ public class Course extends Bean implements Parcelable{
 		return getName();
 	}
 	
+	/**
+	 * Creating Parcel for course.
+	 * 
+	 * @param in
+	 */
 	private Course(Parcel in){
 		this.courseId = in.readInt();
 		this.courseName = in.readString();
