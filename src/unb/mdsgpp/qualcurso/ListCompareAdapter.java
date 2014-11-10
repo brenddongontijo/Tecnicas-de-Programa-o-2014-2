@@ -57,17 +57,9 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		
 		currentView = nullCurrentView(currentView);
 		
-		Institution institutionForComparation = getItem(selectedPosition);
+		currentView = institutionForComparation(selectedPosition, currentView);
 
-		if (institutionForComparation != null) {
-			checkBox = (CheckBox) currentView.findViewById(R.id.compare_institution_checkbox);
-			checkBox.setText(institutionForComparation.getAcronym());
-			checkBox.setTag(INSTITUTION, institutionForComparation);
-			checkBox.setTag(POSITION, selectedPosition);
-			checkBox.setChecked(checkedItems.get(selectedPosition));
-			checkBox.setOnCheckedChangeListener(this);
-			currentView.setTag(checkBox);
-		}
+		
 		return currentView;
 	}
 	
@@ -86,6 +78,31 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 		}
 		else {
 			
+		}
+		
+		return currentView;
+		
+	}
+	
+    /**
+     * Method that checks if the institution to compare isn't null.
+     * 
+     * @param selectedPosition
+     * @param currentView
+     * @return
+     */
+	private View institutionForComparation(final int selectedPosition, View currentView) {
+		
+		Institution institutionForComparation = getItem(selectedPosition);
+		
+		if (institutionForComparation != null) {
+			checkBox = (CheckBox) currentView.findViewById(R.id.compare_institution_checkbox);
+			checkBox.setText(institutionForComparation.getAcronym());
+			checkBox.setTag(INSTITUTION, institutionForComparation);
+			checkBox.setTag(POSITION, selectedPosition);
+			checkBox.setChecked(checkedItems.get(selectedPosition));
+			checkBox.setOnCheckedChangeListener(this);
+			currentView.setTag(checkBox);
 		}
 		
 		return currentView;

@@ -39,9 +39,6 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 		super(context, resource, items);
 	}
 	
-	/**
-	 * 
-	 */
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View compareView = convertView;

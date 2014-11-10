@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Class Name: Course.
+ * 
  * This class creates an Course with their respective name.
  */
 public class Course extends Bean implements Parcelable{
@@ -204,7 +205,7 @@ public class Course extends Bean implements Parcelable{
 	 * @param field
 	 * @param value
 	 * @param like
-	 * @return an list of the course.
+	 * @return a list of the course.
 	 * @throws SQLException
 	 */
 	public static ArrayList<Course> getWhere(String field, String value,
@@ -225,7 +226,7 @@ public class Course extends Bean implements Parcelable{
 	 * This method will get all courses relates to a specific evaluation filter.
 	 * 
 	 * @param search
-	 * @return an array courses.
+	 * @return an array of courses.
 	 * @throws SQLException
 	 */
 	public static ArrayList<Course> getCoursesByEvaluationFilter(Search search) throws SQLException {
