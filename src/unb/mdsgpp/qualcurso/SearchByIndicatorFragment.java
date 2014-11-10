@@ -43,7 +43,7 @@ public class SearchByIndicatorFragment extends Fragment {
 		super.onAttach(activity);
 		try {
 			beanCallbacks = (BeanListCallbacks) activity;
-		} catch(ClassCastException e) {
+		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
 					+ " must implement BeanListCallbacks.");
 		}
@@ -58,18 +58,18 @@ public class SearchByIndicatorFragment extends Fragment {
 	Spinner listSelectionSpinner = null;
 	Spinner filterFieldSpinner = null;
 	Spinner yearSpinner = null;
-	
+
 	CheckBox maximum = null;
-	
+
 	EditText firstNumber = null;
 	EditText secondNumber = null;
-	
+
 	Button searchButton = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+
 		View rootView = inflater.inflate(R.layout.search_fragment, container,
 				false);
 
@@ -89,16 +89,15 @@ public class SearchByIndicatorFragment extends Fragment {
 		searchButton.setOnClickListener(getClickListener());
 
 		maximum.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
+
 			// Event to disable second number when MAX is checked
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				
-				if(maximum.isChecked()) {
+
+				if (maximum.isChecked()) {
 					secondNumber.setEnabled(false);
-				} 
-				else {
+				} else {
 					secondNumber.setEnabled(true);
 				}
 			}
@@ -107,6 +106,74 @@ public class SearchByIndicatorFragment extends Fragment {
 		return rootView;
 	}
 
+	/**
+	 * If nothing was marked in the field of the first number is inserted the
+	 * value 0.
+	 * 
+	 * @param firstNumber
+	 */
+	public EditText markedFirstNumberInsertZero(EditText firstNumber) {
+		if (firstNumber.getText().length() == 0) {
+			firstNumber.setText("0");
+			return firstNumber;
+
+		} else {
+			return firstNumber;
+		}
+	}
+
+	/**
+	 * If nothing was selected in the first field number, the maximum checkbox
+	 * is marked.
+	 * 
+	 * @param secondNumber
+	 */
+	public void markedSecondNumberInsertMaximum(EditText secondNumber) {
+		if (secondNumber.getText().length() == 0) {
+			maximum.setChecked(true);
+		}
+	}
+
+	/**
+	 * // Checking if the checkBox maximum is selected. And set the value
+	 * maximum
+	 * 
+	 * @param maximum
+	 * @param secondNumberValue
+	 * @return
+	 */
+	public int getMaximumValue(CheckBox maximum, String secondNumberValue) {
+		int max = 0;
+		if (maximum.isChecked()) {
+			max = -1;
+		} else {
+			max = Integer.parseInt(secondNumberValue);
+		}
+		return max;
+
+	}
+
+	/**
+	 * If even a selected year, it sent the last value contained in
+	 * the Adapter.
+	 * @return
+	 */
+	public int getsYearResearched(){
+		int yearResearched;
+		if (yearSpinner.getSelectedItemPosition() != 0)
+		{
+			yearResearched = Integer.parseInt(yearSpinner.getSelectedItem().toString());
+		}
+		else {
+			yearResearched = Integer.parseInt(yearSpinner.getAdapter()
+					.getItem(yearSpinner.getAdapter().getCount() - 1)
+					.toString());
+		}
+		return yearResearched;
+	}
+	
+	 			// Gets the value of the year, contained in Spinner.
+
 	// Method to perform the action after the click.
 	public OnClickListener getClickListener() {
 		return new OnClickListener() {
@@ -114,70 +181,31 @@ public class SearchByIndicatorFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				int lowerNumber;
-				int higherNumber;
+				int maxNumber;
 				int yearResearched;
-				int max;
 				int listSelectionPosition;
 
-				/*
-				 * If nothing was marked in the field of the first number is
-				 * inserted the value 0.
-				 */
-				if (firstNumber.getText().length() == 0) {
-					firstNumber.setText("0");
-				}
-				
-				/*
-				 * If nothing was selected in the first field number, the
-				 * maximum checkbox is marked.
-				 */
-				if (secondNumber.getText().length() == 0) {
-					maximum.setChecked(true);
-				}
+				markedFirstNumberInsertZero(firstNumber);
+
+				markedSecondNumberInsertMaximum(secondNumber);
 
 				// Getting values of the numbers, and going to the strings.
 				String firstNumberValue = firstNumber.getText().toString();
 				String secondNumberValue = secondNumber.getText().toString();
 
 				lowerNumber = Integer.parseInt(firstNumberValue);
-				if(maximum.isChecked()){
-					higherNumber = -1;
-				}else{
-					higherNumber = Integer.parseInt(secondNumberValue);
-				}
-				
-				listSelectionPosition = listSelectionSpinner.getSelectedItemPosition();
 
-				// Gets the value of the year, contained in Spinner.
-				if(yearSpinner.getSelectedItemPosition() != 0) {
-					yearResearched = Integer.parseInt(yearSpinner
-							.getSelectedItem().toString());
-				}
-				
-				/*
-				 * If even a selected year, it sent the last value contained in
-				 * the Adapter.
-				 */
-				else {
-					yearResearched = Integer.parseInt(yearSpinner.getAdapter()
-							.getItem(yearSpinner.getAdapter().getCount() - 1)
-							.toString());
-				}
+				listSelectionPosition = listSelectionSpinner
+						.getSelectedItemPosition();
 
-				// Checking if the checkBox is selected.
-				if(maximum.isChecked()) {
-					max = -1;
-				} 
-				else {
-					max = higherNumber;
-				}
+				yearResearched = getsYearResearched();
 
-				firstNumber.clearFocus();
+				maxNumber = getMaximumValue(maximum, secondNumberValue);
 				secondNumber.clearFocus();
 
 				hideKeyboard(arg0);
 
-				updateSearchList(lowerNumber, max, yearResearched,
+				updateSearchList(lowerNumber, maxNumber, yearResearched,
 						listSelectionPosition,
 						((Indicator) filterFieldSpinner
 								.getItemAtPosition(filterFieldSpinner
@@ -215,28 +243,27 @@ public class SearchByIndicatorFragment extends Fragment {
 		search.setMaxValue(max);
 		search.saveSearch();
 
-		if ((numberPosition == 2) || (numberPosition == 0)){
+		if ((numberPosition == 2) || (numberPosition == 0)) {
 			ArrayList<Institution> institutionList = Institution
 					.getInstitutionsByEvaluationFilter(search);
 			beanCallbacks.onBeanListItemSelected(
 					SearchListFragment.newInstance(institutionList, search),
 					R.id.search_list);
-		}
-		else  {
+		} else {
 			ArrayList<Course> courseList = Course
 					.getCoursesByEvaluationFilter(search);
 			beanCallbacks.onBeanListItemSelected(
 					SearchListFragment.newInstance(courseList, search),
 					R.id.search_list);
-		} 
-		
+		}
+
 	}
 
 	// Updates the list of survey information.
 	private void updateSearchList(final int min, final int max, final int year,
 			final int listSelectionPosition, Indicator filterField) {
 
-		if(filterField.getValue() == Indicator.DEFAULT_INDICATOR) {
+		if (filterField.getValue() == Indicator.DEFAULT_INDICATOR) {
 
 			Context context = QualCurso.getInstance();
 			String emptySearchFilter = getResources().getString(
@@ -246,19 +273,19 @@ public class SearchByIndicatorFragment extends Fragment {
 			Toast toast = Toast.makeText(context, emptySearchFilter,
 					Toast.LENGTH_SHORT);
 			toast.show();
-		} 
-		else {
+		} else {
 
 			// if not selected a field , is inserted a institution default.
-			if(listSelectionPosition == 0) {
+			if (listSelectionPosition == 0) {
 				listSelectionSpinner.setSelection(listSelectionSpinner
 						.getAdapter().getCount() - 1);
-				yearSpinner.setSelection(yearSpinner.getAdapter().getCount() - 1);
+				yearSpinner
+						.setSelection(yearSpinner.getAdapter().getCount() - 1);
 				SetDataFields(min, max, year, filterField,
 						listSelectionPosition);
-			} 
-			else {
-				SetDataFields(min, max, year, filterField, listSelectionPosition);
+			} else {
+				SetDataFields(min, max, year, filterField,
+						listSelectionPosition);
 			}
 		}
 	}

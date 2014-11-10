@@ -1,11 +1,10 @@
 package models;
 
-import android.database.SQLException;
-
-import java.lang.reflect.GenericSignatureFormatError;
 import java.util.ArrayList;
 
-/*
+import android.database.SQLException;
+
+/**
  * Class Name: Article.
  * This class creates an Article with all their evaluation values.
  */
@@ -65,7 +64,12 @@ public class Article extends Bean {
 		this.publishedConferenceProceedings = publishedConferenceProceedings;
 	}
 
-	// This method saves one Article into Database.
+	/**
+	 * This method saves one Article into Database.
+	 * 
+	 * @return				Article inserted on Database or not.
+	 * @throws SQLException
+	 */
 	public boolean saveArticle() throws SQLException {
 		boolean saveResult = false;
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -77,8 +81,14 @@ public class Article extends Bean {
 		return saveResult;
 	}
 	
-	// This method return an Article based on his id.
-	public static Article getArticleByValue(Integer articleId) throws SQLException {
+	/**
+	 * This method return an Article based on his id.
+	 * 
+	 * @param articleId					article id on Database.
+	 * @return							article corresponding to the id.
+	 * @throws SQLException
+	 */
+	public static Article getArticleByValue(final Integer articleId) throws SQLException {
 		Article articleWithId = new Article(articleId);
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
@@ -87,7 +97,12 @@ public class Article extends Bean {
 		return articleWithId;
 	}
 
-	// This method get all Articles from database.
+	/**
+	 * This method get all Articles from database.
+	 * 
+	 * @return				array with all articles.
+	 * @throws SQLException
+	 */
 	public static ArrayList<Article> getAllArticles() throws SQLException {
 		Article article = new Article();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -101,7 +116,12 @@ public class Article extends Bean {
 		return arrayOfArticles;
 	}
 	
-	// This method counts the number of Articles into Database.
+	/**
+	 * This method counts the number of Articles into Database.
+	 * 
+	 * @return			number of articles present on Database.
+	 * @throws SQLException
+	 */
 	public static int numberOfArticles() throws SQLException {
 		Article article = new Article();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -109,7 +129,12 @@ public class Article extends Bean {
 		return genericBeanDAO.countBean(article);
 	}
 
-	// This method returns the first Article into Database.
+	/**
+	 * This method returns the first Article into Database.
+	 * 
+	 * @return			first article on Database.
+	 * @throws SQLException
+	 */
 	public static Article firstArticle() throws SQLException {
 		Article article = new Article();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -119,7 +144,12 @@ public class Article extends Bean {
 		return article;
 	}
 
-	// This method returns the last Article into Database.
+	/**
+	 * This method returns the last Article into Database.
+	 * 
+	 * @return			last article on Database.
+	 * @throws SQLException
+	 */
 	public static Article lastArticle() throws SQLException {
 		Article article = new Article();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -129,9 +159,18 @@ public class Article extends Bean {
 		return article;
 	}
 
-	// This method will try to find an Article based on a search.  
+	/**
+	 * This method will try to find an Article based on a search. 
+	 * 
+	 * @param field
+	 * @param value
+	 * @param like
+	 * @return
+	 * @throws SQLException
+	 */
 	public static ArrayList<Article> getWhere(String field, String value, boolean like) 
 			throws SQLException {
+		
 		Article article = new Article();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		
@@ -143,8 +182,13 @@ public class Article extends Bean {
 		
 		return arrayOfArticles;
 	}
-	
-	// This method deletes an Article from Database.
+
+	/**
+	 * This method deletes an Article from Database.
+	 * 
+	 * @return			Article deleted from Database or not.
+	 * @throws SQLException
+	 */
 	public boolean deleteArticle() throws SQLException {
 		boolean deleteResult = false;
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -154,24 +198,48 @@ public class Article extends Bean {
 		return deleteResult;
 	}
 
-	// Rewriting fields to String.
+	/**
+	 * Creating an Parcelable to Article.
+	 */
+	@Override
+	public ArrayList<String> fieldsList() {
+		ArrayList<String> articleParcelable = new ArrayList<String>();
+		
+		articleParcelable.add("_id");
+		articleParcelable.add("published_journals");
+		articleParcelable.add("published_conference_proceedings");
+		
+		return articleParcelable;
+	}
+	
+	/**
+	 * Rewriting article Parcelable get parameters to String.
+	 * 
+	 * @return 			corresponding value into a String.
+	 */
 	@Override
 	public String get(String field) {
-		if(field.equals("_id")) {
-			return Integer.toString(this.getId());
+		String correpondingField = "";
+		
+		if (field.equals("_id")) {
+			correpondingField = Integer.toString(this.getId());
 		}
-		else if(field.equals("published_journals")) {
-			return Integer.toString(this.getPublishedJournals());
+		else if (field.equals("published_journals")) {
+			correpondingField = Integer.toString(this.getPublishedJournals());
 		}
 		else if (field.equals("published_conference_proceedings")) {
-			return Integer.toString(this.getPublishedConferenceProceedings());
+			correpondingField = Integer.toString(this.getPublishedConferenceProceedings());
 		}
 		else {
-			return "";
+			correpondingField = "";
 		}
+		
+		return correpondingField;
 	}
 
-	// Rewriting fields to Integer.
+	/**
+	 * Rewriting article Parcelable set parameters to their specific types.
+	 */
 	@Override
 	public void set(String field, String data) {
 		if (field.equals("_id")) {
@@ -183,18 +251,6 @@ public class Article extends Bean {
 		else if (field.equals("published_conference_proceedings")) {
 			this.setPublishedConferenceProceedings(Integer.parseInt(data));
 		}
-	}
-
-	// Creating an ArrayList of String with evaluation article values.
-	@Override
-	public ArrayList<String> fieldsList() {
-		ArrayList<String> fields = new ArrayList<String>();
-		
-		fields.add("_id");
-		fields.add("published_journals");
-		fields.add("published_conference_proceedings");
-		
-		return fields;
 	}
 	
 }

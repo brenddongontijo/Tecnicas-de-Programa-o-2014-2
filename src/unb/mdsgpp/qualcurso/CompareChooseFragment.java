@@ -26,6 +26,11 @@ import android.widget.Spinner;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+/**
+ * Class Name: CompareChooseFragment
+ * 
+ * This class is responsible for create a fragment related with the choose comparison between two institutions.
+ */
 public class CompareChooseFragment extends Fragment implements
 		CheckBoxListCallbacks {
 	BeanListCallbacks beanCallbacks;
@@ -50,6 +55,11 @@ public class CompareChooseFragment extends Fragment implements
 		super();
 	}
 
+	/**
+	 * Called when a fragment is first attached to its activity
+	 * 
+	 * @param activity				   single, focused thing that the user can do.
+	 */
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -62,12 +72,24 @@ public class CompareChooseFragment extends Fragment implements
 		}
 	}
 
+	/**
+	 * Called once the fragment is associated with its activity
+	 */
 	@Override
 	public void onDetach() {
 		super.onDetach();
 		beanCallbacks = null;
 	}
 
+	/**
+	 * This method creates the compare choose view associated with the CompareChooseFragment.
+	 * 
+	 * @param inflater					responsible to inflate a view.
+	 * @param container					responsible to generate the LayoutParams of the view.
+	 * @param savedInstanceState		responsible for verifying that the fragment will be recreated.
+	 * 
+	 * @return							current view of CompareChooseFragment associated with parameters chosen.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -95,16 +117,14 @@ public class CompareChooseFragment extends Fragment implements
 		return rootView;
 	}
 
-	/*
+	/** 
 	 * This method checks if there is already an instance saved.
+	 * 
+	 * @param savedInstanceState		mapping from String values to Parcelable.
 	 */
 	private void checkSavedInstances(Bundle savedInstanceState) {
-		boolean savedInstanceStateIsValid = (savedInstanceState != null);
-		boolean savedInstanceStateOfCourseIsValid = (savedInstanceState.
-				getParcelable(COURSE) != null);
-				
-		if(savedInstanceStateIsValid && savedInstanceStateOfCourseIsValid){
-			setCurrentSelection((Course) savedInstanceState
+		if((savedInstanceState != null) && (savedInstanceState.getParcelable(COURSE) != null)) {
+			setCurrentSelectionCourse((Course) savedInstanceState
 					.getParcelable(COURSE));
 		}
 		else{
@@ -112,13 +132,20 @@ public class CompareChooseFragment extends Fragment implements
 		}
 	}
 
+	/** 
+	 * This method is responsible to filter a list of courses based on what was written.
+	 * 
+	 * @param rootView		view of CompareChooseFragment.
+	 * 
+	 * @return 				list of institutions that possess the chosen course.			
+	 */
 	public OnItemClickListener getAutoCompleteListener(final View rootView) {
 		
 		return new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long rowId) {
-				setCurrentSelection((Course) parent.getItemAtPosition(position));
+				setCurrentSelectionCourse((Course) parent.getItemAtPosition(position));
 				
 				updateList();
 
@@ -133,7 +160,7 @@ public class CompareChooseFragment extends Fragment implements
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				
-				if(selectedCourse != null) {
+				if (selectedCourse != null) {
 					updateList();
 				}
 			}
@@ -144,7 +171,7 @@ public class CompareChooseFragment extends Fragment implements
 		};
 	}
 
-	public void setCurrentSelection(Course currentSelection) {
+	public void setCurrentSelectionCourse(Course currentSelection) {
 		this.selectedCourse = currentSelection;
 	}
 
@@ -157,16 +184,17 @@ public class CompareChooseFragment extends Fragment implements
 		
 	}
 
-	/*
+	/**
 	 * This method checks if any year was already selected and select the last
 	 * evaluation year by default.
+	 * 
+	 * @param yearSpinner		year chosen.
 	 */
 	private void verifySelecterYear(Spinner yearSpinner) {
-		boolean anyYearWasSelected = (yearSpinner.getSelectedItemPosition() != 0);
+		final boolean anyYearWasSelected = (yearSpinner.getSelectedItemPosition() != 0);
 		
-		if(anyYearWasSelected) {
-				selectedYear = Integer.parseInt(yearSpinner.getSelectedItem()
-						.toString());
+		if (anyYearWasSelected) {
+				selectedYear = Integer.parseInt(yearSpinner.getSelectedItem().toString());
 		} 
 		else {
 			final int lastEvaluationYear = yearSpinner.getAdapter().getCount() - 1;
@@ -174,17 +202,19 @@ public class CompareChooseFragment extends Fragment implements
 			yearSpinner.setSelection(lastEvaluationYear);
 			
 			selectedYear = Integer.parseInt(yearSpinner.getAdapter()
-					.getItem(lastEvaluationYear)
-					.toString());
+					.getItem(lastEvaluationYear).toString());
 		}
 	}
 	
-	/*
+	/**
 	 * This method checks if any course was selected.
+	 * 
+	 * @param selectedCourse		current selected course.
 	 */
 	private void verifySelectedCourse(Course selectedCourse) {
-		boolean courseIsValid = (this.selectedCourse != null);
-		if(courseIsValid) {
+		final boolean courseIsValid = (this.selectedCourse != null);
+		
+		if (courseIsValid) {
 			
 			ArrayList<Institution> courseInstitutions = this.selectedCourse
 					.getInstitutionsByYear(selectedYear);
@@ -194,35 +224,32 @@ public class CompareChooseFragment extends Fragment implements
 					courseInstitutions, this);
 
 			this.institutionList.setAdapter(compareAdapterList);
-		}
-		else{
-			
-		}
-		
+		}		
 	}
-
-	// Check the checkBox items. 
+	
+	/**
+	 * This method check the selected checkBox items. 
+	 */
 	@Override
 	public void onCheckedItem(CheckBox checkBox) {
 		
-		// TODO Auto-generated method stub
 		Institution institution = ((Institution) checkBox
 				.getTag(ListCompareAdapter.INSTITUTION));
 		
-		if(!selectedInstitutions.contains(institution)) {
+		if (!selectedInstitutions.contains(institution)) {
 			selectedInstitutions.add(institution);
-			
 			
 			final int maximumNumberOfInstitutionsToCompare = 2;
 			
 			/*
-			 * Restricted to two selections in checkBox, checkBox if two are
+			 * Restricted to two selections in checkBox, checks if two are
 			 * selected generates a list of results.
 			 */
-			boolean allInstitutionsIsSelected = (selectedInstitutions.size() == 
+			boolean twoInstitutionsAreSelected = (selectedInstitutions.size() == 
 					(maximumNumberOfInstitutionsToCompare));
 			
-			if(allInstitutionsIsSelected) {
+			if (twoInstitutionsAreSelected) {
+				// Filling two evaluations with the selected institutions.
 				Evaluation evaluationA = Evaluation.getFromRelation(
 						selectedInstitutions.get(0).getId(),
 						selectedCourse.getId(), selectedYear);
@@ -230,12 +257,16 @@ public class CompareChooseFragment extends Fragment implements
 						selectedInstitutions.get(1).getId(),
 						selectedCourse.getId(), selectedYear);
 				
+				// Calling the next fragment: CompareShowFragment.
 				beanCallbacks.onBeanListItemSelected(CompareShowFragment
 						.newInstance(evaluationA.getId(), evaluationB.getId()));
 			}
 			else{
 				
 			}
+		}
+		else{
+			// TO-DO: Make not found institution exception.
 		}
 	}
 
@@ -245,20 +276,25 @@ public class CompareChooseFragment extends Fragment implements
 		super.onPause();
 	}
 	
-	// Remove the checkbox selection. 
+	/**
+	 * Remove the checkbox selection. 
+	 */
 	@Override
 	public void onUnchekedItem(CheckBox checkBox) {
 		
 		// TODO Auto-generated method stub
-		Institution institution = ((Institution) checkBox
-				.getTag(ListCompareAdapter.INSTITUTION));
+		Institution institution = ((Institution) checkBox.getTag(ListCompareAdapter.INSTITUTION));
 		
-		if(selectedInstitutions.contains(institution)) {
+		if (selectedInstitutions.contains(institution)) {
 			selectedInstitutions.remove(institution);
 		}
 	}
 
-	// Method to hide the keyboard.
+	/**
+	 * Method to hide the keyboard.
+	 * 
+	 * @param view		current view.
+	 */
 	private void hideKeyboard(View view) {
 		InputMethodManager inputMethodManager = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -266,8 +302,14 @@ public class CompareChooseFragment extends Fragment implements
 				InputMethodManager.RESULT_UNCHANGED_SHOWN);
 	}
 
-	// Method for obtaining a ActionBar.
+	/**
+	 * Method for obtaining a ActionBar.
+	 * 
+	 * @return		action bar.
+	 */
 	private ActionBar getActionBar() {
-		return ((ActionBarActivity) getActivity()).getSupportActionBar();
+		ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+		
+		return actionBar;
 	}
 }

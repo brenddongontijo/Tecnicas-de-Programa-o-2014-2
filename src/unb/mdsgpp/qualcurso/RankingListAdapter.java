@@ -11,54 +11,85 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-/*
- * Class name: ListAdapter
+
+/**
+ * Class name: RankingListAdapter
+ * 
  * This class makes a text view for each ranking result fields.
  */
-public class ListAdapter extends ArrayAdapter<HashMap<String, String>> {
+public class RankingListAdapter extends ArrayAdapter<HashMap<String, String>> {
 
-	public ListAdapter(Context context, int textViewResourceId) {
+	public RankingListAdapter(Context context, int textViewResourceId) {
 		super(context, textViewResourceId);
 	}
 
-	public ListAdapter(Context context, int resource, List<HashMap<String, String>> items) {
+	public RankingListAdapter(Context context, int resource, List<HashMap<String, String>> items) {
 		super(context, resource, items);
 	}
 
+	/**
+	 * Method that inflates the ranking view.
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View rankingView = convertView;
 
-		if(rankingView == null) {
+		if (rankingView == null) {
 			LayoutInflater inflateView;
 			inflateView = LayoutInflater.from(getContext());
 			rankingView = inflateView.inflate(R.layout.list_item, null);
 		}
 
+		rankingView = makeRankingView(rankingView, position);
+		
+    	return rankingView;
+	}
+	
+	/**
+	 * Method that create the ranking view.
+	 * 
+	 * @param rankingView
+	 * @param position
+	 * 
+	 * @return
+	 */
+	private View makeRankingView(View rankingView, int position) {
+		
 		HashMap<String, String> hashMap = getItem(position);
-
-		if(hashMap != null) {
+		
+		if (hashMap != null) {
 			TextView rank = (TextView) rankingView.findViewById(R.id.position);
 			TextView institutionName = (TextView) rankingView.findViewById(R.id.university);
 			TextView value = (TextView) rankingView.findViewById(R.id.data);
 			ImageView trophy = (ImageView) rankingView.findViewById(R.id.trophyIcon);
 
-        	if(rank != null) {
+        	if (rank != null) {
             	rank.setText(Integer.toString(position+1));
         	}
-        	if(trophy != null) {
+        	if (trophy != null) {
         		trophy.setImageDrawable(getTrophyImage(position+1));
         	}
-        	if(institutionName != null) {
+        	if (institutionName != null) {
         		institutionName.setText(hashMap.get("acronym"));
         	}
-        	if(value != null) {
+        	if (value != null) {
             	value.setText(hashMap.get(hashMap.get("order_field")));
         	}
     	}
-    	return rankingView;
+		else {
+			
+		}
+		
+		return rankingView;
 	}
 	
+	/**
+	 * Method that put the trophy image in the ranking.
+	 * 
+	 * @param position
+	 * 
+	 * @return
+	 */
 	public Drawable getTrophyImage(int position) {
 		Drawable trophy = null;
 

@@ -11,6 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+/**
+ * Class name: ListHistoryAdapter.
+ * 
+ * Make the view that shows list of the searches.
+ */
 public class ListHistoryAdapter extends ArrayAdapter<Search> {
 
 	public ListHistoryAdapter(Context context, int resource, List<Search> items) {
@@ -24,7 +29,7 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 	TextView secondValue = null;
 	TextView searchDate = null;
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see android.widget.ArrayAdapter#getView(int, android.view.View,
@@ -35,15 +40,30 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 		View historyView = contextView;
 
 		// Check if a view exists, otherwise it will be inflated.
-		if(historyView == null) {
+		if (historyView == null) {
 			LayoutInflater layoutInflater;
 			layoutInflater = LayoutInflater.from(getContext());
 			historyView = layoutInflater.inflate(R.layout.history_list_item, null);
 		}
 
-		// Creating fields for a survey.
+		historyView = searchByIndicatorView(historyView, position);
+		
+		return historyView;
+	}
+	
+	/**
+	 * Method that creates the field for a survey.
+	 * 
+	 * @param historyView
+	 * @param position
+	 * 
+	 * @return historyView
+	 */
+	private View searchByIndicatorView(View historyView, int position) {
+		
 		Search searchByIndicator = getItem(position);
-		if(searchByIndicator != null) {
+		
+		if (searchByIndicator != null) {
 			searchType = (TextView) historyView.findViewById(R.id.option);
 			year = (TextView) historyView.findViewById(R.id.year);
 			indicator = (TextView) historyView.findViewById(R.id.indicator);
@@ -53,22 +73,19 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 			
 			setListRow(searchByIndicator);
 		}
+		
 		return historyView;
+		
 	}
 
-	// Method used to populate the list of historic.
+	/**
+	 * Method used to populate the list of historic.
+	 * 
+	 * @param search
+	 */
 	public void setListRow(Search search) {
 		
-		/*
-		 * Checks if a course was selected in spinner indicators. Or if the
-		 * selection is an institution.
-		 */
-		if(search.getOption() == Search.COURSE) {
-			setItem(searchType, R.string.course);
-		}
-		else if(search.getOption() == Search.INSTITUTION) {
-			setItem(searchType, R.string.institution);
-		}
+		checkSelection(search);
 		
 		// Sets the values ​​of year, indicator , value one and two and date​​.
 		setItem(year, Integer.toString(search.getYear()));
@@ -76,7 +93,7 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 		setItem(firstValue, Integer.toString(search.getMinValue()));
 		int maximum = search.getMaxValue();
 		
-		if(maximum == -1) {
+		if (maximum == -1) {
 			setItem(secondValue, R.string.maximum);
 		}
 		else {
@@ -86,15 +103,31 @@ public class ListHistoryAdapter extends ArrayAdapter<Search> {
 		setItem(searchDate,
 				SimpleDateFormat.getDateTimeInstance().format(search.getDate()));
 	}
+	
+	/**
+	 * Checks if a course was selected in spinner indicators. Or if the
+	 * selection is an institution.
+	 * 
+	 * @param search	by institution or by course.
+	 */
+	private void checkSelection(Search search){
+		
+		if (search.getOption() == Search.COURSE) {
+			setItem(searchType, R.string.course);
+		}
+		else if (search.getOption() == Search.INSTITUTION) {
+			setItem(searchType, R.string.institution);
+		}
+	}
 
 	public void setItem(TextView view, String data) {
-		if(view != null) {
+		if (view != null) {
 			view.setText(data);
 		}
 	}
 
 	public void setItem(TextView view, int resId) {
-		if(view != null) {
+		if (view != null) {
 			view.setText(resId);
 		}
 	}

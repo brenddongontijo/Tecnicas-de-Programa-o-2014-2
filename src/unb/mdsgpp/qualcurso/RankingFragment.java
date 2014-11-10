@@ -24,6 +24,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+/**
+ * Class name: RankingFragment
+ */
 public class RankingFragment extends Fragment {
 
 	BeanListCallbacks beanCallbacks;
@@ -62,8 +65,12 @@ public class RankingFragment extends Fragment {
 	Course currentSelectionCourse = null;
 	String indicatorField = Indicator.DEFAULT_INDICATOR;
 
+	/**
+	 * Method that calls the updateList method according to the conditions bellow.
+	 */
 	public void toCallUpdateList(){
-		if(currentSelectionCourse != null
+		
+		if (currentSelectionCourse != null
 				&& indicatorField != Indicator.DEFAULT_INDICATOR) {
 			updateList();
 		}
@@ -75,17 +82,8 @@ public class RankingFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.ranking_fragment, container,
 				false);
 
-		// Reloading course and indicator fields. 
-		if(savedInstanceState != null) {
-			if(savedInstanceState.getParcelable(COURSE) != null) {
-				setCurrentSelectionCourse((Course) savedInstanceState
-						.getParcelable(COURSE));
-			}
-			if(savedInstanceState.getString(INDICATOR_FILTER_FIELD) != null) {
-				setFilterField(savedInstanceState.getString(INDICATOR_FILTER_FIELD));
-			}
-		}
-
+		rootView = reloadFields(rootView, savedInstanceState);
+		
 		this.indicatorFieldSpinner = (Spinner) rootView.findViewById(R.id.field);
 		this.indicatorFieldSpinner.setAdapter(new ArrayAdapter<Indicator>(
 				getActivity().getApplicationContext(),
@@ -97,8 +95,7 @@ public class RankingFragment extends Fragment {
 		this.yearSpinner = (Spinner) rootView.findViewById(R.id.year);
 		this.yearSpinner.setOnItemSelectedListener(getYearSpinnerListener());
 		
-		this.evaluationList = (ListView) rootView
-				.findViewById(R.id.evaluationList);
+		this.evaluationList = (ListView) rootView.findViewById(R.id.evaluationList);
 		evaluationList.setOnItemClickListener(getEvaluationListListener());
 
 		autoCompleteField = (AutoCompleteTextView) rootView
@@ -107,10 +104,32 @@ public class RankingFragment extends Fragment {
 		ArrayList<Course> coursesFound = Course.getAllCourses();
 		autoCompleteField.setAdapter(new ArrayAdapter<Course>(getActivity()
 				.getApplicationContext(), R.layout.custom_textview, coursesFound));
-		autoCompleteField
-				.setOnItemClickListener(getAutoCompleteListener(rootView));
+		autoCompleteField.setOnItemClickListener(getAutoCompleteListener(rootView));
 		
 		toCallUpdateList();
+		
+		return rootView;
+	}
+	
+	/**
+	 * Method that reload course and indicator fields. 
+	 * 
+	 * @param rootView
+	 * @param savedInstanceState
+	 * 
+	 * @return
+	 */
+	private View reloadFields(View rootView, Bundle savedInstanceState) {
+		
+		if (savedInstanceState != null) {
+			if (savedInstanceState.getParcelable(COURSE) != null) {
+				setCurrentSelectionCourse((Course) savedInstanceState
+						.getParcelable(COURSE));
+			}
+			if (savedInstanceState.getString(INDICATOR_FILTER_FIELD) != null) {
+				setFilterField(savedInstanceState.getString(INDICATOR_FILTER_FIELD));
+			}
+		}
 		
 		return rootView;
 	}
@@ -264,7 +283,7 @@ public class RankingFragment extends Fragment {
 
 			GenericBeanDAO genericBeanDao = new GenericBeanDAO();
 			
-			ListAdapter orderedCourseList = new ListAdapter(getActivity()
+			RankingListAdapter orderedCourseList = new RankingListAdapter(getActivity()
 					.getApplicationContext(), R.layout.list_item,
 					genericBeanDao.selectOrdered(rankingFields, rankingFields.get(0),
 							"id_course =" + this.currentSelectionCourse.getId()

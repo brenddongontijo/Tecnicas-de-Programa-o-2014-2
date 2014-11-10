@@ -35,23 +35,36 @@ public class EvaluationDetailFragment extends Fragment{
 	
 	public EvaluationDetailFragment() {
 		super();
-		Bundle args = new Bundle();
-		args.putInt(ID_COURSE, 0);
-		args.putInt(ID_INSTITUTION, 0);
-		args.putInt(YEAR_OF_EVALUATION, 0);
+		Bundle args = fillBundleWithEvaluationFields(0, 0, 0);
 		this.setArguments(args);
 	}
 	
-	public static EvaluationDetailFragment newInstance(int id_institution, int id_course,int year){
+	public static EvaluationDetailFragment newInstance(int id_course, int id_institution, int evaluationYear){
+		Bundle bundle = fillBundleWithEvaluationFields(id_course, id_institution, evaluationYear);
 		
 		EvaluationDetailFragment fragment = new EvaluationDetailFragment();
-		Bundle args = new Bundle();
-		args.putInt(ID_COURSE, id_course);
-		args.putInt(ID_INSTITUTION, id_institution);
-		args.putInt(YEAR_OF_EVALUATION, year);
-		fragment.setArguments(args);
+		fragment.setArguments(bundle);
 		
 		return fragment;
+	}
+	
+	/**
+	 * This method initiate the Bundle with id of two evaluations. 
+	 * 
+	 * @param idInstitution			institution id present on Database.
+	 * @param evaluationYear		year of the evaluation
+	 * @param coursesArray			array of courses.
+	 * @return						a filled Bundle.
+	 */
+	private static Bundle fillBundleWithEvaluationFields(final int id_course, final int id_institution, 
+			final int evaluationYear){
+		
+		Bundle bundle = new Bundle();
+		bundle.putInt(ID_COURSE, id_course);
+		bundle.putInt(ID_INSTITUTION, id_institution);
+		bundle.putInt(YEAR_OF_EVALUATION, evaluationYear);
+		
+		return bundle;
 	}
 	
 	@Override

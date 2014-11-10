@@ -7,8 +7,9 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-/*
+/**
  * Class Name: Institution.
+ * 
  * This class creates an Course with their respective acronym.
  */
 public class Institution extends Bean implements Parcelable {
@@ -65,7 +66,13 @@ public class Institution extends Bean implements Parcelable {
 		return saved;
 	}
 	
-	// This method relates a course with a institution.
+	/**
+	 * This method relates a course with a institution.
+	 * 
+	 * @param course
+	 * @return add course in database.
+	 * @throws SQLException
+	 */
 	public boolean addCourse(Course course) throws SQLException {
 		boolean result = false;
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -75,7 +82,13 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 	
-	// This method picks an Institution on Database based on his id.
+	/**
+	 * This method picks an Institution on Database based on his id.
+	 * 
+	 * @param institutionId
+	 * @return institution by id.
+	 * @throws SQLException
+	 */
 	public static Institution getInstitutionByValue(int institutionId) throws SQLException {
 		Institution result = new Institution(institutionId);
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -85,7 +98,12 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 	
-	// This method get all Institutions from database.
+	/**
+	 * This method get all Institutions from database.
+	 *  
+	 * @return array of institutions.
+	 * @throws SQLException
+	 */
 	public static ArrayList<Institution> getAllInstitutions() throws SQLException {
 		Institution institutionType = new Institution();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -99,7 +117,12 @@ public class Institution extends Bean implements Parcelable {
 		return arrayInstitution;
 	}
 
-	// This method counts the number of Institutions into Database.
+	/**
+	 * This method counts the number of Institutions into Database.
+	 * 
+	 * @return number of institutions in database.
+	 * @throws SQLException
+	 */
 	public static int numberOfInstitutions() throws SQLException {
 		Institution institutionType = new Institution();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -107,7 +130,12 @@ public class Institution extends Bean implements Parcelable {
 		return genericBeanDAO.countBean(institutionType);
 	}
 
-	// This method get the first Institution into Database.
+	/**
+	 * This method get the first Institution into Database.
+	 * 
+	 * @return first institution.
+	 * @throws SQLException
+	 */
 	public static Institution firstInstitution() throws SQLException {
 		Institution firstOfInstituions = new Institution();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -117,7 +145,12 @@ public class Institution extends Bean implements Parcelable {
 		return firstOfInstituions;
 	}
 
-	// This method get the last Institution into Database.
+	/**
+	 * This method get the last Institution into Database.
+	 * 
+	 * @return last institution.
+	 * @throws SQLException
+	 */
 	public static Institution lastInstitution() throws SQLException {
 		Institution lastOfInstituion = new Institution();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -127,7 +160,12 @@ public class Institution extends Bean implements Parcelable {
 		return lastOfInstituion;
 	}
 
-	// This method get courses related with an institution.
+	/**
+	 * This method get courses related with an institution.
+	 * 
+	 * @return courses.
+	 * @throws SQLException
+	 */
 	public ArrayList<Course> getCoursesByYear() throws SQLException {
 		ArrayList<Course> courses = new ArrayList<Course>();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -139,7 +177,13 @@ public class Institution extends Bean implements Parcelable {
 		return courses;
 	}
 	
-	// This method get courses related with an institution based on year.
+	/**
+	 * This method get courses related with an institution based on year.
+	 * 
+	 * @param year
+	 * @return courses by year.
+	 * @throws SQLException
+	 */
 	public ArrayList<Course> getCoursesByYear(int year) throws SQLException {
 		ArrayList<Course> courses = new ArrayList<Course>();
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
@@ -151,7 +195,15 @@ public class Institution extends Bean implements Parcelable {
 		return courses;
 	}
 	
-	// This method will try to find an Institution based on a search. 
+	/**
+	 * This method will try to find an Institution based on a search.
+	 *  
+	 * @param field
+	 * @param value
+	 * @param like 
+	 * @return an array institution.
+	 * @throws SQLException
+	 */
 	public static ArrayList<Institution> getWhere(String field, String value,
 			boolean like) throws SQLException {
 		Institution institutionType = new Institution();
@@ -166,7 +218,13 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 
-	// This method will get all institutions relates to a specific evaluation filter.
+	/**
+	 * This method will get all institutions relates to a specific evaluation filter.
+	 * 
+	 * @param search
+	 * @return institution.
+	 * @throws SQLException
+	 */
 	public static ArrayList<Institution> getInstitutionsByEvaluationFilter(Search search) throws SQLException {
 		ArrayList<Institution> result = new ArrayList<Institution>();
 		String sql = "SELECT i.* FROM institution AS i, evaluation AS e, articles AS a, books AS b "+
@@ -194,7 +252,14 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 
-	// This method will get all courses relates to a specific evaluation filter and to a institution.
+	/**
+	 * This method will get all courses relates to a specific evaluation filter and to a institution.
+	 * 
+	 * @param id_institution
+	 * @param search
+	 * @return course.
+	 * @throws SQLException
+	 */
 	public static ArrayList<Course> getCoursesByEvaluationFilter(int id_institution, Search search) throws  SQLException {
 		ArrayList<Course> result = new ArrayList<Course>();
 		
@@ -224,7 +289,12 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 	
-	// This method deletes an Institution from Database.
+	/**
+	 * This method deletes an Institution from Database.
+	 * 
+	 * @return deletes institution.
+	 * @throws SQLException
+	 */
 	public boolean deleteInstitution() throws  SQLException {
 		boolean result = false;
 		
@@ -239,7 +309,9 @@ public class Institution extends Bean implements Parcelable {
 		return result;
 	}
 
-	// Rewriting fields to String.
+	/**
+	 * Rewriting fields to String.
+	 */
 	@Override
 	public String get(String field) {
 		if (field.equals("_id")) {
@@ -253,7 +325,9 @@ public class Institution extends Bean implements Parcelable {
 		}
 	}
 
-	// Rewriting fields to Integer.
+	/**
+	 * Rewriting fields to Integer.
+	 */
 	@Override
 	public void set(String field, String data) {
 		if(field.equals("_id")) {
@@ -264,7 +338,9 @@ public class Institution extends Bean implements Parcelable {
 		} 
 	}
 
-	// Creating an ArrayList of String with institution acronym.
+	/**
+	 * Creating an ArrayList of String with institution acronym.
+	 */
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
@@ -278,6 +354,9 @@ public class Institution extends Bean implements Parcelable {
 		return getAcronym();
 	}
 	
+	/**
+	 * @param in
+	 */
 	private Institution(Parcel in){
 		this.institutionId = in.readInt();
 		this.institutionAcronym = in.readString();

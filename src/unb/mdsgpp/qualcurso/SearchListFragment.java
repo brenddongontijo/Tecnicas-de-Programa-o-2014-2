@@ -20,12 +20,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/**
+ * Class name: SearchListFragment.
+ */
 public class SearchListFragment extends ListFragment {
 
 	// Variable used to keep the year of the evaluation.
 	private static final String evaluationYear = "year";
 	
+	// Variable used to take the indicator and put on the field.
 	private static final String indicatorField = "field";
+	
 	private static final String minimumValue = "rangeA";
 	private static final String maximumValue = "rangeB";
 	private static final String listOfBeans = "beanList";
@@ -56,7 +61,9 @@ public class SearchListFragment extends ListFragment {
 		return searchListFragment;
 	}
 
-	// Called once the fragment is associated with its activity.
+	/**
+	 * Called once the fragment is associated with its activity.
+	 */
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -68,14 +75,18 @@ public class SearchListFragment extends ListFragment {
 		}
 	}
 
-	// Called immediately prior to the fragment no longer being associated with its activity.
+	/**
+	 * Called immediately prior to the fragment no longer being associated with its activity.
+	 */
 	@Override
 	public void onDetach() {
 		super.onDetach();
 		beanCallbacks = null;
 	}
 
-	// Called to have the fragment instantiate its user interface view.
+	/**
+	 * Called to have the fragment instantiate its user interface view.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -103,7 +114,7 @@ public class SearchListFragment extends ListFragment {
 		return rootView;
 	}
 
-	/*
+	/**
 	 * Called to ask the fragment to save its current dynamic state, so it can
 	 * later be reconstructed in a new instance of its process is restarted.
 	 */
@@ -115,7 +126,9 @@ public class SearchListFragment extends ListFragment {
 		super.onSaveInstanceState(outState);
 	}
 
-	// This method will be called when an item in the list is selected.
+	/**
+	 * This method will be called when an item in the list is selected.
+	 */
 	@Override
 	public void onListItemClick(ListView listView, View currentView,
 			int selectedBeanPosition, long id) {
@@ -134,12 +147,7 @@ public class SearchListFragment extends ListFragment {
 		search.setIndicator(selectedIndicator);
 		search.setYear(selectedYear);
 
-		if(typeBean instanceof Institution) {
-			search.setOption(Search.INSTITUTION);
-		} 
-		else if(typeBean instanceof Course) {
-			search.setOption(Search.COURSE);
-		}
+		typeOfSearch(search, typeBean);
 
 		search.setMinValue(minValue);
 		search.setMaxValue(maxValue);
@@ -148,8 +156,29 @@ public class SearchListFragment extends ListFragment {
 
 		super.onListItemClick(listView, currentView, selectedBeanPosition, id);
 	}
+	
+	/**
+	 * Method to show the type of search.
+	 * 
+	 * @param search
+	 * @param typeBean
+	 */
+	private void typeOfSearch(Search search, Parcelable typeBean ) {
+		
+		if(typeBean instanceof Institution) {
+			search.setOption(Search.INSTITUTION);
+		} 
+		else if(typeBean instanceof Course) {
+			search.setOption(Search.COURSE);
+		}
 
-	// Retrieve a reference to this activity's ActionBar.
+	}
+	
+	/**
+	 * Retrieve a reference to this activity's ActionBar.
+	 * 
+	 * @return
+	 */
 	private ActionBar getActionBar() {
 		return ((ActionBarActivity) getActivity()).getSupportActionBar();
 	}
