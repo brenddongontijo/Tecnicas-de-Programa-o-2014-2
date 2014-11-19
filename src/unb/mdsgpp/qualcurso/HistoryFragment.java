@@ -26,38 +26,67 @@ public class HistoryFragment extends Fragment {
 		super();
 	}
 
+	/**
+	 * Called when a fragment is first attached to its activity.
+	 * onCreate(Bundle) will be called after this.
+	 * 
+	 * We use the Try- Catch to see if beanCallBacks was initialized with
+	 * CurrentActivity .
+	 */
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		
+	public void onAttach(Activity currentActivity) {
+		super.onAttach(currentActivity);
+
 		try {
-			beanCallbacks = (BeanListCallbacks) activity;
+			beanCallbacks = (BeanListCallbacks) currentActivity;
 		} catch (ClassCastException e) {
-			throw new ClassCastException(activity.toString()
+			throw new ClassCastException(currentActivity.toString()
 					+ " must implement BeanListCallbacks.");
 		}
 	}
 
+	/**
+	 * Called when the fragment is no longer attached to its activity.
+	 */
 	@Override
 	public void onDetach() {
 		super.onDetach();
 		beanCallbacks = null;
 	}
 
+	/**
+	 * Creates and returns the view hierarchy associated with the fragment.
+	 * 
+	 * @param inflater
+	 *            The LayoutInflater object that can be used to inflate any
+	 *            views in the fragment.
+	 * 
+	 * @param container
+	 *            If non-null, this is the parent view that the fragment's UI
+	 *            should be attached to. The fragment should not add the view
+	 *            itself, but this can be used to generate the LayoutParams of
+	 *            the view.
+	 * @param savedInstanceState
+	 *            If non-null, this fragment is being re-constructed from a
+	 *            previous saved state as given here.
+	 * 
+	 * @return historyView view of layout fragment_history instantiated.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_history, container,
-				false);
-		final ListView history = (ListView) rootView
+		View historyView = inflater.inflate(R.layout.fragment_history,
+				container, false);
+		final ListView history = (ListView) historyView
 				.findViewById(R.id.listHistory);
 
 		ArrayList<Search> searches = Search.getAllSearch();
 
 		Collections.reverse(searches);
 
-		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter
-				(this.getActivity().getApplicationContext(), R.id.listHistory,searches);
+		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter(this
+				.getActivity().getApplicationContext(), R.id.listHistory,
+				searches);
 
 		history.setAdapter((ListAdapter) histotyAdapter);
 
@@ -77,16 +106,22 @@ public class HistoryFragment extends Fragment {
 			}
 		});
 
-		return rootView;
+		return historyView;
 	}
 
-	// Search a list of institution and course receiving a search object.
-	public void displayList(Search search){
+	/**
+	 * Search a list of institution and course receiving a search object.
+	 * 
+	 * @param search
+	 *            Object Search , which searches the items searched using
+	 *            institution or courses
+	 */
+	public void displayList(Search search) {
 		ArrayList<Institution> institutions = Institution
 				.getInstitutionsByEvaluationFilter(search);
-		
+
 		ArrayList<Course> courses = Course.getCoursesByEvaluationFilter(search);
-		
+
 		if (institutions.size() == 0 && courses.size() == 0) {
 			displayToastMessage(getResources().getString(
 					R.string.empty_histoty_search_result));
@@ -99,10 +134,15 @@ public class HistoryFragment extends Fragment {
 			beanCallbacks.onBeanListItemSelected(SearchListFragment
 					.newInstance(courses, search));
 		}
-		
+
 	}
 
-	// Displays a message on the screen.
+	/**
+	 * Displays a message on the screen.
+	 * 
+	 * @param textMenssage
+	 *            text of message.
+	 */
 	private void displayToastMessage(String textMenssage) {
 		Toast toast = Toast.makeText(
 				this.getActivity().getApplicationContext(), textMenssage,
