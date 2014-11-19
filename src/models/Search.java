@@ -144,7 +144,13 @@ public class Search extends Bean {
 		return result;
 	}
 
-	// This method get an Search on Database based on his id.
+	/**
+	 * This method get an Search on Database based on his id.
+	 * 
+	 * @param searchId search id in database.
+	 * @return search that matches the id.
+	 * @throws SQLException
+	 */
 	public static Search getSearchById(int searchId) throws SQLException {
 		Search result = new Search(searchId);
 		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();	
@@ -154,7 +160,12 @@ public class Search extends Bean {
 		return result;
 	}
 
-	// This method get all Search from database.
+	/**
+	 * This method get all Search from database.
+	 * 
+	 * @return array with the searches.
+	 * @throws SQLException
+	 */
 	public static ArrayList<Search> getAllSearch() throws  SQLException {
 		Search type = new Search();
 		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
@@ -168,7 +179,12 @@ public class Search extends Bean {
 		return result;
 	}
 	
-	 //The method numberOfSearch() counts the number of Search on Database.  
+	 /**
+	  * The method numberOfSearch() counts the number of Search on Database.
+	  *   
+	  * @return numbers of searches.
+	  * @throws SQLException
+	  */
 	public static int numberOfSearch() throws  SQLException {
 		Search type = new Search();
 		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
@@ -177,7 +193,12 @@ public class Search extends Bean {
 	}
 
 	
-	 //The method firstSearch() returns the first Search on Database.
+	 /**
+	  * The method firstSearch() returns the first Search on Database.
+	  * 
+	  * @return the first search.
+	  * @throws SQLException
+	  */
 	public static Search firstSearch() throws SQLException {
 		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
 		
@@ -188,7 +209,12 @@ public class Search extends Bean {
 	}
 
 	
-	 //The method lastSearch() returns the last Search on database. 
+	 /**
+	  * The method lastSearch() returns the last Search on database.
+	  *  
+	  * @return the last search.
+	  * @throws SQLException
+	  */
 	public static Search lastSearch() throws SQLException {
 		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
 		
@@ -198,7 +224,15 @@ public class Search extends Bean {
 		return result;
 	}
 
-	// This method will try to find an Search based on a search. 
+	/**
+	 * This method will try to find a Search based on a search. 
+	 * 
+	 * @param field
+	 * @param value
+	 * @param like
+	 * @return
+	 * @throws SQLException
+	 */
 	public static ArrayList<Search> getWhere(String field, String value, boolean like) throws SQLException {
 		Search type = new Search();
 		GenericBeanDAO GenericBeanDAO = new GenericBeanDAO();
@@ -212,7 +246,12 @@ public class Search extends Bean {
 		return result;
 	}
 
-	// This method deletes an Search from Database.
+	/**
+	 * This method deletes an Search from Database.
+	 * 
+	 * @return search deleted.
+	 * @throws SQLException
+	 */
 	public boolean deleteSearch() throws SQLException {
 		boolean result = false;
 		
@@ -222,7 +261,9 @@ public class Search extends Bean {
 		return result;
 	}
 
-	// Rewriting Search fields to String.
+	/**
+	 * Rewriting Search fields to String.
+	 */
 	@Override
 	public String get(String field) {
 		if(field.equals("_id")) {
@@ -251,7 +292,9 @@ public class Search extends Bean {
 		}
 	}
 
-	// Rewriting Search fields to Integer.
+	/**
+	 * Rewriting Search fields to Integer.
+	 */
 	@Override
 	public void set(String field, String data){
 		if(field.equals("_id")) {
@@ -286,7 +329,9 @@ public class Search extends Bean {
 		}
 	}
 
-	// Creating an ArrayList of Search with his attributes.
+	/**
+	 * Creating an ArrayList of Search with his attributes.
+	 */
 	@Override
 	public ArrayList<String> fieldsList() {
 		ArrayList<String> fields = new ArrayList<String>();
