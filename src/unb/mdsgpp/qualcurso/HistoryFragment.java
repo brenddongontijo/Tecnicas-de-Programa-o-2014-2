@@ -75,32 +75,34 @@ public class HistoryFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+
 		View historyView = inflater.inflate(R.layout.fragment_history,
 				container, false);
-		final ListView history = (ListView) historyView
+
+		final ListView historycList = (ListView) historyView
 				.findViewById(R.id.listHistory);
 
-		ArrayList<Search> searches = Search.getAllSearch();
+		ArrayList<Search> searchRealized = Search.getAllSearch();
 
-		Collections.reverse(searches);
+		Collections.reverse(searchRealized);
 
 		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter(this
 				.getActivity().getApplicationContext(), R.id.listHistory,
-				searches);
+				searchRealized);
 
-		history.setAdapter((ListAdapter) histotyAdapter);
+		historycList.setAdapter((ListAdapter) histotyAdapter);
 
-		history.setOnItemClickListener(new OnItemClickListener() {
+		historycList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Search search = (Search) parent.getItemAtPosition(position);
+				int chosenResearch = search.getOption();
 
-				if (search.getOption() == Search.INSTITUTION) {
+				if (chosenResearch == Search.INSTITUTION) {
 					displayList(search);
-				}
-				if (search.getOption() == Search.COURSE) {
+				} else if (chosenResearch == Search.COURSE) {
 					displayList(search);
 				}
 			}
@@ -108,7 +110,7 @@ public class HistoryFragment extends Fragment {
 
 		return historyView;
 	}
-
+	
 	/**
 	 * Search a list of institution and course receiving a search object.
 	 * 
@@ -121,16 +123,18 @@ public class HistoryFragment extends Fragment {
 				.getInstitutionsByEvaluationFilter(search);
 
 		ArrayList<Course> courses = Course.getCoursesByEvaluationFilter(search);
-
-		if (institutions.size() == 0 && courses.size() == 0) {
+		int numberOfInstitutions = institutions.size();
+		int numberOfCourses = courses.size();
+		
+		if ((numberOfInstitutions == 0) && (numberOfCourses == 0)) {
 			displayToastMessage(getResources().getString(
 					R.string.empty_histoty_search_result));
 		}
-		if (institutions.size() != 0) {
+		if (numberOfInstitutions != 0) {
 			beanCallbacks.onBeanListItemSelected(SearchListFragment
 					.newInstance(institutions, search));
 		}
-		if (courses.size() != 0) {
+		if (numberOfCourses != 0) {
 			beanCallbacks.onBeanListItemSelected(SearchListFragment
 					.newInstance(courses, search));
 		}
