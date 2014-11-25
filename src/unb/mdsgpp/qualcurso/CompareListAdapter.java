@@ -4,6 +4,8 @@ import helpers.Indicator;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,10 +17,14 @@ import android.widget.TextView;
 /**
  * Class Name: CompareListAdapter
  * 
- * This class is responsible for create the View that represents a comparison between two institutions.
+ * This class is responsible for create the adapter for a View that represents a
+ * comparison between two institutions.
  */
 public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
-
+	// Logging system.
+	private final static Logger LOGGER = Logger.getLogger(CompareListAdapter.
+			class.getName()); 
+	
 	// Value for one indicator.
 	public static String INDICATOR_VALUE = "indicatorValue";
 	
@@ -28,6 +34,7 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 	// Value for the second indicator chosen.
 	public static String SECOND_VALUE = "secondValue";
 	
+	// Value for a ingnored indicator.
 	public static String IGNORE_INDICATOR = "ignoreIndicator";
 
 	public CompareListAdapter(Context context, int textViewResourceId) {
@@ -43,7 +50,13 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View compareView = convertView;
 
-		compareView = inflateView(compareView);
+		// Checking if view was correct inflated.
+		try {
+			compareView = inflateView(compareView);
+		} catch (ObjectNullException nullViewException) {
+			LOGGER.log(Level.SEVERE, "An null view exception was thrown",
+					nullViewException);
+		}
 
 		HashMap<String, String> hashMap = getItem(position);
 		
@@ -67,10 +80,16 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 				
 			}
 			
-			checksWhichIndicatorIsWinner(hashMap, firstIndicatorTextView, secondIndicatorTextView);
+			try {
+				checksWhichIndicatorIsWinner(hashMap, firstIndicatorTextView, 
+						secondIndicatorTextView);
+			} catch (ObjectNullException nullViewException) {
+				LOGGER.log(Level.SEVERE, "An null view exception was thrown",
+						nullViewException);
+			}
 		}
 		else{
-			// TO-DO: create a null exception for hashmap.
+			
 		}
 
 		return compareView;
@@ -83,43 +102,61 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 	 * @param secondIndicatorTextView			text view of second indicator.
 	 */
 	private void checksWhichIndicatorIsWinner(HashMap<String, String> hashMap,
-			TextView firstIndicatorTextView, TextView secondIndicatorTextView) {
+			TextView firstIndicatorTextView, TextView secondIndicatorTextView) throws
+			ObjectNullException {
 		
+		// Constants for first and second indicator text view not null.
 		final boolean firstIndicatorTextViewIsntEmpty = (firstIndicatorTextView != null);
 		final boolean secondIndicatorTextViewIsntEmpty = (secondIndicatorTextView != null);
 		
+		// Checking if indicators text views are valid.
 		if (firstIndicatorTextViewIsntEmpty || secondIndicatorTextViewIsntEmpty) {
 			
-			int firstIndicator = Integer.parseInt(hashMap.get(CompareListAdapter.FIRST_VALUE));
-			int secondIndicator = Integer.parseInt(hashMap.get(CompareListAdapter.SECOND_VALUE));
+			// Values of first and second indicators.
+			int firstIndicatorValue = Integer.parseInt(hashMap.
+					get(CompareListAdapter.FIRST_VALUE));
+			int secondIndicatorValue = Integer.parseInt(hashMap.
+					get(CompareListAdapter.SECOND_VALUE));
 			
-			firstIndicatorTextView.setText(Integer.toString(firstIndicator));
-			secondIndicatorTextView.setText(Integer.toString(secondIndicator));
+			// Setting the text for both indicators.
+			firstIndicatorTextView.setText(Integer.toString(firstIndicatorValue));
+			secondIndicatorTextView.setText(Integer.toString(secondIndicatorValue));
 			
+			// Constants for witch indicator is winner.
 			final int firstIndicatorWinner = 1;
 			final int secondIndicatorWinner = 2;
 			final int drawOnIndicators = 3;
 			
-			final boolean indicatorValidForComparision = (hashMap.get(IGNORE_INDICATOR).equals("false"));
+			// Constant for check if current indicator is valid.
+			final boolean indicatorValidForComparision = (hashMap.
+					get(IGNORE_INDICATOR).equals("false"));
 			
 			if (indicatorValidForComparision) {
-				if (firstIndicator > secondIndicator) {
-					paintWinnerAndLoserIndicators(firstIndicatorWinner, firstIndicatorTextView, secondIndicatorTextView);
+				if (firstIndicatorValue > secondIndicatorValue) {
+					// Calling function to paint first indicator as winner.
+					paintWinnerAndLoserIndicators(firstIndicatorWinner, 
+							firstIndicatorTextView, secondIndicatorTextView);
 				} 
-				else if (secondIndicator > firstIndicator) {
-					paintWinnerAndLoserIndicators(secondIndicatorWinner, firstIndicatorTextView, secondIndicatorTextView);
-					
+				else if (secondIndicatorValue > firstIndicatorValue) {
+					// Calling function to paint second indicator as winner.
+					paintWinnerAndLoserIndicators(secondIndicatorWinner, 
+							firstIndicatorTextView, secondIndicatorTextView);
 				} 
 				else {
-					paintWinnerAndLoserIndicators(drawOnIndicators, firstIndicatorTextView, secondIndicatorTextView);
+					// Calling function to paint draw on indicators.
+					paintWinnerAndLoserIndicators(drawOnIndicators, 
+							firstIndicatorTextView, secondIndicatorTextView);
 				 }
 			} 
 			else {
-				paintWinnerAndLoserIndicators(drawOnIndicators, firstIndicatorTextView, secondIndicatorTextView);
+				// Ignored indicators are painting as draw indicators.
+				paintWinnerAndLoserIndicators(drawOnIndicators, 
+						firstIndicatorTextView, secondIndicatorTextView);
 			}
 		}
 		else{
-			// TO-DO: create a null exception for view.
+			// Throwing a exception because some of the indicators are null.
+			throw new ObjectNullException("Indicator Text View null");
 		}
 	}
 
@@ -129,7 +166,7 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 	 * @param compareView				the current view.
 	 * @return							view containing a list of indicator.
 	 */
-	private View inflateView(View compareView){
+	private View inflateView(View compareView) throws ObjectNullException{
 		final boolean emptyView = (compareView == null);
 		
 		if (emptyView) {
@@ -139,7 +176,7 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 			compareView = inflateView.inflate(R.layout.compare_show_list_item, null);
 		}
 		else {
-			// TO-DO: create a null exception for view.
+			throw new ObjectNullException("View not initialized!");
 		}
 		
 		return compareView;

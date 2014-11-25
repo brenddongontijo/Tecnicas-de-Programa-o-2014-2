@@ -294,12 +294,13 @@ public class CompareChooseFragment extends Fragment implements
 	}
 	
 	/**
-	 * Remove the checkbox selection. 
+	 * This method verify all checkboxes and unmark then. 
 	 * @throws ObjectNullException 
 	 * @throws InstitutionNotFoundException 
 	 */
 	@Override
 	public void onUnchekedItem(CheckBox checkBox) throws InstitutionNotFoundException {
+		// Getting all institutions from checkbox.
 		Institution institution = ((Institution) checkBox.getTag(ListCompareAdapter.INSTITUTION));
 		
 		if (selectedInstitutions.contains(institution)) {
@@ -311,7 +312,7 @@ public class CompareChooseFragment extends Fragment implements
 	}
 
 	/**
-	 * Method to hide the keyboard.
+	 * Method to hide the keyboard after a message has been written.
 	 * 
 	 * @param view		current view.
 	 */
