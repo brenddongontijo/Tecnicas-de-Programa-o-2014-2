@@ -122,7 +122,11 @@ public class ListCompareAdapter extends ArrayAdapter<Institution> implements
 				checkBoxCallBacks.onCheckedItem((CheckBox) buttonView);
 			}
 			else {
-				checkBoxCallBacks.onUnchekedItem((CheckBox) buttonView);
+				try {
+					checkBoxCallBacks.onUnchekedItem((CheckBox) buttonView);
+				} catch (InstitutionNotFoundException e) {
+					e.printStackTrace();
+				}
 			}
 			checkedItems.set(position, isChecked);
 		}
