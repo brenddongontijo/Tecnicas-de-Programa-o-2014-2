@@ -20,8 +20,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-
+/**
+ * Class name: EvaluationDetailFragment
+ * This class is responsible for create a fragment related with all evaluation information.
+ */
 public class EvaluationDetailFragment extends Fragment{
+	
 	// Logging system for EvaluationDetailFragment.
 	private final static Logger LOGGER = Logger.getLogger(EvaluationDetailFragment.
 			class.getName()); 
@@ -35,16 +39,29 @@ public class EvaluationDetailFragment extends Fragment{
 	// Year that the evaluation was made.
 	private static final String YEAR_OF_EVALUATION = "year";
 	
+	// Callback to call methods in Activity.
 	BeanListCallbacks beanCallbacks;
 	
+	/**
+	 * Empty constructor.
+	 */
 	public EvaluationDetailFragment() {
 		super();
 		Bundle args = fillBundleWithEvaluationFields(0, 0, 0);
 		this.setArguments(args);
 	}
 	
+	/**
+	 * Constructor containing idCourse, idInstitution and evaluationYear.
+	 * @param id_course
+	 * @param id_institution
+	 * @param evaluationYear
+	 * @return
+	 */
 	public static EvaluationDetailFragment newInstance(final int id_course, final int id_institution,
 			final int evaluationYear){
+		
+		// Filling the bundle with idCourse, inInstitution and evaluationYear. 
 		Bundle bundle = fillBundleWithEvaluationFields(id_course, id_institution, evaluationYear);
 		
 		EvaluationDetailFragment fragment = new EvaluationDetailFragment();
@@ -54,7 +71,7 @@ public class EvaluationDetailFragment extends Fragment{
 	}
 	
 	/**
-	 * This method initiate the Bundle with id of two evaluations. 
+	 * This method initiate the Bundle with idCourse, idInstitution and evaluationYear. 
 	 * 
 	 * @param idInstitution			institution id present on Database.
 	 * @param evaluationYear		year of the evaluation
@@ -71,7 +88,42 @@ public class EvaluationDetailFragment extends Fragment{
 		
 		return bundle;
 	}
+
+	/**
+	 * Called when a fragment is first attached to its activity.
+	 * 
+	 * @param activity				   single, focused thing that the user can do.
+	 */
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		
+		try {
+			// Creating a callback for activity.
+            beanCallbacks = (BeanListCallbacks) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()+" must implement BeanListCallbacks.");
+        }
+	}
 	
+	/**
+	 * Called once the fragment is associated with its activity.
+	 */
+	@Override
+    public void onDetach() {
+        super.onDetach();
+        beanCallbacks = null;
+    }
+	
+	/**
+	 * This method creates the compare choose view associated with the CompareChooseFragment.
+	 * 
+	 * @param inflater					responsible to inflate a view.
+	 * @param container					responsible to generate the LayoutParams of the view.
+	 * @param savedInstanceState		responsible for verifying that the fragment will be recreated.
+	 * 
+	 * @return							current view of CompareChooseFragment associated with parameters chosen.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -92,8 +144,7 @@ public class EvaluationDetailFragment extends Fragment{
 				getArguments().getInt(YEAR_OF_EVALUATION));
 		
 		// Creating a TextView with evaluation date, course name and evaluation modality.
-		TextView textView2 = (TextView) rootView
-				.findViewById(R.id.general_data);
+		TextView textView2 = (TextView) rootView.findViewById(R.id.general_data);
 		textView2.setText(getString(R.string.evaluation_date)+": " + evaluation.getEvaluationYear() +
 				"\n"+getString(R.string.course)+": " + Course.getCourseByValue(getArguments().
 						getInt(ID_COURSE)).getName() +
@@ -108,13 +159,16 @@ public class EvaluationDetailFragment extends Fragment{
 	}
 	
 	/**
-	 * This method 
+	 * This method will search if a determined indicator has been found in Evaluation,
+	 * Book or Article.
+	 * 
 	 * @param evaluation
 	 * @return
 	 */
-	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluation){
+	public ArrayList<HashMap<String, String>> getListItems(final Evaluation evaluation){
 		assert(evaluation != null): "Evaluation null!";
 		
+		// Array list of HashMaps that will keep all indicators.
 		ArrayList<HashMap<String, String>> hashListOfIndicators = new ArrayList<HashMap<String,String>>();
 		
 		// Creating a book and article based on evaluation id.
@@ -141,35 +195,22 @@ public class EvaluationDetailFragment extends Fragment{
 			// Creating a HashMap of indicators with indicatorValue and value.
 			HashMap < String, String > hashMapWithIndicators = new HashMap < String, String>();
 			
-			if(bean!=null){
+			// Constant that tells if a bean has been found.
+			final boolean beanFound = (bean != null);
+			
+			if(beanFound){
 				// Filling the HashMap
 				hashMapWithIndicators.put(IndicatorListAdapter.INDICATOR_VALUE, indicator.getValue());
 				hashMapWithIndicators.put(IndicatorListAdapter.VALUE, bean.get(indicator.getValue()));
 				
-				// Adding the HassMap to hashList.
+				// Adding the HassMap to hashListOfIndicators.
 				hashListOfIndicators.add(hashMapWithIndicators);
 			}
 			else{
 				LOGGER.info("Indicator " + indicator.getSearchIndicatorName() + " not found!");
 			}
 		}
+		
 		return hashListOfIndicators;
 	}
-	
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		
-		try {
-            beanCallbacks = (BeanListCallbacks) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()+" must implement BeanListCallbacks.");
-        }
-	}
-	
-	@Override
-    public void onDetach() {
-        super.onDetach();
-        beanCallbacks = null;
-    }
 }

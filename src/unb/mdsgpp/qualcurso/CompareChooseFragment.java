@@ -62,6 +62,9 @@ public class CompareChooseFragment extends Fragment implements
 	// List with current selected institutions. Max of 2 institutions selected.
 	private ArrayList<Institution> selectedInstitutions = new ArrayList<Institution>();
 
+	/**
+	 * Empty constructor.
+	 */
 	public CompareChooseFragment() {
 		super();
 	}
