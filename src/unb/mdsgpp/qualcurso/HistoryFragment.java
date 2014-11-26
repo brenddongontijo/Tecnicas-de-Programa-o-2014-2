@@ -18,10 +18,18 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class HistoryFragment extends Fragment {
+/**
+ * Class name: HistoryFragment
+ * This class is responsible for create a fragment related with all search made.
+ */
+public class HistoryFragment extends Fragment implements OnItemClickListener{
 
+	// Callback to call methods in Activity.
 	BeanListCallbacks beanCallbacks;
 
+	/**
+	 * Empty constructor.
+	 */
 	public HistoryFragment() {
 		super();
 	}
@@ -38,6 +46,7 @@ public class HistoryFragment extends Fragment {
 		super.onAttach(currentActivity);
 
 		try {
+			// Creating a callback for activity.
 			beanCallbacks = (BeanListCallbacks) currentActivity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(currentActivity.toString()
@@ -76,49 +85,37 @@ public class HistoryFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		// Inflating the view for this fragment.
 		View historyView = inflater.inflate(R.layout.fragment_history,
 				container, false);
-
-		final ListView historycList = (ListView) historyView
+		
+		// Creating a ListView that will contain all search made.
+		final ListView historyList = (ListView) historyView
 				.findViewById(R.id.listHistory);
 
-		ArrayList<Search> searchRealized = Search.getAllSearch();
+		// Filling a list in a descending order with all search. 
+		ArrayList<Search> allSearchRealized = Search.getAllSearch();
+		Collections.reverse(allSearchRealized);
 
-		Collections.reverse(searchRealized);
-
-		ListHistoryAdapter histotyAdapter = new ListHistoryAdapter(this
+		// Calling the adapter that will fill all fields of the ListView.
+		ListHistoryAdapter historyAdapter = new ListHistoryAdapter(this
 				.getActivity().getApplicationContext(), R.id.listHistory,
-				searchRealized);
-
-		historycList.setAdapter((ListAdapter) histotyAdapter);
-
-		historycList.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Search search = (Search) parent.getItemAtPosition(position);
-				int chosenResearch = search.getOption();
-
-				if (chosenResearch == Search.INSTITUTION) {
-					displayList(search);
-				} else if (chosenResearch == Search.COURSE) {
-					displayList(search);
-				}
-			}
-		});
+				allSearchRealized);
+		historyList.setAdapter((ListAdapter) historyAdapter);
+		
+		// Preparing the action by clicking in one of the search made.
+		historyList.setOnItemClickListener((OnItemClickListener) this);
 
 		return historyView;
 	}
 	
 	/**
-	 * Search a list of institution and course receiving a search object.
+	 * This method will direct to the search selected.
 	 * 
-	 * @param search
-	 *            Object Search , which searches the items searched using
-	 *            institution or courses
+	 * @param search		
+	 *            
 	 */
-	public void displayList(Search search) {
+	public void displaySearchPerformed(Search search) {
 		ArrayList<Institution> institutions = Institution
 				.getInstitutionsByEvaluationFilter(search);
 
@@ -147,10 +144,46 @@ public class HistoryFragment extends Fragment {
 	 * @param textMenssage
 	 *            text of message.
 	 */
-	private void displayToastMessage(String textMenssage) {
+	private void displayToastMessage(String textMessage) {
+		// Creating the toast message with the text message.
 		Toast toast = Toast.makeText(
-				this.getActivity().getApplicationContext(), textMenssage,
+				this.getActivity().getApplicationContext(), textMessage,
 				Toast.LENGTH_LONG);
+		
+		// Showing the message.
 		toast.show();
+	}
+
+	/**
+	 * This method is called when a item in ListHistoryAdapter has been clicked.
+	 * Will directs to the searched made.
+	 * 
+	 * This is an Android default method, DON'T RENAME IT!
+	 * 
+	 * @param parentView 		Current view where the click happened.
+	 * @param adapterView		View of the ListHistoryAdapter.
+	 * @param adapterPosition	adapterView position.
+	 * @param itemClickId		id of the clicked item.
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View adapterView,
+			int adapterPosition, long itemClickId) {
+		
+		// Preparing the search made and getting his position.
+		Search searchMade = (Search) parent.getItemAtPosition(adapterPosition);
+		final int chosenResearch = searchMade.getOption();
+		
+		// Constants to tell what type of search has been made.
+		final boolean institutionSearchMade = (chosenResearch == Search.INSTITUTION);
+		final boolean courseSearchMade = (chosenResearch == Search.COURSE);
+		
+		if (institutionSearchMade) {
+			// Directing to the institutionSearch.
+			displaySearchPerformed(searchMade);
+		} 
+		else if (courseSearchMade) {
+			// Directing to the courseSearch.
+			displaySearchPerformed(searchMade);
+		}
 	}
 }
