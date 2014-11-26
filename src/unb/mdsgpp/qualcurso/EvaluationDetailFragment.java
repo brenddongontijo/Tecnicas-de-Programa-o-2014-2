@@ -4,6 +4,7 @@ import helpers.Indicator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import models.Article;
 import models.Bean;
@@ -21,6 +22,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class EvaluationDetailFragment extends Fragment{
+	// Logging system for EvaluationDetailFragment.
+	private final static Logger LOGGER = Logger.getLogger(EvaluationDetailFragment.
+			class.getName()); 
 	
 	// Use to show the details of the evaluation of the course.
 	private static final String ID_COURSE = "idCourse";
@@ -39,7 +43,8 @@ public class EvaluationDetailFragment extends Fragment{
 		this.setArguments(args);
 	}
 	
-	public static EvaluationDetailFragment newInstance(int id_course, int id_institution, int evaluationYear){
+	public static EvaluationDetailFragment newInstance(final int id_course, final int id_institution,
+			final int evaluationYear){
 		Bundle bundle = fillBundleWithEvaluationFields(id_course, id_institution, evaluationYear);
 		
 		EvaluationDetailFragment fragment = new EvaluationDetailFragment();
@@ -58,7 +63,7 @@ public class EvaluationDetailFragment extends Fragment{
 	 */
 	private static Bundle fillBundleWithEvaluationFields(final int id_course, final int id_institution, 
 			final int evaluationYear){
-		
+	
 		Bundle bundle = new Bundle();
 		bundle.putInt(ID_COURSE, id_course);
 		bundle.putInt(ID_INSTITUTION, id_institution);
@@ -70,17 +75,23 @@ public class EvaluationDetailFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		// Inflating the view.
 		View rootView = inflater.inflate(R.layout.fragment_main, container,
 				false);
 		
+		// Creating a TextView for university acronym.
 		TextView textView1 = (TextView) rootView
 				.findViewById(R.id.university_acronym);
 		textView1.setText(Institution.getInstitutionByValue(getArguments().
 				getInt(ID_INSTITUTION)).getAcronym());
+		
+		// Getting a evaluation related of course, institution and the year of last evaluation.
 		Evaluation evaluation = Evaluation.getFromRelation(getArguments().getInt(ID_INSTITUTION), 
 				getArguments().getInt(ID_COURSE),
 				getArguments().getInt(YEAR_OF_EVALUATION));
 		
+		// Creating a TextView with evaluation date, course name and evaluation modality.
 		TextView textView2 = (TextView) rootView
 				.findViewById(R.id.general_data);
 		textView2.setText(getString(R.string.evaluation_date)+": " + evaluation.getEvaluationYear() +
@@ -88,6 +99,7 @@ public class EvaluationDetailFragment extends Fragment{
 						getInt(ID_COURSE)).getName() +
 				"\n"+getString(R.string.modality)+": " + evaluation.getEvaluationModality());
 		
+		// Creating the list of all indicators using IndicatorListAdapter.
 		ListView indicatorList = (ListView) rootView.findViewById(R.id.indicator_list);
 		indicatorList.setAdapter(new IndicatorListAdapter(getActivity().getApplicationContext(),
 				R.layout.evaluation_list_item, getListItems(evaluation)));
@@ -95,18 +107,27 @@ public class EvaluationDetailFragment extends Fragment{
 		return rootView;
 	}
 	
+	/**
+	 * This method 
+	 * @param evaluation
+	 * @return
+	 */
 	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluation){
+		assert(evaluation != null): "Evaluation null!";
 		
-		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
-		ArrayList<Indicator> indicators = Indicator.getIndicators();
+		ArrayList<HashMap<String, String>> hashListOfIndicators = new ArrayList<HashMap<String,String>>();
 		
+		// Creating a book and article based on evaluation id.
 		Book book = Book.getBookByValue(evaluation.getIdBooks());
 		Article article = Article.getArticleByValue(evaluation.getIdArticles());
-		Bean bean = null;
+		
+		// Creating one array with all indicators.
+		ArrayList<Indicator> indicators = Indicator.getIndicators();
 		
 		for(Indicator indicator : indicators){
-			HashMap < String, String > hashMap = new HashMap < String, String>();
+			Bean bean = null;
 			
+			// Finding if indicator value is present in evaluation, book or article.
 			if(evaluation.fieldsList().contains(indicator.getValue())){
 				bean = evaluation;
 			}
@@ -117,13 +138,22 @@ public class EvaluationDetailFragment extends Fragment{
 				bean = article;
 			}
 			
+			// Creating a HashMap of indicators with indicatorValue and value.
+			HashMap < String, String > hashMapWithIndicators = new HashMap < String, String>();
+			
 			if(bean!=null){
-				hashMap.put(IndicatorListAdapter.INDICATOR_VALUE, indicator.getValue());
-				hashMap.put(IndicatorListAdapter.VALUE, bean.get(indicator.getValue()));
-				hashList.add(hashMap);
+				// Filling the HashMap
+				hashMapWithIndicators.put(IndicatorListAdapter.INDICATOR_VALUE, indicator.getValue());
+				hashMapWithIndicators.put(IndicatorListAdapter.VALUE, bean.get(indicator.getValue()));
+				
+				// Adding the HassMap to hashList.
+				hashListOfIndicators.add(hashMapWithIndicators);
+			}
+			else{
+				LOGGER.info("Indicator " + indicator.getSearchIndicatorName() + " not found!");
 			}
 		}
-		return hashList;
+		return hashListOfIndicators;
 	}
 	
 	@Override

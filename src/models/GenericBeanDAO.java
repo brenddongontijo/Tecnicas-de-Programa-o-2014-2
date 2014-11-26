@@ -130,14 +130,16 @@ public class GenericBeanDAO extends DataBase {
 
 		ArrayList<Bean> beans = new ArrayList<Bean>();
 		ArrayList<String> values = new ArrayList<String>();
-
+		
+		//String sql = "SELECT * FROM " + bean.identifier + " WHERE ";
 		String sql = "";
 
-		for (String s : fields) {
-			sql = sql + " " + s + " = ? AND";
-			values.add(bean.get(s));
+		for (String beanName : fields) {
+			//sql = sql + " " + s + " = ? AND";
+			sql += " " + beanName + " = ? AND";
+			values.add(bean.get(beanName));
 		}
-
+		
 		sql = sql.substring(0, sql.length() - 3);
 
 		if (orderField != null) {
