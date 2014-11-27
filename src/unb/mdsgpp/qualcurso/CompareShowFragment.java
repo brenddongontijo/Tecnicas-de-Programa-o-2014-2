@@ -129,16 +129,24 @@ public class CompareShowFragment extends Fragment{
 	 * @return							current view of CompareShowFragment associated with parameters chosen.
 	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, 	Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, 	
+			Bundle savedInstanceState) {
+		
 		// Inflating the view for this fragment.
-		View rootView = inflater.inflate(R.layout.compare_show_fragment, container, false);
+		View rootView = inflater.inflate(R.layout.compare_show_fragment, 
+				container, false);
 		
-		// Getting Database ids for the two evaluations, two institutions and the course of comparision.
-		Evaluation evaluationA = Evaluation.getEvaluationById(getArguments().getInt(ID_EVALUATION_A));
-		Evaluation evaluationB = Evaluation.getEvaluationById(getArguments().getInt(ID_EVALUATION_B));
+		// Getting Database ids for the two evaluations, two institutions and 
+		// the course of comparison.
+		Evaluation evaluationA = Evaluation.getEvaluationById(getArguments().
+				getInt(ID_EVALUATION_A));
+		Evaluation evaluationB = Evaluation.getEvaluationById(getArguments().
+				getInt(ID_EVALUATION_B));
 		
-		Institution institutionA = Institution.getInstitutionByValue(evaluationA.getIdInstitution());
-		Institution institutionB = Institution.getInstitutionByValue(evaluationB.getIdInstitution());
+		Institution institutionA = Institution.getInstitutionByValue(evaluationA.
+				getIdInstitution());
+		Institution institutionB = Institution.getInstitutionByValue(evaluationB.
+				getIdInstitution());
 		
 		Course course = Course.getCourseByValue(evaluationA.getIdCourse());
 		
@@ -149,7 +157,7 @@ public class CompareShowFragment extends Fragment{
 		TextView secondAcronymTextView = (TextView) rootView.
 				findViewById(R.id.compare_second_institution_acronym);
 
-		// Setting the names for the TextViews
+		// Setting the names for the TextViews.
 		courseNameTextView.setText(course.getName());
 		firstAcronymTextView.setText(institutionA.getAcronym());
 		secondAcronymTextView.setText(institutionB.getAcronym());
@@ -168,10 +176,11 @@ public class CompareShowFragment extends Fragment{
 		compareShowFragment.totalBetterEvaluationInstitutionB = 0;
 
 		// Creating a list view containing all the comparisons.
-		ListView compareIndicatorList = (ListView) rootView.findViewById(R.id.compare_indicator_list);
-		compareIndicatorList.setAdapter(new CompareListAdapter(getActivity().getApplicationContext()
-				,R.layout.compare_show_list_item, getListItems(evaluationA, evaluationB,
-						compareShowFragment)));
+		ListView compareIndicatorList = (ListView) rootView.findViewById(R.id.
+				compare_indicator_list);
+		compareIndicatorList.setAdapter(new CompareListAdapter(getActivity().
+				getApplicationContext(), R.layout.compare_show_list_item, 
+				getListItems(evaluationA, evaluationB, compareShowFragment)));
 		
 		// Filling the compare list with results.
 		compareShowFragment.setBetterInstitutionsValues(compareShowFragment);
@@ -182,62 +191,85 @@ public class CompareShowFragment extends Fragment{
 	}
 
 	/**
-	 * 
+	 * This method will fill all the fields from the comparison between two
+	 * evaluations based on necessary indicators.
 	 * @param evaluationA
 	 * @param evaluationB
 	 * @return
 	 */
-	public ArrayList<HashMap<String, String>> getListItems(Evaluation evaluationA, Evaluation evaluationB,
-			CompareShowFragment compareShowFragment){
+	public ArrayList<HashMap<String, String>> getListItems(Evaluation firstEvaluation,
+			Evaluation secondEvaluation, CompareShowFragment compareShowFragment){
+		
+		// Asserting that first and second evaluation won't null.
+		assert(firstEvaluation != null): "First evaluation can't be null";
+		assert(secondEvaluation != null): "Second evaluation can't be null";
+		
 		ArrayList<HashMap<String, String>> hashList = new ArrayList<HashMap<String,String>>();
 		
+		// Creating list with all indicators.
 		ArrayList<Indicator> indicators = Indicator.getIndicators();
 
-		Book bookA = Book.getBookByValue(evaluationA.getIdBooks());
-		Book bookB = Book.getBookByValue(evaluationB.getIdBooks());
+		// Creating two books and two articles from current evaluation.
+		Book bookA = Book.getBookByValue(firstEvaluation.getIdBooks());
+		Book bookB = Book.getBookByValue(secondEvaluation.getIdBooks());
 
-		Article articleA = Article.getArticleByValue(evaluationA.getIdArticles());
-		Article articleB = Article.getArticleByValue(evaluationB.getIdArticles());
+		Article articleA = Article.getArticleByValue(firstEvaluation.getIdArticles());
+		Article articleB = Article.getArticleByValue(secondEvaluation.getIdArticles());
 
-		Bean beanA = null;
-		Bean beanB = null;
-		
+		// Searching where the indicators appears. 
 		for(Indicator indicator : indicators){
-			HashMap<String, String> hashMap = new HashMap<String, String>();
+			// Setting two beans.
+			Bean firstBeanToCompare = null;
+			Bean secondBeanToCompare = null;
 			
-			if(evaluationA.fieldsList().contains(indicator.getValue())){
-				beanA = evaluationA;
-				beanB = evaluationB;
+			// Finding which bean contain the current indicator.
+			if(firstEvaluation.fieldsList().contains(indicator.getValue())){
+				firstBeanToCompare = firstEvaluation;
+				secondBeanToCompare = secondEvaluation;
 			}
 			else if(bookA.fieldsList().contains(indicator.getValue())){
-				beanA = bookA;
-				beanB = bookB;
+				firstBeanToCompare = bookA;
+				secondBeanToCompare = bookB;
 			}
 			else if(articleA.fieldsList().contains(indicator.getValue())) {
-				beanA = articleA;
-				beanB = articleB;
+				firstBeanToCompare = articleA;
+				secondBeanToCompare = articleB;
 			}
 			
-			if(beanA != null){
+			HashMap<String, String> hashMap = new HashMap<String, String>();
+			
+			// Constant to verify if firstBeanToCompare is not null.
+			final boolean firstBeanNotNull = (firstBeanToCompare != null);
+			
+			if(firstBeanNotNull){
+				// Filling the hashmap with three fields.
 				hashMap.put(CompareListAdapter.INDICATOR_VALUE, indicator.getValue());
-				hashMap.put(CompareListAdapter.FIRST_VALUE, beanA.get(indicator.getValue()));
-				hashMap.put(CompareListAdapter.SECOND_VALUE, beanB.get(indicator.getValue()));
+				hashMap.put(CompareListAdapter.FIRST_VALUE, firstBeanToCompare.
+						get(indicator.getValue()));
+				hashMap.put(CompareListAdapter.SECOND_VALUE, secondBeanToCompare.
+						get(indicator.getValue()));
 				
-				boolean currentIndicatorEqualsMasterDegreeStartYear = (indicator.getValue().
-						equals(new Evaluation().fieldsList().get(5)));
-				
-				boolean currentIndicatorEqualsDoctorateStartYear = (indicator.getValue().
-						equals(new Evaluation().fieldsList().get(6)));
+				// Constants to verify what indicators will be ignored.
+				boolean currentIndicatorEqualsMasterDegreeStartYear = (indicator.
+						getValue().equals(new Evaluation().fieldsList().get(5)));
+				boolean currentIndicatorEqualsDoctorateStartYear = (indicator.
+						getValue().equals(new Evaluation().fieldsList().get(6)));
 				
 				if(currentIndicatorEqualsMasterDegreeStartYear){
+					// Ignoring master degree start year indicator.
 					hashMap.put(CompareListAdapter.IGNORE_INDICATOR, "true");
 				}
 				else if(currentIndicatorEqualsDoctorateStartYear){
+					// Ignoring doctorate start year indicator.
 					hashMap.put(CompareListAdapter.IGNORE_INDICATOR, "true");
 				}
 				else{
-					compareShowFragment.incrementBetterValues(beanA.get(indicator.getValue()), 
-							beanB.get(indicator.getValue()), compareShowFragment);
+					// Comparing which bean is winner in current indicator. 
+					compareShowFragment.incrementBetterValues(firstBeanToCompare.
+							get(indicator.getValue()), secondBeanToCompare.
+							get(indicator.getValue()), compareShowFragment);
+					
+					// Adding a non-ignored indicator.
 					hashMap.put(CompareListAdapter.IGNORE_INDICATOR, "false");
 				}
 				
@@ -251,23 +283,51 @@ public class CompareShowFragment extends Fragment{
 		return hashList;
 	}
 
+	/**
+	 * This method increments the total of better results of comparison between
+	 * two evaluations based on indicator value.
+	 * 
+	 * @param evaluationValueA
+	 * @param evaluationValueB
+	 * @param compareShowFragment
+	 */
 	private void incrementBetterValues(String evaluationValueA, String evaluationValueB,
 			CompareShowFragment compareShowFragment) {
-		int valueA = Integer.parseInt(evaluationValueA);
-		int valueB = Integer.parseInt(evaluationValueB);
-
-		if(valueA > valueB) {
-			compareShowFragment.totalBetterEvaluationInstitutionA = (this.totalBetterEvaluationInstitutionA + 1);
+		
+		// Creating the values to be compared.
+		int firstEvaluationValue = Integer.parseInt(evaluationValueA);
+		int secondEvaluationValue = Integer.parseInt(evaluationValueB);
+		
+		// Constants to verify which evaluation value is winner.
+		final boolean firstEvaluationValueWinner = 
+				(firstEvaluationValue > secondEvaluationValue);
+		final boolean secondEvaluationValueWinner = 
+				(secondEvaluationValue > firstEvaluationValue);
+		
+		if(firstEvaluationValueWinner) {
+			// Adding +1 better results for firstEvaluation.
+			compareShowFragment.totalBetterEvaluationInstitutionA += 1;
 		}	
-		if(valueB > valueA){
-			compareShowFragment.totalBetterEvaluationInstitutionB = (this.totalBetterEvaluationInstitutionB + 1);
+		else if(secondEvaluationValueWinner){
+			// Adding +1 better results for firstEvaluation.
+			compareShowFragment.totalBetterEvaluationInstitutionB += 1;
+		}
+		else{
+			// In this case occurred a draw.
 		}
 	}
 
+	/**
+	 * This method fill the two texts views with the total of values of better
+	 * results from both institutions.
+	 * @param compareShowFragment
+	 */
 	private void setBetterInstitutionsValues(CompareShowFragment compareShowFragment) {
+		// Filling the first total better results TextView.
 		compareShowFragment.compareFirstInstitutionBetterResults.
 		setText(Integer.toString(this.totalBetterEvaluationInstitutionA));
 		
+		// Filling the second total better results TextView.
 		compareShowFragment.compareSecondInstitutionBetterResults.
 		setText(Integer.toString(this.totalBetterEvaluationInstitutionB));
 	}
