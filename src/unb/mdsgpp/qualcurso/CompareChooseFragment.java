@@ -79,6 +79,7 @@ public class CompareChooseFragment extends Fragment implements
 		super.onAttach(activity);
 		
 		try {
+			// Creating a callback for activity.
 			beanCallbacks = (BeanListCallbacks) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
@@ -108,6 +109,7 @@ public class CompareChooseFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
+		// Inflating the view for this fragment.
 		View rootView = inflater.inflate(R.layout.compare_choose_fragment,
 				container, false);
 		
@@ -230,6 +232,7 @@ public class CompareChooseFragment extends Fragment implements
 	 * @throws ObjectNullException 
 	 */
 	private void verifySelectedCourse(Course selectedCourse) {
+		// Constant to verify is course is course is not null.
 		final boolean courseIsValid = (this.selectedCourse != null);
 		
 		if (courseIsValid) {
@@ -253,6 +256,7 @@ public class CompareChooseFragment extends Fragment implements
 	@Override
 	public void onCheckedItem(CheckBox checkBox) {
 		
+		// Getting the institution from checkbox.
 		Institution institution = ((Institution) checkBox
 				.getTag(ListCompareAdapter.INSTITUTION));
 		

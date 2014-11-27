@@ -116,24 +116,33 @@ public class HistoryFragment extends Fragment implements OnItemClickListener{
 	 *            
 	 */
 	public void displaySearchPerformed(Search search) {
+		// Getting all course or institution researched made.
 		ArrayList<Institution> institutions = Institution
 				.getInstitutionsByEvaluationFilter(search);
-
 		ArrayList<Course> courses = Course.getCoursesByEvaluationFilter(search);
-		int numberOfInstitutions = institutions.size();
-		int numberOfCourses = courses.size();
 		
-		if ((numberOfInstitutions == 0) && (numberOfCourses == 0)) {
-			displayToastMessage(getResources().getString(
-					R.string.empty_histoty_search_result));
-		}
-		if (numberOfInstitutions != 0) {
+		// Getting the number of institutions and courses researched.
+		final int numberOfInstitutions = institutions.size();
+		final int numberOfCourses = courses.size();
+		
+		// Constants to verify what type of research has been made.
+		final boolean onlyResearchedInstitutions = (numberOfInstitutions != 0);
+		final boolean onlyResearchedCourses = (numberOfCourses != 0);
+		
+		if (onlyResearchedInstitutions) {
+			// Directing to institution search.
 			beanCallbacks.onBeanListItemSelected(SearchListFragment
 					.newInstance(institutions, search));
 		}
-		if (numberOfCourses != 0) {
+		else if (onlyResearchedCourses) {
+			// Directing to course search.
 			beanCallbacks.onBeanListItemSelected(SearchListFragment
 					.newInstance(courses, search));
+		}
+		else {
+			// None research made, displaying a toast message.
+			displayToastMessage(getResources().getString(
+					R.string.empty_histoty_search_result));
 		}
 
 	}
