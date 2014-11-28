@@ -20,6 +20,7 @@ public class Indicator {
 	// Search indicator value.
 	private String searchIndicatorValue;
 
+	// Constant to define the default indicator.
 	public static final String DEFAULT_INDICATOR = "defaultIndicator";
 
 	// Declaration of a non-default constructor.

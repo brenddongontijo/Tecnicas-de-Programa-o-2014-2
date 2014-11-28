@@ -467,15 +467,18 @@ public class Evaluation extends Bean {
 	 * @return the evaluation.
 	 */
 	public static Evaluation getFromRelation(int idInstitution, int idCourse, int evaluationYear){
+		// Setting evaluation variables.
 		Evaluation evaluation = new Evaluation();
 		evaluation.setIdInstitution(idInstitution);
 		evaluation.setIdCourse(idCourse);
 		evaluation.setEvaluationYear(evaluationYear);
 		
+		// Filling array with database tables primary keys.
 		ArrayList<String> fieldsOfInstitutionCourse = new ArrayList<String>();
 		fieldsOfInstitutionCourse.add("id_institution");
 		fieldsOfInstitutionCourse.add("id_course");
 		fieldsOfInstitutionCourse.add("year");
+		
 		
 		GenericBeanDAO genericBeanDAO = new GenericBeanDAO();
 		

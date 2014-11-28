@@ -3,6 +3,8 @@ package unb.mdsgpp.qualcurso;
 import helpers.Indicator;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import models.Course;
 import models.Institution;
@@ -22,33 +24,54 @@ import android.widget.ListView;
 
 /**
  * Class name: SearchListFragment.
+ * This class is responsible for create a fragment related with the search
+ * of institution or course.
  */
 public class SearchListFragment extends ListFragment {
-
+	// Logging system.
+	private final static Logger LOGGER = Logger.getLogger(SearchListFragment.
+			class.getName()); 
+	
 	// Variable used to keep the year of the evaluation.
 	private static final String evaluationYear = "year";
 	
 	// Variable used to take the indicator and put on the field.
 	private static final String indicatorField = "field";
 	
+	// Minimum value for search.
 	private static final String minimumValue = "rangeA";
+	
+	// Minimum value for search.
 	private static final String maximumValue = "rangeB";
+	
+	// List that will contain beans.
 	private static final String listOfBeans = "beanList";
 
+	// Used to call methods in Activity.
 	BeanListCallbacks beanCallbacks;
 
 	// Empty constructor.
 	public SearchListFragment() {
 
 	}
-
+	
+	/**
+	 * This method creates a new instance of SearchListFragment containing the
+	 * arguments from parcelable of search.
+	 * 
+	 * @param parcelableList
+	 * @param search
+	 * @return
+	 */
 	public static SearchListFragment newInstance(
 			ArrayList<? extends Parcelable> parcelableList, Search search) {
 
+		// Creating the search list fragment.
 		SearchListFragment searchListFragment = new SearchListFragment();
 
+		// Creating a bundle and filling it with evaluation year, indicator
+		// minimum value, maximum value and a list of beans(course or institution)
 		Bundle fieldsToBeFilled = new Bundle();
-
 		fieldsToBeFilled.putInt(evaluationYear, search.getYear());
 		fieldsToBeFilled.putString(indicatorField, search.getIndicator()
 				.getValue());
@@ -56,6 +79,7 @@ public class SearchListFragment extends ListFragment {
 		fieldsToBeFilled.putInt(maximumValue, search.getMaxValue());
 		fieldsToBeFilled.putParcelableArrayList(listOfBeans, parcelableList);
 
+		// Setting search list fragment arguments.
 		searchListFragment.setArguments(fieldsToBeFilled);
 
 		return searchListFragment;
@@ -68,6 +92,7 @@ public class SearchListFragment extends ListFragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
+			// Creating a callback for activity.
 			beanCallbacks = (BeanListCallbacks) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
@@ -85,33 +110,43 @@ public class SearchListFragment extends ListFragment {
 	}
 
 	/**
-	 * Called to have the fragment instantiate its user interface view.
+	 * This method creates the compare choose view associated with the SearchListFragment.
+	 * 
+	 * @param inflater					responsible to inflate a view.
+	 * @param container					responsible to generate the LayoutParams of the view.
+	 * @param savedInstanceState		responsible for verifying that the fragment will be recreated.
+	 * 
+	 * @return							current view of SearchListFragment associated with parameters chosen.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
 		ArrayList<Parcelable> beanList;
-
-		if(getArguments().getParcelableArrayList(listOfBeans) != null) {
+		
+		// Constant to verify if there is already any saved instance.
+		final boolean noneSavedInstanceState = (getArguments().
+				getParcelableArrayList(listOfBeans) != null);
+		
+		if(noneSavedInstanceState) {
+			// Creating the new arguments.
 			beanList = getArguments().getParcelableArrayList(listOfBeans);
 		} 
 		else {
+			// Getting arguments from saved instance.
 			beanList = savedInstanceState.getParcelableArrayList(listOfBeans);
 		}
 
-		ListView rootView = (ListView) inflater.inflate(R.layout.fragment_list,
-				container, false);
-		rootView = (ListView) rootView.findViewById(android.R.id.list);
+		// Creating the ListView for the selected option (course/institution)
+		ListView courseInstitutionListView = (ListView) inflater.inflate(R.
+				layout.fragment_list, container, false);
+		courseInstitutionListView = (ListView) courseInstitutionListView.findViewById(android.R.id.list);
+		
+		// Filling the ListView with courses or institutions.
+		courseInstitutionListView.setAdapter(new ArrayAdapter<Parcelable>(getActionBar()
+				.getThemedContext(), R.layout.custom_textview, beanList));
 
-		try {
-			rootView.setAdapter(new ArrayAdapter<Parcelable>(getActionBar()
-					.getThemedContext(), R.layout.custom_textview, beanList));
-		} catch(SQLException e) {
-			e.printStackTrace();
-		}
-
-		return rootView;
+		return courseInstitutionListView;
 	}
 
 	/**
@@ -133,24 +168,28 @@ public class SearchListFragment extends ListFragment {
 	public void onListItemClick(ListView listView, View currentView,
 			int selectedBeanPosition, long id) {
 		
+		// Create a parcelabe for the selected bean.
 		Parcelable typeBean = (Parcelable) listView
 				.getItemAtPosition(selectedBeanPosition);
 
+		// Getting the selected indicator.
 		Indicator selectedIndicator = Indicator
 				.getIndicatorByValue(getArguments().getString(indicatorField));
 
-		int selectedYear = getArguments().getInt(evaluationYear);
-		int minValue = getArguments().getInt(minimumValue);
-		int maxValue = getArguments().getInt(maximumValue);
+		// Getting the values of year, min and max values.
+		final int selectedYear = getArguments().getInt(evaluationYear);
+		final int minValue = getArguments().getInt(minimumValue);
+		final int maxValue = getArguments().getInt(maximumValue);
 
+		// Filling the search with all fields.
 		Search search = new Search();
 		search.setIndicator(selectedIndicator);
 		search.setYear(selectedYear);
-
-		typeOfSearch(search, typeBean);
-
 		search.setMinValue(minValue);
 		search.setMaxValue(maxValue);
+		
+		// Selecting what kind of search is gonna be made.
+		typeOfSearch(search, typeBean);
 
 		beanCallbacks.onSearchBeanSelected(search, typeBean);
 
@@ -164,11 +203,18 @@ public class SearchListFragment extends ListFragment {
 	 * @param typeBean
 	 */
 	private void typeOfSearch(Search search, Parcelable typeBean ) {
+		assert(search != null): "Search can't be null!";
 		
-		if(typeBean instanceof Institution) {
+		// Constants to verify which type of bean has been selected.
+		final boolean beanIsInstitution = (typeBean instanceof Institution);
+		final boolean beanIsCourse = (typeBean instanceof Course);
+		
+		if(beanIsInstitution) {
+			// Setting to be a institution search.
 			search.setOption(Search.INSTITUTION);
 		} 
-		else if(typeBean instanceof Course) {
+		else if(beanIsCourse) {
+			// Setting to be a course search.
 			search.setOption(Search.COURSE);
 		}
 
