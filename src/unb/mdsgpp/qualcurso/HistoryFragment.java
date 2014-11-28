@@ -2,6 +2,7 @@ package unb.mdsgpp.qualcurso;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Logger;
 
 import models.Course;
 import models.Institution;
@@ -23,7 +24,10 @@ import android.widget.Toast;
  * This class is responsible for create a fragment related with all search made.
  */
 public class HistoryFragment extends Fragment implements OnItemClickListener{
-
+	// Logging system.
+	private final static Logger LOGGER = Logger.getLogger(HistoryFragment.
+			class.getName()); 
+	
 	// Callback to call methods in Activity.
 	BeanListCallbacks beanCallbacks;
 
@@ -105,7 +109,9 @@ public class HistoryFragment extends Fragment implements OnItemClickListener{
 		
 		// Preparing the action by clicking in one of the search made.
 		historyList.setOnItemClickListener((OnItemClickListener) this);
-
+		
+		LOGGER.info("HistoryFragment view sucefully created!");
+		
 		return historyView;
 	}
 	
@@ -189,10 +195,14 @@ public class HistoryFragment extends Fragment implements OnItemClickListener{
 		if (institutionSearchMade) {
 			// Directing to the institutionSearch.
 			displaySearchPerformed(searchMade);
+			
+			LOGGER.info("Directing to institution search made...");
 		} 
 		else if (courseSearchMade) {
 			// Directing to the courseSearch.
 			displaySearchPerformed(searchMade);
+			
+			LOGGER.info("Directing to course search made...");
 		}
 	}
 }

@@ -86,6 +86,8 @@ public class EvaluationDetailFragment extends Fragment{
 		bundle.putInt(ID_INSTITUTION, id_institution);
 		bundle.putInt(YEAR_OF_EVALUATION, evaluationYear);
 		
+		LOGGER.info("Bundle sucefully created and filled!");
+		
 		return bundle;
 	}
 
@@ -101,6 +103,8 @@ public class EvaluationDetailFragment extends Fragment{
 		try {
 			// Creating a callback for activity.
             beanCallbacks = (BeanListCallbacks) activity;
+            
+            LOGGER.info("Callback for EvaluationDetailFragment successfully created!");
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()+" must implement BeanListCallbacks.");
         }
@@ -154,6 +158,8 @@ public class EvaluationDetailFragment extends Fragment{
 		ListView indicatorList = (ListView) rootView.findViewById(R.id.indicator_list);
 		indicatorList.setAdapter(new IndicatorListAdapter(getActivity().getApplicationContext(),
 				R.layout.evaluation_list_item, getListItems(evaluation)));
+		
+		LOGGER.info("EvaluationDetailFragment View successfully created!");
 		
 		return rootView;
 	}

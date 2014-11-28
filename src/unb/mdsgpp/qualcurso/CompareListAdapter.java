@@ -37,15 +37,25 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 	// Value for a ingnored indicator.
 	public static String IGNORE_INDICATOR = "ignoreIndicator";
 
+	// Constructor with context and text view id.
 	public CompareListAdapter(Context context, int textViewResourceId) {
 		super(context, textViewResourceId);
 	}
 
+	// Constructor with context, text view id and indicator items.
 	public CompareListAdapter(Context context, int resource,
 			List<HashMap<String, String>> items) {
 		super(context, resource, items);
 	}
 	
+	/**
+	 * Get the previous view and displays a list of indicators.
+	 * 
+	 * @param position				Position of the item within the adapter's data.
+	 * @param convertView			The old view to reuse.
+	 * @param parent				The parent that this view will eventually be attached to.
+	 * @return
+	 */
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View compareView = convertView;
@@ -61,8 +71,9 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 		HashMap<String, String> hashMap = getItem(position);
 		
 		final boolean hashMapIsntEmpty = (hashMap != null);
+		
 		if (hashMapIsntEmpty) {
-			
+			// Creating TextViews for three fields of indicators.
 			TextView indicatorNameTextView = (TextView) compareView
 					.findViewById(R.id.compare_indicator_name);
 			TextView firstIndicatorTextView = (TextView) compareView
@@ -70,14 +81,16 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 			TextView secondIndicatorTextView = (TextView) compareView
 					.findViewById(R.id.compare_second_institution_indicator);
 			
+			// Constant to verify if indicator name text view is not empty.
 			final boolean indicatorNameTextViewIsntEmpty = (indicatorNameTextView != null);
 			
 			if (indicatorNameTextViewIsntEmpty) {
+				// Filling the TextView for indicator name.
 				indicatorNameTextView.setText(Indicator.getIndicatorByValue(
 						hashMap.get(CompareListAdapter.INDICATOR_VALUE)).getSearchIndicatorName());
 			}
 			else{
-				
+				LOGGER.warning("Out of memory to create TextView for indicator name!");
 			}
 			
 			try {
@@ -89,7 +102,7 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 			}
 		}
 		else{
-			
+			LOGGER.warning("Out of memory to create the HashMap of indicators!");
 		}
 
 		return compareView;
@@ -170,10 +183,13 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 		final boolean emptyView = (compareView == null);
 		
 		if (emptyView) {
+			// Inflating the view.
 			LayoutInflater inflateView;
 			inflateView = LayoutInflater.from(getContext());
 			
 			compareView = inflateView.inflate(R.layout.compare_show_list_item, null);
+			
+			LOGGER.info("Compare list layout sucefully created");
 		}
 		else {
 			throw new ObjectNullException("View not initialized!");
@@ -193,6 +209,7 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 			TextView secondIndicator){
 		
 		switch(winner){
+			// Painting first Indicator winner.
 			case 1:
 				firstIndicator.setBackgroundColor(QualCurso
 						.getInstance().getResources()
@@ -201,6 +218,7 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 						.getInstance().getResources()
 						.getColor(R.color.smooth_red));
 				break;
+			// Painting second Indicator winner.
 			case 2:
 				secondIndicator.setBackgroundColor(QualCurso
 						.getInstance().getResources()
@@ -209,6 +227,7 @@ public class CompareListAdapter extends ArrayAdapter<HashMap<String, String>> {
 						.getInstance().getResources()
 						.getColor(R.color.smooth_red));
 				break;
+			// Painting Draw.
 			case 3:
 				secondIndicator.setBackgroundColor(QualCurso
 						.getInstance().getResources()
