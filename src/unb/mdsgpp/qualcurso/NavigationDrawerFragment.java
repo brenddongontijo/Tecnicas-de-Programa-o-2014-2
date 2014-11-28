@@ -46,14 +46,25 @@ public class NavigationDrawerFragment extends Fragment {
 	// Helper component that ties the action bar to the navigation drawer.
 	private ActionBarDrawerToggle mDrawerToggle;
 
+	// Layout from the drawer.
 	private DrawerLayout mDrawerLayout;
+	
+	// List view of the options in the drawer.
 	private ListView mDrawerListView;
+	
+	// View of the drawer.
 	private View mFragmentContainerView;
 
+	// Position of the option selected in the drawer.
 	private int mCurrentSelectedPosition = 0;
+	
+	// Verify saved instance from drawer.
 	private boolean mFromSavedInstanceState;
+	
+	// Verify what user selected from drawer.
 	private boolean mUserLearnedDrawer;
 
+	// Empty constructor.
 	public NavigationDrawerFragment() {
 	}
 
@@ -64,42 +75,56 @@ public class NavigationDrawerFragment extends Fragment {
 	 * @return
 	 */
 	public Boolean changedSelected(Bundle savedInstanceState) {
-		boolean changed = true;
-		if (mCurrentSelectedPosition != savedInstanceState
-				.getInt(STATE_SELECTED_POSITION)) {
+		boolean drawerChanged = true;
+		
+		final boolean positionOfDrawerNotSynchronized = (mCurrentSelectedPosition 
+				!= savedInstanceState.getInt(STATE_SELECTED_POSITION));
+		
+		if (positionOfDrawerNotSynchronized) {
+			// Synchronizing drawer with correct position 
 			mCurrentSelectedPosition = savedInstanceState
 					.getInt(STATE_SELECTED_POSITION);
-			changed = true;
+			
+			drawerChanged = true;
 		} else {
-			changed = false;
+			drawerChanged = false;
 		}
-		return changed;
+		return drawerChanged;
 	}
-
+	
+	/**
+	 * This method is responsible to initialize the activity setting the drawer.
+	 * 
+	 * @param savedInstanceState 		Responsible for verifying if the fragment 
+	 * 									will be recreated.
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		/*
-		 * Read in the flag indicating whether or not the user has demonstrated
-		 * awareness of the drawer. See PREF_USER_LEARNED_DRAWER for details.
-		 */
-		SharedPreferences sp = PreferenceManager
+		
+		// Setting the shared preferences.
+		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(getActivity());
-		mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
-		boolean changed = true;
-
-		if (savedInstanceState != null) {
-			changed = changedSelected(savedInstanceState);
+		mUserLearnedDrawer = sharedPreferences.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+		
+		boolean drawerChanged = true;
+		
+		final boolean notSavedInstanceState = (savedInstanceState != null);
+		
+		if (notSavedInstanceState) {
+			drawerChanged = changedSelected(savedInstanceState);
 			mFromSavedInstanceState = true;
 		}
 
 		// Select either the default item (0) or the last selected item.
-		if (changed) {
+		if (drawerChanged) {
 			selectItem(mCurrentSelectedPosition);
 		}
 	}
-
+	
+	/**
+	 * This method set the action to be realized after activy has been created.
+	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -111,6 +136,17 @@ public class NavigationDrawerFragment extends Fragment {
 		setHasOptionsMenu(true);
 	}
 
+	/**
+	 * This method creates the view associated with the NavigationDrawerFragment.
+	 * 
+	 * @param inflater					Responsible to inflate a view.
+	 * @param container					Responsible to generate the LayoutParams
+	 * 									of the view.
+	 * @param savedInstanceState		Responsible for verifying that the fragment 
+	 * 									will be recreated.
+	 * 
+	 * @return							view containing the navigation drawer.
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
