@@ -61,6 +61,7 @@ public class CourseListFragment extends ListFragment{
 		
 		return courseListFragment;
 	}
+	
 	/**
 	 * This method creates a new instance of CourseListFragment containing the
 	 * Database id for institution, evaluation year and all courses.
@@ -187,10 +188,11 @@ public class CourseListFragment extends ListFragment{
 	}
 	
 	/**
-	 * This method verify if already exists an savedInstance from CourseListFragment and fill the array with
-	 * the id of the courses present on Database.
+	 * This method verify if already exists an savedInstance from CourseListFragment
+	 * and fill the array with the id of the courses present on Database.
 	 * 
-	 * @param savedInstanceState		responsible for verifying that the fragment will be recreated.
+	 * @param savedInstanceState		responsible for verifying that the fragment 
+	 * 									will be recreated.
 	 * @return							array with id courses.
 	 */
 	private ArrayList<Course> fillArrayWithCourses(Bundle savedInstanceState){
@@ -299,8 +301,15 @@ public class CourseListFragment extends ListFragment{
 		return arrayOfCourses;
 	}
 	
+	/**
+	 * This method direct to the selected action bar.
+	 * @return
+	 */
 	private ActionBar getActionBar() {
-        return ((ActionBarActivity) getActivity()).getSupportActionBar();
+		ActionBar actionBar = ((ActionBarActivity) getActivity()).
+				getSupportActionBar();
+        
+		return actionBar;
     }
 	
 }
