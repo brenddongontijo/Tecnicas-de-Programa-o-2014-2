@@ -1,6 +1,7 @@
 package unb.mdsgpp.qualcurso;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import models.Course;
 import models.Institution;
@@ -22,7 +23,10 @@ import android.widget.ListView;
  * This class is responsible for create a fragment containing all courses.
  */
 public class CourseListFragment extends ListFragment{
-
+	// Logging system.
+	private final static Logger LOGGER = Logger.getLogger(CourseListFragment.
+			class.getName()); 
+	
 	// Use the id of the institution to list them.
 	private static final String ID_INSTITUTION = "idInstitution";
 	
@@ -100,9 +104,10 @@ public class CourseListFragment extends ListFragment{
 		
 		if(coursesArrayNotEmpty) {
 			bundle.putParcelableArrayList(IDS_COURSES, coursesArray);
+			LOGGER.info("Bundle successfully initialized and filled!");
 		}
 		else {
-			
+			LOGGER.warning("Problems on bundle startup!");
 		}
 		
 		return bundle;
@@ -133,6 +138,8 @@ public class CourseListFragment extends ListFragment{
 		try {
 			// Creating a callback for activity.
             beanCallbacks = (BeanListCallbacks) activity;
+            
+            LOGGER.info("Callback for CourseListFragment successfully created!");
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()+" must implement BeanListCallbacks.");
         }
@@ -168,22 +175,22 @@ public class CourseListFragment extends ListFragment{
 		// Filling array of courses
 		ArrayList<Course> coursesArray = fillArrayWithCourses(savedInstanceState);
 		
-		try {
-			final boolean arrayCoursesNotEmpty = (coursesArray != null);
+		final boolean arrayCoursesNotEmpty = (coursesArray != null);
+		
+		if(arrayCoursesNotEmpty) {
+			// Calling the adapter to filling the ListView with curses.
+			coursesView.setAdapter(new ArrayAdapter<Course>(
+		        getActionBar().getThemedContext(),
+		        R.layout.custom_textview,
+		        coursesArray));
 			
-			if(arrayCoursesNotEmpty) {
-				// Calling the adapter to filling the ListView with curses.
-				coursesView.setAdapter(new ArrayAdapter<Course>(
-			        getActionBar().getThemedContext(),
-			        R.layout.custom_textview,
-			        coursesArray));
-			}
-			else {
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			// Logging  the created view.
+			LOGGER.info("CourseListFragment View sucefully created!");
 		}
+		else {
+			LOGGER.warning("Out of memory to create array of courses!");
+		}
+		
 		return coursesView;
 	}
 	
@@ -255,20 +262,26 @@ public class CourseListFragment extends ListFragment{
 		// Constant to verify if none institution has been selected.
 		final boolean noneInstitutionSelected = (getArguments().getInt(ID_INSTITUTION) == 0);
 		
+		// Current selected course.
+		Course selectedCourse = (Course)coursesListView.getAdapter().
+				getItem(coursePosition);
+		
 		if(noneInstitutionSelected) {
 			// Directs to InstitutionListFragment with selected course.
 			beanCallbacks.onBeanListItemSelected(InstitutionListFragment.
-					newInstance((((Course)coursesListView.getAdapter().
-							getItem(coursePosition)).getId()), 
+					newInstance(selectedCourse.getId(), 
 							getArguments().getInt(YEAR_OF_EVALUATION)));
+			
+			LOGGER.info("Directing to InstitutionListFragment...");
 		}
 		else {
 			// Directs to EvaluationDetailFragment with selected course.
 			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.
 					newInstance(getArguments().getInt(ID_INSTITUTION), 
-							((Course)coursesListView.getAdapter().
-							getItem(coursePosition)).
-							getId(),getArguments().getInt(YEAR_OF_EVALUATION)));
+							selectedCourse.getId(),getArguments().
+									getInt(YEAR_OF_EVALUATION)));
+			
+			LOGGER.info("Directing to EvaluationDetailFragment...");
 		}
 		
 		return beanCallbacks;

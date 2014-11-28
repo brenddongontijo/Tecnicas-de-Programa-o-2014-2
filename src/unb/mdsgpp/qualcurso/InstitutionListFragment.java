@@ -5,6 +5,8 @@ import android.database.SQLException;
 import java.util.ArrayList;
 
 
+import java.util.logging.Logger;
+
 import models.Course;
 import models.Institution;
 import android.app.Activity;
@@ -24,6 +26,9 @@ import android.widget.ListView;
  * This class is responsible for create a fragment containing all institutions.
  */
 public class InstitutionListFragment extends ListFragment{
+	// Logging system.
+	private final static Logger LOGGER = Logger.getLogger(InstitutionListFragment.
+			class.getName()); 
 	
 	// Use the id to show the course.
 	private static final String ID_COURSE = "idCourse";
@@ -90,6 +95,8 @@ public class InstitutionListFragment extends ListFragment{
 		args.putInt(YEAR_OF_EVALUATION, evaluationYear);
 		args.putParcelableArrayList(IDS_INSTITUTIONS, allInstitutions);
 		
+		LOGGER.info("Bundle successfully initialized and filled!");
+		
 		fragmentOfInstitutions.setArguments(args);
 		
 		return fragmentOfInstitutions;
@@ -115,7 +122,10 @@ public class InstitutionListFragment extends ListFragment{
 		super.onAttach(activity);
 		
 		try {
+			// Creating a callback for activity.
             beanCallbacks = (BeanListCallbacks) activity;
+            
+            LOGGER.info("Callback for InstitutionListFragment successfully created!");
         } catch(ClassCastException e) {
             throw new ClassCastException(activity.toString()+" must implement BeanListCallbacks.");
         }
@@ -161,9 +171,11 @@ public class InstitutionListFragment extends ListFragment{
 			rootView.setAdapter(new ArrayAdapter<Institution>(
 					getActionBar().getThemedContext(),
 					R.layout.custom_textview, listOfInstitutions));
+			
+			LOGGER.info("InstitutionListFragment View sucefully created!");
 		}
 		else{
-			
+			LOGGER.warning("Out of memory to create array of institutions!");
 		}
 		return rootView;
 	}
@@ -204,18 +216,25 @@ public class InstitutionListFragment extends ListFragment{
 	public void onListItemClick(ListView listView, View view, int position, long id) {
 		final boolean noneCoursesSelected = (getArguments().getInt(ID_COURSE)==0);
 		
-		if(noneCoursesSelected) {
+		// Current selected institution.
+		Institution selectedInstitution = (Institution)listView.
+				getItemAtPosition(position);
+		
+		if(noneCoursesSelected) { 
 			// Directs to CourseListFragment with selected course.
 			beanCallbacks.onBeanListItemSelected(CourseListFragment.newInstance
-					(((Institution)listView.getItemAtPosition(position)).getId(),
-							getArguments().getInt(YEAR_OF_EVALUATION)));
+					(selectedInstitution.getId(), getArguments().
+							getInt(YEAR_OF_EVALUATION)));
+			
+			LOGGER.info("Directing to CourseListFragment...");
 		}
 		else {
 			// Directs to EvaluationDetailFragment with selected institution.
 			beanCallbacks.onBeanListItemSelected(EvaluationDetailFragment.newInstance
-					(((Institution)listView.getItemAtPosition(position)).getId() ,
-							getArguments().getInt(ID_COURSE),getArguments().
-							getInt(YEAR_OF_EVALUATION)));
+					(selectedInstitution.getId(), getArguments().getInt(ID_COURSE),
+							getArguments().getInt(YEAR_OF_EVALUATION)));
+			
+			LOGGER.info("Directing to EvaluationDetailFragment...");
 		}
 		
 		super.onListItemClick(listView, view, position, id);
